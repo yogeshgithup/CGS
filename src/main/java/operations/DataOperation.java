@@ -29,6 +29,7 @@ public class DataOperation {
     Session session;
     Transaction tx = null;
      HashSet<Addpackage> setpack=null;
+     HashSet<Addgym> setgym=null;
      int j=0;
     public DataOperation(ServletContext scx) {
         this.scx=scx;
@@ -152,5 +153,37 @@ public class DataOperation {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+    
+    public HashSet<Addgym> getgym()
+    {
+         try {
+             System.out.println("before calling");
+             setgym=new HashSet<Addgym>();
+             System.out.println("line 55"+scx);
+               sfobj = (SessionFactory) scx.getAttribute("sf");
+               System.out.println("line 57"+sfobj);
+                        session = sfobj.openSession();
+                        System.out.println("line 59");
+                        tx = session.beginTransaction();
+                        System.out.println("get package"); 
+                         Addgym p1=null;
+                        Query q = session.createQuery("from Addgym");
+                        System.out.println("gp 59");
+                        List<Addgym> results = q.list();
+                        System.out.println("query");
+                        for (int i = 0; i <= results.size(); i++) {
+                            p1 = (Addgym) results.get(i);
+                            Addgym p2=new Addgym(p1.getId(),p1.getGymname(),p1.getOwnername(),p1.getStreet(),p1.getArea(),p1.getPostcode(),p1.getPhoneno(),p1.getUsername(),p1.getPassword(),p1.getPackagee());
+                            setgym.add(p2);
+                        }
+                        
+                        tx.commit();
+                    session.close();
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+       
+         return setgym;
     }
 }

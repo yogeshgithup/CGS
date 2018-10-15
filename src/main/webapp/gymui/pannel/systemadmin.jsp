@@ -36,7 +36,7 @@
         Tip 2: you can also add an image using data-image tag
     -->
       <div class="logo">
-        <a href="#" class="simple-text logo-normal">
+        <a href="<%=application.getContextPath()%>/gymui/pannel/systemadmin.jsp" class="simple-text logo-normal">
            GYM NAME
         </a>
       </div>
@@ -48,18 +48,18 @@
               <p>Dashboard</p>
             </a>
           </li> -->
-          <li class="nav-item dropdown active">
-                <a class="nav-link " href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <li class="nav-item ">
+                <a class="nav-link " href="<%=application.getContextPath()%>/Viewgym">
                   <i class="material-icons"></i>
-                  <span class="notification">Manage Gym</span>
-                  <p class="d-lg-none d-md-block">
+                  <p>Manage Gym</p>
+<!--                  <p class="d-lg-none d-md-block">
                     Manage Branches
-                  </p>
+                  </p>-->
                 </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" >
+<!--                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" >
                  <a class="dropdown-item active" href="<%=application.getContextPath()%>/Viewpackage">ADD GYM</a>
                   
-                </div>
+                </div>-->
               </li>
 
           <!-- <li class="nav-item active " >
@@ -69,7 +69,7 @@
             </a>
           </li> -->
         <li class="nav-item ">
-            <a class="nav-link" href="managepackage.html">
+            <a class="nav-link" href="<%=application.getContextPath()%>/Viewpackage_all">
               <i class="material-icons"></i>
               <p>Manage Package</p>
             </a>
@@ -152,12 +152,18 @@
         </div>
       </nav>
       <!-- End Navbar -->
-      <div class="content">
-        <div class="container-fluid">
-          <div class="row">
+      <!--<div class="content">-->
+        <!--<div class="container-fluid">-->
+<!--          <div class="row">
             <div class="col-xl-12 col-lg-12">
+                <div class="col-sm-4"> 
+                        <a href="addpackage.html"> <button type="button" class="btn btn-primary pull-right">ADD GYM
+                        </button></a>
+                        </div>
+            </div>
               
  <div class="card">
+     
                 <div class="card-header card-header-primary">
                   <h4 class="card-title" align="Center">GYM LIST</h4>
                   <p class="card-category"></p>
@@ -229,7 +235,7 @@
                       </tr>
                     </tbody>
                   </table>
-                </div>
+                </div>-->
 
 
             </div>
