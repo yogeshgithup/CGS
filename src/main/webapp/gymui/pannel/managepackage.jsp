@@ -28,6 +28,7 @@
   <link href="<%=application.getContextPath()%>/gymui/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="<%=application.getContextPath()%>/gymui/demo/demo.css" rel="stylesheet" />
+  <link rel="stylesheet" href="<%=application.getContextPath()%>/gymui/css/table.css">
 </head>
 
 <body class="dark-edition">
@@ -164,9 +165,9 @@
                   <h4 class="card-title" align="Center">PACKAGE LIST</h4>
                   <p class="card-category"></p>
                 </div>
-                <div class="card-body table-responsive">
-                  <table class="table table-hover">
-                    <thead class="text-warning">
+                
+                  <table class="display" id="gym" style="width:100%; color: purple;">
+                    <thead>
                       <th>ID</th>
                       <th>Name</th>
                       <th>Time Period</th>
@@ -204,14 +205,7 @@
                         <td><%= adpack.getTime()%></td>
                         <td><%= adpack.getAmount()%></td>
                         <td><%=adpack.getNo_of_branches() %></td>
-                       <td class="td-actions text-right">
-                              <button type="button" rel="tooltip" title="Edit Record" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
-                            </td>
+                     
                       </tr>
                       <%}%>
             
@@ -323,6 +317,13 @@
   <script src="<%=application.getContextPath()%>/gymui/js/material-dashboard.js?v=2.1.0"></script>
   <!-- Material Dashboard DEMO methods, don't include it in your project! -->
   <script src="<%=application.getContextPath()%>/gymui/js/demo.js"></script>
+   <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+  <script>
+  $(function(){
+    $("#gym").dataTable();
+  })
+  </script>
   <script>
     $(document).ready(function() {
       $().ready(function() {
