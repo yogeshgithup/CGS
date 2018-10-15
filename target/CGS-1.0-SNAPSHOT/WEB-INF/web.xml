@@ -25,6 +25,18 @@
         <servlet-name>Loginverify</servlet-name>
         <servlet-class>Allservlet.Loginverify</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Viewpackage_all</servlet-name>
+        <servlet-class>Allservlet.Viewpackage_all</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Viewgym</servlet-name>
+        <servlet-class>Allservlet.Viewgym</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Deletegym</servlet-name>
+        <servlet-class>Allservlet.Deletegym</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Loginverify</servlet-name>
         <url-pattern>/Loginverify</url-pattern>
@@ -40,6 +52,18 @@
     <servlet-mapping>
         <servlet-name>Viewpackage</servlet-name>
         <url-pattern>/Viewpackage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Viewpackage_all</servlet-name>
+        <url-pattern>/Viewpackage_all</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Viewgym</servlet-name>
+        <url-pattern>/Viewgym</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Deletegym</servlet-name>
+        <url-pattern>/Deletegym</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

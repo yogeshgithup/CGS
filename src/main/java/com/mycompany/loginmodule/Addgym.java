@@ -129,7 +129,23 @@ public class Addgym {
     public void setPackagee(String packagee) {
         this.packagee = packagee;
     }
+
+    public Addgym(int id, String gymname, String ownername, String street, String area, String postcode, int phoneno, String username, String password, String packagee) {
+        this.id = id;
+        this.gymname = gymname;
+        this.ownername = ownername;
+        this.street = street;
+        this.area = area;
+        this.postcode = postcode;
+        this.phoneno = phoneno;
+        this.username = username;
+        this.password = password;
+        this.packagee = packagee;
+    }
     
-    
+    public Addgym()
+    {
+        
+    }
     
 }

@@ -36,7 +36,7 @@
         Tip 2: you can also add an image using data-image tag
     -->
       <div class="logo">
-        <a href="#" class="simple-text logo-normal">
+        <a href="<%=application.getContextPath()%>/gymui/pannel/systemadmin.jsp" class="simple-text logo-normal">
            GYM NAME
         </a>
       </div>
@@ -50,7 +50,7 @@
           </li> -->
           
   <li class="nav-item ">
-            <a class="nav-link" href="systemadmin.html">
+            <a class="nav-link" href="<%=application.getContextPath()%>/gymui/pannel/managegym.jsp">
               <i class="material-icons"></i>
               <p>Manage Gym</p>
             </a>
@@ -62,7 +62,7 @@
             </a>
           </li> -->
           <li class="nav-item active">
-            <a class="nav-link" href="managepackage.html">
+            <a class="nav-link" href="<%=application.getContextPath()%>/Viewpackage_all">
               <i class="material-icons"></i>
               <p>Manage Package</p>
             </a>
@@ -175,13 +175,13 @@
                       <div class="col-md-3">
                         <div class="form-group">
                           <label class="bmd-label-floating">Amount</label>
-                          <input type="number" class="form-control" name="amount">
+                          <input type="text" class="form-control" name="amount">
                         </div>
                       </div>
                         <div class="col-md-3">
                         <div class="form-group">
                           <label class="bmd-label-floating">No.Of Branches Manage</label>
-                          <input type="number" class="form-control" name="branch">
+                          <input type="text" class="form-control" name="branch">
                         </div>
                 </div>
                      </div>

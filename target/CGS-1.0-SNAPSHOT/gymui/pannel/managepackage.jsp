@@ -4,6 +4,9 @@
     Author     : sneh pael
 --%>
 
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.HashSet"%>
+<%@page import="com.mycompany.loginmodule.Addpackage"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!DOCTYPE html>
@@ -36,7 +39,7 @@
         Tip 2: you can also add an image using data-image tag
     -->
       <div class="logo">
-        <a href="#" class="simple-text logo-normal">
+        <a href="<%=application.getContextPath()%>/gymui/pannel/systemadmin.jsp" class="simple-text logo-normal">
            GYM NAME
         </a>
       </div>
@@ -50,7 +53,7 @@
           </li> -->
           
   <li class="nav-item">
-            <a class="nav-link" href="systemadmin.html">
+            <a class="nav-link" href="<%=application.getContextPath()%>/Viewgym">
               <i class="material-icons"></i>
               <p>Manage Gym</p>
             </a>
@@ -63,7 +66,7 @@
             </a>
           </li> -->
          <li class="nav-item active">
-            <a class="nav-link" href="managepackage.html">
+            <a class="nav-link" href="<%=application.getContextPath()%>/Viewpackage_all">
               <i class="material-icons"></i>
               <p>Manage Package</p>
             </a>
@@ -152,7 +155,7 @@
           <div class="row">
             <div class="col-xl-12 col-lg-12">
                <div class="col-sm-4"> 
-                        <a href="addpackage.html"> <button type="button" class="btn btn-primary pull-right">ADD PACKAGE
+                        <a href="<%=application.getContextPath()%>/gymui/pannel/addpackage.jsp"> <button type="button" class="btn btn-primary pull-right">ADD PACKAGE
                         </button></a>
                         </div>
                     </div>
@@ -171,12 +174,36 @@
                       <th>No.Of Branches Manage</th>
                     </thead>
                     <tbody>
+                          <%!
+           HashSet<Addpackage> setpack=null;
+          %>
+   
+          
+              <%
+         
+          System.out.println("session="+session); 
+          
+              
+             setpack=(HashSet<Addpackage>)session.getAttribute("viewpack");
+            Iterator<Addpackage> it=setpack.iterator();
+            System.out.println("kkkk");
+            while(it.hasNext())
+            {
+                Addpackage adpack=it.next();
+            adpack.getId();
+            adpack.getName();
+            adpack.getTime();
+            adpack.getAmount();
+            adpack.getNo_of_branches();
+          %>
+
+
                       <tr>
-                        <td>1</td>
-                        <td>Dakota Rice</td>
-                        <td>Dakota Rice</td>
-                        <td>Dakota Rice</td>
-                        <td>Dakota Rice</td>
+                          <td><%= adpack.getId()%></td>
+                        <td><%= adpack.getName()%></td>
+                        <td><%= adpack.getTime()%></td>
+                        <td><%= adpack.getAmount()%></td>
+                        <td><%=adpack.getNo_of_branches() %></td>
                        <td class="td-actions text-right">
                               <button type="button" rel="tooltip" title="Edit Record" class="btn btn-white btn-link btn-sm">
                                 <i class="material-icons">edit</i>
@@ -186,51 +213,8 @@
                               </button>
                             </td>
                       </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>Minerva Hooper</td>
-                        <td>Dakota Rice</td>
-                        <td>Dakota Rice</td>
-                        <td>Dakota Rice</td>
-                       <td class="td-actions text-right">
-                              <button type="button" rel="tooltip" title="Edit Record" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
-                            </td>
-                      </tr>
-                      <tr>
-                        <td>3</td>
-                        <td>Sage Rodriguez</td>
-                        <td>Dakota Rice</td>
-                        <td>Dakota Rice</td>
-                        <td>Dakota Rice</td>
-                        <td class="td-actions text-right">
-                              <button type="button" rel="tooltip" title="Edit Record" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
-                            </td>
-                      </tr>
-                      <tr>
-                        <td>4</td>
-                        <td>Philip Chaney</td>
-                        <td>Dakota Rice</td>
-                        <td>Dakota Rice</td>
-                        <td>Dakota Rice</td>
-                        <td class="td-actions text-right">
-                              <button type="button" rel="tooltip" title="Edit Record" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
-                            </td>
-                      </tr>
+                      <%}%>
+            
                     </tbody>
                   </table>
                 </div>
