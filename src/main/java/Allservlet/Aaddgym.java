@@ -71,8 +71,5 @@ public void init(ServletConfig sc) throws ServletException
        DataOperation doo=new DataOperation(scx);
        doo.addgym(ag);
        doo.addgymowneruser(l);
-       
-       
-        
     }
 }
