@@ -30,7 +30,7 @@
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="<%=application.getContextPath()%>/gymui/css/table.css">
 
   
   <!-- CSS Files -->
@@ -180,9 +180,9 @@
                   <h4 class="card-title" align="Center">GYM LIST</h4>
                   <p class="card-category"></p>
                 </div>
-               <table id="gym" style="width:100%; color: white;">
+               <table id="gym"  class="display" style="width:100%; color: purple;">
                    <thead>
-                      <th>ID</th>
+                      <th >ID</th>
                       <th>GymName</th>
                       <th>OwnerName</th>
                       <th>Street</th>
@@ -286,17 +286,8 @@
         </div>
       </div>
       
-              <script>
-                  
-                  $(document).ready(function() {
-    $('#gym').DataTable();
-} );
-              </script>
-      <script>
-        const x = new Date().getFullYear();
-        let date = document.getElementById('date');
-        date.innerHTML = '&copy; ' + x + date.innerHTML;
-      </script>
+              
+      
     </div>
   </div>
   <div class="fixed-plugin">
@@ -352,10 +343,16 @@
   <script src="<%=application.getContextPath()%>/gymui/js/material-dashboard.js?v=2.1.0"></script>
   <!-- Material Dashboard DEMO methods, don't include it in your project! -->
   <script src="<%=application.getContextPath()%>/gymui/js/demo.js"></script>
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+     <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
   <script>
-    $(document).ready(function() {
+  $(function(){
+    $("#gym").dataTable();
+  })
+  </script>
+  <script
+  
+        
       $().ready(function() {
         $sidebar = $('.sidebar');
 
