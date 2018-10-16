@@ -15,16 +15,20 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link" href="about.html">About us</a>
+              <a class="nav-link" href="<%=application.getContextPath()%>/gymui/ui/about.jsp">About us</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="equipment.html">Equipment</a>
+              <a class="nav-link" href="<%=application.getContextPath()%>/gymui/ui/equipment.jsp">Equipment</a>
             </li>
-            <li class="nav-item">
+<!--            <li class="nav-item">
               <a class="nav-link" href="#">Media</a>
+            </li>-->
+			<li class="nav-item">
+              <a class="nav-link" href="<%=application.getContextPath()%>/gymui/ui/contactus.jsp">Contact us</a>
+            </li>
             </li>
 			<li class="nav-item">
-              <a class="nav-link" href="contactus.html">Contact us</a>
+              <a class="nav-link" href="<%=application.getContextPath()%>/gymui/loginpage/adminlogin.jsp">Login</a>
             </li>
             <!-- <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -48,7 +52,7 @@
                 <a class="dropdown-item" href="blog-post.html">Blog Post</a>
               </div>
             </li>-->
-            <li class="nav-item dropdown">
+<!--            <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 LOGIN AS
               </a>
@@ -57,7 +61,7 @@
                 <a class="dropdown-item" href="logintrainer.html">Trainer</a>
                 <a class="dropdown-item" href="loginmember.html">Member</a>
               </div>
-            </li>
+            </li>-->
           </ul>
         </div>
       </div>
