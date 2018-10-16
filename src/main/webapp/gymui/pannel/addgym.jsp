@@ -208,12 +208,12 @@
                           <input type="email" class="form-control" name="username">
                         </div>
                     </div>
-                       <div class="col-md-3">
+<!--                       <div class="col-md-3">
                         <div class="form-group">
                           <label class="bmd-label-floating">Password</label>
                           <input type="text" class="form-control" name="password">
                         </div>
-                    </div>
+                    </div>-->
                     </div>
                        <div class="col-md-3">
                             <div class="form-group">

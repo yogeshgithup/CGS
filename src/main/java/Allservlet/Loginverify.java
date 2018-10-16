@@ -12,6 +12,7 @@ package Allservlet;
 
 
 import com.mycompany.loginmodule.Login;
+import com.mycompany.loginmodule.Logingym;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletConfig;
@@ -57,9 +58,9 @@ public void init(ServletConfig sc) throws ServletException
         String savemsg=null;
         
         DataOperation so=new DataOperation(scx);
-        Login l=new Login();
+        Logingym l=new Logingym();
         
-      l.setLoginid(name);
+      l.setUsername(name);
       l.setPassword(password);
         System.out.println("hhhhhh");
    int retur=so.verify(l);
@@ -67,11 +68,11 @@ public void init(ServletConfig sc) throws ServletException
         System.out.println("lllllll");
     if(retur==1)
     {
-        response.sendRedirect("newjsp.jsp");
+         response.sendRedirect(scx.getContextPath()+"/gymui/pannel/gymadmin.jsp");
     }
     else if(retur==2)
     {
-        response.sendRedirect("newjsp1.jsp");
+        response.sendRedirect("adminlogin.jsp");
     }
     else
     {

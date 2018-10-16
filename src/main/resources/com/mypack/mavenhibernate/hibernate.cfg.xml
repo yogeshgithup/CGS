@@ -26,6 +26,7 @@ and open the template in the editor.
         <mapping class="com.mycompany.loginmodule.Login"></mapping>
         <mapping class="com.mycompany.loginmodule.Addpackage"></mapping>
         <mapping class="com.mycompany.loginmodule.Addgym"></mapping>
+        <mapping class="com.mycompany.loginmodule.Logingym"></mapping>
         </session-factory>
     </hibernate-configuration>
 

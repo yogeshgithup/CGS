@@ -8,6 +8,7 @@ package Allservlet;
 
 import com.mycompany.loginmodule.Addgym;
 import com.mycompany.loginmodule.Login;
+import com.mycompany.loginmodule.Logingym;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletConfig;
@@ -16,7 +17,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import operation.EmailOperation;
 import operations.DataOperation;
+import operations.SMSOperation;
 
 /**
  *
@@ -50,29 +53,36 @@ public void init(ServletConfig sc) throws ServletException
         String street=request.getParameter("street");
         String area=request.getParameter("area");
         String postcode=request.getParameter("postcode");
-        int phoneno=Integer.parseInt(request.getParameter("phoneno"));
+        long phoneno=Long.parseLong(request.getParameter("phoneno"));
         String username=request.getParameter("username");
         String password=request.getParameter("password");
         String packagee=request.getParameter("package");
-        Login l=new Login();
+         DataOperation doo=new DataOperation(scx);
+         String phno=String.valueOf(phoneno);
+        Logingym l=new Logingym();
         Addgym ag=new Addgym();
         ag.setGymname(gymname);
         ag.setOwnername(ownername);
         ag.setStreet(street);
         ag.setArea(area);
         ag.setPostcode(postcode);
-        ag.setPhoneno(phoneno);
+        ag.setPhoneno(String.valueOf(phoneno));
         ag.setUsername(username);
-        ag.setPassword(password);
+        ag.setPassword(doo.randompassword());
         ag.setPackagee(packagee);
-        l.setLoginid(username);
-        l.setPassword(password);
+        l.setUsername(username);
+        String pass=doo.randompassword();
+        l.setPassword(pass);
         l.setType("gymadmin");
-       DataOperation doo=new DataOperation(scx);
+        ag.setL(l);
+        l.setA(ag);
+      
        doo.addgym(ag);
-       doo.addgymowneruser(l);
+        SMSOperation so=new SMSOperation();
+     String result=so.sendSMS(phno,pass);
+        System.out.println(result);
        
-       
+       response.sendRedirect(scx.getContextPath()+"/gymui/pannel/addgym.jsp");
         
     }
 }

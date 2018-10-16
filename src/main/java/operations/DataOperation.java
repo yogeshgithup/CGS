@@ -9,9 +9,11 @@ package operations;
 import com.mycompany.loginmodule.Addgym;
 import com.mycompany.loginmodule.Addpackage;
 import com.mycompany.loginmodule.Login;
+import com.mycompany.loginmodule.Logingym;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 import javax.servlet.ServletContext;
 import org.hibernate.Query;
@@ -31,36 +33,43 @@ public class DataOperation {
      HashSet<Addpackage> setpack=null;
      HashSet<Addgym> setgym=null;
      int j=0;
+   
     public DataOperation(ServletContext scx) {
         this.scx=scx;
     }
     
-     public int verify(Login l) {
+     public int verify(Logingym l) {
 
         try {
             sfobj = (SessionFactory) scx.getAttribute("sf");
             session = sfobj.openSession();
             tx = session.beginTransaction();
-            String b = "branchoperator";
-            String c = "traineer";
+            //String b = "branchoperator";
+            //String c = "traineer";
             
             
-            Query q = session.createQuery("from Login where loginid=:lname and password=:pass");
-            q.setString("lname", l.getLoginid());
+            Query q = session.createQuery("from Logingym where username=:lname and password=:pass");
+            q.setString("lname", l.getUsername());
             q.setString("pass", l.getPassword());
-            List<Login> results = q.list();
+            List<Logingym> results = q.list();
 
-            l = (Login) results.get(0);
+            l =(Logingym)results.get(0);
+            if(l!=null)
+            {
+                j=j+1;
+            }
+            else
+                j=j+2;
             //System.out.println("mmmmm"+l.getType());
           
-            if(b.equals(l.getType())) {
+           /* if(b.equals(l.getType())) {
                 j=j+1;
            //     System.out.println(",,,,"+j);
             }
             
              if (c.equals(l.getType())) {
                 j=j+2;
-            }
+            }*/
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -186,4 +195,77 @@ public class DataOperation {
        
          return setgym;
     }
+    
+    public String randompassword()
+    {
+          String Capital_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"; 
+         String Small_chars = "abcdefghijklmnopqrstuvwxyz"; 
+        String numbers = "0123456789"; 
+                String symbols = "@"; 
+  
+  
+        String values = Capital_chars + Small_chars + 
+                        numbers + symbols; 
+  
+        // Using random method 
+        Random random = new Random(); 
+  
+        String password =""; 
+  
+        for (int i = 0; i < 6; i++) 
+        { 
+            // Use of charAt() method : to get character value 
+            // Use of nextInt() as it is scanning the value as int 
+            int index = random.nextInt(values.length());
+        password+= values.charAt(index);
+        } 
+        return password; 
+    }
+    /*
+    public Addgym getgym(String name)
+    {
+      try {
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+            session = sfobj.openSession();
+            System.out.println("-----999");
+            tx = session.beginTransaction();
+           
+                     Addgym l=new Addgym();
+            
+            Query q=session.createQuery("from Addgym where gymname:=name");
+          q.setString("name",name);
+            List<Addgym> results = q.list();
+          System.out.println("--------");
+            l = (Addgym) results.get(0);
+      j=l.getId();
+      }
+      catch(Exception e)
+      {
+          System.out.println(e.getMessage());
+      }
+           Addgym l1=null;
+           l1 = (Addgym) session.load(Addgym.class, j);
+           System.out.println("[[[[[[[[");
+          // Set<Branch> br1=l1.getSetbr();
+           //br1.add(setbr);
+           return l1;
+    }
+    
+    public void addbranch(Set<Branch> br, Addgym l1)
+    {
+           try {
+             sfobj = (SessionFactory) scx.getAttribute("sf");
+            session = sfobj.openSession();
+            tx = session.beginTransaction();
+            
+            l1.setSetbr(br);
+            session.save(l1);
+            tx.commit();
+            session.close();
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+    }*/
 }

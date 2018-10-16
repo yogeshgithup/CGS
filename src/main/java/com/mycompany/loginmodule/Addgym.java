@@ -7,11 +7,15 @@
 package com.mycompany.loginmodule;
 
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
 
 /**
  *
@@ -89,13 +93,13 @@ public class Addgym {
     }
     
     
-    int phoneno;
+    String phoneno;
 
-    public int getPhoneno() {
+    public String getPhoneno() {
         return phoneno;
     }
 
-    public void setPhoneno(int phoneno) {
+    public void setPhoneno(String phoneno) {
         this.phoneno = phoneno;
     }
 
@@ -130,7 +134,7 @@ public class Addgym {
         this.packagee = packagee;
     }
 
-    public Addgym(int id, String gymname, String ownername, String street, String area, String postcode, int phoneno, String username, String password, String packagee) {
+    public Addgym(int id, String gymname, String ownername, String street, String area, String postcode, String phoneno, String username, String password, String packagee) {
         this.id = id;
         this.gymname = gymname;
         this.ownername = ownername;
@@ -147,5 +151,17 @@ public class Addgym {
     {
         
     }
+  
+    @OneToOne(mappedBy = "a", cascade = CascadeType.ALL)
+    Logingym l;
+
+    public Logingym getL() {
+        return l;
+    }
+
+    public void setL(Logingym l) {
+        this.l = l;
+    }
+    
     
 }
