@@ -160,14 +160,14 @@
                       <div class="col-md-3">
                         <div class="form-group">
                           <label class="bmd-label-floating">Name</label>
-                          <input type="text" class="form-control" name="name">
+                          <input type="text" class="form-control" name="name" required>
                         </div>
                       </div>
                         
                       <div class="col-md-3">
                         <div class="form-group">
                           <label class="bmd-label-floating">Time Period</label>
-                          <input type="text" class="form-control" name="time">
+                          <input type="text" class="form-control" name="time" required>
                         </div>
                       </div>
                     </div>
@@ -175,13 +175,13 @@
                       <div class="col-md-3">
                         <div class="form-group">
                           <label class="bmd-label-floating">Amount</label>
-                          <input type="text" class="form-control" name="amount">
+                          <input type="text" class="form-control" name="amount" required>
                         </div>
                       </div>
                         <div class="col-md-3">
                         <div class="form-group">
                           <label class="bmd-label-floating">No.Of Branches Manage</label>
-                          <input type="text" class="form-control" name="branch">
+                          <input type="text" class="form-control" name="branch" required>
                         </div>
                 </div>
                      </div>

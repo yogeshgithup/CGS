@@ -50,7 +50,7 @@
           </li> -->
           
   <li class="nav-item active ">
-            <a class="nav-link" href="gymadmin.html">
+            <a class="nav-link" href="<%=application.getContextPath()%>/gymui/pannel/gymadmin.jsp">
               <i class="material-icons"></i>
               <p>Manage Branches</p>
             </a>
@@ -62,11 +62,27 @@
             </a>
           </li> -->
          <li class="nav-item ">
-            <a class="nav-link" href="managebranchoperator.html">
+            <a class="nav-link" href="<%=application.getContextPath()%>/gymui/pannel/managebranchoperator.jsp">
               <i class="material-icons"></i>
               <p>Manage Branch Operator</p>
             </a>
           </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link " href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="material-icons "></i>
+                  <span class="notification">Home Page Editing</span>
+                  <p class="d-lg-none d-md-block">
+                    Home Page Editing
+                  </p>
+                </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                 <a class="dropdown-item active" href="<%=application.getContextPath()%>/gymui/pannel/mainpageediting.jsp">Main Page Editing</a>
+                   <a class="dropdown-item active" href="<%=application.getContextPath()%>/gymui/pannel/aboutusediting.jsp">About Us Editing</a>
+                     <a class="dropdown-item active" href="<%=application.getContextPath()%>/gymui/pannel/contactusediting.jsp">Contact Us Editing</a>
+                       <a class="dropdown-item active" href="<%=application.getContextPath()%>/gymui/pannel/equipmentediting.jsp">Equipment Editing</a>
+                  
+                </div>
+              </li>
          
           <li class="nav-item ">
             <a class="nav-link" href="./map.html">
@@ -155,18 +171,18 @@
                   <p class="card-category"></p>
                 </div>
                 <div class="card-body">
-                  <form>
+                    <form action="<%=application.getContextPath()%>/Aaddbranch" method="post">
                     <div class="row">                      
                       <div class="col-md-3">
                         <div class="form-group">
                           <label class="bmd-label-floating">Branch Name</label>
-                          <input type="text" class="form-control">
+                          <input type="text" name="branchname" class="form-control" required>
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="bmd-label-floating">Street</label>
-                          <input type="email" class="form-control">
+                          <input type="text" name="street" class="form-control" required>
                         </div>
                       </div>
                     </div>
@@ -174,13 +190,13 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Area</label>
-                          <input type="text" class="form-control">
+                          <input type="text" name="area" class="form-control" required>
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Postal Code</label>
-                          <input type="text" class="form-control">
+                          <input type="text" name="postalcode" class="form-control" required>
                         </div>
                       </div>
                       <div class="col-md-6"> 
@@ -190,7 +206,7 @@
                     
 
             </div>
-
+</form>
 
             </div>
             <div class="col-xl-4 col-lg-12">

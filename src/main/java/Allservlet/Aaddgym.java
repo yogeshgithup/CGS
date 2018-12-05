@@ -17,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import operation.EmailOperation;
 import operations.DataOperation;
 import operations.SMSOperation;
@@ -45,9 +46,10 @@ public void init(ServletConfig sc) throws ServletException
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        String n=null;
         PrintWriter out=response.getWriter();
-        
+        try
+        {
         String gymname=request.getParameter("gymname");
         String ownername=request.getParameter("ownername");
         String street=request.getParameter("street");
@@ -55,7 +57,7 @@ public void init(ServletConfig sc) throws ServletException
         String postcode=request.getParameter("postcode");
         long phoneno=Long.parseLong(request.getParameter("phoneno"));
         String username=request.getParameter("username");
-        String password=request.getParameter("password");
+        //String password=request.getParameter("password");
         String packagee=request.getParameter("package");
          DataOperation doo=new DataOperation(scx);
          String phno=String.valueOf(phoneno);
@@ -68,21 +70,26 @@ public void init(ServletConfig sc) throws ServletException
         ag.setPostcode(postcode);
         ag.setPhoneno(String.valueOf(phoneno));
         ag.setUsername(username);
-        ag.setPassword(doo.randompassword());
+          String pass=doo.randompassword();
+        ag.setPassword(pass);
         ag.setPackagee(packagee);
         l.setUsername(username);
-        String pass=doo.randompassword();
+      
         l.setPassword(pass);
         l.setType("gymadmin");
         ag.setL(l);
         l.setA(ag);
       
-       doo.addgym(ag);
-        SMSOperation so=new SMSOperation();
-     String result=so.sendSMS(phno,pass);
-        System.out.println(result);
-       
-       response.sendRedirect(scx.getContextPath()+"/gymui/pannel/addgym.jsp");
+       n=doo.addgym(ag);
+        }
+        catch(Exception e)
+        {
+            n="failed to add gym";
+        }
+         //  hs.setAttribute("msg",s);
+          // System.out.println(hs.getAttribute("msg").toString());
+           
+       response.sendRedirect(scx.getContextPath()+"/gymui/pannel/addgym.jsp?msg="+n);
         
     }
 }

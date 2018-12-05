@@ -1,6 +1,6 @@
 <%-- 
-    Document   : managebranches
-    Created on : Oct 11, 2018, 12:29:43 PM
+    Document   : contactusediting
+    Created on : Oct 17, 2018, 1:35:50 PM
     Author     : sneh pael
 --%>
 
@@ -12,10 +12,10 @@
 <head>
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="<%=application.getContextPath()%>/gymui/images/apple-icon.png">
-  <link rel="icon" type="image/png" href="<%=application.getContextPath()%>/gymui/js/favicon.png">
+  <link rel="icon" type="image/png" href="<%=application.getContextPath()%>/gymui/images/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    MANAGE BRANCH OPERATOR
+    CONTACT US EDITING
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -25,6 +25,9 @@
   <link href="<%=application.getContextPath()%>/gymui/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="<%=application.getContextPath()%>/gymui/css/demo.css" rel="stylesheet" />
+   <link rel="stylesheet" href="<%=application.getContextPath()%>/gymui/vendor/bootstrap/awesome-bootstrap-checkbox.css"/>
+    <link rel="stylesheet" href="<%=application.getContextPath()%>/gymui/vendor/bootstrap/bootstrap.css"/>
+    <link rel="stylesheet" href="<%=application.getContextPath()%>/gymui/vendor/bootstrap/bootstrap.min.css"/>
 </head>
 
 <body class="dark-edition">
@@ -49,26 +52,33 @@
             </a>
           </li> -->
           
-  <li class="nav-item">
-            <a class="nav-link" href="<%=application.getContextPath()%>/gymui/pannel/gymadmin.jsp">
-              <i class="material-icons"></i>
-              <p>Manage Branches</p>
-            </a>
-          </li>
-         
+   <li class="nav-item dropdown">
+                <a class="nav-link " href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="material-icons "></i>
+                  <span class="notification">Manage Branches</span>
+                  <p class="d-lg-none d-md-block">
+                    Manage Branches
+                  </p>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" >
+                 <a class="dropdown-item active" href="addbranches.html">ADD BRANCHES</a>
+                  
+                </div>
+              </li>
+
           <!-- <li class="nav-item active " >
             <a class="nav-link" href="./user.html">
               <i class="material-icons"></i>
               <p>Manage Branches</p>
             </a>
           </li> -->
-         <li class="nav-item active">
-            <a class="nav-link" href="<%=application.getContextPath()%>/gymui/pannel/managebranchoperator.jsp">
+         <li class="nav-item ">
+            <a class="nav-link" href="managebranchoperator.html">
               <i class="material-icons"></i>
               <p>Manage Branch Operator</p>
             </a>
           </li>
-           <li class="nav-item dropdown">
+          <li class="nav-item dropdown active">
                 <a class="nav-link " href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons "></i>
                   <span class="notification">Home Page Editing</span>
@@ -77,10 +87,10 @@
                   </p>
                 </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                 <a class="dropdown-item active" href="<%=application.getContextPath()%>/gymui/pannel/mainpageediting.jsp">Main Page Editing</a>
-                   <a class="dropdown-item active" href="<%=application.getContextPath()%>/gymui/pannel/aboutusediting.jsp">About Us Editing</a>
-                     <a class="dropdown-item active" href="<%=application.getContextPath()%>/gymui/pannel/contactusediting.jsp">Contact Us Editing</a>
-                       <a class="dropdown-item active" href="<%=application.getContextPath()%>/gymui/pannel/equipmentediting.jsp">Equipment Editing</a>
+                 <a class="dropdown-item active" href="addbranches.html">Main Page Editing</a>
+                   <a class="dropdown-item active" href="addbranches.html">About Us Editing</a>
+                     <a class="dropdown-item active" href="addbranches.html">Contact Us Editing</a>
+                       <a class="dropdown-item active" href="addbranches.html">Equipment Editing</a>
                   
                 </div>
               </li>
@@ -91,6 +101,7 @@
               <p>View Graphs</p>
             </a>
           </li>
+         
          
           <!-- <li class="nav-item active-pro ">
                 <a class="nav-link" href="./upgrade.html">
@@ -106,7 +117,7 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="javascript:void(0)">Manage Branches</a>
+            <a class="navbar-brand" href="javascript:void(0)">MAIN PAGE EDITING</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
             <span class="sr-only">Toggle navigation</span>
@@ -164,83 +175,83 @@
       <!-- End Navbar -->
       <div class="content">
         <div class="container-fluid">
-
           <div class="row">
             <div class="col-xl-12 col-lg-12">
-               <div class="col-sm-4"> 
-                        <a href="addbranchoperator.html"> <button type="button" class="btn btn-primary pull-right">ADD Branch Operator
-                        </button></a>
-                        </div>
-                    </div>
- <div class="card">
+              <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title" align="Center">BRANCH OPERATOR</h4>
+                    <h4 class="card-title" align="Center">CONTACT US EDITING</h4>
                   <p class="card-category"></p>
                 </div>
-                <div class="card-body table-responsive">
-                  <table class="table table-hover">
-                    <thead class="text-warning">
-                      <th>ID</th>
-                      <th>Name</th>
-                      <th>Address</th>
-
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td>Dakota Rice</td>
-                        <td>$36,738</td>
-                       <td class="td-actions text-right">
-                              <button type="button" rel="tooltip" title="Edit Record" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
-                            </td>
-                      </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>Minerva Hooper</td>
-                        <td>$23,789</td>
-                       <td class="td-actions text-right">
-                              <button type="button" rel="tooltip" title="Edit Record" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
-                            </td>
-                      </tr>
-                      <tr>
-                        <td>3</td>
-                        <td>Sage Rodriguez</td>
-                        <td>$56,142</td>
-                        <td class="td-actions text-right">
-                              <button type="button" rel="tooltip" title="Edit Record" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
-                            </td>
-                      </tr>
-                      <tr>
-                        <td>4</td>
-                        <td>Philip Chaney</td>
-                        <td>$38,735</td>
-                        <td class="td-actions text-right">
-                              <button type="button" rel="tooltip" title="Edit Record" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
-                            </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                <div class="card-body">
+                  <form>
+                      
+                   <div class="row">  
+                            <div class="col-md-6">
+                        <h2 align="center">Contact of Headquater</h2>
+                  
+                      <!--   <div class="form-group">
+                          <label class="bmd-label-floating">Aechievemet Title</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                    </div>-->
+                       <div class="row">                      
+                                           
+                    <div class="col-md-6">
+                          <div class="form-group">
+                        <label for="comment" class="bmd-label-floating">Contact Description:</label>
+                        <textarea class="form-control" rows="5" id="comment"></textarea>
+                          </div>
+                        </div>
+                      </div>
+                            </div>
+                   </div>
+                          <div class="row">  
+                              <div class="col-md-8">
+                                        <h2 align="center">Contact of Branch</h2>
+                            <div class="form-group">
+      <label for="sel1">Gym Branch</label>
+      <select class="form-control" id="package" name="package">
+      
+      </select>
+                            </div>
+                            </div>
+</div>   
+               
+                      </div>
+                                    
+                                           
+                    <div class="col-md-6">
+                          <div class="form-group">
+                        <label for="comment" class="bmd-label-floating">Contact Description:</label>
+                        <textarea class="form-control" rows="5" id="comment"></textarea>
+                          </div>
+                        </div>
+                      </div>
+<!--                       <div class="row">
+                       <div class="col-md-8">
+                          <div class="form-group">
+                        <label for="comment" class="bmd-label-floating">Description:</label>
+                        <textarea class="form-control" rows="5" id="comment"></textarea>
+                          </div>
+                        </div>
+                      </div>-->
+                       
+                   </div>
+                   </div>
+                   </div>
+                      <div class="col-md-6"> 
+                         <button type="submit" class="btn btn-primary pull-right">Submit</button>
+                        </div>
+                    </div>
+                  </div>
                 </div>
+              </div>
+      
+                </form>
+                    
+
+            </div>
 
 
             </div>

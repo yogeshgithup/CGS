@@ -28,8 +28,8 @@
               <a class="nav-link" href="<%=application.getContextPath()%>/gymui/ui/contactus.jsp">Contact us</a>
             </li>
             </li>
-			<li class="nav-item">
-              <a class="nav-link" href="<%=application.getContextPath()%>/adminlogin.jsp">Login</a>
+		<li class="nav-item">
+              <a class="nav-link" href="<%=application.getContextPath()%>/gymui/loginpage/adminlogin.jsp">Login</a>
             </li>
             <!-- <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

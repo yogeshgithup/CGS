@@ -4,20 +4,12 @@
  * and open the template in the editor.
  */
 
-
-
-
-
 package Allservlet;
 
-
-import com.mycompany.loginmodule.Addbranch;
-import com.mycompany.loginmodule.Addpackage;
 import com.mycompany.loginmodule.Login;
 import com.mycompany.loginmodule.Logingym;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashSet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -27,10 +19,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import operations.DataOperation;
 
+/**
+ *
+ * @author Shravan
+ */
+public class Loginverifyuser extends HttpServlet {
 
-
-public class Loginverify extends HttpServlet {
-
+    
 ServletContext scx;
 @Override
 public void init(ServletConfig sc) throws ServletException 
@@ -62,31 +57,41 @@ public void init(ServletConfig sc) throws ServletException
         String savemsg=null;
         
         DataOperation so=new DataOperation(scx);
-        Logingym l=new Logingym();
+        Login l=new Login();
         
-      l.setUsername(name);
+      l.setLoginid(name);
       l.setPassword(password);
         System.out.println("hhhhhh");
-   Logingym l2=so.verify(l);
+   Login l2=so.verifyusers(l);
         System.out.println("....."+l2);
         System.out.println("lllllll");
-    if(l2.getId()!=0)
+        System.out.println(l2.getType());
+        String b="branchoperator";
+        String t="traineer";
+        String m="member";
+    if(b.equals(l2.getType()))
     {
-          HttpSession hs=request.getSession(true);
-           hs.setAttribute("gymid",l2.getId());
-           System.out.println("gymid==="+l2.getId());
-         /*  DataOperation pko=new DataOperation(scx);
-           HashSet<Addbranch> listCatagory =pko.getbranch(l2.getId());
-            hs.setAttribute("setbranch",listCatagory);*/
-         response.sendRedirect("Viewbranch");
+        
+         response.sendRedirect(scx.getContextPath()+"/gymui/pannel/branchoperator.jsp");
+    }
+    else if(t.equals(l2.getType()))
+    {
+        
+         response.sendRedirect(scx.getContextPath()+"/gymui/pannel/trainers.jsp");
+    }
+       
+    else if(m.equals(l2.getType()))
+    {
+        
+         response.sendRedirect(scx.getContextPath()+"/gymui/pannel/members.jsp");
     }
     else
     {
-        System.out.println(""+l2.getId());
-        response.sendRedirect("adminlogin.jsp?msg=wrong_password");
+         response.sendRedirect(scx.getContextPath()+"/gymui/pannel/adminlogin.jsp");
     }
        
-       // response.sendRedirect("index.jsp?msg="+savemsg);
+// response.sendRedirect("index.jsp?msg="+savemsg);
     }
+
+
 }
-        

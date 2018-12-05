@@ -6,24 +6,26 @@
 
 package Allservlet;
 
-import com.mycompany.loginmodule.Addpackage;
+import com.mycompany.loginmodule.Addbranch;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashSet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import operations.DataOperation;
 
 /**
  *
  * @author Shravan
  */
-public class Aaddpackage extends HttpServlet {
+public class Viewbranch extends HttpServlet {
 
-  ServletContext scx;
+   ServletContext scx;
 @Override
 public void init(ServletConfig sc) throws ServletException 
      {        
@@ -36,32 +38,26 @@ public void init(ServletConfig sc) throws ServletException
             System.out.println(e.getMessage());
         }
     }
-    
+     protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+     
+         doPost(request,response);
+     }
    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
         PrintWriter out=response.getWriter();
+         HttpSession session=request.getSession(true);  
+         int id=Integer.parseInt(session.getAttribute("gymid").toString());
         
-        boolean check;
-
-        System.out.println("------servlet---51");
-        String  name=request.getParameter("name");
-        String time=request.getParameter("time");
-        int amount=Integer.parseInt(request.getParameter("amount"));
-        int branch =Integer.parseInt(request.getParameter("branch"));
-        System.out.println(".........");
-       Addpackage p1=new Addpackage();
-        p1.setName(name);
-        p1.setAmount(amount);
-        p1.setTime(time);
-        p1.setNo_of_branches(branch);
-        System.out.println("line 60");
+         //  System.out.println("gymid==="+l2.getId());
+         System.out.println("view barnch");
+           DataOperation pko=new DataOperation(scx);
+           HashSet<Addbranch> listCatagory =pko.getbranch(id);
+            session.setAttribute("setbranch",listCatagory);
+         response.sendRedirect(scx.getContextPath()+"/gymui/pannel/gymadmin.jsp");
         
-        DataOperation p2=new DataOperation(scx);
-        System.out.println("line 62");
-        p2.addpackage(p1);
-        response.sendRedirect("Viewpackage_all");
 }
 }

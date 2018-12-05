@@ -5,14 +5,6 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%
-  
-    String msg=request.getParameter("msg");
-      if(msg==null)
-      {
-          msg="";
-      }
-        %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,7 +40,7 @@
 
     <!-- Custom styles for this template -->
     <link href="<%=application.getContextPath()%>/gymui/css/modern-business.css" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 <!--<body>
 <div w3-include-html="header.html"></div> 
 <%--<%@include file="../ui/header.jsp"%>--%>
@@ -73,16 +65,15 @@
 
       <h1 align="center">Admin</h1>
 <div  align="center">
-                   <div id="msg" style="color:green"><h2><%=msg%></h2></div>
-      <form class="contact100-form validate-form" action ="Loginverify" method="post">
+      <form class="contact100-form validate-form" action ="<%=application.getContextPath()%>/Loginverifyuser" method="post">
         
         <div class="wrap-input100 validate-input" data-validate = "Please enter your email: e@a.x" >
-            <input class="input100" type="text" name="email" placeholder="E-mail"style="background-color:#d7dbe2;" required>
+          <input class="input100" type="text" name="email" placeholder="E-mail"style="background-color:#d7dbe2;">
           <span class="focus-input100"></span>
         </div>
 
         <div class="wrap-input100 validate-input" data-validate = "Please enter the correct password" >
-            <input class="input100" type="text" name="password" type="password" placeholder="password"style="background-color:#d7dbe2;" required>
+          <input class="input100" type="text" name="password" type="password" placeholder="password"style="background-color:#d7dbe2;">
           <span class="focus-input100"></span>
         </div>
         <div class="container-contact100-form-btn" style="padding: 20px;">
@@ -93,15 +84,13 @@
             </span>
           </button>
         </div>
-          </form>
-    <form action ="<%=application.getContextPath()%>/gymui/loginpage/forgotpassword.jsp" method="post">
           <button class="contact100-form-btn" style="padding:20px; ">
             <span>
               <i class="fa fa-paper-plane-o m-r-6" aria-hidden="true"></i>
               Forgot Password
             </span>
           </button>
-      
+      </form>
 </body>
 </div>
       </div>
@@ -113,18 +102,9 @@
     </footer>
 
     <!-- Bootstrap core JavaScript -->
-    <!--<script src="<%=application.getContextPath()%>/gymui/vendor/jquery/jquery.min.js"></script>-->
+    <script src="<%=application.getContextPath()%>/gymui/vendor/jquery/jquery.min.js"></script>
     <script src="<%=application.getContextPath()%>/gymui/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script>
-    $(document).ready(function() {
-       $().ready(function() {
-      
-    $("#msg").fadeOut(3000);
-        $sidebar = $('.sidebar');
-    });
-    });
-</script>
+
   </body>
 
 </html>

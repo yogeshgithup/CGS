@@ -119,6 +119,7 @@ public class SMSOperation {
                     msgg=post.getResponseBodyAsString();
                     }
                     catch (Exception e) {
+                     msgg="failed to send"; 
                     e.printStackTrace();
                     }
                     finally {
