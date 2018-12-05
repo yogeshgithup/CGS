@@ -6,7 +6,9 @@
 
 package Allservlet;
 
-import com.mycompany.loginmodule.Addpackage;
+import com.mycompany.loginmodule.Addbranch;
+import com.mycompany.loginmodule.Addgym;
+import com.mycompany.loginmodule.Logingym;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletConfig;
@@ -15,15 +17,17 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import operations.DataOperation;
+import operations.SMSOperation;
 
 /**
  *
  * @author Shravan
  */
-public class Aaddpackage extends HttpServlet {
+public class Aaddbranch extends HttpServlet {
 
-  ServletContext scx;
+   ServletContext scx;
 @Override
 public void init(ServletConfig sc) throws ServletException 
      {        
@@ -44,24 +48,24 @@ public void init(ServletConfig sc) throws ServletException
         
         PrintWriter out=response.getWriter();
         
-        boolean check;
-
-        System.out.println("------servlet---51");
-        String  name=request.getParameter("name");
-        String time=request.getParameter("time");
-        int amount=Integer.parseInt(request.getParameter("amount"));
-        int branch =Integer.parseInt(request.getParameter("branch"));
-        System.out.println(".........");
-       Addpackage p1=new Addpackage();
-        p1.setName(name);
-        p1.setAmount(amount);
-        p1.setTime(time);
-        p1.setNo_of_branches(branch);
-        System.out.println("line 60");
+        String branchname=request.getParameter("branchname");
+        String street=request.getParameter("street");
+       
+        String area=request.getParameter("area");
+        String postcode=request.getParameter("postalcode");
+       
+         DataOperation doo=new DataOperation(scx);
+         Addbranch ab=new Addbranch();
+         System.out.println(".............");
+         ab.setBranchname(branchname);
+         ab.setStreet(street);
+         ab.setArea(area);
+         ab.setPostalcode(postcode);
+         
+          HttpSession hs=request.getSession(true);
+        int gymid= Integer.parseInt(hs.getAttribute("gymid").toString());
+        System.out.println(gymid);
+         doo.addbranch(ab, gymid);
         
-        DataOperation p2=new DataOperation(scx);
-        System.out.println("line 62");
-        p2.addpackage(p1);
-        response.sendRedirect("Viewpackage_all");
-}
+    }
 }

@@ -37,6 +37,34 @@
         <servlet-name>Deletegym</servlet-name>
         <servlet-class>Allservlet.Deletegym</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Addbranch</servlet-name>
+        <servlet-class>Allservlet.Addbranch</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Aaddbranch</servlet-name>
+        <servlet-class>Allservlet.Aaddbranch</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Loginverifyuser</servlet-name>
+        <servlet-class>Allservlet.Loginverifyuser</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Aaddgyminfo</servlet-name>
+        <servlet-class>Allservlet.Aaddgyminfo</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Viewbranch</servlet-name>
+        <servlet-class>Allservlet.Viewbranch</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Forgotpassword</servlet-name>
+        <servlet-class>Allservlet.Forgotpassword</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Logout</servlet-name>
+        <servlet-class>Allservlet.Logout</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Loginverify</servlet-name>
         <url-pattern>/Loginverify</url-pattern>
@@ -64,6 +92,34 @@
     <servlet-mapping>
         <servlet-name>Deletegym</servlet-name>
         <url-pattern>/Deletegym</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Addbranch</servlet-name>
+        <url-pattern>/Addbranch</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Aaddbranch</servlet-name>
+        <url-pattern>/Aaddbranch</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Loginverifyuser</servlet-name>
+        <url-pattern>/Loginverifyuser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Aaddgyminfo</servlet-name>
+        <url-pattern>/Aaddgyminfo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Viewbranch</servlet-name>
+        <url-pattern>/Viewbranch</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Forgotpassword</servlet-name>
+        <url-pattern>/Forgotpassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Logout</servlet-name>
+        <url-pattern>/Logout</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

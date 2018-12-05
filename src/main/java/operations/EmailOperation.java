@@ -19,7 +19,14 @@ import javax.mail.internet.MimeMessage;
  * @author Ali's Laptop
  */
 public class EmailOperation {
-    public static String sendEmail(final String username,final String password, String to ,String subject, String data)
+    
+     public static void main(String[] args) {
+         System.out.println(".....");
+        sendEmail("ronakpatel.rp316@gmail.com","7874692568","patelshravan013@gmail.com","password","dasd");
+                
+    }
+    
+     public static String sendEmail(final String username,final String password, String to ,String subject, String data)
     {
         String msg=null;
              final String email=username;
@@ -60,4 +67,5 @@ public class EmailOperation {
                 return msg;
     }
     
+   
 }

@@ -1,6 +1,6 @@
-/*
 
-package operation;
+
+package operations;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -29,8 +29,8 @@ public class DropBoxOperation {
     
     public DropBoxOperation(String ACCESS_TOKEN)
     {
-        // Create Dropbox client
-        config = new DbxRequestConfig("text-edit/0.1");
+        // Create Dropbox client "en-US")
+        config = new DbxRequestConfig("text-edit/0.1", "en-US");
         client = new DbxClientV2(config, ACCESS_TOKEN);
         
         try {
@@ -169,4 +169,3 @@ public class DropBoxOperation {
         }
     }
 }
-*/

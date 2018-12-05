@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package operation;
+package operations;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -119,6 +119,7 @@ public class SMSOperation {
                     msgg=post.getResponseBodyAsString();
                     }
                     catch (Exception e) {
+                     msgg="failed to send"; 
                     e.printStackTrace();
                     }
                     finally {

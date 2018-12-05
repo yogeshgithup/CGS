@@ -64,23 +64,15 @@ public void init(ServletConfig sc) throws ServletException
 */          //  request.setAttribute("setpackage",listCatagory);
            HttpSession hs=request.getSession(true);
            hs.setAttribute("viewgym",listCatagory);
+            
           if(hs!=null)
           {
-              response.sendRedirect(scx.getContextPath()+"/gymui/pannel/managegym.jsp");
+              
+              
+                    response.sendRedirect(scx.getContextPath()+"/gymui/pannel/managegym.jsp");
+              
           }
-           /*HashSet<Addpackage> setpack=(HashSet<Addpackage>)hs.getAttribute("setpack");
-            Iterator<Addpackage> it=setpack.iterator();
-            System.out.println("kkkk");
-            while(it.hasNext())
-            {
-                Addpackage adpack=it.next();
-                System.out.println("....");
-                System.out.println(adpack.getName());
-            }
-           hs.setAttribute("www","www");
-             //RequestDispatcher dispatcher = request.getRequestDispatcher("addgym.jsp");
-            //dispatcher.forward(request, response);
- */
+           
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

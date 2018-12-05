@@ -7,18 +7,28 @@
 package com.mycompany.loginmodule;
 
 import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
 
 /**
  *
  * @author Shravan
  */
 @Entity
-@Table(name="addgym")
+@Table(name="addgym" , uniqueConstraints = {
+                @UniqueConstraint(columnNames = "gymname")})
+
 public class Addgym {
    
     @Id
@@ -33,7 +43,7 @@ public class Addgym {
         this.id = id;
     }
     
-    
+   
     String gymname;
 
     public String getGymname() {
@@ -89,13 +99,13 @@ public class Addgym {
     }
     
     
-    int phoneno;
+    String phoneno;
 
-    public int getPhoneno() {
+    public String getPhoneno() {
         return phoneno;
     }
 
-    public void setPhoneno(int phoneno) {
+    public void setPhoneno(String phoneno) {
         this.phoneno = phoneno;
     }
 
@@ -130,7 +140,7 @@ public class Addgym {
         this.packagee = packagee;
     }
 
-    public Addgym(int id, String gymname, String ownername, String street, String area, String postcode, int phoneno, String username, String password, String packagee) {
+    public Addgym(int id, String gymname, String ownername, String street, String area, String postcode, String phoneno, String username, String password, String packagee) {
         this.id = id;
         this.gymname = gymname;
         this.ownername = ownername;
@@ -143,9 +153,82 @@ public class Addgym {
         this.packagee = packagee;
     }
     
+    @ManyToOne
+        @JoinColumn(name="packid")
+	private Addpackage adpack;
+
+    public Addpackage getAdpack() {
+        return adpack;
+    }
+
+    public void setAdpack(Addpackage adpack) {
+        this.adpack = adpack;
+    }
+
     public Addgym()
     {
         
     }
+  
+    @OneToOne(mappedBy = "a", cascade = CascadeType.ALL)
+    Logingym l;
+
+    public Logingym getL() {
+        return l;
+    }
+
+    public void setL(Logingym l) {
+        this.l = l;
+    }
+   
+    @OneToOne(mappedBy = "a", cascade = CascadeType.ALL)
+    Gyminfo gyinfo;
+
+    public Gyminfo getGyinfo() {
+        return gyinfo;
+    }
+
+    public void setGyinfo(Gyminfo gyinfo) {
+        this.gyinfo = gyinfo;
+    }
+       
+      @OneToMany(cascade=CascadeType.ALL,mappedBy = "adgym")
+       // @JoinColumn(name="cart_id")
+	private Set<Addbranch> adbarnch;
+
+    public Set<Addbranch> getAdbarnch() {
+        return adbarnch;
+    }
+
+    public void setAdbarnch(Set<Addbranch> adbarnch) {
+        this.adbarnch = adbarnch;
+    }
+    
+     @OneToMany(cascade=CascadeType.ALL,mappedBy = "adgym")
+       // @JoinColumn(name="cart_id")
+	private Set<Achievements> achive;
+
+    public Set<Achievements> getAchive() {
+        return achive;
+    }
+
+    public void setAchive(Set<Achievements> achive) {
+        this.achive = achive;
+    }
+
+     @OneToMany(cascade=CascadeType.ALL,mappedBy = "adgym")
+       // @JoinColumn(name="cart_id")
+	private Set<Gallery> gallery;
+
+    public Set<Gallery> getGallery() {
+        return gallery;
+    }
+
+    public void setGallery(Set<Gallery> gallery) {
+        this.gallery = gallery;
+    }
+     
+
+  
     
 }

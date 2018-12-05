@@ -23,9 +23,14 @@ and open the template in the editor.
         <!-- create table if not -->
         <property name="hbm2ddl.auto">update</property>
        
-        <mapping class="com.mycompany.loginmodule.Login"></mapping>
-        <mapping class="com.mycompany.loginmodule.Addpackage"></mapping>
-        <mapping class="com.mycompany.loginmodule.Addgym"></mapping>
+        <mapping class="com.mycompany.loginmodule.Login"/>
+         <mapping class="com.mycompany.loginmodule.Addpackage"/>
+          <mapping class="com.mycompany.loginmodule.Addgym"/>
+           <mapping class="com.mycompany.loginmodule.Addbranch"/>
+            <mapping class="com.mycompany.loginmodule.Logingym"/>
+            <mapping class="com.mycompany.loginmodule.Gallery"/>
+            <mapping class="com.mycompany.loginmodule.Gyminfo"/>
+            <mapping class="com.mycompany.loginmodule.Achievements"/>
         </session-factory>
     </hibernate-configuration>
 

@@ -10,6 +10,14 @@
 <%@page import="com.mycompany.loginmodule.Addpackage"%>
 <%--<%@page contentType="text/html" pageEncoding="UTF-8"%>--%>
 <%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" session="true"%>
+<%
+  
+    String msg=request.getParameter("msg");
+      if(msg==null)
+      {
+          msg="";
+      }
+        %>
 <!DOCTYPE html>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,6 +38,100 @@
   <link href="<%=application.getContextPath()%>/gymui/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="<%=application.getContextPath()%>/gymui/demo/demo.css" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script language = "Javascript">
+    function validateEmail()  
+{  
+var x=document.frmSample.username.value;  
+var atposition=x.indexOf("@");  
+var dotposition=x.lastIndexOf(".");  
+if (atposition<1 || dotposition<atposition+2 || dotposition+2>=x.length){  
+  alert("Please enter a valid e-mail address");  
+  return false;  
+  }  
+}  
+/**
+ * DHTML phone number validation script. Courtesy of SmartWebby.com (http://www.smartwebby.com/dhtml/)
+ */
+
+// Declaring required variables
+var digits = "0123456789";
+// non-digit characters which are allowed in phone numbers
+var phoneNumberDelimiters = "()- ";
+// characters which are allowed in international phone numbers
+// (a leading + is OK)
+var validWorldPhoneChars = phoneNumberDelimiters + "+";
+// Minimum no of digits in an international phone no.
+var minDigitsInIPhoneNumber = 10;
+
+function isInteger(s)
+{   var i;
+    for (i = 0; i < s.length; i++)
+    {   
+        // Check that current character is number.
+        var c = s.charAt(i);
+        if (((c < "0") || (c > "9"))) return false;
+    }
+    // All characters are numbers.
+    return true;
+}
+function trim(s)
+{   var i;
+    var returnString = "";
+    // Search through string's characters one by one.
+    // If character is not a whitespace, append to returnString.
+    for (i = 0; i < s.length; i++)
+    {   
+        // Check that current character isn't whitespace.
+        var c = s.charAt(i);
+        if (c != " ") returnString += c;
+    }
+    return returnString;
+}
+function stripCharsInBag(s, bag)
+{   var i;
+    var returnString = "";
+    // Search through string's characters one by one.
+    // If character is not in bag, append to returnString.
+    for (i = 0; i < s.length; i++)
+    {   
+        // Check that current character isn't whitespace.
+        var c = s.charAt(i);
+        if (bag.indexOf(c) == -1) returnString += c;
+    }
+    return returnString;
+}
+
+function checkInternationalPhone(strPhone){
+var bracket=3
+strPhone=trim(strPhone)
+if(strPhone.indexOf("+")>1) return false
+if(strPhone.indexOf("-")!=-1)bracket=bracket+1
+if(strPhone.indexOf("(")!=-1 && strPhone.indexOf("(")>bracket)return false
+var brchr=strPhone.indexOf("(")
+if(strPhone.indexOf("(")!=-1 && strPhone.charAt(brchr+2)!=")")return false
+if(strPhone.indexOf("(")==-1 && strPhone.indexOf(")")!=-1)return false
+s=stripCharsInBag(strPhone,validWorldPhoneChars);
+return (isInteger(s) && s.length >= minDigitsInIPhoneNumber);
+}
+
+function ValidateForm(){
+	var Phone=document.frmSample.phoneno
+	
+	if ((Phone.value==null)||(Phone.value=="")){
+		alert("Please Enter your Phone Number")
+		Phone.focus()
+		return false
+	}
+	if (checkInternationalPhone(Phone.value)==false){
+		alert("Please Enter a Valid Phone Number")
+		Phone.value=""
+		Phone.focus()
+		return false
+	}
+	return true
+ }
+</script>
 </head>
 
 <body class="dark-edition">
@@ -72,7 +174,22 @@
               <p>Manage Package</p>
             </a>
           </li>
-        
+          <li class="nav-item dropdown">
+                <a class="nav-link " href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="material-icons "></i>
+                  <span class="notification">Home Page Editing</span>
+                  <p class="d-lg-none d-md-block">
+                    Home Page Editing
+                  </p>
+                </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                 <a class="dropdown-item active" href="<%=application.getContextPath()%>/gymui/pannel/mainpageediting.jsp">Main Page Editing</a>
+                   <a class="dropdown-item active" href="<%=application.getContextPath()%>/gymui/pannel/aboutusediting.jsp">About Us Editing</a>
+                     <a class="dropdown-item active" href="<%=application.getContextPath()%>/gymui/pannel/contactusediting.jsp">Contact Us Editing</a>
+                       <a class="dropdown-item active" href="<%=application.getContextPath()%>/gymui/pannel/equipmentediting.jsp">Equipment Editing</a>
+                  
+                </div>
+              </li>
           <li class="nav-item ">
             <a class="nav-link" href="<%=application.getContextPath()%>/gymui/pannel/systemadmin.jsp">
               <i class="material-icons"></i>
@@ -160,24 +277,25 @@
                   <p class="card-category"></p>
                 </div>
                 <div class="card-body">
-                    <form action="<%=application.getContextPath()%>/Aaddgym" method="post">
+                    <div id="msg" style="color:green"><h2><%=msg%></h2></div>
+                    <form action="<%=application.getContextPath()%>/Aaddgym" method="post" onSubmit="return ValidateForm() && validateEmail()"` name="frmSample">
                     <div class="row">                      
                       <div class="col-md-3">
                         <div class="form-group">
                           <label class="bmd-label-floating">Gym Name</label>
-                          <input type="text" class="form-control" name="gymname">
+                          <input type="text" class="form-control" name="gymname" required>
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="bmd-label-floating">Gym Owner Name</label>
-                          <input type="text" class="form-control" name="ownername">
+                          <input type="text" class="form-control" name="ownername" required>
                         </div>
                       </div>      
                       <div class="col-md-3">
                         <div class="form-group">
                           <label class="bmd-label-floating">Street</label>
-                          <input type="text" class="form-control" name="street">
+                          <input type="text" class="form-control" name="street" required>
                         </div>
                       </div>
                     </div>
@@ -185,19 +303,19 @@
                       <div class="col-md-3">
                         <div class="form-group">
                           <label class="bmd-label-floating">Area</label>
-                          <input type="text" class="form-control" name="area">
+                          <input type="text" class="form-control" name="area" required>
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="bmd-label-floating">Postal Code</label>
-                          <input type="text" class="form-control" name="postcode">
+                          <input type="text" class="form-control" name="postcode" required>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                           <label class="bmd-label-floating">Phone No</label>
-                          <input type="text" class="form-control" name="phoneno">
+                          <input type="text" class="form-control" name="phoneno" required>
                         </div>
                     </div>
                       </div>
@@ -205,15 +323,15 @@
                         <div class="col-md-3">
                         <div class="form-group">
                           <label class="bmd-label-floating">Username</label>
-                          <input type="email" class="form-control" name="username">
+                          <input type="email" class="form-control" name="username" required>
                         </div>
                     </div>
-                       <div class="col-md-3">
+<!--                       <div class="col-md-3">
                         <div class="form-group">
                           <label class="bmd-label-floating">Password</label>
                           <input type="text" class="form-control" name="password">
                         </div>
-                    </div>
+                    </div>-->
                     </div>
                        <div class="col-md-3">
                             <div class="form-group">
@@ -249,7 +367,7 @@
                    </div>
                           <div class="row">
                       <div class="col-md-3"> 
-                         <button type="submit" class="btn btn-primary pull-right">Submit</button>
+                          <button type="submit" class="btn btn-primary pull-right" id="s1">Submit</button>
                         </div>
                       </div>
                     </div>
@@ -344,7 +462,7 @@
     </div>
   </div>
   <!--   Core JS Files   -->
-  <script src="<%=application.getContextPath()%>/gymui/js/jquery.min.js"></script>
+  <!--<script src="<%=application.getContextPath()%>/gymui/js/jquery.min.js"></script>-->
   <script src="<%=application.getContextPath()%>/gymui/js/popper.min.js"></script>
   <script src="<%=application.getContextPath()%>/gymui/js/bootstrap-material-design.min.js"></script>
   <script src="https://unpkg.com/default-passive-events"></script>
@@ -361,9 +479,16 @@
   <script src="<%=application.getContextPath()%>/gymui/js/material-dashboard.js?v=2.1.0"></script>
   <!-- Material Dashboard DEMO methods, don't include it in your project! -->
   <script src="<%=application.getContextPath()%>/gymui/js/demo.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!--  <script>
+    $(document).ready(function() {
+          
+    </script>-->
   <script>
     $(document).ready(function() {
-      $().ready(function() {
+       $().ready(function() {
+       
+    $("#msg").fadeOut(5000);
         $sidebar = $('.sidebar');
 
         $sidebar_img_container = $sidebar.find('.sidebar-background');
@@ -522,6 +647,12 @@
         });
       });
     });
+//    $('#s1').click(function(evt)){
+//        evt.preventDefault();
+//        alert("ADDED GYM");
+//        
+//    }
+     
   </script>
   <script>
     $(document).ready(function() {

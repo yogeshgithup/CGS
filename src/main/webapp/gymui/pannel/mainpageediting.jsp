@@ -10,16 +10,7 @@
 <html lang="en">
 
 <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<!--  <script>
-  $(document).ready(function(){
-     
-    $('#button1').click(function(){
-        alert("hello");
-        $('#slide').append('<div class="col-md-2"><label for="file-multiple-input" class=" form-control-label">Slider Image</label></div><div  class="col-md-3"><input type="file" id="file-multiple-input" name="file-multiple-input" multiple="" class="form-control-file "></div></div>');});
-});
-
-</script>-->
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="<%=application.getContextPath()%>/gymui/images/apple-icon.png">
   <link rel="icon" type="image/png" href="<%=application.getContextPath()%>/gymui/images/favicon.png">
@@ -83,7 +74,7 @@
             </a>
           </li> -->
          <li class="nav-item ">
-            <a class="nav-link" href="managebranchoperator.html">
+            <a class="nav-link" href="<%=application.getContextPath()%>/gymui/pannel/managebranchoperator.jsp">
               <i class="material-icons"></i>
               <p>Manage Branch Operator</p>
             </a>
@@ -97,10 +88,10 @@
                   </p>
                 </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                 <a class="dropdown-item active" href="addbranches.html">Main Page Editing</a>
-                   <a class="dropdown-item active" href="addbranches.html">About Us Editing</a>
-                     <a class="dropdown-item active" href="addbranches.html">Contact Us Editing</a>
-                       <a class="dropdown-item active" href="addbranches.html">Equipment Editing</a>
+                 <a class="dropdown-item active" href="<%=application.getContextPath()%>/gymui/pannel/mainpageediting.jsp">Main Page Editing</a>
+                   <a class="dropdown-item active" href="<%=application.getContextPath()%>/gymui/pannel/aboutusediting.jsp">About Us Editing</a>
+                     <a class="dropdown-item active" href="<%=application.getContextPath()%>/gymui/pannel/contactusediting.jsp">Contact Us Editing</a>
+                       <a class="dropdown-item active" href="<%=application.getContextPath()%>/gymui/pannel/equipmentediting.jsp">Equipment Editing</a>
                   
                 </div>
               </li>
@@ -565,7 +556,6 @@
         });
       });
     });
-    
      var ctrld=1;
     $('#button1').click(function(evt){
         evt.preventDefault();
@@ -602,8 +592,7 @@
     });
   </script>-->
   
-  
-</body>
+  </body>
 
 </html>
 

@@ -64,17 +64,14 @@
 
       <h1 align="center">Forgot Password</h1>
 <div  align="center">
-      <form class="contact100-form validate-form">
+    <form class="contact100-form validate-form" action="<%=application.getContextPath()%>/Forgotpassword" method="post">
         
         <div class="wrap-input100 validate-input" data-validate = "Please enter your email: e@a.x" >
-          <input class="input100" type="text" name="email" placeholder="E-mail"style="background-color:#d7dbe2;">
+            <input class="input100" type="text" name="email" placeholder="E-mail"style="background-color:#d7dbe2;" required>
           <span class="focus-input100"></span>
         </div>
 
-        <div class="wrap-input100 validate-input" data-validate = "Please enter the correct mobile number" >
-          <input class="input100" type="text" name="mobileno" placeholder="Mobile Number"style="background-color:#d7dbe2;">
-          <span class="focus-input100"></span>
-        </div>
+      
         <div class="container-contact100-form-btn" style="padding: 20px;">
         <a href="#">  <button class="contact100-form-btn">
             <span>

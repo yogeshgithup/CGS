@@ -6,17 +6,22 @@
 
 package com.mycompany.loginmodule;
 
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  *
  * @author Shravan
  */
 @Entity
-@Table(name="addpackage")
+@Table(name="addpackage", uniqueConstraints = {
+                @UniqueConstraint(columnNames ={ "name","amount"})})
 public class Addpackage {
     @Id
     @GeneratedValue
@@ -82,6 +87,18 @@ public class Addpackage {
         this.time = time;
         this.amount = amount;
         this.no_of_branches = no_of_branches;
+    }
+
+    @OneToMany(cascade=CascadeType.ALL,mappedBy = "adpack")
+       // @JoinColumn(name="cart_id")
+	private Set<Addgym> adgym;
+
+    public Set<Addgym> getAdgym() {
+        return adgym;
+    }
+
+    public void setAdgym(Set<Addgym> adgym) {
+        this.adgym = adgym;
     }
     
 }
