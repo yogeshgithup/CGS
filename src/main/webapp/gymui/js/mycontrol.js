@@ -1,6 +1,6 @@
-function hello(fid)
+function createFile(fid)
 {
-    var ctrl=fid;
+    var ctrl=$("<input/>").attr({type:'file',id:fid,name:fid,});
     return ctrl;
 }
 function createButton(fid)

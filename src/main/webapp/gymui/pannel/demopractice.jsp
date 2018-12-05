@@ -10,7 +10,16 @@
 <html lang="en">
 
 <head>
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!--  <script>
+  $(document).ready(function(){
+     
+    $('#button1').click(function(){
+        alert("hello");
+        $('#slide').append('<div class="col-md-2"><label for="file-multiple-input" class=" form-control-label">Slider Image</label></div><div  class="col-md-3"><input type="file" id="file-multiple-input" name="file-multiple-input" multiple="" class="form-control-file "></div></div>');});
+});
+
+</script>-->
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="<%=application.getContextPath()%>/gymui/images/apple-icon.png">
   <link rel="icon" type="image/png" href="<%=application.getContextPath()%>/gymui/images/favicon.png">
@@ -74,7 +83,7 @@
             </a>
           </li> -->
          <li class="nav-item ">
-            <a class="nav-link" href="<%=application.getContextPath()%>/gymui/pannel/managebranchoperator.jsp">
+            <a class="nav-link" href="managebranchoperator.html">
               <i class="material-icons"></i>
               <p>Manage Branch Operator</p>
             </a>
@@ -88,10 +97,10 @@
                   </p>
                 </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                 <a class="dropdown-item active" href="<%=application.getContextPath()%>/gymui/pannel/mainpageediting.jsp">Main Page Editing</a>
-                   <a class="dropdown-item active" href="<%=application.getContextPath()%>/gymui/pannel/aboutusediting.jsp">About Us Editing</a>
-                     <a class="dropdown-item active" href="<%=application.getContextPath()%>/gymui/pannel/contactusediting.jsp">Contact Us Editing</a>
-                       <a class="dropdown-item active" href="<%=application.getContextPath()%>/gymui/pannel/equipmentediting.jsp">Equipment Editing</a>
+                 <a class="dropdown-item active" href="addbranches.html">Main Page Editing</a>
+                   <a class="dropdown-item active" href="addbranches.html">About Us Editing</a>
+                     <a class="dropdown-item active" href="addbranches.html">Contact Us Editing</a>
+                       <a class="dropdown-item active" href="addbranches.html">Equipment Editing</a>
                   
                 </div>
               </li>
@@ -242,7 +251,7 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Achievement Title</label>
-                          <input type="text" class="form-control">
+                          <input type="text" class="form-control" required>
                         </div>
                       </div>                       
                     <div class="col-md-6">
@@ -276,7 +285,7 @@
                    </div>
                    
                       <div class="col-md-6"> 
-                         <button type="submit" class="btn btn-primary pull-right">Submit</button>
+                         <button type="submit" class="btn btn-primary pull-right" id="s1">Submit</button>
                         </div>
                     </div>
                   </div>
@@ -394,9 +403,10 @@
   <script src="<%=application.getContextPath()%>/gymui/js/material-dashboard.js?v=2.1.0"></script>
   <!-- Material Dashboard DEMO methods, don't include it in your project! -->
   <script src="<%=application.getContextPath()%>/gymui/js/demo.js"></script>
-   <script src="<%=application.getContextPath()%>/gymui/js/mycontrol.js"></script>
+  <script src="<%=application.getContextPath()%>/gymui/js/mycontrol.js"></script>
   <script>
     $(document).ready(function() {
+        var fid=1;
       $().ready(function() {
         $sidebar = $('.sidebar');
 
@@ -556,7 +566,7 @@
         });
       });
     });
-     var ctrld=1;
+    var ctrld=1;
     $('#button1').click(function(evt){
         evt.preventDefault();
         alert(ctrld);
@@ -564,7 +574,7 @@
         alert(mydiv);
         fctrl=createFile('f'+ctrld);
         alert(fctrl);
-         sctrl=createTextbox1('s'+ctrld);
+        sctrl=createTextbox1('s'+ctrld);
         alert(sctrl);
         btnctrl=createButton("b"+ctrld);
         $(btnctrl).click(function()
@@ -573,16 +583,21 @@
             var par=$(this).parent();
             par.remove();
         });
-        mydiv.append('<div  class="col-md-3">').append('<label class=" form-control-label">Slider Image</label>');
-        mydiv.append(fctrl).append('</div>');
+         mydiv.append("SliderImage");
+        mydiv.append(fctrl);
         mydiv.append(sctrl);
-        mydiv.append('')
         mydiv.append(btnctrl);
         alert( $("#slide"));
         $("#slide").append(mydiv);
         ctrld++;
+       
         });
-   
+//          $('#s1').click(function(evt){
+//        evt.preventDefault();
+//       alert("submited");
+//    
+//    });
+        
  </script>
 <!--  <script>
     $(document).ready(function() {
@@ -592,7 +607,8 @@
     });
   </script>-->
   
-  </body>
+  
+</body>
 
 </html>
 
