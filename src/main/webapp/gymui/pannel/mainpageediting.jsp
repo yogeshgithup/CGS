@@ -1,6 +1,6 @@
 <%-- 
-    Document   : gymadmin
-    Created on : Oct 11, 2018, 11:49:52 AM
+    Document   : mainpageediting
+    Created on : Oct 17, 2018, 11:02:22 AM
     Author     : sneh pael
 --%>
 
@@ -10,12 +10,22 @@
 <html lang="en">
 
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!--  <script>
+  $(document).ready(function(){
+     
+    $('#button1').click(function(){
+        alert("hello");
+        $('#slide').append('<div class="col-md-2"><label for="file-multiple-input" class=" form-control-label">Slider Image</label></div><div  class="col-md-3"><input type="file" id="file-multiple-input" name="file-multiple-input" multiple="" class="form-control-file "></div></div>');});
+});
+
+</script>-->
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="<%=application.getContextPath()%>/gymui/images/apple-icon.png">
   <link rel="icon" type="image/png" href="<%=application.getContextPath()%>/gymui/images/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    GYM ADMIN
+    MAIN PAGE EDITING
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -25,6 +35,9 @@
   <link href="<%=application.getContextPath()%>/gymui/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="<%=application.getContextPath()%>/gymui/css/demo.css" rel="stylesheet" />
+   <link rel="stylesheet" href="<%=application.getContextPath()%>/gymui/vendor/bootstrap/awesome-bootstrap-checkbox.css"/>
+    <link rel="stylesheet" href="<%=application.getContextPath()%>/gymui/vendor/bootstrap/bootstrap.css"/>
+    <link rel="stylesheet" href="<%=application.getContextPath()%>/gymui/vendor/bootstrap/bootstrap.min.css"/>
 </head>
 
 <body class="dark-edition">
@@ -48,7 +61,8 @@
               <p>Dashboard</p>
             </a>
           </li> -->
-          <li class="nav-item dropdown active">
+          
+   <li class="nav-item dropdown">
                 <a class="nav-link " href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons "></i>
                   <span class="notification">Manage Branches</span>
@@ -74,7 +88,7 @@
               <p>Manage Branch Operator</p>
             </a>
           </li>
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown active">
                 <a class="nav-link " href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons "></i>
                   <span class="notification">Home Page Editing</span>
@@ -83,7 +97,7 @@
                   </p>
                 </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                 <a class="dropdown-item active" href="<%=application.getContextPath()%>/gymui/pannel/mainpageediting.jsp">Main Page Editing</a>
+                 <a class="dropdown-item active" href="addbranches.html">Main Page Editing</a>
                    <a class="dropdown-item active" href="addbranches.html">About Us Editing</a>
                      <a class="dropdown-item active" href="addbranches.html">Contact Us Editing</a>
                        <a class="dropdown-item active" href="addbranches.html">Equipment Editing</a>
@@ -97,6 +111,7 @@
               <p>View Graphs</p>
             </a>
           </li>
+         
          
           <!-- <li class="nav-item active-pro ">
                 <a class="nav-link" href="./upgrade.html">
@@ -112,7 +127,7 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="javascript:void(0)">Manage Branches</a>
+            <a class="navbar-brand" href="javascript:void(0)">MAIN PAGE EDITING</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
             <span class="sr-only">Toggle navigation</span>
@@ -172,76 +187,117 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-xl-12 col-lg-12">
-              
- <div class="card">
+              <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title" align="Center">BRANCH LIST</h4>
+                  <h4 class="card-title" align="Center">MAIN PAGE EDITING</h4>
                   <p class="card-category"></p>
                 </div>
-                <div class="card-body table-responsive">
-                  <table class="table table-hover">
-                    <thead class="text-warning">
-                      <th>ID</th>
-                      <th>Name</th>
-                      <th>Address</th>
-
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td>Dakota Rice</td>
-                        <td>$36,738</td>
-                       <td class="td-actions text-right">
-                              <button type="button" rel="tooltip" title="Edit Record" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
-                            </td>
-                      </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>Minerva Hooper</td>
-                        <td>$23,789</td>
-                       <td class="td-actions text-right">
-                              <button type="button" rel="tooltip" title="Edit Record" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
-                            </td>
-                      </tr>
-                      <tr>
-                        <td>3</td>
-                        <td>Sage Rodriguez</td>
-                        <td>$56,142</td>
-                        <td class="td-actions text-right">
-                              <button type="button" rel="tooltip" title="Edit Record" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
-                            </td>
-                      </tr>
-                      <tr>
-                        <td>4</td>
-                        <td>Philip Chaney</td>
-                        <td>$38,735</td>
-                        <td class="td-actions text-right">
-                              <button type="button" rel="tooltip" title="Edit Record" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
-                            </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                <div class="card-body">
+                  <form>
+                      <div class="row"> 
+                          
+                      <div class="col-md-2">
+                        <label for="file-multiple-input" class=" form-control-label">Logo</label></div>
+                            <div  class="col-md-3"><input type="file" id="file-multiple-input" name="file-multiple-input" multiple="" class="form-control-file "></div>
+                      </div>
+                      <div id="slide">
+                      <div class="row" >   
+                            <div class="col-md-2">
+                        <label for="file-multiple-input" class=" form-control-label">Slider Image</label></div>
+                            <div  class="col-md-3"><input type="file" id="file-multiple-input" name="file-multiple-input" multiple="" class="form-control-file "></div>
+                      
+                           <div class="col-md-3">
+                               <button type="submit" class="btn btn-primary pull-right" id="button1">ADD More</button>  
+                           </div>
+                            </div>
+                              <div class="row">  
+                            <div class="col-md-6">
+                            <div class="form-group">
+                          <label class="bmd-label-floating">Imageslider Description</label>
+                          <input type="text" class="form-control">
+                        </div>
+                            </div>                    
+                              </div>
+                      </div>
+                             
+<!--                            <div class="row" >
+                           <div class="col-md-3">
+                               <button type="submit" class="btn btn-primary pull-right" id="button1">ADD More</button>  
+                           </div>
+                            </div>-->
+<!--                      <div class="row">   
+                          <div class="col-md-2">
+                                <label for="file-multiple-input" class=" form-control-label">Slider Image</label></div>
+                            <div  class="col-md-3"><input type="file" id="file-multiple-input" name="file-multiple-input" multiple="" class="form-control-file "></div>
+                      </div>-->
+              
+                       
+                   <div class="row">  
+                            <div class="col-md-5">
+                        <h2 align="center">AECHIEVEMENT</h2>
+                            </div>
+                        <div class="col-md-3">
+                               <button type="submit" class="btn btn-primary pull-right" id="button2">ADD More</button>  
+                           </div>
+                      <!--   <div class="form-group">
+                          <label class="bmd-label-floating">Aechievemet Title</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                    </div>-->
+                   </div>
+                        <div id="achievement">
+                       <div class="row">                      
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Achievement Title</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>                       
+                    <div class="col-md-6">
+                          <div class="form-group">
+                        <label for="comment" class="bmd-label-floating">Achievement Description:</label>
+                        <textarea class="form-control" rows="5" id="comment"></textarea>
+                          </div>
+                        </div>
+                      </div>
+                        </div>
+                     
+                           
+                       <div class="row">                      
+                      <div class="col-md-8">
+                           <h2 align="center">QUALITY MESSAGE</h2>
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Quality Message</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>         
+<!--                       <div class="row">
+                       <div class="col-md-8">
+                          <div class="form-group">
+                        <label for="comment" class="bmd-label-floating">Description:</label>
+                        <textarea class="form-control" rows="5" id="comment"></textarea>
+                          </div>
+                        </div>
+                      </div>-->
+                       
+                   </div>
+                   </div>
+                   
+                      <div class="col-md-6"> 
+                         <button type="submit" class="btn btn-primary pull-right">Submit</button>
+                        </div>
+                    </div>
+                  </div>
+                                 </div>
                 </div>
+              </div>
+          
+      
+                </form>
+                    
+
+            </div>
 
 
             </div>
@@ -330,7 +386,7 @@
     </div>
   </div>
   <!--   Core JS Files   -->
-  <script src="<%=application.getContextPath()%>/gymui/js/jquery.min.js"></script>
+<!--  <script src="<%=application.getContextPath()%>/gymui/js/jquery.min.js"></script>-->
   <script src="<%=application.getContextPath()%>/gymui/js/popper.min.js"></script>
   <script src="<%=application.getContextPath()%>/gymui/js/bootstrap-material-design.min.js"></script>
   <script src="https://unpkg.com/default-passive-events"></script>
@@ -347,6 +403,7 @@
   <script src="<%=application.getContextPath()%>/gymui/js/material-dashboard.js?v=2.1.0"></script>
   <!-- Material Dashboard DEMO methods, don't include it in your project! -->
   <script src="<%=application.getContextPath()%>/gymui/js/demo.js"></script>
+   <script src="<%=application.getContextPath()%>/gymui/js/mycontrol.js"></script>
   <script>
     $(document).ready(function() {
       $().ready(function() {
@@ -508,14 +565,45 @@
         });
       });
     });
-  </script>
-  <script>
+    
+     var ctrld=1;
+    $('#button1').click(function(evt){
+        evt.preventDefault();
+        alert(ctrld);
+        mydiv=createDiv('d'+ctrld);
+        alert(mydiv);
+        fctrl=createFile('f'+ctrld);
+        alert(fctrl);
+         sctrl=createTextbox1('s'+ctrld);
+        alert(sctrl);
+        btnctrl=createButton("b"+ctrld);
+        $(btnctrl).click(function()
+        {
+            alert("remove me");
+            var par=$(this).parent();
+            par.remove();
+        });
+        mydiv.append('<div  class="col-md-3">').append('<label class=" form-control-label">Slider Image</label>');
+        mydiv.append(fctrl).append('</div>');
+        mydiv.append(sctrl);
+        mydiv.append('')
+        mydiv.append(btnctrl);
+        alert( $("#slide"));
+        $("#slide").append(mydiv);
+        ctrld++;
+        });
+   
+ </script>
+<!--  <script>
     $(document).ready(function() {
       // Javascript method's body can be found in assets/js/demos.js
       md.initDashboardPageCharts();
 
     });
-  </script>
+  </script>-->
+  
+  
 </body>
 
 </html>
+
