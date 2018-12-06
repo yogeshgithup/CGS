@@ -237,6 +237,7 @@
                       </div>
                     </div>-->
                    </div>
+                       
                         <div id="achievement">
                        <div class="row">                      
                       <div class="col-md-6">
@@ -573,15 +574,48 @@
             var par=$(this).parent();
             par.remove();
         });
-        mydiv.append('<div  class="col-md-3">').append('<label class=" form-control-label">Slider Image</label>');
-        mydiv.append(fctrl).append('</div>');
-        mydiv.append(sctrl);
-        mydiv.append('')
-        mydiv.append(btnctrl);
+        mydiv.append('<div class="row"><div  class="col-md-2">').append('<label class=" form-control-label">Slider Image</label>');
+        mydiv.append('<div  class="col-md-3">').append(fctrl).append('<div class="col-md-3>');
+        mydiv.append(btnctrl).append('</div></div>');
+        mydiv.append('<div class="row"><div  class="col-md-6">').append(sctrl).append('</div></div></div>');
+        mydiv.append('');
+        
         alert( $("#slide"));
         $("#slide").append(mydiv);
         ctrld++;
         });
+   
+   
+   var ctrld1=1;
+    $('#button2').click(function(evt){
+        evt.preventDefault();
+        alert(ctrld1);
+        mydiv1=createDiv2('d'+ctrld1);
+        alert(mydiv1);
+        fctrl=createTextbox2('f'+ctrld1);
+        alert(fctrl);
+         sctrl=createTextarea2('s'+ctrld1);
+        alert(sctrl);
+        btnctrl=createButton2("b"+ctrld1);
+        $(btnctrl).click(function()
+        {
+            alert("remove me");
+            var par=$(this).parent();
+            par.remove();
+        });
+      //  mydiv1.append('<div  class="col-md-2">');
+        mydiv1.append('<div  class="col-md-6">');
+      //  mydiv1.append(fctrl).append('</div>');
+        mydiv1.append(fctrl);
+         mydiv1.append(btnctrl).append('</div>');
+        mydiv1.append('<div class="row"><div  class="col-md-6">').append(sctrl).append('</div></div></div>');
+        mydiv1.append('');
+        
+        alert( $("#achievement"));
+        $("#achievement").append(mydiv1);
+        ctrld1++;
+        });
+   
    
  </script>
 <!--  <script>
