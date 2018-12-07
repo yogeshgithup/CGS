@@ -217,7 +217,7 @@ public class Addgym {
     }
 
      @OneToMany(cascade=CascadeType.ALL,mappedBy = "adgym")
-       // @JoinColumn(name="cart_id")
+       
 	private Set<Gallery> gallery;
 
     public Set<Gallery> getGallery() {
@@ -227,8 +227,4 @@ public class Addgym {
     public void setGallery(Set<Gallery> gallery) {
         this.gallery = gallery;
     }
-     
-
-  
-    
 }

@@ -168,7 +168,7 @@
           <div class="row">
             <div class="col-xl-12 col-lg-12">
                <div class="col-sm-4"> 
-                        <a href="addbranchoperator.html"> <button type="button" class="btn btn-primary pull-right">ADD Branch Operator
+                        <a href="<%=application.getContextPath()%>/gymui/pannel/addbranchoperator.jsp"> <button type="button" class="btn btn-primary pull-right">ADD Branch Operator
                         </button></a>
                         </div>
                     </div>

@@ -60,14 +60,15 @@ public void init(ServletConfig sc) throws ServletException
         System.out.println(name);
         System.out.println(password);
         String savemsg=null;
-        
-        DataOperation so=new DataOperation(scx);
+        System.out.println("kbjcsjhkdbvcksd"+scx.getAttribute("sf"));
+        DataOperation soo=new DataOperation(scx);
         Logingym l=new Logingym();
         
       l.setUsername(name);
       l.setPassword(password);
         System.out.println("hhhhhh");
-   Logingym l2=so.verify(l);
+        System.out.println("yynunu");
+   Logingym l2=soo.verify(l);
         System.out.println("....."+l2);
         System.out.println("lllllll");
     if(l2.getId()!=0)
