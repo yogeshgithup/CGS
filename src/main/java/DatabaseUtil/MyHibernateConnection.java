@@ -26,7 +26,8 @@ public class MyHibernateConnection implements ServletContextListener {
         sfobj = new Configuration().configure("com/mypack/mavenhibernate/hibernate.cfg.xml").buildSessionFactory();
 
         ctx = sceobj.getServletContext();
-        System.out.println("----"+ctx);
+        System.out.println("----jjjjj"+ctx);
+            System.out.println("cccccc"+sfobj);
         ctx.setAttribute("sf", sfobj);
        
         }

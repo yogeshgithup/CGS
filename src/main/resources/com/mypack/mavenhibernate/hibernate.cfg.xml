@@ -16,7 +16,7 @@ and open the template in the editor.
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
         <property name="connection.url">jdbc:mysql://localhost:3306/db1</property>
         <property name="connection.username">root</property>
-        <property name="connection.password"></property>
+        <property name="connection.password">ronak</property>
         
         <property name="hibernate.show_sql">true</property>
         
@@ -31,6 +31,7 @@ and open the template in the editor.
             <mapping class="com.mycompany.loginmodule.Gallery"/>
             <mapping class="com.mycompany.loginmodule.Gyminfo"/>
             <mapping class="com.mycompany.loginmodule.Achievements"/>
+            <mapping class="com.mycompany.loginmodule.addbranchoperator"/>
         </session-factory>
     </hibernate-configuration>
 

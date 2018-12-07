@@ -66,6 +66,6 @@ public void init(ServletConfig sc) throws ServletException
         int gymid= Integer.parseInt(hs.getAttribute("gymid").toString());
         System.out.println(gymid);
          doo.addbranch(ab, gymid);
-        
+      
     }
 }
