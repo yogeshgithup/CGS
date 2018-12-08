@@ -278,7 +278,7 @@ function ValidateForm(){
                 </div>
                 <div class="card-body">
                     <div id="msg" style="color:green"><h2><%=msg%></h2></div>
-                    <form action="<%=application.getContextPath()%>/Aaddgym" method="post" onSubmit="return ValidateForm() && validateEmail()"` name="frmSample">
+                    <form action="<%=application.getContextPath()%>/Aaddgym" method="post" onSubmit="return ValidateForm() && validateEmail()" name="frmSample">
                     <div class="row">                      
                       <div class="col-md-3">
                         <div class="form-group">

@@ -69,7 +69,7 @@ System.out.println("hiii");
         System.out.println("value"+bname);
    DataOperation p=new DataOperation(scx);
       p.addbranchoperator(bo);
-     response.sendRedirect(scx.getContextPath()+"/gymui/pannel/managebranchoperator.jsp");
+     response.sendRedirect(scx.getContextPath()+"Viewbranchoperator");
     }
 
 }

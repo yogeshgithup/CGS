@@ -89,7 +89,7 @@
             </a>
           </li> -->
          <li class="nav-item ">
-            <a class="nav-link" href="<%=application.getContextPath()%>/gymui/pannel/managebranchoperator.jsp">
+            <a class="nav-link" href="<%=application.getContextPath()%>/Viewbranchoperator">
               <i class="material-icons"></i>
               <p>Manage Branch Operator</p>
             </a>

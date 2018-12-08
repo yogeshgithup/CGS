@@ -12,7 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 
 
@@ -24,7 +27,9 @@ import javax.persistence.Table;
 @Table 
 public class addbranchoperator {
     @Id
-    @GeneratedValue
+     @GeneratedValue(generator = "x")
+    @GenericGenerator(name = "x",strategy = "foreign",parameters = @Parameter(name = "property",value = "a"))
+
     int id;
     String firstname;
     String middlename;
@@ -116,6 +121,7 @@ public class addbranchoperator {
         this.password = password;
     }
    @OneToOne
+   @PrimaryKeyJoinColumn
    Addbranch a;
 
     public Addbranch getA() {
@@ -133,6 +139,20 @@ public class addbranchoperator {
     public void setBranchname(String branchname) {
         this.branchname = branchname;
     }
+
+    public addbranchoperator(int id, String firstname, String middlename, String lastname, String area, String branchname) {
+        this.id = id;
+        this.firstname = firstname;
+        this.middlename = middlename;
+        this.lastname = lastname;
+        this.area = area;
+        this.branchname = branchname;
+    }
+
+    public addbranchoperator() {
+    }
+    
+    
    
     
 }
