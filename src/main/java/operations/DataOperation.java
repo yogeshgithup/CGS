@@ -41,7 +41,8 @@ public class DataOperation {
     Transaction tx = null;
      HashSet<Addpackage> setpack=null;
      HashSet<Addgym> setgym=null;
-     HashSet<Addbranch> setbranch=null;
+      HashSet<Addbranch> setbranch=null;
+     
      int j=0;
      String n=null;
      String url;
@@ -219,11 +220,12 @@ public class DataOperation {
                             b1 = (Addbranch)results.get(0);
                            int id=b1.getId(); 
                            System.out.println("cxcxcxcx"+id);
-                          b1=(Addbranch)session.load(Addbranch.class,id);
-                          b1.setAbo(abo);
-                          abo.setA(b1);
-                          session.save(abo);
-                          session.save(b1);
+                       Addbranch b2=(Addbranch)session.load(Addbranch.class,id);
+                          System.out.println("jfdlj"+b2.getBranchname());
+                          b2.setAbo(abo);
+                          abo.setA(b2);
+//                          session.save(abo);
+                          session.save(b2);
                           
                         
             
@@ -384,6 +386,7 @@ public class DataOperation {
     
     public HashSet<Addbranch> getbranch(int gymid)
     {
+       
          try {
              System.out.println("before calling");
              setbranch=new HashSet<Addbranch>();
@@ -428,6 +431,71 @@ public class DataOperation {
        
          return setbranch;
     }
+    
+      public HashSet<addbranchoperator> getbranchoperator(int gymid)
+    {
+         HashSet<addbranchoperator> setbranchop=null;
+         try {
+             System.out.println("before calling");
+             setbranchop=new HashSet<addbranchoperator>();
+             System.out.println("line 555"+scx);
+               sfobj = (SessionFactory) scx.getAttribute("sf");
+               System.out.println("line 577"+sfobj);
+                        session = sfobj.openSession();
+                        System.out.println("line 599");
+                        tx = session.beginTransaction();
+                        //System.out.println("get package"); 
+                        System.out.println("gymid..."+gymid);
+                        Addbranch p1=null;
+                      /*    Addgym l1=null;
+        Set<Addbranch> ab=null;
+        int gymidi=0;
+          l1 = (Addgym) session.load(Addgym.class,gymid);
+          ab=l1.getAdbarnch();
+            Iterator<Addbranch> it=ab.iterator();
+            System.out.println("kkkk");
+            while(it.hasNext())
+            {
+                Addbranch adbr=it.next();
+                gymidi=adbr.getId();
+                System.out.println("id===="+gymidi);
+            }*/
+                        addbranchoperator p2=null;
+                        Query q = session.createQuery("from Addbranch where gymid=:gymidi");
+                        q.setString("gymidi",String.valueOf(gymid));
+                        System.out.println("gp 59");
+                        List<Addbranch> results = q.list();
+                        System.out.println("query");
+                        System.out.println("hiiii"+results.size());
+                        for (int i = 0; i < results.size(); i++) {
+                            System.out.println("hell");
+                            p1 = (Addbranch) results.get(i);
+                            int i1=p1.getId();
+                            System.out.println("hello"+p1.getBranchname());
+                            Query q1 = session.createQuery("from addbranchoperator where id=:branchid");
+                                 q1.setString("branchid",String.valueOf(i1));
+                        List<addbranchoperator> result = q1.list();
+                        System.out.println("query");
+                            System.out.println("eeee"+result.size());
+                        for (int j = 0; j < result.size(); j++) {
+                            p2 = (addbranchoperator) result.get(j);
+                            System.out.println("name---"+p2.getBranchname());
+                            addbranchoperator p3=new addbranchoperator (p2.getId(),p2.getFirstname(),p2.getMiddlename(),p2.getLastname(),p2.getArea(),p2.getBranchname());
+                            setbranchop.add(p3);
+                            System.out.println("oooooop");
+                        }
+                            System.out.println("hjhj");
+                        }
+                        tx.commit();
+                    session.close();
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+       
+         return setbranchop;
+    }
+    
+    
     
     public void addachievements(Achievements ac,int gymid)
     {

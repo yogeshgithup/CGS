@@ -10,6 +10,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -192,7 +193,7 @@ public class Addgym {
         this.gyinfo = gyinfo;
     }
        
-      @OneToMany(cascade=CascadeType.ALL,mappedBy = "adgym")
+      @OneToMany(cascade=CascadeType.ALL,mappedBy = "adgym", fetch = FetchType.LAZY)
        // @JoinColumn(name="cart_id")
 	private Set<Addbranch> adbarnch;
 

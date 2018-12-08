@@ -53,7 +53,7 @@
           </li> -->
           
   <li class="nav-item ">
-            <a class="nav-link" href="gymadmin.html">
+            <a class="nav-link" href="<%=application.getContextPath()%>/Viewbranch">
               <i class="material-icons"></i>
               <p>Manage Branches</p>
             </a>
@@ -65,7 +65,7 @@
             </a>
           </li> -->
          <li class="nav-item active">
-            <a class="nav-link" href="managebranchoperator.html">
+            <a class="nav-link" href="<%=application.getContextPath()%>/Viewbranchoperator">
               <i class="material-icons"></i>
               <p>Manage Branch Operator</p>
             </a>
