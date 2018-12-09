@@ -47,6 +47,7 @@ public class DataOperation {
      String n=null;
      String url;
      Logingym l2=null;
+     String image_url;
    
     public DataOperation(ServletContext scx) {
         this.scx=scx;
@@ -504,17 +505,7 @@ public class DataOperation {
        sfobj = (SessionFactory) scx.getAttribute("sf");
             session = sfobj.openSession();
             tx = session.beginTransaction();
-            System.out.println(";;;;"+gymid);
-            //System.out.println(gymid);
-            Addgym l1=null;
-        Set<Achievements> ab=null;
-          l1 = (Addgym) session.load(Addgym.class,gymid);
-                            System.out.println(l1.getGymname());
-                           
-                          ab  = new HashSet<Achievements>();
-                            ab = l1.getAchive();
-                            ac.setAdgym(l1);
-                            ab.add(ac);
+         
                             session.save(ac);
         tx.commit();
         session.close();
@@ -526,24 +517,14 @@ public class DataOperation {
         
     }
     
-    public void addgallery(Gallery g ,int gymid)
+    public void addgallery(Gallery g)
     {
          try
         {
        sfobj = (SessionFactory) scx.getAttribute("sf");
             session = sfobj.openSession();
             tx = session.beginTransaction();
-            System.out.println(";;;;"+gymid);
-            //System.out.println(gymid);
-            Addgym l1=null;
-        Set<Gallery> ab=null;
-          l1 = (Addgym) session.load(Addgym.class,gymid);
-                            System.out.println(l1.getGymname());
-                           
-                          ab  = new HashSet<Gallery>();
-                            ab = l1.getGallery();
-                            g.setAdgym(l1);
-                            ab.add(g);
+           
                             session.save(g);
         tx.commit();
         session.close();
@@ -555,18 +536,16 @@ public class DataOperation {
         
     }
     
-    public void addgyminfo(Gyminfo g,int gymid)
+    public void addgyminfo(Addgym gym)
     {
       try
         {
        sfobj = (SessionFactory) scx.getAttribute("sf");
             session = sfobj.openSession();
             tx = session.beginTransaction();
-            System.out.println(";;;;"+gymid);
-            //System.out.println(gymid);
-           Addgym ag=(Addgym)session.load(Addgym.class,gymid);
-           ag.setGyinfo(g);
-                         //   session.save(g);
+          
+           session.update(gym);
+            System.out.println("hello");
         tx.commit();
         session.close();
         }
@@ -651,5 +630,63 @@ public class DataOperation {
          return setbranch;
     }
 
+   public ArrayList getURL( ArrayList<Part> image)
+   {
+       ArrayList<String> url=new ArrayList<>();
+         try{
+     Iterator it=image.iterator();
+        while(it.hasNext())
+        {
+            Part image1=(Part)it.next();
+             InputStream is=image1.getInputStream();
+            System.out.println("geturl------");
+        String at=scx.getInitParameter("accesstoken");
+            System.out.println("accesstoken---------"+at);
+        DropBoxOperation dbo=new DropBoxOperation(at);
+          String filename=extractFileName(image1);
+            System.out.println("filename--------"+filename);
+        image_url=dbo.uploadFile(filename, is); 
+            url.add(image_url);
+        }
+        
+        }
+        catch(Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+         return url;
+   }
+    private String extractFileName(Part part) {
+        System.out.println("[[[[[[[[");
+        String contentDisp = part.getHeader("content-disposition");
+        String[] items = contentDisp.split(";");
+        for (String s : items) {
+            if (s.trim().startsWith("filename")) {
+                return s.substring(s.indexOf("=") + 2, s.length()-1);
+            }
+            System.out.println("]]]]]]]]]]]");
+        }
+        return "";
+    }
    
+    public Addgym getGymID(int gymid)
+    {
+        Addgym ag=null;
+        try
+        {
+         sfobj = (SessionFactory) scx.getAttribute("sf");
+            session = sfobj.openSession();
+            tx = session.beginTransaction();
+            System.out.println(";;;;"+gymid);
+            System.out.println(gymid);
+           ag=(Addgym)session.load(Addgym.class,gymid);
+           tx.commit();
+         session.close();
+        }
+        catch(Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+        return ag;
+    }
 }

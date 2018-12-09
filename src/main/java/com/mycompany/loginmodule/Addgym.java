@@ -217,8 +217,8 @@ public class Addgym {
         this.achive = achive;
     }
 
-     @OneToMany(cascade=CascadeType.ALL,mappedBy = "adgym")
-       
+     @OneToMany(cascade=CascadeType.ALL,mappedBy = "adgym",fetch = FetchType.EAGER)
+       // @JoinColumn(name="cart_id")
 	private Set<Gallery> gallery;
 
     public Set<Gallery> getGallery() {
