@@ -4,6 +4,9 @@
     Author     : sneh pael
 --%>
 
+<%@page import="com.mycompany.loginmodule.addbranchoperator"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.HashSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!DOCTYPE html>
@@ -22,9 +25,11 @@
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <!-- CSS Files -->
+  <link rel="stylesheet" href="<%=application.getContextPath()%>/gymui/css/table.css">
   <link href="<%=application.getContextPath()%>/gymui/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="<%=application.getContextPath()%>/gymui/css/demo.css" rel="stylesheet" />
+  
 </head>
 
 <body class="dark-edition">
@@ -50,7 +55,7 @@
           </li> -->
           
   <li class="nav-item">
-            <a class="nav-link" href="<%=application.getContextPath()%>/gymui/pannel/gymadmin.jsp">
+            <a class="nav-link" href="<%=application.getContextPath()%>/Viewbranch">
               <i class="material-icons"></i>
               <p>Manage Branches</p>
             </a>
@@ -63,7 +68,7 @@
             </a>
           </li> -->
          <li class="nav-item active">
-            <a class="nav-link" href="<%=application.getContextPath()%>/gymui/pannel/managebranchoperator.jsp">
+            <a class="nav-link" href="<%=application.getContextPath()%>/Viewbranchoperator">
               <i class="material-icons"></i>
               <p>Manage Branch Operator</p>
             </a>
@@ -168,76 +173,55 @@
           <div class="row">
             <div class="col-xl-12 col-lg-12">
                <div class="col-sm-4"> 
-                        <a href="addbranchoperator.html"> <button type="button" class="btn btn-primary pull-right">ADD Branch Operator
+                        <a href="<%=application.getContextPath()%>/gymui/pannel/addbranchoperator.jsp"> <button type="button" class="btn btn-primary pull-right">ADD Branch Operator
                         </button></a>
                         </div>
                     </div>
- <div class="card">
+  <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title" align="Center">BRANCH OPERATOR</h4>
+                  <h4 class="card-title" align="Center">BRANCH LIST</h4>
                   <p class="card-category"></p>
                 </div>
-                <div class="card-body table-responsive">
-                  <table class="table table-hover">
-                    <thead class="text-warning">
-                      <th>ID</th>
-                      <th>Name</th>
-                      <th>Address</th>
-
+                 <table id="gym"  class="display" style="width:100%; color: purple;">
+                   <thead>
+                      <th>branchoperatorID</th>
+                      <th>firstname</th>
+                      <th>middlename</th>
+                      <th>lastname</th>
+                      <th>area</th>
+                      <th>branchname</th>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td>Dakota Rice</td>
-                        <td>$36,738</td>
-                       <td class="td-actions text-right">
-                              <button type="button" rel="tooltip" title="Edit Record" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
-                            </td>
+                                          <%!
+           HashSet<addbranchoperator> setbranchop=null;
+          %>
+   
+          
+              <%
+         
+          System.out.println("session="+session); 
+          
+              
+             setbranchop=(HashSet<addbranchoperator>)session.getAttribute("setbranchop");
+            Iterator<addbranchoperator> it=setbranchop.iterator();
+            System.out.println("kkkk");
+            System.out.print("iterator"+it.toString());
+            while(it.hasNext())
+            {
+               addbranchoperator adbranch=it.next();
+              
+            
+          %>
+
+          <tr id="<%=adbranch.getId()%>">
+                          <td><%= adbranch.getId()%></td>
+                          <td><%= adbranch.getFirstname()%></td>
+                           <td><%= adbranch.getMiddlename()%></td>
+                            <td><%=adbranch.getLastname()%></td>
+                            <td><%=adbranch.getArea()%></td>
+                              <td><%=adbranch.getBranchname()%></td>
                       </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>Minerva Hooper</td>
-                        <td>$23,789</td>
-                       <td class="td-actions text-right">
-                              <button type="button" rel="tooltip" title="Edit Record" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
-                            </td>
-                      </tr>
-                      <tr>
-                        <td>3</td>
-                        <td>Sage Rodriguez</td>
-                        <td>$56,142</td>
-                        <td class="td-actions text-right">
-                              <button type="button" rel="tooltip" title="Edit Record" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
-                            </td>
-                      </tr>
-                      <tr>
-                        <td>4</td>
-                        <td>Philip Chaney</td>
-                        <td>$38,735</td>
-                        <td class="td-actions text-right">
-                              <button type="button" rel="tooltip" title="Edit Record" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
-                            </td>
-                      </tr>
+                      <%}%>
                     </tbody>
                   </table>
                 </div>
@@ -346,6 +330,14 @@
   <script src="<%=application.getContextPath()%>/gymui/js/material-dashboard.js?v=2.1.0"></script>
   <!-- Material Dashboard DEMO methods, don't include it in your project! -->
   <script src="<%=application.getContextPath()%>/gymui/js/demo.js"></script>
+  <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+  <script>
+  $(function(){
+
+        $("#gym").dataTable();
+   
+  })
+  </script>
   <script>
     $(document).ready(function() {
       $().ready(function() {

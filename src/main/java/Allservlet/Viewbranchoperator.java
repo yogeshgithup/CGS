@@ -7,10 +7,10 @@
 package Allservlet;
 
 import com.mycompany.loginmodule.Addbranch;
-import com.mycompany.loginmodule.Addgym;
-import com.mycompany.loginmodule.Logingym;
+import com.mycompany.loginmodule.addbranchoperator;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashSet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -19,13 +19,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import operations.DataOperation;
-import operations.SMSOperation;
 
 /**
  *
  * @author Shravan
  */
-public class Aaddbranch extends HttpServlet {
+public class Viewbranchoperator extends HttpServlet {
 
    ServletContext scx;
 @Override
@@ -40,32 +39,26 @@ public void init(ServletConfig sc) throws ServletException
             System.out.println(e.getMessage());
         }
     }
-    
+     protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+     
+         doPost(request,response);
+     }
    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
         PrintWriter out=response.getWriter();
+         HttpSession session=request.getSession(true);  
+         int id=Integer.parseInt(session.getAttribute("gymid").toString());
         
-        String branchname=request.getParameter("branchname");
-        String street=request.getParameter("street");
-       
-        String area=request.getParameter("area");
-        String postcode=request.getParameter("postalcode");
-       
-         DataOperation doo=new DataOperation(scx);
-         Addbranch ab=new Addbranch();
-         System.out.println(".............");
-         ab.setBranchname(branchname);
-         ab.setStreet(street);
-         ab.setArea(area);
-         ab.setPostalcode(postcode);
-         
-          HttpSession hs=request.getSession(true);
-        int gymid= Integer.parseInt(hs.getAttribute("gymid").toString());
-        System.out.println(gymid);
-         doo.addbranch(ab, gymid);
-       response.sendRedirect(scx.getContextPath()+"/Viewbranch");
-    }
+         //  System.out.println("gymid==="+l2.getId());
+         System.out.println("view barnch");
+           DataOperation pko=new DataOperation(scx);
+           HashSet<addbranchoperator> listCatagory =pko.getbranchoperator(id);
+            session.setAttribute("setbranchop",listCatagory);
+         response.sendRedirect(scx.getContextPath()+"/gymui/pannel/managebranchoperator.jsp");
+        
+}
 }

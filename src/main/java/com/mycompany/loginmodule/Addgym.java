@@ -193,7 +193,7 @@ public class Addgym {
         this.gyinfo = gyinfo;
     }
        
-      @OneToMany(cascade=CascadeType.ALL,mappedBy = "adgym")
+      @OneToMany(cascade=CascadeType.ALL,mappedBy = "adgym", fetch = FetchType.LAZY)
        // @JoinColumn(name="cart_id")
 	private Set<Addbranch> adbarnch;
 
@@ -228,8 +228,4 @@ public class Addgym {
     public void setGallery(Set<Gallery> gallery) {
         this.gallery = gallery;
     }
-     
-
-  
-    
 }

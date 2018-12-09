@@ -14,6 +14,7 @@ import com.mycompany.loginmodule.Gallery;
 import com.mycompany.loginmodule.Gyminfo;
 import com.mycompany.loginmodule.Login;
 import com.mycompany.loginmodule.Logingym;
+import com.mycompany.loginmodule.addbranchoperator;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -40,7 +41,8 @@ public class DataOperation {
     Transaction tx = null;
      HashSet<Addpackage> setpack=null;
      HashSet<Addgym> setgym=null;
-     HashSet<Addbranch> setbranch=null;
+      HashSet<Addbranch> setbranch=null;
+     
      int j=0;
      String n=null;
      String url;
@@ -54,19 +56,25 @@ public class DataOperation {
      public Logingym verify(Logingym l) {
 
         try {
+            System.out.println(l.getPassword());
+            System.out.println("bcjsbc sjbcds"+scx);
+            System.out.println("ll"+scx.getAttribute("sf"));
             sfobj = (SessionFactory) scx.getAttribute("sf");
+            System.out.println("ncncncn"+sfobj);
             session = sfobj.openSession();
+            System.out.println("vjsdbvjsd");
             tx = session.beginTransaction();
             //String b = "branchoperator";
             //String c = "traineer";
             
-            
+            System.out.println("kmjnn");
             Query q = session.createQuery("from Logingym where username=:lname and password=:pass");
-            System.out.println(l.getUsername());
+            System.out.println("kkkkkk");
+            //System.out.println("...."+l.getUsername());
             q.setString("lname", l.getUsername());
             q.setString("pass", l.getPassword());
             List<Logingym> results = q.list();
-
+            System.out.println("oooooo");
             l2 =(Logingym)results.get(0);
             System.out.println(""+l2.getUsername());
             System.out.println("passed"+l.getPassword());
@@ -99,9 +107,7 @@ public class DataOperation {
         }
         System.out.println("///" + j);
         return l;
-    }
-
-    
+    }    
     public void addpackage(Addpackage p1)
     {
         try{
@@ -119,6 +125,7 @@ public class DataOperation {
             System.out.println(e.getMessage());
         }
     }
+   
     
     public HashSet<Addpackage> getpackage()
     {
@@ -152,6 +159,7 @@ public class DataOperation {
        
          return setpack;
     }
+  
     
     public String addgym(Addgym ag)
     {
@@ -192,6 +200,44 @@ public class DataOperation {
            
             n="failed to add gym";
             System.out.println(e.getMessage());
+        }
+        return n;
+    }
+    
+    
+      public String addbranchoperator(addbranchoperator abo)
+    {
+        try {
+             sfobj = (SessionFactory) scx.getAttribute("sf");
+            session = sfobj.openSession();
+            tx = session.beginTransaction();
+            Query q = session.createQuery("from Addbranch where branchname=:branchname");
+            System.out.println("bsvsbvsdjvsdnvsdnvsinvsidnvsdvns");
+                       q.setString("branchname",abo.getBranchname());
+                     
+                       Addbranch b1=null;
+                        List<Addbranch> results = q.list();
+                     
+                            b1 = (Addbranch)results.get(0);
+                           int id=b1.getId(); 
+                           System.out.println("cxcxcxcx"+id);
+                       Addbranch b2=(Addbranch)session.load(Addbranch.class,id);
+                          System.out.println("jfdlj"+b2.getBranchname());
+                          b2.setAbo(abo);
+                          abo.setA(b2);
+//                          session.save(abo);
+                          session.save(b2);
+                          
+                        
+            
+           n="branchoperator Added";
+            tx.commit();
+            session.close();
+            
+        } catch (Exception e) {
+           
+            n="failed to add branch";
+           System.out.println(e.getMessage());
         }
         return n;
     }
@@ -275,6 +321,7 @@ public class DataOperation {
     {
         try
         {
+            
        sfobj = (SessionFactory) scx.getAttribute("sf");
             session = sfobj.openSession();
             tx = session.beginTransaction();
@@ -340,6 +387,7 @@ public class DataOperation {
     
     public HashSet<Addbranch> getbranch(int gymid)
     {
+       
          try {
              System.out.println("before calling");
              setbranch=new HashSet<Addbranch>();
@@ -385,7 +433,72 @@ public class DataOperation {
          return setbranch;
     }
     
-    public void addachievements(Achievements ac)
+      public HashSet<addbranchoperator> getbranchoperator(int gymid)
+    {
+         HashSet<addbranchoperator> setbranchop=null;
+         try {
+             System.out.println("before calling");
+             setbranchop=new HashSet<addbranchoperator>();
+             System.out.println("line 555"+scx);
+               sfobj = (SessionFactory) scx.getAttribute("sf");
+               System.out.println("line 577"+sfobj);
+                        session = sfobj.openSession();
+                        System.out.println("line 599");
+                        tx = session.beginTransaction();
+                        //System.out.println("get package"); 
+                        System.out.println("gymid..."+gymid);
+                        Addbranch p1=null;
+                      /*    Addgym l1=null;
+        Set<Addbranch> ab=null;
+        int gymidi=0;
+          l1 = (Addgym) session.load(Addgym.class,gymid);
+          ab=l1.getAdbarnch();
+            Iterator<Addbranch> it=ab.iterator();
+            System.out.println("kkkk");
+            while(it.hasNext())
+            {
+                Addbranch adbr=it.next();
+                gymidi=adbr.getId();
+                System.out.println("id===="+gymidi);
+            }*/
+                        addbranchoperator p2=null;
+                        Query q = session.createQuery("from Addbranch where gymid=:gymidi");
+                        q.setString("gymidi",String.valueOf(gymid));
+                        System.out.println("gp 59");
+                        List<Addbranch> results = q.list();
+                        System.out.println("query");
+                        System.out.println("hiiii"+results.size());
+                        for (int i = 0; i < results.size(); i++) {
+                            System.out.println("hell");
+                            p1 = (Addbranch) results.get(i);
+                            int i1=p1.getId();
+                            System.out.println("hello"+p1.getBranchname());
+                            Query q1 = session.createQuery("from addbranchoperator where id=:branchid");
+                                 q1.setString("branchid",String.valueOf(i1));
+                        List<addbranchoperator> result = q1.list();
+                        System.out.println("query");
+                            System.out.println("eeee"+result.size());
+                        for (int j = 0; j < result.size(); j++) {
+                            p2 = (addbranchoperator) result.get(j);
+                            System.out.println("name---"+p2.getBranchname());
+                            addbranchoperator p3=new addbranchoperator (p2.getId(),p2.getFirstname(),p2.getMiddlename(),p2.getLastname(),p2.getArea(),p2.getBranchname());
+                            setbranchop.add(p3);
+                            System.out.println("oooooop");
+                        }
+                            System.out.println("hjhj");
+                        }
+                        tx.commit();
+                    session.close();
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+       
+         return setbranchop;
+    }
+    
+    
+    
+    public void addachievements(Achievements ac,int gymid)
     {
          try
         {
@@ -483,6 +596,38 @@ public class DataOperation {
         }
         
         return n;
+    }
+    public HashSet<Addbranch> getbranch()
+    {
+         try {
+             System.out.println("before calling");
+             setbranch=new HashSet<Addbranch>();
+             System.out.println("line 55"+scx);
+               sfobj = (SessionFactory) scx.getAttribute("sf");
+               System.out.println("line 57"+sfobj);
+                        session = sfobj.openSession();
+                        System.out.println("line 59");
+                        tx = session.beginTransaction();
+                        System.out.println("get branch"); 
+                         Addbranch b1=null;
+                        Query q = session.createQuery("from Addbranch");
+                        System.out.println("gp 59");
+                        List<Addbranch> results = q.list();
+                        System.out.println("query");
+                        for (int i = 0; i <= results.size(); i++) {
+                            b1 = (Addbranch) results.get(i);
+                            System.out.println("......."+b1.getBranchname());
+                            Addbranch b2=new Addbranch(b1.getId(),b1.getArea(),b1.getStreet(),b1.getPostalcode(),b1.getBranchname());
+                            setbranch.add(b2);
+                        }
+                        
+                        tx.commit();
+                    session.close();
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+       
+         return setbranch;
     }
 
    public ArrayList getURL( ArrayList<Part> image)

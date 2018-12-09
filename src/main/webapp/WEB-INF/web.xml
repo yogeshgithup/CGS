@@ -65,6 +65,14 @@
         <servlet-name>Logout</servlet-name>
         <servlet-class>Allservlet.Logout</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>addbranchop</servlet-name>
+        <servlet-class>Allservlet.addbranchop</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Viewbranchoperator</servlet-name>
+        <servlet-class>Allservlet.Viewbranchoperator</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Loginverify</servlet-name>
         <url-pattern>/Loginverify</url-pattern>
@@ -120,6 +128,14 @@
     <servlet-mapping>
         <servlet-name>Logout</servlet-name>
         <url-pattern>/Logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addbranchop</servlet-name>
+        <url-pattern>/addbranchop</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Viewbranchoperator</servlet-name>
+        <url-pattern>/Viewbranchoperator</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -54,17 +54,14 @@
           </li> -->
           
    <li class="nav-item dropdown">
-                <a class="nav-link " href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link " href="<%=application.getContextPath()%>/Viewbranch" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons "></i>
                   <span class="notification">Manage Branches</span>
                   <p class="d-lg-none d-md-block">
                     Manage Branches
                   </p>
                 </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" >
-                 <a class="dropdown-item active" href="addbranches.html">ADD BRANCHES</a>
-                  
-                </div>
+               
               </li>
 
           <!-- <li class="nav-item active " >

@@ -6,11 +6,14 @@
 
 package com.mycompany.loginmodule;
 
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -97,6 +100,16 @@ public class Addbranch {
         this.postalcode = postalcode;
     }
     
+    @OneToOne(mappedBy = "a", cascade = CascadeType.ALL)
+   addbranchoperator abo;
+
+    public addbranchoperator getAbo() {
+        return abo;
+    }
+
+    public void setAbo(addbranchoperator abo) {
+        this.abo = abo;
+    }
     
     
 }

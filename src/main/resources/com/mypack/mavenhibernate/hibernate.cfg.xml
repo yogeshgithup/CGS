@@ -31,6 +31,7 @@ and open the template in the editor.
             <mapping class="com.mycompany.loginmodule.Gallery"/>
             <mapping class="com.mycompany.loginmodule.Gyminfo"/>
             <mapping class="com.mycompany.loginmodule.Achievements"/>
+            <mapping class="com.mycompany.loginmodule.addbranchoperator"/>
         </session-factory>
     </hibernate-configuration>
 

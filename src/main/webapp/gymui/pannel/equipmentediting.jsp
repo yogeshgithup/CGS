@@ -53,17 +53,13 @@
           </li> -->
           
    <li class="nav-item dropdown">
-                <a class="nav-link " href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link " href="<%=application.getContextPath()%>/Viewbranch" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons "></i>
                   <span class="notification">Manage Branches</span>
                   <p class="d-lg-none d-md-block">
                     Manage Branches
                   </p>
                 </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" >
-                 <a class="dropdown-item active" href="addbranches.html">ADD BRANCHES</a>
-                  
-                </div>
               </li>
 
           <!-- <li class="nav-item active " >
@@ -73,7 +69,7 @@
             </a>
           </li> -->
          <li class="nav-item ">
-            <a class="nav-link" href="managebranchoperator.html">
+            <a class="nav-link" href="<%=application.getContextPath()%>/Viewbranchoperator">
               <i class="material-icons"></i>
               <p>Manage Branch Operator</p>
             </a>
@@ -87,10 +83,10 @@
                   </p>
                 </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                 <a class="dropdown-item active" href="addbranches.html">Main Page Editing</a>
-                   <a class="dropdown-item active" href="addbranches.html">About Us Editing</a>
-                     <a class="dropdown-item active" href="addbranches.html">Contact Us Editing</a>
-                       <a class="dropdown-item active" href="addbranches.html">Equipment Editing</a>
+                 <a class="dropdown-item active" href="<%=application.getContextPath()%>/gymui/pannel/mainpageediting.jsp">Main Page Editing</a>
+                   <a class="dropdown-item active" href="<%=application.getContextPath()%>/gymui/pannel/aboutusediting.jsp">About Us Editing</a>
+                     <a class="dropdown-item active" href="<%=application.getContextPath()%>/gymui/pannel/contactusediting.jsp">Contact Us Editing</a>
+                       <a class="dropdown-item active" href="<%=application.getContextPath()%>/gymui/pannel/equipmentediting.jsp">Equipment Editing</a>
                   
                 </div>
               </li>
