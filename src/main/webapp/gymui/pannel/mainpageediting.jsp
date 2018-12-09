@@ -184,28 +184,28 @@
                   <p class="card-category"></p>
                 </div>
                 <div class="card-body">
-                  <form>
+                    <form action="<%=application.getContextPath()%>/Aaddgyminfo" method="post" enctype="multipart/form-data">
                       <div class="row"> 
                           
                       <div class="col-md-2">
                         <label for="file-multiple-input" class=" form-control-label">Logo</label></div>
-                            <div  class="col-md-3"><input type="file" id="file-multiple-input" name="file-multiple-input" multiple="" class="form-control-file "></div>
+                            <div  class="col-md-3"><input type="file" id="file-multiple-input" name="logo" class="form-control-file "></div>
                       </div>
                       <div id="slide">
                       <div class="row" >   
                             <div class="col-md-2">
                         <label for="file-multiple-input" class=" form-control-label">Slider Image</label></div>
-                            <div  class="col-md-3"><input type="file" id="file-multiple-input" name="file-multiple-input" multiple="" class="form-control-file "></div>
+                            <div  class="col-md-3"><input type="file" id="file-multiple-input" name="image" class="form-control-file "></div>
                       
                            <div class="col-md-3">
-                               <button type="submit" class="btn btn-primary pull-right" id="button1">ADD More</button>  
+                               <button type="button" class="btn btn-primary pull-right" id="button1">ADD More</button>  
                            </div>
                             </div>
                               <div class="row">  
                             <div class="col-md-6">
                             <div class="form-group">
                           <label class="bmd-label-floating">Imageslider Description</label>
-                          <input type="text" class="form-control">
+                          <input type="text" name="imagedesc" class="form-control">
                         </div>
                             </div>                    
                               </div>
@@ -228,7 +228,7 @@
                         <h2 align="center">AECHIEVEMENT</h2>
                             </div>
                         <div class="col-md-3">
-                               <button type="submit" class="btn btn-primary pull-right" id="button2">ADD More</button>  
+                               <button type="button" class="btn btn-primary pull-right" id="button2">ADD More</button>  
                            </div>
                       <!--   <div class="form-group">
                           <label class="bmd-label-floating">Aechievemet Title</label>
@@ -243,13 +243,13 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Achievement Title</label>
-                          <input type="text" class="form-control">
+                          <input type="text" class="form-control" name="title">
                         </div>
                       </div>                       
                     <div class="col-md-6">
                           <div class="form-group">
                         <label for="comment" class="bmd-label-floating">Achievement Description:</label>
-                        <textarea class="form-control" rows="5" id="comment"></textarea>
+                        <textarea class="form-control" rows="5" id="comment" name="descr"></textarea>
                           </div>
                         </div>
                       </div>
@@ -261,7 +261,7 @@
                            <h2 align="center">QUALITY MESSAGE</h2>
                         <div class="form-group">
                           <label class="bmd-label-floating">Quality Message</label>
-                          <input type="text" class="form-control">
+                          <input type="text" class="form-control" name="qualitymsg">
                         </div>
                       </div>         
 <!--                       <div class="row">

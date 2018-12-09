@@ -1,6 +1,6 @@
 function createFile(fid)
 {
-    var ctrl=$("<input/>").attr({type:'file',id:fid,name:fid,});
+    var ctrl=$("<input/>").attr({type:'file',id:fid,name:'image',});
     return ctrl;
 }
 function createButton(fid)
@@ -13,6 +13,7 @@ function createTextbox1(fid)
     var ctrl=$("<input/>").attr({
         type:'text',
         id:fid,
+        name:'imagedesc',
         placeholder:'Description',
         class: 'form-control' 
     });
@@ -35,6 +36,7 @@ function createTextarea2(fid)
     var ctrl=$("<input/>").attr({
         type:'textarea',
         id:fid,
+        name:'descr',
         placeholder:'Achievement Description',
         class: 'form-control' 
     });
@@ -45,6 +47,7 @@ function createTextbox2(fid)
     var ctrl=$("<input/>").attr({
         type:'text',
         id:fid,
+        name:'title',
         placeholder:'Achievement Title',
         class: 'form-control' 
     });
