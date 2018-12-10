@@ -132,6 +132,7 @@ function ValidateForm(){
 	return true
  }
 </script>
+
 </head>
 
 <body class="dark-edition">
@@ -283,7 +284,7 @@ function ValidateForm(){
                       <div class="col-md-3">
                         <div class="form-group">
                           <label class="bmd-label-floating">Gym Name</label>
-                          <input type="text" class="form-control" name="gymname" required>
+                          <input type="text" class="form-control" name="gymname" id="gymname" required>
                         </div>
                       </div>
                       <div class="col-md-4">
@@ -486,8 +487,18 @@ function ValidateForm(){
     </script>-->
   <script>
     $(document).ready(function() {
+        alert("line 490");
        $().ready(function() {
-       
+        $("#gymname").focusout(function(){
+  // alert("hello");
+   var gymname=$("#gymname").val();
+//   alert(gymname);
+   $.post("<%=application.getContextPath()%>/Verifygymname",{"id":gymname},function(data,status){
+ 
+     alert(data);
+  $("#gymname").val("");
+    });
+});
     $("#msg").fadeOut(5000);
         $sidebar = $('.sidebar');
 

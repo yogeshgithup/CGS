@@ -67,7 +67,7 @@
     <form class="contact100-form validate-form" action="<%=application.getContextPath()%>/Forgotpassword" method="post">
         
         <div class="wrap-input100 validate-input" data-validate = "Please enter your email: e@a.x" >
-            <input class="input100" type="text" name="email" placeholder="E-mail"style="background-color:#d7dbe2;" required>
+            <input class="input100" type="text" id="email" name="email" placeholder="E-mail"style="background-color:#d7dbe2;" required>
           <span class="focus-input100"></span>
         </div>
 
@@ -98,5 +98,22 @@
     <!-- Bootstrap core JavaScript -->
     <script src="<%=application.getContextPath()%>/gymui/vendor/jquery/jquery.min.js"></script>
     <script src="<%=application.getContextPath()%>/gymui/svendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+    <script>
+        
+         $(document).ready(function() {
+       $().ready(function() {
+       $("#email").focusout(function(){
+  
+   var email=$("#email").val();
+//   alert(gymname);
+   $.post("<%=application.getContextPath()%>/Verifygymname",{"email":email},function(data,status){
+ 
+     alert(data);
+  $("#email").val("");
+    });
+});
+    
+    });
+    });
+    </script>
 </body>

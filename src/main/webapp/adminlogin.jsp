@@ -77,7 +77,7 @@
       <form class="contact100-form validate-form" action ="Loginverify" method="post">
         
         <div class="wrap-input100 validate-input" data-validate = "Please enter your email: e@a.x" >
-            <input class="input100" type="text" name="email" placeholder="E-mail"style="background-color:#d7dbe2;" required>
+            <input class="input100" type="email" id="email" name="email" placeholder="E-mail"style="background-color:#d7dbe2;" required>
           <span class="focus-input100"></span>
         </div>
 
@@ -119,7 +119,16 @@
 <script>
     $(document).ready(function() {
        $().ready(function() {
-      
+       $("#email").focusout(function(){
+  
+   var email=$("#email").val();
+//   alert(gymname);
+   $.post("<%=application.getContextPath()%>/Verifygymname",{"email":email},function(data,status){
+ alert("hello");
+     alert(data);
+  $("#email").val("");
+    });
+});
     $("#msg").fadeOut(3000);
         $sidebar = $('.sidebar');
     });

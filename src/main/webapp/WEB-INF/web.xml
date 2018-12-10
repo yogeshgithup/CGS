@@ -73,6 +73,10 @@
         <servlet-name>Viewbranchoperator</servlet-name>
         <servlet-class>Allservlet.Viewbranchoperator</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Verifygymname</servlet-name>
+        <servlet-class>Allservlet.Verifygymname</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Loginverify</servlet-name>
         <url-pattern>/Loginverify</url-pattern>
@@ -136,6 +140,10 @@
     <servlet-mapping>
         <servlet-name>Viewbranchoperator</servlet-name>
         <url-pattern>/Viewbranchoperator</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Verifygymname</servlet-name>
+        <url-pattern>/Verifygymname</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

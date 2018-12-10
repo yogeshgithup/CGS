@@ -7,6 +7,7 @@
 package Allservlet;
 
 import com.mycompany.loginmodule.Addbranch;
+import com.mycompany.loginmodule.Addgym;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashSet;
@@ -55,6 +56,7 @@ public void init(ServletConfig sc) throws ServletException
          //  System.out.println("gymid==="+l2.getId());
          System.out.println("view barnch");
            DataOperation pko=new DataOperation(scx);
+            //Addgym gym = pko.getGymID(id);
            HashSet<Addbranch> listCatagory =pko.getbranch(id);
             session.setAttribute("setbranch",listCatagory);
          response.sendRedirect(scx.getContextPath()+"/gymui/pannel/gymadmin.jsp");
