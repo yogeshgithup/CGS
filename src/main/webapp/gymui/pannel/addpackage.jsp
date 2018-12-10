@@ -160,7 +160,7 @@
                       <div class="col-md-3">
                         <div class="form-group">
                           <label class="bmd-label-floating">Name</label>
-                          <input type="text" class="form-control" name="name" required>
+                          <input type="text" class="form-control" name="name" id="packagename" required>
                         </div>
                       </div>
                         
@@ -307,6 +307,17 @@
   <script>
     $(document).ready(function() {
       $().ready(function() {
+           $("#packagename").focusout(function(){
+   
+   var packagename=$("#packagename").val();
+   //alert(packagename);
+   $.post("<%=application.getContextPath()%>/Verifygymname",{"package":packagename},function(data,status){
+ 
+     alert(data);
+     $("#packagename").val("");
+  
+    });
+});
         $sidebar = $('.sidebar');
 
         $sidebar_img_container = $sidebar.find('.sidebar-background');

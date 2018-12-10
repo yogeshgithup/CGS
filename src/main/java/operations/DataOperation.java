@@ -597,38 +597,39 @@ public class DataOperation {
         
         return n;
     }
-    public HashSet<Addbranch> getbranch()
-    {
-         try {
-             System.out.println("before calling");
-             setbranch=new HashSet<Addbranch>();
-             System.out.println("line 55"+scx);
-               sfobj = (SessionFactory) scx.getAttribute("sf");
-               System.out.println("line 57"+sfobj);
-                        session = sfobj.openSession();
-                        System.out.println("line 59");
-                        tx = session.beginTransaction();
-                        System.out.println("get branch"); 
-                         Addbranch b1=null;
-                        Query q = session.createQuery("from Addbranch");
-                        System.out.println("gp 59");
-                        List<Addbranch> results = q.list();
-                        System.out.println("query");
-                        for (int i = 0; i <= results.size(); i++) {
-                            b1 = (Addbranch) results.get(i);
-                            System.out.println("......."+b1.getBranchname());
-                            Addbranch b2=new Addbranch(b1.getId(),b1.getArea(),b1.getStreet(),b1.getPostalcode(),b1.getBranchname());
-                            setbranch.add(b2);
-                        }
-                        
-                        tx.commit();
-                    session.close();
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                    }
-       
-         return setbranch;
-    }
+//    public HashSet<Addbranch> getbranch(int gymid)
+//    {
+//         try {
+//             System.out.println("before calling");
+//             setbranch=new HashSet<Addbranch>();
+//             System.out.println("line 55"+scx);
+//               sfobj = (SessionFactory) scx.getAttribute("sf");
+//               System.out.println("line 57"+sfobj);
+//                        session = sfobj.openSession();
+//                        System.out.println("line 59");
+//                        tx = session.beginTransaction();
+//                        System.out.println("get branch"); 
+//                         Addbranch b1=null;
+//                        Query q = session.createQuery("from Addbranch where gymid=:id");
+//                        System.out.println("gp 59");
+//                        q.setString("gymid",gymid);
+//                        List<Addbranch> results = q.list();
+//                        System.out.println("query");
+//                        for (int i = 0; i <= results.size(); i++) {
+//                            b1 = (Addbranch) results.get(i);
+//                            System.out.println("......."+b1.getBranchname());
+//                            Addbranch b2=new Addbranch(b1.getId(),b1.getArea(),b1.getStreet(),b1.getPostalcode(),b1.getBranchname());
+//                            setbranch.add(b2);
+//                        }
+//                        
+//                        tx.commit();
+//                    session.close();
+//                    } catch (Exception e) {
+//                        System.out.println(e.getMessage());
+//                    }
+//       
+//         return setbranch;
+//    }
 
    public ArrayList getURL( ArrayList<Part> image)
    {
@@ -688,5 +689,155 @@ public class DataOperation {
             System.out.println(e.getMessage());
         }
         return ag;
+    }
+    
+    public String verifygymname(String gymname)
+    {
+        String gym=null;
+         try
+        {
+       sfobj = (SessionFactory) scx.getAttribute("sf");
+            session = sfobj.openSession();
+            tx = session.beginTransaction();
+            //String b = "branchoperator";
+            //String c = "traineer";
+            Addgym l=null;
+            
+            Query q = session.createQuery("from Addgym where gymname=:uname");
+            q.setString("uname",gymname);
+            
+            List<Addgym> results = q.list();
+
+            l =(Addgym)results.get(0);
+            if(l!=null)
+            {
+                gym="already exists";
+            }
+        }
+         catch(Exception e){
+             System.out.println(e.getMessage());
+         }
+         return gym;
+    }
+    
+     public String verifypackagename(String packagename)
+    {
+        String pack =null;
+         try
+        {
+       sfobj = (SessionFactory) scx.getAttribute("sf");
+            session = sfobj.openSession();
+            tx = session.beginTransaction();
+            //String b = "branchoperator";
+            //String c = "traineer";
+            Addpackage l=null;
+            
+            Query q = session.createQuery("from Addpackage where name=:uname");
+            q.setString("uname",packagename);
+            
+            List<Addpackage> results = q.list();
+
+            l =(Addpackage)results.get(0);
+            if(l!=null)
+            {
+                pack="already exists";
+            }
+        }
+         catch(Exception e){
+             System.out.println(e.getMessage());
+         }
+         return pack;
+    }
+     
+      public String verifyemail(String email)
+    {
+        String pack =null;
+         try
+        {
+       sfobj = (SessionFactory) scx.getAttribute("sf");
+            session = sfobj.openSession();
+            tx = session.beginTransaction();
+            //String b = "branchoperator";
+            //String c = "traineer";
+            Logingym l=null;
+            
+            Query q = session.createQuery("from Logingym where Username=:uname");
+            q.setString("uname",email);
+            
+            List<Logingym> results = q.list();
+
+            l =(Logingym)results.get(0);
+            System.out.println("ppp");
+            if(l==null)
+            {
+               
+                System.out.println("helll");
+                pack="enter valid email";
+            }
+        }
+         catch(Exception e){
+             pack="enter valid email";
+             System.out.println(e.getMessage());
+         }
+         return pack;
+    }
+      
+       public String verifybranchname(String branchname,int id)
+    {
+        String pack =null;
+         try
+        {
+       sfobj = (SessionFactory) scx.getAttribute("sf");
+            session = sfobj.openSession();
+            tx = session.beginTransaction();
+            //String b = "branchoperator";
+            //String c = "traineer";
+            Addbranch l=null;
+            
+            Query q = session.createQuery("from Addbranch where gymid=:gymid and branchname=:bname");
+            q.setString("gymid",String.valueOf(id));
+            q.setString("bname",branchname);
+            
+            List<Addbranch> results = q.list();
+
+            l =(Addbranch)results.get(0);
+            if(l!=null)
+            {
+                pack="already exists";
+            }
+        }
+         catch(Exception e){
+             System.out.println(e.getMessage());
+         }
+         return pack;
+    }
+         public String verifybranch(String branchname)
+    {
+        String pack =null;
+         try
+        {
+       sfobj = (SessionFactory) scx.getAttribute("sf");
+            session = sfobj.openSession();
+            tx = session.beginTransaction();
+            //String b = "branchoperator";
+            //String c = "traineer";
+            addbranchoperator l=null;
+            
+            Query q = session.createQuery("from addbranchoperator where branchname=:bname");
+          
+            q.setString("bname",branchname);
+            
+            List<addbranchoperator> results = q.list();
+
+            l =(addbranchoperator)results.get(0);
+            if(l!=null)
+            {
+                pack="already exists";
+            }
+        }
+         catch(Exception e){
+             System.out.println(e.getMessage());
+         }
+         return pack;
     }
 }

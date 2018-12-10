@@ -176,7 +176,7 @@
                       <div class="col-md-3">
                         <div class="form-group">
                           <label class="bmd-label-floating">Branch Name</label>
-                          <input type="text" name="branchname" class="form-control" required>
+                          <input type="text" name="branchname" id="branchname" class="form-control" required>
                         </div>
                       </div>
                       <div class="col-md-4">
@@ -314,6 +314,17 @@
   <script>
     $(document).ready(function() {
       $().ready(function() {
+            $("#branchname").focusout(function(){
+   
+   var branchname=$("#branchname").val();
+   //alert(packagename);
+   $.post("<%=application.getContextPath()%>/Verifygymname",{"branch":branchname},function(data,status){
+ 
+     alert(data);
+     $("#branchname").val("");
+  
+    });
+});
         $sidebar = $('.sidebar');
 
         $sidebar_img_container = $sidebar.find('.sidebar-background');

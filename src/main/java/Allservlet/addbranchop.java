@@ -49,11 +49,13 @@ System.out.println("hiii");
      long pno=Long.parseLong(request.getParameter("phoneno"));
         System.out.println(pno);
         System.out.println("bhgvyhviu");
+         DataOperation p=new DataOperation(scx);
      String area=request.getParameter("area");
      String street=request.getParameter("street");
      String pcode=request.getParameter("postalcode");
      String email=request.getParameter("email");
-     String pass=request.getParameter("password");
+     //String pass=request.getParameter("password");
+     String pass=p.randompassword();
      String bname=request.getParameter("branchname");
      addbranchoperator bo=new addbranchoperator();
      bo.setFirstname(fname);
@@ -67,9 +69,9 @@ System.out.println("hiii");
      bo.setPassword(pass);
      bo.setBranchname(bname);
         System.out.println("value"+bname);
-   DataOperation p=new DataOperation(scx);
+  
       p.addbranchoperator(bo);
-     response.sendRedirect(scx.getContextPath()+"Viewbranchoperator");
+     response.sendRedirect(scx.getContextPath()+"/Viewbranchoperator");
     }
 
 }
