@@ -205,12 +205,13 @@ public class DataOperation {
     }
     
     
-      public String addbranchoperator(addbranchoperator abo)
+      public String addbranchoperator(addbranchoperator abo,Login l,Addgym gym)
     {
         try {
              sfobj = (SessionFactory) scx.getAttribute("sf");
             session = sfobj.openSession();
             tx = session.beginTransaction();
+            
             Query q = session.createQuery("from Addbranch where branchname=:branchname");
             System.out.println("bsvsbvsdjvsdnvsdnvsinvsidnvsdvns");
                        q.setString("branchname",abo.getBranchname());
@@ -225,9 +226,13 @@ public class DataOperation {
                           System.out.println("jfdlj"+b2.getBranchname());
                           b2.setAbo(abo);
                           abo.setA(b2);
+                          Set<Login> ab = new HashSet<Login>();
+                        ab= gym.getLogin();
+                        ab.add(l);
+                        l.setAdgym(gym);
 //                          session.save(abo);
                           session.save(b2);
-                          
+                          session.save(l);
                         
             
            n="branchoperator Added";
