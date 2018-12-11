@@ -5,6 +5,8 @@
  */
 package Allservlet;
 
+import com.mycompany.loginmodule.Addgym;
+import com.mycompany.loginmodule.Login;
 import com.mycompany.loginmodule.addbranchoperator;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,6 +16,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import operations.DataOperation;
 
 /**
@@ -69,8 +72,14 @@ System.out.println("hiii");
      bo.setPassword(pass);
      bo.setBranchname(bname);
         System.out.println("value"+bname);
-  
-      p.addbranchoperator(bo);
+        Login l=new Login();
+        l.setLoginid(email);
+        l.setPassword(pass);
+         l.setType("branchoperator");
+        HttpSession hs = request.getSession(true);
+        int gymid = Integer.parseInt(hs.getAttribute("gymid").toString());
+        Addgym gym = p.getGymID(gymid);
+      p.addbranchoperator(bo, l, gym);
      response.sendRedirect(scx.getContextPath()+"/Viewbranchoperator");
     }
 

@@ -27,6 +27,18 @@ public class Login implements Serializable {
         this.userid = userid;
     }
     
+    @ManyToOne
+    @JoinColumn(name="gymid")
+     private Addgym adgym;
+
+    public Addgym getAdgym() {
+        return adgym;
+    }
+
+    public void setAdgym(Addgym adgym) {
+        this.adgym = adgym;
+    }
+    
     
     String loginid;
 

@@ -192,6 +192,19 @@ public class Addgym {
     public void setGyinfo(Gyminfo gyinfo) {
         this.gyinfo = gyinfo;
     }
+     @OneToMany(cascade=CascadeType.ALL,mappedBy = "adgym",fetch = FetchType.EAGER)
+       // @JoinColumn(name="cart_id")
+	private Set<Login> login;
+
+    public Set<Login> getLogin() {
+        return login;
+    }
+
+    public void setLogin(Set<Login> login) {
+        this.login = login;
+    }
+     
+     
        
       @OneToMany(cascade=CascadeType.ALL,mappedBy = "adgym", fetch = FetchType.LAZY)
        // @JoinColumn(name="cart_id")
