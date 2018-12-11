@@ -58,3 +58,19 @@ function createDiv2(fid)
     var ctrl=$("<div/>").attr({id:fid});
     return ctrl;
 }
+function createTextbox2(fid)
+{
+    var ctrl=$("<input/>").attr({
+        type:'text',
+        id:fid,
+        name:'facilityname',
+        placeholder:'Facility Name',
+        class: 'form-control' 
+    });
+    return ctrl;
+}
+function createDiv3(fid)
+{
+    var ctrl=$("<div/>").attr({id:fid});
+    return ctrl;
+}

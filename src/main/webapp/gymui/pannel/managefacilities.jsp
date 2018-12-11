@@ -1,13 +1,31 @@
 <%-- 
-    Document   : managebranches
-    Created on : Oct 11, 2018, 12:29:43 PM
+    Document   : gymadmin
+    Created on : Oct 11, 2018, 11:49:52 AM
     Author     : sneh pael
 --%>
 
-<%@page import="com.mycompany.loginmodule.addbranchoperator"%>
 <%@page import="java.util.Iterator"%>
+<%@page import="com.mycompany.loginmodule.Addbranch"%>
 <%@page import="java.util.HashSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    response.setHeader("Cache-Control","no-cache");
+     response.setHeader("Cache-Control","no-store");
+     response.setDateHeader("Expires", 0);
+     response.setHeader("Pragma","no-cache");
+     System.out.println("{{{{{");
+     
+    Integer id=(Integer)session.getAttribute("gymid");
+    System.out.println("...id...+"+id);
+            if(id==null)
+            {
+                System.out.println("eeee");
+                request.setAttribute("msg","Session has ended");
+                RequestDispatcher rd=request.getRequestDispatcher("/adminlogin.jsp");
+                rd.forward(request, response);
+                System.out.println("uuuu");
+            }
+    %>
 <!DOCTYPE html>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,21 +33,22 @@
 <head>
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="<%=application.getContextPath()%>/gymui/images/apple-icon.png">
-  <link rel="icon" type="image/png" href="<%=application.getContextPath()%>/gymui/js/favicon.png">
+  <link rel="icon" type="image/png" href="<%=application.getContextPath()%>/gymui/images/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    MANAGE BRANCH OPERATOR
+    GYM ADMIN
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+   <link rel="stylesheet" href="<%=application.getContextPath()%>/gymui/css/table.css">
   <!-- CSS Files -->
-  <link rel="stylesheet" href="<%=application.getContextPath()%>/gymui/css/table.css">
   <link href="<%=application.getContextPath()%>/gymui/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="<%=application.getContextPath()%>/gymui/css/demo.css" rel="stylesheet" />
   
+
 </head>
 
 <body class="dark-edition">
@@ -53,33 +72,35 @@
               <p>Dashboard</p>
             </a>
           </li> -->
-          
-  <li class="nav-item">
-            <a class="nav-link" href="<%=application.getContextPath()%>/Viewbranch">
-              <i class="material-icons"></i>
-              <p>Manage Branches</p>
-            </a>
-          </li>
-         
+          <li class="nav-item dropdown">
+                <a class="nav-link " href="<%=application.getContextPath()%>/gymui/pannel/gymadmin.jsp" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="material-icons "></i>
+                  <span class="notification">Manage Branches</span>
+                  <p class="d-lg-none d-md-block">
+                    Manage Branches
+                  </p>
+                </a>
+              </li>
+
           <!-- <li class="nav-item active " >
             <a class="nav-link" href="./user.html">
               <i class="material-icons"></i>
               <p>Manage Branches</p>
             </a>
           </li> -->
-         <li class="nav-item active">
+         <li class="nav-item ">
             <a class="nav-link" href="<%=application.getContextPath()%>/Viewbranchoperator">
               <i class="material-icons"></i>
               <p>Manage Branch Operator</p>
             </a>
           </li>
-            <li class="nav-item ">
+           <li class="nav-item active">
             <a class="nav-link" href="<%=application.getContextPath()%>/gymui/pannel/managefacilities.jsp">
               <i class="material-icons"></i>
               <p>Manage Facilities</p>
             </a>
           </li>
-           <li class="nav-item dropdown">
+          <li class="nav-item dropdown">
                 <a class="nav-link " href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons "></i>
                   <span class="notification">Home Page Editing</span>
@@ -117,7 +138,7 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="javascript:void(0)">Manage Branches</a>
+            <a class="navbar-brand" href="javascript:void(0)">Manage Facilities</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
             <span class="sr-only">Toggle navigation</span>
@@ -133,7 +154,7 @@
                   <i class="material-icons">search</i>
                   <div class="ripple-container"></div>
                 </button>
-              </div>
+             
             </form>
             <ul class="navbar-nav">
               <li class="nav-item">
@@ -161,12 +182,13 @@
                 </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="javascript:void(0)">
-                  <i class="material-icons">person</i>
+                <a class="nav-link" href="<%=application.getContextPath()%>/gymui/pannel/logout.jsp">
+                  <i class="material-icons">logout</i>
                   <p class="d-lg-none d-md-block">
                     Account
                   </p>
                 </a>
+                  
               </li>
             </ul>
           </div>
@@ -175,31 +197,31 @@
       <!-- End Navbar -->
       <div class="content">
         <div class="container-fluid">
-
           <div class="row">
             <div class="col-xl-12 col-lg-12">
-               <div class="col-sm-4"> 
-                        <a href="<%=application.getContextPath()%>/gymui/pannel/addbranchoperator.jsp"> <button type="button" class="btn btn-primary pull-right">ADD Branch Operator
+                <div class="col-sm-4"> 
+                        <a href="<%=application.getContextPath()%>/gymui/pannel/addfacilities.jsp"> <button type="button" class="btn btn-primary pull-right">ADD Facilities
                         </button></a>
                         </div>
-                    </div>
-  <div class="card">
+            </div>
+              
+ <div class="card">
                 <div class="card-header card-header-primary">
                   <h4 class="card-title" align="Center">BRANCH LIST</h4>
                   <p class="card-category"></p>
                 </div>
                  <table id="gym"  class="display" style="width:100%; color: purple;">
                    <thead>
-                      <th>branchoperatorID</th>
-                      <th>firstname</th>
-                      <th>middlename</th>
-                      <th>lastname</th>
-                      <th>area</th>
-                      <th>branchname</th>
+                      <th>branchID</th>
+                      <th>barnchName</th>
+                      <th>branchstreet</th>
+                      <th>brancharea</th>
+                      <th>branchpostalcode</th>
+
                     </thead>
                     <tbody>
                                           <%!
-           HashSet<addbranchoperator> setbranchop=null;
+           HashSet<Addbranch> setbranch=null;
           %>
    
           
@@ -208,24 +230,22 @@
           System.out.println("session="+session); 
           
               
-             setbranchop=(HashSet<addbranchoperator>)session.getAttribute("setbranchop");
-            Iterator<addbranchoperator> it=setbranchop.iterator();
+             setbranch=(HashSet<Addbranch>)session.getAttribute("setbranch");
+            Iterator<Addbranch> it=setbranch.iterator();
             System.out.println("kkkk");
-            System.out.print("iterator"+it.toString());
             while(it.hasNext())
             {
-               addbranchoperator adbranch=it.next();
+                Addbranch adbranch=it.next();
               
             
           %>
 
           <tr id="<%=adbranch.getId()%>">
                           <td><%= adbranch.getId()%></td>
-                          <td><%= adbranch.getFirstname()%></td>
-                           <td><%= adbranch.getMiddlename()%></td>
-                            <td><%=adbranch.getLastname()%></td>
+                          <td><%= adbranch.getBranchname()%></td>
+                           <td><%= adbranch.getStreet()%></td>
                             <td><%=adbranch.getArea()%></td>
-                              <td><%=adbranch.getBranchname()%></td>
+                              <td><%=adbranch.getPostalcode()%></td>
                       </tr>
                       <%}%>
                     </tbody>
@@ -336,12 +356,11 @@
   <script src="<%=application.getContextPath()%>/gymui/js/material-dashboard.js?v=2.1.0"></script>
   <!-- Material Dashboard DEMO methods, don't include it in your project! -->
   <script src="<%=application.getContextPath()%>/gymui/js/demo.js"></script>
+      <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
   <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
   <script>
   $(function(){
-
-        $("#gym").dataTable();
-   
+    $("#gym").dataTable();
   })
   </script>
   <script>
