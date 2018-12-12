@@ -1,31 +1,13 @@
 <%-- 
-    Document   : gymadmin
-    Created on : Oct 11, 2018, 11:49:52 AM
+    Document   : addbranches
+    Created on : Oct 11, 2018, 12:27:09 PM
     Author     : sneh pael
 --%>
 
 <%@page import="java.util.Iterator"%>
-<%@page import="com.mycompany.loginmodule.Addbranch"%>
 <%@page import="java.util.HashSet"%>
+<%@page import="com.mycompany.loginmodule.Addpackage"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%
-    response.setHeader("Cache-Control","no-cache");
-     response.setHeader("Cache-Control","no-store");
-     response.setDateHeader("Expires", 0);
-     response.setHeader("Pragma","no-cache");
-     System.out.println("{{{{{");
-     
-    Integer id=(Integer)session.getAttribute("gymid");
-    System.out.println("...id...+"+id);
-            if(id==null)
-            {
-                System.out.println("eeee");
-                request.setAttribute("msg","Session has ended");
-                RequestDispatcher rd=request.getRequestDispatcher("/adminlogin.jsp");
-                rd.forward(request, response);
-                System.out.println("uuuu");
-            }
-    %>
 <!DOCTYPE html>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,13 +24,10 @@
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-   <link rel="stylesheet" href="<%=application.getContextPath()%>/gymui/css/table.css">
   <!-- CSS Files -->
   <link href="<%=application.getContextPath()%>/gymui/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="<%=application.getContextPath()%>/gymui/css/demo.css" rel="stylesheet" />
-  
-
 </head>
 
 <body class="dark-edition">
@@ -72,16 +51,13 @@
               <p>Dashboard</p>
             </a>
           </li> -->
-          <li class="nav-item dropdown active">
-                <a class="nav-link " href="<%=application.getContextPath()%>/gymui/pannel/gymadmin.jsp" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="material-icons "></i>
-                  <span class="notification">Manage Branches</span>
-                  <p class="d-lg-none d-md-block">
-                    Manage Branches
-                  </p>
-                </a>
-              </li>
-
+          
+  <li class="nav-item">
+            <a class="nav-link" href="<%=application.getContextPath()%>/gymui/pannel/gymadmin.jsp">
+              <i class="material-icons"></i>
+              <p>Manage Branches</p>
+            </a>
+          </li>
           <!-- <li class="nav-item active " >
             <a class="nav-link" href="./user.html">
               <i class="material-icons"></i>
@@ -89,24 +65,25 @@
             </a>
           </li> -->
          <li class="nav-item ">
-            <a class="nav-link" href="<%=application.getContextPath()%>/Viewbranchoperator">
+            <a class="nav-link" href="<%=application.getContextPath()%>/gymui/pannel/managebranchoperator.jsp">
               <i class="material-icons"></i>
               <p>Manage Branch Operator</p>
             </a>
           </li>
-           <li class="nav-item ">
+           <li class="nav-item">
             <a class="nav-link" href="<%=application.getContextPath()%>/gymui/pannel/managefacilities.jsp">
               <i class="material-icons"></i>
               <p>Manage Facilities</p>
             </a>
           </li>
-           <li class="nav-item ">
+           <li class="nav-item active ">
             <a class="nav-link" href="<%=application.getContextPath()%>/gymui/pannel/managegympackage.jsp">
               <i class="material-icons"></i>
               <p>Manage Package</p>
             </a>
           </li>
-          <li class="nav-item dropdown">
+          
+            <li class="nav-item dropdown">
                 <a class="nav-link " href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons "></i>
                   <span class="notification">Home Page Editing</span>
@@ -144,7 +121,7 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="javascript:void(0)">Manage Branches</a>
+            <a class="navbar-brand" href="javascript:void(0)">Manage Gym Package</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
             <span class="sr-only">Toggle navigation</span>
@@ -160,7 +137,7 @@
                   <i class="material-icons">search</i>
                   <div class="ripple-container"></div>
                 </button>
-             
+              </div>
             </form>
             <ul class="navbar-nav">
               <li class="nav-item">
@@ -188,13 +165,12 @@
                 </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="<%=application.getContextPath()%>/gymui/pannel/logout.jsp">
-                  <i class="material-icons">logout</i>
+                <a class="nav-link" href="javascript:void(0)">
+                  <i class="material-icons">person</i>
                   <p class="d-lg-none d-md-block">
                     Account
                   </p>
                 </a>
-                  
               </li>
             </ul>
           </div>
@@ -205,59 +181,79 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-xl-12 col-lg-12">
-                <div class="col-sm-4"> 
-                        <a href="<%=application.getContextPath()%>/gymui/pannel/addbranches.jsp"> <button type="button" class="btn btn-primary pull-right">ADD BRANCH
-                        </button></a>
-                        </div>
-            </div>
-              
- <div class="card">
+              <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title" align="Center">BRANCH LIST</h4>
+                  <h4 class="card-title" align="Center">ADD PACKAGE</h4>
                   <p class="card-category"></p>
                 </div>
-                 <table id="gym"  class="display" style="width:100%; color: purple;">
-                   <thead>
-                      <th>branchID</th>
-                      <th>barnchName</th>
-                      <th>branchstreet</th>
-                      <th>brancharea</th>
-                      <th>branchpostalcode</th>
-
-                    </thead>
-                    <tbody>
-                                          <%!
-           HashSet<Addbranch> setbranch=null;
+                <div class="card-body">
+                    <form action="<%=application.getContextPath()%>/Aaddbranch" method="post">
+                    <div class="row">                      
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Package Name</label>
+                          <input type="text" name="packagename" id="packagename" class="form-control" required>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Amount</label>
+                          <input type="text" name="amount" class="form-control" required>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Time Period In Months</label>
+                          <input type="text" name="timeperiod" class="form-control" required>
+                        </div>
+                      </div>
+                            </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                         <div class="form-group">
+      <label for="sell">Checked the Facilities</label>
+       <%!
+           HashSet<Addpackage> setpack=null;
           %>
    
           
               <%
          
           System.out.println("session="+session); 
-          
+          System.out.println("setpack...="+setpack);
               
-             setbranch=(HashSet<Addbranch>)session.getAttribute("setbranch");
-            Iterator<Addbranch> it=setbranch.iterator();
+             setpack=(HashSet<Addpackage>)session.getAttribute("setpack");
+            Iterator<Addpackage> it=setpack.iterator();
             System.out.println("kkkk");
             while(it.hasNext())
             {
-                Addbranch adbranch=it.next();
-              
+                Addpackage adpack=it.next();
             
           %>
-
-          <tr id="<%=adbranch.getId()%>">
-                          <td><%= adbranch.getId()%></td>
-                          <td><%= adbranch.getBranchname()%></td>
-                           <td><%= adbranch.getStreet()%></td>
-                            <td><%=adbranch.getArea()%></td>
-                              <td><%=adbranch.getPostalcode()%></td>
-                      </tr>
-                      <%}%>
-                    </tbody>
-                  </table>
+          <div class="row">
+                      <div class="col-md-8">
+          <input type="checkbox" value="<%=adpack.getName()%>"><%=adpack.getName()%></input>
+          
+<%}%>
+                      </div>
+          </div>
+                         </div>
+                    </div>   
+                    </div>
                 </div>
+              </div>
+                      <div class="row">
+                      <div class="col-md-8"> 
+                         <button type="submit" class="btn btn-primary pull-right">Submit</button>
+                        </div>
+                      </div>
+                
+                    
 
+            </div>
+</form>
 
             </div>
             <div class="col-xl-4 col-lg-12">
@@ -362,16 +358,20 @@
   <script src="<%=application.getContextPath()%>/gymui/js/material-dashboard.js?v=2.1.0"></script>
   <!-- Material Dashboard DEMO methods, don't include it in your project! -->
   <script src="<%=application.getContextPath()%>/gymui/js/demo.js"></script>
-      <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
-  <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
-  <script>
-  $(function(){
-    $("#gym").dataTable();
-  })
-  </script>
   <script>
     $(document).ready(function() {
       $().ready(function() {
+            $("#branchname").focusout(function(){
+   
+   var branchname=$("#branchname").val();
+   //alert(packagename);
+   $.post("<%=application.getContextPath()%>/Verifygymname",{"branch":branchname},function(data,status){
+ 
+     alert(data);
+     $("#branchname").val("");
+  
+    });
+});
         $sidebar = $('.sidebar');
 
         $sidebar_img_container = $sidebar.find('.sidebar-background');
