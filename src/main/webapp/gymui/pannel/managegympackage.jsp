@@ -72,7 +72,7 @@
               <p>Dashboard</p>
             </a>
           </li> -->
-          <li class="nav-item dropdown active">
+          <li class="nav-item dropdown">
                 <a class="nav-link " href="<%=application.getContextPath()%>/gymui/pannel/gymadmin.jsp" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons "></i>
                   <span class="notification">Manage Branches</span>
@@ -94,7 +94,7 @@
               <p>Manage Branch Operator</p>
             </a>
           </li>
-           <li class="nav-item ">
+           <li class="nav-item active">
             <a class="nav-link" href="<%=application.getContextPath()%>/gymui/pannel/managefacilities.jsp">
               <i class="material-icons"></i>
               <p>Manage Facilities</p>
@@ -144,7 +144,7 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="javascript:void(0)">Manage Branches</a>
+            <a class="navbar-brand" href="javascript:void(0)">Manage Gym Package</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
             <span class="sr-only">Toggle navigation</span>
@@ -206,14 +206,14 @@
           <div class="row">
             <div class="col-xl-12 col-lg-12">
                 <div class="col-sm-4"> 
-                        <a href="<%=application.getContextPath()%>/gymui/pannel/addbranches.jsp"> <button type="button" class="btn btn-primary pull-right">ADD BRANCH
+                        <a href="<%=application.getContextPath()%>/Viewpackage"> <button type="button" class="btn btn-primary pull-right">ADD Package
                         </button></a>
                         </div>
             </div>
               
  <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title" align="Center">BRANCH LIST</h4>
+                  <h4 class="card-title" align="Center">PACKAGE LIST</h4>
                   <p class="card-category"></p>
                 </div>
                  <table id="gym"  class="display" style="width:100%; color: purple;">
