@@ -4,6 +4,7 @@
     Author     : sneh pael
 --%>
 
+<%@page import="com.mycompany.loginmodule.Facility"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="com.mycompany.loginmodule.Addbranch"%>
 <%@page import="java.util.HashSet"%>
@@ -213,21 +214,17 @@
               
  <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title" align="Center">BRANCH LIST</h4>
+                  <h4 class="card-title" align="Center">FACILITY LIST</h4>
                   <p class="card-category"></p>
                 </div>
                  <table id="gym"  class="display" style="width:100%; color: purple;">
                    <thead>
-                      <th>branchID</th>
-                      <th>barnchName</th>
-                      <th>branchstreet</th>
-                      <th>brancharea</th>
-                      <th>branchpostalcode</th>
-
+                      <th>ID</th>
+                      <th>Name</th>
                     </thead>
                     <tbody>
                                           <%!
-           HashSet<Addbranch> setbranch=null;
+           HashSet<Facility> setbranch=null;
           %>
    
           
@@ -236,22 +233,20 @@
           System.out.println("session="+session); 
           
               
-             setbranch=(HashSet<Addbranch>)session.getAttribute("setbranch");
-            Iterator<Addbranch> it=setbranch.iterator();
+             setbranch=(HashSet<Facility>)session.getAttribute("viewfacility");
+            Iterator<Facility> it=setbranch.iterator();
             System.out.println("kkkk");
             while(it.hasNext())
             {
-                Addbranch adbranch=it.next();
-              
+                Facility f=it.next();
+           
             
           %>
 
-          <tr id="<%=adbranch.getId()%>">
-                          <td><%= adbranch.getId()%></td>
-                          <td><%= adbranch.getBranchname()%></td>
-                           <td><%= adbranch.getStreet()%></td>
-                            <td><%=adbranch.getArea()%></td>
-                              <td><%=adbranch.getPostalcode()%></td>
+          <tr id="<%=f.getId()%>">
+                          <td><%= f.getId()%></td>
+                          <td><%= f.getName()%></td>
+                           
                       </tr>
                       <%}%>
                     </tbody>

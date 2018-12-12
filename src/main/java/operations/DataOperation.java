@@ -10,6 +10,7 @@ import com.mycompany.loginmodule.Achievements;
 import com.mycompany.loginmodule.Addbranch;
 import com.mycompany.loginmodule.Addgym;
 import com.mycompany.loginmodule.Addpackage;
+import com.mycompany.loginmodule.Facility;
 import com.mycompany.loginmodule.Gallery;
 import com.mycompany.loginmodule.Gyminfo;
 import com.mycompany.loginmodule.Login;
@@ -688,6 +689,7 @@ public class DataOperation {
            ag=(Addgym)session.load(Addgym.class,gymid);
            tx.commit();
          session.close();
+         
         }
         catch(Exception e)
         {
@@ -845,4 +847,85 @@ public class DataOperation {
          }
          return pack;
     }
+         
+         public void addfacility(int gymid,String[] faci)
+         {
+               try
+        {
+       sfobj = (SessionFactory) scx.getAttribute("sf");
+            session = sfobj.openSession();
+            tx = session.beginTransaction();
+             Addgym gym= (Addgym) session.load(Addgym.class,gymid);
+          Set<Facility> fac = new HashSet<Facility>();
+        fac=gym.getFacility();
+         System.out.println("pppp"+faci.length);
+       for(int i=0;i<faci.length;i++)
+       {
+          
+           Facility f=new Facility();
+           System.out.println("jjj-"+faci[i]);
+                   f.setName(faci[i]);
+                   f.setAdgym(gym);
+                   fac.add(f);
+       }
+       
+      gym.setFacility(fac);
+         session.save(gym);
+        tx.commit();
+        session.close();
+        }
+       catch(Exception e)
+       {
+           System.out.println(e.getMessage());
+       }
+         }
+            public HashSet<Facility> getfacility(int gymid)
+    {
+       HashSet<Facility> setfacility=null;
+         try {
+             System.out.println("before calling");
+             setfacility=new HashSet<Facility>();
+             System.out.println("line 55"+scx);
+               sfobj = (SessionFactory) scx.getAttribute("sf");
+               System.out.println("line 57"+sfobj);
+                        session = sfobj.openSession();
+                        System.out.println("line 59");
+                        tx = session.beginTransaction();
+                        //System.out.println("get package"); 
+                        System.out.println("gymid..."+gymid);
+                        Facility p1=null;
+                      /*    Addgym l1=null;
+        Set<Addbranch> ab=null;
+        int gymidi=0;
+          l1 = (Addgym) session.load(Addgym.class,gymid);
+          ab=l1.getAdbarnch();
+            Iterator<Addbranch> it=ab.iterator();
+            System.out.println("kkkk");
+            while(it.hasNext())
+            {
+                Addbranch adbr=it.next();
+                gymidi=adbr.getId();
+                System.out.println("id===="+gymidi);
+            }*/
+                        Query q = session.createQuery("from Facility where gymid=:gymidi");
+                        q.setString("gymidi",String.valueOf(gymid));
+                        System.out.println("gp 59");
+                        List<Facility> results = q.list();
+                        System.out.println("query");
+                        for (int i = 0; i <= results.size(); i++) {
+                            p1 = (Facility) results.get(i);
+                            Facility p2=new Facility(p1.getId(),p1.getName());
+                            setfacility.add(p2);
+                        }
+                        
+                        tx.commit();
+                    session.close();
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+       
+         return setfacility;
+    }
+
+         
 }

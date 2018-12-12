@@ -193,13 +193,13 @@
                   <p class="card-category"></p>
                 </div>
                 <div class="card-body">
-                    <form action="<%=application.getContextPath()%>/" method="post" enctype="multipart/form-data">
+                    <form action="<%=application.getContextPath()%>/Addfacility" method="get">
                         <div id="slide12">
                         <div class="row">  
                             <div class="col-md-6">
                             <div class="form-group">
                           <label class="bmd-label-floating">Facilities Name</label>
-                          <input type="text" name="imagedesc" class="form-control">
+                          <input type="text" name="faci" class="form-control">
                         </div>
                             </div>     
                       <div class="col-md-3">
@@ -523,7 +523,7 @@
         alert(ctrld);
         mydiv=createDiv3('d'+ctrld);
         alert(mydiv);
-         sctrl=createTextbox2('s'+ctrld);
+         sctrl=createTextbox3('s'+ctrld);
         alert(sctrl);
         btnctrl=createButton("b"+ctrld);
         $(btnctrl).click(function()
