@@ -53,6 +53,18 @@ function createTextbox2(fid)
     });
     return ctrl;
 }
+
+function createTextbox3(fid)
+{
+    var ctrl=$("<input/>").attr({
+        type:'text',
+        id:fid,
+        name:'faci',
+        placeholder:'Facilities name',
+        class: 'form-control' 
+    });
+    return ctrl;
+}
 function createDiv2(fid)
 {
     var ctrl=$("<div/>").attr({id:fid});

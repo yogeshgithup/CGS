@@ -95,7 +95,7 @@
             </a>
           </li>
            <li class="nav-item ">
-            <a class="nav-link" href="<%=application.getContextPath()%>/gymui/pannel/managefacilities.jsp">
+            <a class="nav-link" href="<%=application.getContextPath()%>/Viewfacilities">
               <i class="material-icons"></i>
               <p>Manage Facilities</p>
             </a>

@@ -122,14 +122,18 @@
        $("#email").focusout(function(){
   
    var email=$("#email").val();
-//   alert(gymname);
+//   alert(gymname)
+if(email!=="")
+{
    $.post("<%=application.getContextPath()%>/Verifygymname",{"email":email},function(data,status){
  alert("hello");
      alert(data);
   $("#email").val("");
     });
+}
 });
-    $("#msg").fadeOut(3000);
+
+$("#msg").fadeOut(3000);
         $sidebar = $('.sidebar');
     });
     });

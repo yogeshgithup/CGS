@@ -241,4 +241,17 @@ public class Addgym {
     public void setGallery(Set<Gallery> gallery) {
         this.gallery = gallery;
     }
+    
+     @OneToMany(cascade=CascadeType.ALL,mappedBy = "adgym",fetch = FetchType.LAZY)
+	private Set<Facility> facility;
+
+    public Set<Facility> getFacility() {
+        return facility;
+    }
+
+    public void setFacility(Set<Facility> facility) {
+        this.facility = facility;
+    }
+     
+     
 }

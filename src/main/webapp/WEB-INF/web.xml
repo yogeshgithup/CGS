@@ -77,6 +77,18 @@
         <servlet-name>Verifygymname</servlet-name>
         <servlet-class>Allservlet.Verifygymname</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Facility</servlet-name>
+        <servlet-class>com.mycompany.loginmodule.Facility</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Addfacility</servlet-name>
+        <servlet-class>Allservlet.Addfacility</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Viewfacilities</servlet-name>
+        <servlet-class>Allservlet.Viewfacilities</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Loginverify</servlet-name>
         <url-pattern>/Loginverify</url-pattern>
@@ -144,6 +156,18 @@
     <servlet-mapping>
         <servlet-name>Verifygymname</servlet-name>
         <url-pattern>/Verifygymname</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Facility</servlet-name>
+        <url-pattern>/Facility</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Addfacility</servlet-name>
+        <url-pattern>/Addfacility</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Viewfacilities</servlet-name>
+        <url-pattern>/Viewfacilities</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
