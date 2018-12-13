@@ -23,8 +23,9 @@ import operations.DataOperation;
  *
  * @author Shravan
  */
-public class Viewfacilities extends HttpServlet {
-  ServletContext scx;
+public class Facpackage extends HttpServlet {
+
+    ServletContext scx;
 public void init(ServletConfig sc) throws ServletException 
      {        
          super.init(sc);
@@ -55,13 +56,13 @@ public void init(ServletConfig sc) throws ServletException
             HashSet<Facility> listCatagory =pko.getfacility(id);
        
            
-           session.setAttribute("viewfacility",listCatagory);
+           session.setAttribute("viewfac",listCatagory);
             
           if(session!=null)
           {
               
               
-                    response.sendRedirect(scx.getContextPath()+"/gymui/pannel/managefacilities.jsp");
+                    response.sendRedirect(scx.getContextPath()+"/gymui/pannel/addgympackage.jsp");
               
           }
            

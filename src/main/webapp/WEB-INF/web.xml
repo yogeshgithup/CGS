@@ -89,6 +89,14 @@
         <servlet-name>Viewfacilities</servlet-name>
         <servlet-class>Allservlet.Viewfacilities</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>facpackage</servlet-name>
+        <servlet-class>Allservlet.facpackage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Facpackage</servlet-name>
+        <servlet-class>Allservlet.Facpackage</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Loginverify</servlet-name>
         <url-pattern>/Loginverify</url-pattern>
@@ -168,6 +176,14 @@
     <servlet-mapping>
         <servlet-name>Viewfacilities</servlet-name>
         <url-pattern>/Viewfacilities</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>facpackage</servlet-name>
+        <url-pattern>/facpackage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Facpackage</servlet-name>
+        <url-pattern>/Facpackage</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

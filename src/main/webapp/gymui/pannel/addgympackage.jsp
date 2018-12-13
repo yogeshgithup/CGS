@@ -4,6 +4,7 @@
     Author     : sneh pael
 --%>
 
+<%@page import="com.mycompany.loginmodule.Facility"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.HashSet"%>
 <%@page import="com.mycompany.loginmodule.Addpackage"%>
@@ -215,7 +216,7 @@
                          <div class="form-group">
       <label for="sell">Checked the Facilities</label>
        <%!
-           HashSet<Addpackage> setpack=null;
+           HashSet<Facility> setpack=null;
           %>
    
           
@@ -224,12 +225,12 @@
           System.out.println("session="+session); 
           System.out.println("setpack...="+setpack);
               
-             setpack=(HashSet<Addpackage>)session.getAttribute("setpack");
-            Iterator<Addpackage> it=setpack.iterator();
+             setpack=(HashSet<Facility>)session.getAttribute("viewfac");
+            Iterator<Facility> it=setpack.iterator();
             System.out.println("kkkk");
             while(it.hasNext())
             {
-                Addpackage adpack=it.next();
+               Facility adpack=it.next();
             
           %>
           <div class="row">
