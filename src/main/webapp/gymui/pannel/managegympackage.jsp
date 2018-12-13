@@ -206,7 +206,7 @@
           <div class="row">
             <div class="col-xl-12 col-lg-12">
                 <div class="col-sm-4"> 
-                        <a href="<%=application.getContextPath()%>/Viewpackage"> <button type="button" class="btn btn-primary pull-right">ADD Package
+                        <a href="<%=application.getContextPath()%>/Facpackage"> <button type="button" class="btn btn-primary pull-right">ADD Package
                         </button></a>
                         </div>
             </div>
