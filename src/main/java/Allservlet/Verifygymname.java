@@ -7,8 +7,10 @@ package Allservlet;
 
 import com.mycompany.loginmodule.Addgym;
 import com.mycompany.loginmodule.Logingym;
+import com.mycompany.loginmodule.Pack_facility;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashSet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -103,6 +105,20 @@ public class Verifygymname extends HttpServlet {
             if (answer.equals("already exists")) {
                 out.println(answer);
             }
+        }
+        
+          if (request.getParameter("gympackage") != null) {
+         
+        
+            String packageid = request.getParameter("gympackage");
+       System.out.println(packageid);
+
+           //HashSet<Pack_facility> pf=new HashSet();
+        String pf=doo.getpacfacility(Integer.parseInt(packageid));
+          if(pf!=null)
+          {
+              out.println(pf);
+          }
         }
     }
     

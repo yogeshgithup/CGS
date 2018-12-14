@@ -188,7 +188,7 @@
                   <p class="card-category"></p>
                 </div>
                 <div class="card-body">
-                    <form action="<%=application.getContextPath()%>/Aaddbranch" method="post">
+                    <form action="<%=application.getContextPath()%>/Addgympackage" method="post">
                     <div class="row">                      
                       <div class="col-md-6">
                         <div class="form-group">
@@ -235,7 +235,7 @@
           %>
           <div class="row">
                       <div class="col-md-8">
-          <input type="checkbox" value="<%=adpack.getName()%>"><%=adpack.getName()%></input>
+          <input type="checkbox" name="facility" value="<%=adpack.getName()%>"><%=adpack.getName()%></input>
           
 <%}%>
                       </div>

@@ -4,6 +4,9 @@
     Author     : sneh pael
 --%>
 
+<%@page import="com.mycompany.loginmodule.Pack_facility"%>
+<%@page import="java.util.Set"%>
+<%@page import="com.mycompany.loginmodule.Gympackage"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="com.mycompany.loginmodule.Addbranch"%>
 <%@page import="java.util.HashSet"%>
@@ -47,7 +50,66 @@
   <link href="<%=application.getContextPath()%>/gymui/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="<%=application.getContextPath()%>/gymui/css/demo.css" rel="stylesheet" />
-  
+  <style>
+  /* Popup container - can be anything you want */
+.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* The actual popup */
+.popup .popuptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;} 
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
+}
+</style>
+      
+      
 
 </head>
 
@@ -218,16 +280,16 @@
                 </div>
                  <table id="gym"  class="display" style="width:100%; color: purple;">
                    <thead>
-                      <th>branchID</th>
-                      <th>barnchName</th>
-                      <th>branchstreet</th>
-                      <th>brancharea</th>
-                      <th>branchpostalcode</th>
+                      <th>packageID</th>
+                      <th>packageName</th>
+                      <th>packageamount</th>
+                      <th>packagetime</th>
+                      <th>facilities</th>
 
                     </thead>
                     <tbody>
                                           <%!
-           HashSet<Addbranch> setbranch=null;
+           HashSet<Gympackage> setbranch=null;
           %>
    
           
@@ -236,22 +298,24 @@
           System.out.println("session="+session); 
           
               
-             setbranch=(HashSet<Addbranch>)session.getAttribute("setbranch");
-            Iterator<Addbranch> it=setbranch.iterator();
+             setbranch=(HashSet<Gympackage>)session.getAttribute("viewpackfacility");
+            Iterator<Gympackage> it=setbranch.iterator();
             System.out.println("kkkk");
             while(it.hasNext())
             {
-                Addbranch adbranch=it.next();
-              
-            
+                Gympackage adbranch=it.next();
+            // Set<Pack_facility> pf= adbranch.getPackfac();
+            // Iterator iti=pf.iterator();
+             //System.out.println("kkkkkllllll"+iti.toString());
           %>
 
           <tr id="<%=adbranch.getId()%>">
-                          <td><%= adbranch.getId()%></td>
-                          <td><%= adbranch.getBranchname()%></td>
-                           <td><%= adbranch.getStreet()%></td>
-                            <td><%=adbranch.getArea()%></td>
-                              <td><%=adbranch.getPostalcode()%></td>
+                          <td id="rowid"><%= adbranch.getId()%></td>
+                          <td><%= adbranch.getName()%></td>
+                           <td><%= adbranch.getAmount()%></td>
+                            <td><%=adbranch.getTime()%></td>
+                            <td> <a  href="#" class="view" id="<%=adbranch.getId()%>">view facilities</a>
+                            </td>
                       </tr>
                       <%}%>
                     </tbody>
@@ -372,6 +436,16 @@
   <script>
     $(document).ready(function() {
       $().ready(function() {
+           $('a.view').click(function(){
+   alert("hello");
+   var trid=$(this).attr('id');
+  alert(trid);
+  $.post("<%=application.getContextPath()%>/Verifygymname",{"gympackage":trid},function(data,status){
+      alert(data);
+       data.classList.toggle("show");
+    
+     });
+});
         $sidebar = $('.sidebar');
 
         $sidebar_img_container = $sidebar.find('.sidebar-background');
