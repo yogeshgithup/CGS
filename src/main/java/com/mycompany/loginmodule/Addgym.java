@@ -253,5 +253,15 @@ public class Addgym {
         this.facility = facility;
     }
      
-     
+     @OneToMany(cascade=CascadeType.ALL,mappedBy = "adgym",fetch = FetchType.LAZY)
+	private Set<Gympackage> gympack;
+
+    public Set<Gympackage> getGympack() {
+        return gympack;
+    }
+
+    public void setGympack(Set<Gympackage> gympack) {
+        this.gympack = gympack;
+    }
+             
 }
