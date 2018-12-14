@@ -73,7 +73,7 @@
             </a>
           </li> -->
           <li class="nav-item dropdown active">
-                <a class="nav-link " href="<%=application.getContextPath()%>/gymui/pannel/gymadmin.jsp" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link " href="<%=application.getContextPath()%>/Viewbranch" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons "></i>
                   <span class="notification">Manage Branches</span>
                   <p class="d-lg-none d-md-block">
