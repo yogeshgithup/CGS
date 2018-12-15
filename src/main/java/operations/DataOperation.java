@@ -16,6 +16,7 @@ import com.mycompany.loginmodule.Gympackage;
 import com.mycompany.loginmodule.Login;
 import com.mycompany.loginmodule.Logingym;
 import com.mycompany.loginmodule.Pack_facility;
+import com.mycompany.loginmodule.Trainer;
 import com.mycompany.loginmodule.addbranchoperator;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -214,6 +215,7 @@ public class DataOperation {
             Addbranch b2 = (Addbranch) session.load(Addbranch.class, id);
             System.out.println("jfdlj" + b2.getBranchname());
             b2.setAbo(abo);
+            
             abo.setA(b2);
             Set<Login> ab = new HashSet<Login>();
             ab = gym.getLogin();
@@ -222,6 +224,9 @@ public class DataOperation {
 //                          session.save(abo);
             session.save(b2);
             session.save(l);
+            SMSOperation so = new SMSOperation();
+            String result = so.sendSMS(String.valueOf(abo.getPhoneno()),abo.getPassword());
+            System.out.println(result);
 
             n = "branchoperator Added";
             tx.commit();
@@ -962,5 +967,90 @@ public class DataOperation {
         }
 System.out.println("oooo--"+setfacility.toString());
         return setfacility;
+    }
+    
+    public int getbranchid(String branchop)
+    {
+        int id;
+         try {
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+            session = sfobj.openSession();
+            tx = session.beginTransaction();
+            //String b = "branchoperator";
+            //String c = "traineer";
+            addbranchoperator l = null;
+
+            Query q = session.createQuery("from addbranchoperator where email=:uname");
+            q.setString("uname",branchop);
+
+            List<addbranchoperator> results = q.list();
+
+            l = (addbranchoperator) results.get(0);
+            id=l.getId();
+        } catch (Exception e) {
+            id=0;
+            System.out.println(e.getMessage());
+        }
+         return id;
+    }
+    
+    public int getgymid(int id)
+    {
+        int gymid;
+         try {
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+            session = sfobj.openSession();
+            tx = session.beginTransaction();
+            //String b = "branchoperator";
+            //String c = "traineer";
+            Addbranch l = null;
+
+            Query q = session.createQuery("from Addbranch where id=:gymid");
+            q.setString("gymid",String.valueOf(id));
+
+            List<Addbranch> results = q.list();
+
+            l = (Addbranch) results.get(0);
+            Addgym g=l.getAdgym();
+           gymid= g.getId();
+        } catch (Exception e) {
+            gymid=0;
+            System.out.println(e.getMessage());
+        }
+         return gymid;
+    }
+    public void addtrainer(Trainer t, int branchid,Addgym adgym,Login l)
+    {
+        try
+        {
+          sfobj = (SessionFactory) scx.getAttribute("sf");
+            session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+            
+            Addbranch l1 = null;
+            Set<Trainer> ab = null;
+            l1 = (Addbranch) session.load(Addbranch.class,branchid);
+            System.out.println(l1.getBranchname());
+
+            ab = new HashSet<Trainer>();
+            ab = l1.getAddtrainer();
+            t.setAdbranch(l1);
+            ab.add(t);
+            Set<Login> lo = new HashSet<Login>();
+            lo = adgym.getLogin();
+            lo.add(l);
+            l.setAdgym(adgym);
+            session.save(t);
+            session.save(l);
+            SMSOperation so = new SMSOperation();
+            String result = so.sendSMS(String.valueOf(t.getPhoneno()),t.getPassword());
+            System.out.println(result);
+            tx.commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 }

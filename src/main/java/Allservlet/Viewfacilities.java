@@ -59,10 +59,13 @@ public void init(ServletConfig sc) throws ServletException
             
           if(session!=null)
           {
-              
-              
+              if(request.getParameter("msg").equals("trainer"))
+              {
+                  response.sendRedirect(scx.getContextPath()+"/gymui/pannel/addtrainer.jsp");
+              }
+              else{
                     response.sendRedirect(scx.getContextPath()+"/gymui/pannel/managefacilities.jsp");
-              
+              }
           }
            
         } catch (Exception e) {

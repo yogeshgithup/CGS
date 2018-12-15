@@ -4,6 +4,10 @@
     Author     : sneh pael
 --%>
 
+<%@page import="com.mycompany.loginmodule.Facility"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="com.mycompany.loginmodule.Addbranch"%>
+<%@page import="java.util.HashSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!DOCTYPE html>
@@ -162,24 +166,24 @@
                   <p class="card-category"></p>
                 </div>
                 <div class="card-body">
-                  <form>
+                  <form action="<%=application.getContextPath()%>/Addtrainer" method="post"   >
                     <div class="row">                      
                       <div class="col-md-3">
                         <div class="form-group">
                           <label class="bmd-label-floating">First Name</label>
-                          <input type="text" class="form-control">
+                          <input type="text" name="firstname" class="form-control" required>
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="bmd-label-floating">Middle Name</label>
-                          <input type="email" class="form-control">
+                          <input type="text" class="form-control" name="middlename" required>
                         </div>
                       </div>                                     
                       <div class="col-md-3">
                         <div class="form-group">
                           <label class="bmd-label-floating">Last Name</label>
-                          <input type="text" class="form-control">
+                          <input type="text" name="lastname" class="form-control" required>
                         </div>
                       </div>
                     </div>
@@ -187,19 +191,19 @@
                       <div class="col-md-3">
                         <div class="form-group">
                           <label class="bmd-label-floating">Phone No</label>
-                          <input type="text" class="form-control">
+                          <input type="text" name="phoneno" class="form-control" required>
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="bmd-label-floating">Area</label>
-                          <input type="text" class="form-control">
+                          <input type="text" name="area" class="form-control" required>
                         </div>
                       </div>
                       <div class="col-md-3">
                         <div class="form-group">
                           <label class="bmd-label-floating">Street</label>
-                          <input type="text" class="form-control">
+                          <input type="text" name="street" class="form-control" required>
                         </div>
                       </div>
                     </div>
@@ -207,36 +211,52 @@
                         <div class="col-md-3">
                         <div class="form-group">
                           <label class="bmd-label-floating">Postal code</label>
-                          <input type="text" class="form-control">
+                          <input type="text" name="postal" class="form-control" required>
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="bmd-label-floating">E-mail Address</label>
-                          <input type="text" class="form-control">
+                          <input type="text" name="email" class="form-control" required>
                         </div>
                       </div>
-                      <div class="col-md-3">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Password</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
+                     
                       </div>
                     
-                     <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Role</label>
-                          <input type="text" class="form-control">
+                      <div class="row">
+                       <div class="col-md-6">
+<!--here paste--> <label for="sel1">Role (select one):</label>
+      <select class="form-control" id="role" name="role">
+          <%!
+           HashSet<Facility> setbranch=null;
+          %>
+   
+          
+              <%
+         
+          System.out.println("session="+session); 
+          System.out.println("setbranch...="+setbranch);
+              
+             setbranch=(HashSet<Facility>)session.getAttribute("viewfacility");
+              System.out.println("setbranch...="+setbranch);
+            Iterator<Facility> it=setbranch.iterator();
+            System.out.println("kkkk");
+            while(it.hasNext())
+            {
+                Facility se=it.next();
+           
+          %>
+       <option value="<%=se.getName()%>"><%=se.getName()%></option>
+<%}%>
+      </select>
                         </div>
                       </div>
-                      </div>
+                     
                       <div class="row">
                        <div class="col-md-8">
                           <div class="form-group">
                         <label for="comment" class="bmd-label-floating">Description:</label>
-                        <textarea class="form-control" rows="5" id="comment"></textarea>
+                        <textarea class="form-control" rows="3" name="desc" id="comment"></textarea>
                           </div>
                         </div>
                       </div>
@@ -257,7 +277,9 @@
                       <div class="col-md-6"> 
                          <button type="submit" class="btn btn-primary pull-right">Submit</button>
                         </div>
+            </div>
                     </div>
+</form>
                     
 
             </div>
