@@ -57,7 +57,7 @@
                   </p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink" >
-                 <a class="dropdown-item active" href="addtrainer.html">ADD TRAINER</a>
+                 <a class="dropdown-item active" href="<%=application.getContextPath()%>/Viewfacilities?msg=trainer">ADD TRAINER</a>
                   
                 </div>
               </li>

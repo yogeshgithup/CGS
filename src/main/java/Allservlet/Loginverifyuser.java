@@ -71,7 +71,13 @@ public void init(ServletConfig sc) throws ServletException
         String m="member";
     if(b.equals(l2.getType()))
     {
-        
+       int branchid=so.getbranchid(name);
+       int gymid=so.getgymid(branchid);
+        System.out.println("-----"+branchid);
+        System.out.println("++++"+gymid);
+         HttpSession hs=request.getSession(true);
+           hs.setAttribute("gymid",gymid);
+           hs.setAttribute("branchid",branchid);
          response.sendRedirect(scx.getContextPath()+"/gymui/pannel/branchoperator.jsp");
     }
     else if(t.equals(l2.getType()))
