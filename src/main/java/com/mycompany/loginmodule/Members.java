@@ -18,38 +18,33 @@ import javax.persistence.Table;
  * @author Shravan
  */
 @Entity
-@Table(name="trainer")
-public class Trainer {
-  
+@Table(name="members")
+
+public class Members {
+    
     @Id
     @GeneratedValue
     int id;
-   
+    
     String firstname;
     String middlename;
     String lastname;
-    long phoneno;
+    Long phoneno;
     String area;
     String street;
     String postalcode;
     String email;
     String password;
-    String description;
-    String role; 
-
-    public Trainer(String firstname, String middlename, String lastname, String email, String role) {
-        this.firstname = firstname;
-        this.middlename = middlename;
-        this.lastname = lastname;
-        this.email = email;
-        this.role = role;
-    }
-
-    public Trainer() {
-       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-   
+    String packagee;
+    float height;
+    float weight;
+    String blood;
+    String dob;
+    String health;
+    
+     @ManyToOne
+    @JoinColumn(name="branchid")
+     private Addbranch adbranch;
 
     public int getId() {
         return id;
@@ -83,11 +78,11 @@ public class Trainer {
         this.lastname = lastname;
     }
 
-    public long getPhoneno() {
+    public Long getPhoneno() {
         return phoneno;
     }
 
-    public void setPhoneno(long phoneno) {
+    public void setPhoneno(Long phoneno) {
         this.phoneno = phoneno;
     }
 
@@ -131,25 +126,53 @@ public class Trainer {
         this.password = password;
     }
 
-    public String getDescription() {
-        return description;
+    public String getPackagee() {
+        return packagee;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setPackagee(String packagee) {
+        this.packagee = packagee;
     }
 
-    public String getRole() {
-        return role;
+    public float getHeight() {
+        return height;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setHeight(float height) {
+        this.height = height;
     }
-    
-     @ManyToOne
-    @JoinColumn(name="branchid")
-     private Addbranch adbranch;
+
+    public float getWeight() {
+        return weight;
+    }
+
+    public void setWeight(float weight) {
+        this.weight = weight;
+    }
+
+    public String getBlood() {
+        return blood;
+    }
+
+    public void setBlood(String blood) {
+        this.blood = blood;
+    }
+
+    public String getDob() {
+        return dob;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
+    }
+
+    public String getHealth() {
+        return health;
+    }
+
+    public void setHealth(String health) {
+        this.health = health;
+    }
 
     public Addbranch getAdbranch() {
         return adbranch;
@@ -160,4 +183,5 @@ public class Trainer {
     }
      
      
+    
 }

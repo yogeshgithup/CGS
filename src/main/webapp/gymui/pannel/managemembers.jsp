@@ -158,7 +158,7 @@
           <div class="row">
             <div class="col-xl-12 col-lg-12">
                <div class="col-sm-4"> 
-                        <a href="addmembers.html"> <button type="button" class="btn btn-primary pull-right">ADD MEMBERS
+                        <a href="<%=application.getContextPath()%>/Viewgympackage?msg=member"> <button type="button" class="btn btn-primary pull-right">ADD MEMBERS
                         </button></a>
                         </div>
                     </div>

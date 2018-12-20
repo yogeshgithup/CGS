@@ -15,6 +15,7 @@ import com.mycompany.loginmodule.Gyminfo;
 import com.mycompany.loginmodule.Gympackage;
 import com.mycompany.loginmodule.Login;
 import com.mycompany.loginmodule.Logingym;
+import com.mycompany.loginmodule.Members;
 import com.mycompany.loginmodule.Pack_facility;
 import com.mycompany.loginmodule.Trainer;
 import com.mycompany.loginmodule.addbranchoperator;
@@ -1045,6 +1046,82 @@ System.out.println("oooo--"+setfacility.toString());
             session.save(l);
             SMSOperation so = new SMSOperation();
             String result = so.sendSMS(String.valueOf(t.getPhoneno()),t.getPassword());
+            System.out.println(result);
+            tx.commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+    public HashSet<Trainer> gettrainer(int branchid) {
+       
+        HashSet<Trainer> setfacility = null;
+        try {
+            System.out.println("before calling");
+            setfacility = new HashSet<Trainer>();
+           // HashSet<Pack_facility> packfac = new HashSet<>();
+            System.out.println("line 55" + scx);
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+            System.out.println("line 57" + sfobj);
+            session = sfobj.openSession();
+            System.out.println("line 59");
+            tx = session.beginTransaction();
+            //System.out.println("get package"); 
+            System.out.println("gymid..." +branchid);
+            Trainer p1 = null;
+       
+            Query q = session.createQuery("from Trainer where branchid=:gymidi");
+            q.setString("gymidi", String.valueOf(branchid));
+            System.out.println("gp 59");
+            List<Trainer> results = q.list();
+            System.out.println("query");
+            System.out.println("yyyyy"+results.size());
+            for (int i = 0; i <= results.size(); i++) {
+                p1 = (Trainer) results.get(i);
+                System.out.println("[][]["+p1.getId());
+//                   HashSet<Pack_facility> pac=new HashSet<Pack_facility>();
+//                 pac = getpacfacility(p1.getId());
+             //   System.out.println("---"+pac.toString());
+               Trainer t=new Trainer(p1.getFirstname(),p1.getMiddlename(),p1.getMiddlename(),p1.getEmail(),p1.getRole());
+                     setfacility.add(t);
+            }
+
+            tx.commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return setfacility;
+    }
+    
+    public void addmember(Members m,int branchid,Addgym adgym,Login l)
+    {
+        try
+        {
+          sfobj = (SessionFactory) scx.getAttribute("sf");
+            session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+            
+            Addbranch l1 = null;
+            Set<Members> ab = null;
+            l1 = (Addbranch) session.load(Addbranch.class,branchid);
+            System.out.println(l1.getBranchname());
+
+            ab = new HashSet<Members>();
+            ab = l1.getAddmember();
+            m.setAdbranch(l1);
+            ab.add(m);
+            Set<Login> lo = new HashSet<Login>();
+            lo = adgym.getLogin();
+            lo.add(l);
+            l.setAdgym(adgym);
+            session.save(m);
+            session.save(l);
+            SMSOperation so = new SMSOperation();
+            String result = so.sendSMS(String.valueOf(m.getPhoneno()),m.getPassword());
             System.out.println(result);
             tx.commit();
             session.close();

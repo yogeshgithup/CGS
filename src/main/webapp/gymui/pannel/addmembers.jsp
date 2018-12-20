@@ -3,6 +3,9 @@
     Created on : Oct 11, 2018, 12:59:38 PM
     Author     : sneh pael
 --%>
+<%@page import="java.util.Iterator"%>
+<%@page import="com.mycompany.loginmodule.Gympackage"%>
+<%@page import="java.util.HashSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!DOCTYPE html>
@@ -164,24 +167,24 @@
                   <p class="card-category"></p>
                 </div>
                 <div class="card-body">
-                  <form>
+                  <form action="<%=application.getContextPath()%>/Addmembers" method="post">
                     <div class="row">                      
                       <div class="col-md-3">
                         <div class="form-group">
                           <label class="bmd-label-floating">First Name</label>
-                          <input type="text" class="form-control">
+                          <input type="text"  name="firstname" class="form-control">
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="bmd-label-floating">Middle Name</label>
-                          <input type="email" class="form-control">
+                          <input type="text" name="middlename" class="form-control">
                         </div>
                       </div>                                     
                       <div class="col-md-3">
                         <div class="form-group">
                           <label class="bmd-label-floating">Last Name</label>
-                          <input type="text" class="form-control">
+                          <input type="text" name="lastname" class="form-control">
                         </div>
                       </div>
                     </div>
@@ -189,19 +192,19 @@
                       <div class="col-md-3">
                         <div class="form-group">
                           <label class="bmd-label-floating">Phone No</label>
-                          <input type="text" class="form-control">
+                          <input type="text" name="phoneno" class="form-control">
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="bmd-label-floating">Area</label>
-                          <input type="text" class="form-control">
+                          <input type="text" name="area" class="form-control">
                         </div>
                       </div>
                       <div class="col-md-3">
                         <div class="form-group">
                           <label class="bmd-label-floating">Street</label>
-                          <input type="text" class="form-control">
+                          <input type="text" name="street" class="form-control">
                         </div>
                       </div>
                     </div>
@@ -209,40 +212,35 @@
                         <div class="col-md-3">
                         <div class="form-group">
                           <label class="bmd-label-floating">Postal code</label>
-                          <input type="text" class="form-control">
+                          <input type="text" name="postal" class="form-control">
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="bmd-label-floating">E-mail Address</label>
-                          <input type="text" class="form-control">
+                          <input type="text" name="email" class="form-control">
                         </div>
                       </div>
-                      <div class="col-md-3">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Password</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
+                     
                       </div>
                     
                      <div class="row">
                       <div class="col-md-3">
                         <div class="form-group">
                           <label class="bmd-label-floating">DATE OF BIRTH</label>
-                          <input type="text" class="form-control">
+                          <input type="text" name="dob" class="form-control">
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="bmd-label-floating">HEALTH ISSUES</label>
-                          <input type="text" class="form-control">
+                          <input type="text" name="healthissue" class="form-control">
                         </div>
                       </div>
                       <div class="col-md-3">
                         <div class="form-group">
                           <label class="bmd-label-floating">BLOOD GROUP</label>
-                          <input type="text" class="form-control">
+                          <input type="text" name="bloodgroup" class="form-control">
                         </div>
                       </div>
                       </div>
@@ -250,43 +248,46 @@
                        <div class="col-md-3">
                         <div class="form-group">
                           <label class="bmd-label-floating">HEIGHT</label>
-                          <input type="text" class="form-control">
+                          <input type="text" name="height" class="form-control">
                         </div>
                       </div>
                        <div class="col-md-4">
                         <div class="form-group">
                           <label class="bmd-label-floating">WEIGHT</label>
-                          <input type="text" class="form-control">
+                          <input type="text" name="weight" class="form-control">
                         </div>
                       </div>
                     </div>
                      <div class="row">
-                      <h5>Role Selection</h5>
                       <div class="col-md-3">
-                       <div class="checkbox checkbox-success">
-                        <input id="checkbox1" class="styled" type="checkbox">
-                        <label for="checkbox1">
-                            YOGA
-                        </label>
-                    </div>
-                     <div class="col-md-3">
-                       <div class="checkbox checkbox-success">
-                        <input id="checkbox2" class="styled" type="checkbox">
-                        <label for="checkbox2">
-                            KASRAT
-                        </label>
-                    </div>
-                  </div>
-                   <div class="col-md-3">
-                       <div class="checkbox checkbox-success">
-                        <input id="checkbox3" class="styled" type="checkbox">
-                        <label for="checkbox3">
-                            UTHAK BETHAK
-                        </label>
-                    </div>
-                </div>
+                   
                      </div>
                        <div class="col-md-6">
+                           
+                           <label for="sel1">Select list (select one):</label>
+      <select class="form-control" id="pack" name="package">
+          <%!
+           HashSet<Gympackage> packagee=null;
+          %>
+   
+          
+              <%
+         
+          System.out.println("session="+session); 
+          System.out.println("setbranch...="+packagee);
+              
+             packagee=(HashSet<Gympackage>)session.getAttribute("viewpackfacility");
+              System.out.println("setbranch...="+packagee);
+            Iterator<Gympackage> it=packagee.iterator();
+            System.out.println("kkkk");
+            while(it.hasNext())
+            {
+                Gympackage se=it.next();
+           
+          %>
+       <option value="<%=se.getName()%>"><%=se.getName()%></option>
+<%}%>
+      </select>
 <!-- <div class="dropdown">
   <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Branch
   <span class="caret"></span></button>

@@ -6,8 +6,8 @@
 
 package Allservlet;
 
-import com.mycompany.loginmodule.Facility;
-import com.mycompany.loginmodule.Gympackage;
+import com.mycompany.loginmodule.Addpackage;
+import com.mycompany.loginmodule.Trainer;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashSet;
@@ -24,9 +24,9 @@ import operations.DataOperation;
  *
  * @author Shravan
  */
-public class Viewgympackage extends HttpServlet {
-
-    ServletContext scx;
+public class Viewtrainer extends HttpServlet {
+ServletContext scx;
+@Override
 public void init(ServletConfig sc) throws ServletException 
      {        
          super.init(sc);
@@ -52,27 +52,32 @@ public void init(ServletConfig sc) throws ServletException
  
         try {
             System.out.println("//////////");
-             HttpSession session=request.getSession(true);  
-         int id=Integer.parseInt(session.getAttribute("gymid").toString());
-            HashSet<Gympackage> listCatagory =pko.getpackfacility(id);
+             HttpSession hs=request.getSession(true);
+        int branchid= Integer.parseInt(hs.getAttribute("branchid").toString());
+            HashSet<Trainer> listCatagory =pko.gettrainer(branchid);
        
-           
-           session.setAttribute("viewpackfacility",listCatagory);
-            
-          if(session!=null)
+           //HttpSession hs=request.getSession(true);
+           hs.setAttribute("settrainer",listCatagory);
+          if(hs!=null)
           {
-              if(request.getParameter("msg").equals("member"))
-              {
-                  response.sendRedirect(scx.getContextPath()+"/gymui/pannel/addmembers.jsp");
-              }
-          else
-              {
-                    response.sendRedirect(scx.getContextPath()+"/gymui/pannel/managegympackage.jsp");
-              }
+              response.sendRedirect(scx.getContextPath()+"/gymui/pannel/branchoperator.jsp");
           }
-           
+           /*HashSet<Addpackage> setpack=(HashSet<Addpackage>)hs.getAttribute("setpack");
+            Iterator<Addpackage> it=setpack.iterator();
+            System.out.println("kkkk");
+            while(it.hasNext())
+            {
+                Addpackage adpack=it.next();
+                System.out.println("....");
+                System.out.println(adpack.getName());
+            }
+           hs.setAttribute("www","www");
+             //RequestDispatcher dispatcher = request.getRequestDispatcher("addgym.jsp");
+            //dispatcher.forward(request, response);
+ */
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         }
+
 }
