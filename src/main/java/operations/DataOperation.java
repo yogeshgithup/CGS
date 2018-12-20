@@ -1130,4 +1130,46 @@ System.out.println("oooo--"+setfacility.toString());
         }
 
     }
+    public HashSet<Members> getmembers(int branchid) {
+       
+        HashSet<Members> setfacility = null;
+        try {
+            System.out.println("before calling");
+            setfacility = new HashSet<Members>();
+           // HashSet<Pack_facility> packfac = new HashSet<>();
+            System.out.println("line 55" + scx);
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+            System.out.println("line 57" + sfobj);
+            session = sfobj.openSession();
+            System.out.println("line 59");
+            tx = session.beginTransaction();
+            //System.out.println("get package"); 
+            System.out.println("gymid..." +branchid);
+           Members m1 = null;
+       
+            Query q = session.createQuery("from Members where branchid=:gymidi");
+            q.setString("gymidi", String.valueOf(branchid));
+            System.out.println("gp 59");
+            List<Members> results = q.list();
+            System.out.println("query");
+            System.out.println("yyyyy"+results.size());
+            for (int i = 0; i <= results.size(); i++) {
+                m1 = (Members) results.get(i);
+                System.out.println("[][]["+m1.getId());
+//                   HashSet<Pack_facility> pac=new HashSet<Pack_facility>();
+//                 pac = getpacfacility(p1.getId());
+             //   System.out.println("---"+pac.toString());
+                Members m=new Members(m1.getId(),m1.getFirstname(),m1.getMiddlename(),m1.getLastname(),m1.getPhoneno());//,m1.getArea(),m1.getStreet(),m1.getPostalcode(),m1.getEmail(),m1.getPackagee(),m1.getPassword(),m1.getHeight(),m1.getWeight(),m1.getHealth(),m1.getDob());
+               //Trainer t=new Trainer(p1.getFirstname(),p1.getMiddlename(),p1.getMiddlename(),p1.getEmail(),p1.getRole());
+                    setfacility.add(m);
+            }
+
+            tx.commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return setfacility;
+    }
 }

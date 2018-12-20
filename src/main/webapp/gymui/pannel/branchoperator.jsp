@@ -72,7 +72,7 @@
             </a>
           </li> -->
          <li class="nav-item ">
-            <a class="nav-link" href="<%=application.getContextPath()%>/gymui/pannel/managemembers.jsp">
+            <a class="nav-link" href="<%=application.getContextPath()%>/Viewmembers">
               <i class="material-icons"></i>
               <p>Manage Members</p>
             </a>

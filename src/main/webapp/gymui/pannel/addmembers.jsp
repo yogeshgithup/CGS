@@ -228,7 +228,8 @@
                       <div class="col-md-3">
                         <div class="form-group">
                           <label class="bmd-label-floating">DATE OF BIRTH</label>
-                          <input type="text" name="dob" class="form-control">
+                          <input type="date" name="dob" class="form-control">
+                          
                         </div>
                       </div>
                       <div class="col-md-4">
