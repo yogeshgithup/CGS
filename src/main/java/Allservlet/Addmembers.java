@@ -8,6 +8,7 @@ package Allservlet;
 
 import com.mycompany.loginmodule.Addgym;
 import com.mycompany.loginmodule.Login;
+import com.mycompany.loginmodule.Members;
 import com.mycompany.loginmodule.Trainer;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -24,9 +25,10 @@ import operations.DataOperation;
  *
  * @author Shravan
  */
-public class Addtrainer extends HttpServlet {
+public class Addmembers extends HttpServlet {
 
-      ServletContext scx;
+    
+     ServletContext scx;
 
     @Override
 public void init(ServletConfig sc) throws ServletException 
@@ -60,30 +62,41 @@ System.out.println("hiii");
      String email=request.getParameter("email");
      //String pass=request.getParameter("password");
      String pass=p.randompassword();
-     String role=request.getParameter("role");
-     String desc=request.getParameter("desc");
+     String dob=request.getParameter("dob");
+     String health =request.getParameter("healthissue");
+     String bloodgroup=request.getParameter("bloodgroup");
+     String packagee=request.getParameter("package");
+     float height=Float.parseFloat(request.getParameter("height"));
+     float weight=Float.parseFloat(request.getParameter("weight"));
+     
+     
      HttpSession hs=request.getSession(true);
         int branchid= Integer.parseInt(hs.getAttribute("branchid").toString());
         int gymid=Integer.parseInt(hs.getAttribute("gymid").toString());
        
-     Trainer t=new Trainer();
-     t.setFirstname(fname);
-     t.setMiddlename(mname);
-     t.setLastname(lname);
-     t.setArea(area);
-     t.setPostalcode(pcode);
-     t.setStreet(street);
-     t.setPhoneno(pno);
-     t.setEmail(email);
-     t.setPassword(pass);
-     t.setRole(role);
-     t.setDescription(desc);
+        Members m=new Members();
+        m.setArea(area);
+        m.setBlood(bloodgroup);
+        m.setDob(dob);
+        m.setEmail(email);
+        m.setFirstname(fname);
+        m.setHealth(health);
+        m.setHeight(height);
+        m.setLastname(lname);
+        m.setMiddlename(mname);
+        m.setPackagee(packagee);
+        m.setPassword(pass);
+        m.setPhoneno(pno);
+        m.setPostalcode(pcode);
+        m.setStreet(street);
+        m.setWeight(weight);
+    
      Login l=new Login();
      l.setLoginid(email);
      l.setPassword(pass);
-     l.setType("traineer");
+     l.setType("member");
        Addgym gym = p.getGymID(gymid);
-    p.addtrainer(t,branchid,gym,l);
-     response.sendRedirect(scx.getContextPath()+"/Viewtrainer");
+    p.addmember(m,branchid,gym,l);
+     response.sendRedirect(scx.getContextPath()+"/gymui/pannel/managemembers.jsp");
 }
 }

@@ -109,6 +109,14 @@
         <servlet-name>Addtrainer</servlet-name>
         <servlet-class>Allservlet.Addtrainer</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Viewtrainer</servlet-name>
+        <servlet-class>Allservlet.Viewtrainer</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Addmembers</servlet-name>
+        <servlet-class>Allservlet.Addmembers</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Loginverify</servlet-name>
         <url-pattern>/Loginverify</url-pattern>
@@ -208,6 +216,14 @@
     <servlet-mapping>
         <servlet-name>Addtrainer</servlet-name>
         <url-pattern>/Addtrainer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Viewtrainer</servlet-name>
+        <url-pattern>/Viewtrainer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Addmembers</servlet-name>
+        <url-pattern>/Addmembers</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

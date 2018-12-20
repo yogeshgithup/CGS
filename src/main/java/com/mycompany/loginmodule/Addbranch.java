@@ -123,6 +123,17 @@ public class Addbranch {
     public void setAddtrainer(Set<Trainer> addtrainer) {
         this.addtrainer = addtrainer;
     }
+        
+    @OneToMany(cascade=CascadeType.ALL,mappedBy = "adbranch",fetch = FetchType.LAZY)
+	private Set<Members> addmember;
+
+    public Set<Members> getAddmember() {
+        return addmember;
+    }
+
+    public void setAddmember(Set<Members> addmember) {
+        this.addmember = addmember;
+    }
       
-      
+         
 }
