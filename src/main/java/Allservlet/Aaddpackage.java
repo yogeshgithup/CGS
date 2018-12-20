@@ -63,5 +63,6 @@ public void init(ServletConfig sc) throws ServletException
         System.out.println("line 62");
         p2.addpackage(p1);
         response.sendRedirect("Viewpackage_all");
+     
 }
 }

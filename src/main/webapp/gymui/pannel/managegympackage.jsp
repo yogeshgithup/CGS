@@ -50,66 +50,66 @@
   <link href="<%=application.getContextPath()%>/gymui/css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="<%=application.getContextPath()%>/gymui/css/demo.css" rel="stylesheet" />
-  <style>
-  /* Popup container - can be anything you want */
-.popup {
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+<style>
+  /* Popup box BEGIN */
+.hover_bkgr_fricc{
+    background:rgba(0,0,0,.4);
+    cursor:pointer;
+    display:none;
+    height:100%;
+    position:fixed;
+    text-align:center;
+    top:0;
+    width:100%;
+    z-index:10000;
 }
-
-/* The actual popup */
-.popup .popuptext {
-  visibility: hidden;
-  width: 160px;
-  background-color: #555;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 8px 0;
-  position: absolute;
-  z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  margin-left: -80px;
+.hover_bkgr_fricc .helper{
+    display:inline-block;
+    height:100%;
+    vertical-align:middle;
 }
-
-/* Popup arrow */
-.popup .popuptext::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #555 transparent transparent transparent;
+.hover_bkgr_fricc > div {
+    background-color: #fff;
+    box-shadow: 10px 10px 60px #555;
+    display: inline-block;
+    height: auto;
+    max-width: 551px;
+    min-height: 100px;
+    vertical-align: middle;
+    width: 60%;
+    position: relative;
+    border-radius: 8px;
+    padding: 15px 5%;
 }
-
-/* Toggle this class - hide and show the popup */
-.popup .show {
-  visibility: visible;
-  -webkit-animation: fadeIn 1s;
-  animation: fadeIn 1s;
+.popupCloseButton {
+    background-color: #fff;
+    border: 3px solid #999;
+    border-radius: 50px;
+    cursor: pointer;
+    display: inline-block;
+    font-family: arial;
+    font-weight: bold;
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    font-size: 25px;
+    line-height: 30px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
 }
-
-/* Add animation (fade in the popup) */
-@-webkit-keyframes fadeIn {
-  from {opacity: 0;} 
-  to {opacity: 1;}
+.popupCloseButton:hover {
+    background-color: #ccc;
 }
-
-@keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity:1 ;}
+.trigger_popup_fricc {
+    cursor: pointer;
+    font-size: 15px;
+    margin: 4px;
+    display: inline-block;
+    font-weight: bold;
 }
-</style>
-      
-      
+/* Popup box BEGIN */
+    </style>
 
 </head>
 
@@ -163,7 +163,7 @@
             </a>
           </li>
            <li class="nav-item active">
-            <a class="nav-link" href="<%=application.getContextPath()%>/">
+            <a class="nav-link" href="<%=application.getContextPath()%>/Viewgympackage">
               <i class="material-icons"></i>
               <p>Manage Package</p>
             </a>
@@ -314,9 +314,17 @@
                           <td><%= adbranch.getName()%></td>
                            <td><%= adbranch.getAmount()%></td>
                             <td><%=adbranch.getTime()%></td>
-                            <td> <a  href="#" class="view" id="<%=adbranch.getId()%>">view facilities</a>
+                            <td> <a  href="#"  onclick="myFunction()" class="trigger_popup_fricc view" id="<%=adbranch.getId()%>" style="color:black">view facilities</a>
                             </td>
-                      </tr>
+                     <div class="hover_bkgr_fricc">
+    <span class="helper"></span>
+    <div >
+        <div class="popupCloseButton">X</div>
+        <p id="popid">hello</p>
+    </div>
+</div>
+          
+          </tr>
                       <%}%>
                     </tbody>
                   </table>
@@ -431,8 +439,23 @@
   <script>
   $(function(){
     $("#gym").dataTable();
-  })
+  });
+  
   </script>
+  <script>
+      $(".trigger_popup_fricc").click(function(){
+       $('.hover_bkgr_fricc').show();
+    });
+    $('.hover_bkgr_fricc').click(function(){
+        $('.hover_bkgr_fricc').hide();
+    });
+    $('.popupCloseButton').click(function(){
+        $('.hover_bkgr_fricc').hide();
+    });
+
+      
+      
+      </script>
   <script>
     $(document).ready(function() {
       $().ready(function() {
@@ -440,13 +463,18 @@
    alert("hello");
    var trid=$(this).attr('id');
   alert(trid);
-  $.post("<%=application.getContextPath()%>/Verifygymname",{"gympackage":trid},function(data,status){
-      alert(data);
-       data.classList.toggle("show");
-    
+$.post("<%=application.getContextPath()%>/Verifygymname",{"gympackage":trid},function(data,status){
+      alert(data+"--"+$("#popid")+"  "+ document.getElementById("popid").innerHTML);
+      $("#popid").html(data);
+      data.classList.toggle("show");
+    // $("#popid").ht
+   // alert( document.getElementById("popid"));
+    // document.getElementById("popid").innerHTML=data;
+ 
      });
 });
-        $sidebar = $('.sidebar');
+
+         $sidebar = $('.sidebar');
 
         $sidebar_img_container = $sidebar.find('.sidebar-background');
 

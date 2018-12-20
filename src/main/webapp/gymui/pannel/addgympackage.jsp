@@ -78,7 +78,7 @@
             </a>
           </li>
            <li class="nav-item active ">
-            <a class="nav-link" href="<%=application.getContextPath()%>/">
+            <a class="nav-link" href="<%=application.getContextPath()%>/Viewgympackage">
               <i class="material-icons"></i>
               <p>Manage Package</p>
             </a>
