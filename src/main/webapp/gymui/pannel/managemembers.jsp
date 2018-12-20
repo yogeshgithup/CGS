@@ -4,6 +4,9 @@
     Author     : sneh pael
 --%>
 
+<%@page import="java.util.Iterator"%>
+<%@page import="com.mycompany.loginmodule.Members"%>
+<%@page import="java.util.HashSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!DOCTYPE html>
@@ -50,7 +53,7 @@
           </li> -->
           
   <li class="nav-item">
-            <a class="nav-link" href="branchoperator.html">
+            <a class="nav-link" href="<%=application.getContextPath()%>/Viewtrainer">
               <i class="material-icons"></i>
               <p>Manage Trainer</p>
             </a>
@@ -168,72 +171,52 @@
                   <p class="card-category"></p>
                 </div>
                 <div class="card-body table-responsive">
-                  <table class="table table-hover">
-                    <thead class="text-warning">
-                      <th>ID</th>
-                      <th>Name</th>
-                      <th>Address</th>
-                      <th>Package</th>
+                   <table class="display" id="gym" style="width:100%; color: purple;">
+                    <thead>
+                      <th>Firstname</th>
+                      <th>Middlename</th>
+                      <th>lastname</th>
+                      <th>Phoneno</th>
+                     
                     </thead>
                     <tbody>
+                          <%!
+           HashSet<Members> setpack=null;
+          %>
+   
+          
+              <%
+         
+          System.out.println("session="+session); 
+          
+              
+             setpack=(HashSet<Members>)session.getAttribute("setmember");
+            Iterator<Members> it=setpack.iterator();
+            System.out.println("kkkk");
+            while(it.hasNext())
+            {
+               Members adpack=it.next();
+             
+             
+             
+             
+             
+          %>
+
+
                       <tr>
-                        <td>1</td>
-                        <td>Dakota Rice</td>
-                        <td>$36,738</td>
-                        <td>NORMAL</td>
-                       <td class="td-actions text-right">
-                              <button type="button" rel="tooltip" title="Edit Record" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
-                            </td>
+                          <td><%= adpack.getFirstname()%></td>
+                        <td><%=adpack.getMiddlename()%></td>
+                        <td><%=adpack.getLastname()%></td>
+                        <td><%=adpack.getPhoneno()%></td>
+                       
+                     
                       </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>Minerva Hooper</td>
-                        <td>$23,789</td>
-                        <td>SILVER</td>
-                       <td class="td-actions text-right">
-                              <button type="button" rel="tooltip" title="Edit Record" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
-                            </td>
-                      </tr>
-                      <tr>
-                        <td>3</td>
-                        <td>Sage Rodriguez</td>
-                        <td>$56,142</td>
-                        <td>GOLD</td>
-                        <td class="td-actions text-right">
-                              <button type="button" rel="tooltip" title="Edit Record" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
-                            </td>
-                      </tr>
-                      <tr>
-                        <td>4</td>
-                        <td>Philip Chaney</td>
-                        <td>$38,735</td>
-                        <td>PLATINUM</td>
-                        <td class="td-actions text-right">
-                              <button type="button" rel="tooltip" title="Edit Record" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
-                            </td>
-                      </tr>
+                      <%}%>
+            
                     </tbody>
                   </table>
+      
                 </div>
 
 
