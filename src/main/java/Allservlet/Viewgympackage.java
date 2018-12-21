@@ -65,7 +65,7 @@ public void init(ServletConfig sc) throws ServletException
               {
                   response.sendRedirect(scx.getContextPath()+"/gymui/pannel/addmembers.jsp");
               }
-          else
+              else if(request.getParameter("msg").equals("package"))
               {
                     response.sendRedirect(scx.getContextPath()+"/gymui/pannel/managegympackage.jsp");
               }
