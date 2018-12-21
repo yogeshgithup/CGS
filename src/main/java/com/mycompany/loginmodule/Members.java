@@ -46,6 +46,18 @@ public class Members {
     @JoinColumn(name="branchid")
      private Addbranch adbranch;
 
+    public Members(int id, String firstname, String middlename, String lastname, Long phoneno) {
+        this.id = id;
+        this.firstname = firstname;
+        this.middlename = middlename;
+        this.lastname = lastname;
+        this.phoneno = phoneno;
+       
+    }
+
+     
+   
+
     public int getId() {
         return id;
     }
@@ -180,6 +192,29 @@ public class Members {
 
     public void setAdbranch(Addbranch adbranch) {
         this.adbranch = adbranch;
+    }
+
+    
+
+    public Members() {
+    }
+
+    public Members(int id, String firstname, String middlename, String lastname, Long phoneno, String area, String street, String postalcode, String email, String packagee, float height, float weight, String blood, String dob, String health) {
+        this.id = id;
+        this.firstname = firstname;
+        this.middlename = middlename;
+        this.lastname = lastname;
+        this.phoneno = phoneno;
+        this.area = area;
+        this.street = street;
+        this.postalcode = postalcode;
+        this.email = email;
+        this.packagee = packagee;
+        this.height = height;
+        this.weight = weight;
+        this.blood = blood;
+        this.dob = dob;
+        this.health = health;
     }
      
      

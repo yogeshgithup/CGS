@@ -54,7 +54,7 @@
           </li> -->
           
   <li class="nav-item">
-            <a class="nav-link" href="<%=application.getContextPath()%>/gymui/pannel/gymadmin.jsp">
+            <a class="nav-link" href="<%=application.getContextPath()%>/Viewbranch">
               <i class="material-icons"></i>
               <p>Manage Branches</p>
             </a>
@@ -66,19 +66,19 @@
             </a>
           </li> -->
          <li class="nav-item ">
-            <a class="nav-link" href="<%=application.getContextPath()%>/gymui/pannel/managebranchoperator.jsp">
+            <a class="nav-link" href="<%=application.getContextPath()%>/Viewbranchoperator">
               <i class="material-icons"></i>
               <p>Manage Branch Operator</p>
             </a>
           </li>
            <li class="nav-item">
-            <a class="nav-link" href="<%=application.getContextPath()%>/gymui/pannel/managefacilities.jsp">
+            <a class="nav-link" href="<%=application.getContextPath()%>/Viewfacilities">
               <i class="material-icons"></i>
               <p>Manage Facilities</p>
             </a>
           </li>
            <li class="nav-item active ">
-            <a class="nav-link" href="<%=application.getContextPath()%>/gymui/pannel/managegympackage.jsp">
+            <a class="nav-link" href="<%=application.getContextPath()%>/">
               <i class="material-icons"></i>
               <p>Manage Package</p>
             </a>
