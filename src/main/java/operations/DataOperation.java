@@ -1130,4 +1130,30 @@ System.out.println("oooo--"+setfacility.toString());
         }
 
     }
+    public void addaboutus(Gyminfo g, Addgym ag)
+    {
+        try
+        {
+          sfobj = (SessionFactory) scx.getAttribute("sf");
+            session = sfobj.openSession();
+            tx = session.beginTransaction();
+            Gyminfo l=null;
+             Query q = session.createQuery("from Gyminfo where id=:gymid");
+            q.setString("gymid",String.valueOf(ag.getId()));
+
+            List<Gyminfo> results = q.list();
+
+            l = (Gyminfo) results.get(0);
+           Addgym k=l.getA();
+            l.setAbout_us_desc(g.getAbout_us_desc());
+            l.setAbout_us_title(g.getAbout_us_title());
+            k.setGyinfo(l);
+            session.save(k);
+            tx.commit();
+            session.close();
+            
+          } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

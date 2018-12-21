@@ -185,12 +185,12 @@
                   <p class="card-category"></p>
                 </div>
                 <div class="card-body">
-                  <form>
-                      <div class="row">                                  
+                  <form action="<%=application.getContextPath()%>/Addaboutus" method="post">
+<!--                      <div class="row">                                  
                       <div class="col-md-2">
                         <label for="file-multiple-input" class=" form-control-label">About US Image</label></div>
                             <div  class="col-md-3"><input type="file" id="file-multiple-input" name="file-multiple-input" multiple="" class="form-control-file "></div>
-                      </div>
+                      </div>-->
                    <div class="row">  
                             <div class="col-md-6">
                         <h2 align="center">About Us Description</h2>
@@ -205,13 +205,13 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">About us Title</label>
-                          <input type="text" class="form-control">
+                          <input type="text" name="title" class="form-control">
                         </div>
                       </div>                       
                     <div class="col-md-6">
                           <div class="form-group">
                         <label for="comment" class="bmd-label-floating">About Us Description:</label>
-                        <textarea class="form-control" rows="5" id="comment"></textarea>
+                        <textarea class="form-control" rows="3" name="desc" id="comment"></textarea>
                           </div>
                         </div>
                       </div>

@@ -117,6 +117,10 @@
         <servlet-name>Addmembers</servlet-name>
         <servlet-class>Allservlet.Addmembers</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Addaboutus</servlet-name>
+        <servlet-class>Allservlet.Addaboutus</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Loginverify</servlet-name>
         <url-pattern>/Loginverify</url-pattern>
@@ -224,6 +228,10 @@
     <servlet-mapping>
         <servlet-name>Addmembers</servlet-name>
         <url-pattern>/Addmembers</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Addaboutus</servlet-name>
+        <url-pattern>/Addaboutus</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
