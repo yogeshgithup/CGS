@@ -212,10 +212,9 @@
                                <button type="button" class="btn btn-primary pull-right" id="btn2">ADD More</button>  
                            </div>
                             </div>
+                      
                    <div class="row">  
                             <div class="col-md-6">
-                        <h2 align="center">Equipment Description</h2>
-                  
                       <!--   <div class="form-group">
                           <label class="bmd-label-floating">Aechievemet Title</label>
                           <input type="text" class="form-control">
@@ -535,6 +534,8 @@
         alert(mydiv1);
         fctrl=createTextbox4('f'+ctrld1);
         alert(fctrl);
+        fctrl1= createFile1('f'+ctrld1);
+        alert(fctrl1);
          sctrl=createTextarea3('s'+ctrld1);
         alert(sctrl);
         btnctrl=createButton1("b"+ctrld1);
@@ -545,13 +546,14 @@
             par.remove();
         });
       //  mydiv1.append('<div  class="col-md-2">');
-        mydiv1.append('<div  class="col-md-6">');
-      //  mydiv1.append(fctrl).append('</div>');
-        mydiv1.append(fctrl);
-         mydiv1.append(btnctrl).append('</div>');
-        mydiv1.append('<div class="row"><div  class="col-md-6">').append(sctrl).append('</div></div></div>');
+     //   mydiv1.append('<div  class="col-md-4">');
+        mydiv1.append('<label class=" form-control-label">Equipment Image</label>').append(fctrl1);
+        mydiv1.append(fctrl).append('</div>');
+       
+        mydiv1.append('').append(sctrl).append('</div>');
+          mydiv1.append(btnctrl).append('</div></div>');
         mydiv1.append('');
-        
+    
         alert( $("#equid"));
         $("#equid").append(mydiv1);
         ctrld1++;

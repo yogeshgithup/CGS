@@ -101,7 +101,7 @@
             </a>
           </li>
            <li class="nav-item ">
-            <a class="nav-link" href="<%=application.getContextPath()%>/Viewgympackage">
+            <a class="nav-link" href="<%=application.getContextPath()%>/Viewgympackage?msg=package">
               <i class="material-icons"></i>
               <p>Manage Package</p>
             </a>
