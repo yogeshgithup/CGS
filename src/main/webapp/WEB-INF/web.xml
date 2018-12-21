@@ -118,6 +118,8 @@
         <servlet-class>Allservlet.Addmembers</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>Addaboutus</servlet-name>
+        <servlet-class>Allservlet.Addaboutus</servlet-class>
         <servlet-name>Viewmembers</servlet-name>
         <servlet-class>Allservlet.Viewmembers</servlet-class>
     </servlet>
@@ -230,6 +232,10 @@
         <url-pattern>/Addmembers</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>Addaboutus</servlet-name>
+        <url-pattern>/Addaboutus</url-pattern>
+      </servlet-mapping>
+   <servlet-mapping>
         <servlet-name>Viewmembers</servlet-name>
         <url-pattern>/Viewmembers</url-pattern>
     </servlet-mapping>

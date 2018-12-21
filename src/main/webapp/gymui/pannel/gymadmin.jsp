@@ -95,7 +95,7 @@
             </a>
           </li>
            <li class="nav-item ">
-            <a class="nav-link" href="<%=application.getContextPath()%>/Viewfacilities">
+            <a class="nav-link" href="<%=application.getContextPath()%>/Viewfacilities?msg=facility">
               <i class="material-icons"></i>
               <p>Manage Facilities</p>
             </a>

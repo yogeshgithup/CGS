@@ -192,19 +192,26 @@
                 </div>
                 <div class="card-body">
                   <form>
-                      <div class="row">                                  
+                      <div id="equid">
+                      <div class="row"> 
+                          
                       <div class="col-md-2">
                         <label for="file-multiple-input" class=" form-control-label">Equipment Image</label></div>
                             <div  class="col-md-3"><input type="file" id="file-multiple-input" name="file-multiple-input" multiple="" class="form-control-file "></div>
                       </div>
-                       <div class="row">                      
+                
+                       <div class="row">
+                            
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Equipment Title</label>
                           <input type="text" class="form-control">
                         </div>
                       </div>
-                       </div>
+                            <div class="col-md-3">
+                               <button type="button" class="btn btn-primary pull-right" id="btn2">ADD More</button>  
+                           </div>
+                            </div>
                    <div class="row">  
                             <div class="col-md-6">
                         <h2 align="center">Equipment Description</h2>
@@ -234,10 +241,14 @@
                       </div>-->
                        
                    </div>
+                       </div>
+                         
+                          
+                      </div>
                    </div>
                    </div>
                       <div class="col-md-6"> 
-                         <button type="submit" class="btn btn-primary pull-right">Submit</button>
+                          <button type="submit" class="btn btn-primary pull-right">Submit</button>
                         </div>
                     </div>
                   </div>
@@ -353,6 +364,7 @@
   <script src="<%=application.getContextPath()%>/gymui/js/material-dashboard.js?v=2.1.0"></script>
   <!-- Material Dashboard DEMO methods, don't include it in your project! -->
   <script src="<%=application.getContextPath()%>/gymui/js/demo.js"></script>
+  <script src="<%=application.getContextPath()%>/gymui/js/mycontrol.js"></script>
   <script>
     $(document).ready(function() {
       $().ready(function() {
@@ -514,6 +526,36 @@
         });
       });
     });
+  
+   var ctrld1=1;
+    $('#btn2').click(function(evt){
+        evt.preventDefault();
+        alert(ctrld1);
+        mydiv1=hello('d'+ctrld1);
+        alert(mydiv1);
+        fctrl=createTextbox4('f'+ctrld1);
+        alert(fctrl);
+         sctrl=createTextarea3('s'+ctrld1);
+        alert(sctrl);
+        btnctrl=createButton1("b"+ctrld1);
+        $(btnctrl).click(function()
+        {
+            alert("remove me");
+            var par=$(this).parent();
+            par.remove();
+        });
+      //  mydiv1.append('<div  class="col-md-2">');
+        mydiv1.append('<div  class="col-md-6">');
+      //  mydiv1.append(fctrl).append('</div>');
+        mydiv1.append(fctrl);
+         mydiv1.append(btnctrl).append('</div>');
+        mydiv1.append('<div class="row"><div  class="col-md-6">').append(sctrl).append('</div></div></div>');
+        mydiv1.append('');
+        
+        alert( $("#equid"));
+        $("#equid").append(mydiv1);
+        ctrld1++;
+        });  
   </script>
   <script>
     $(document).ready(function() {
