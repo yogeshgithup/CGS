@@ -47,13 +47,14 @@ public class Members {
     @JoinColumn(name="branchid")
      private Addbranch adbranch;
 
-    public Members(int id, String firstname, String middlename, String lastname, Long phoneno) {
+    public Members(int id, String firstname, String middlename, String lastname, Long phoneno, String packagee, String date) {
         this.id = id;
         this.firstname = firstname;
         this.middlename = middlename;
         this.lastname = lastname;
         this.phoneno = phoneno;
-       
+       this.packagee=packagee;
+       this.date=date;
     }
 
      

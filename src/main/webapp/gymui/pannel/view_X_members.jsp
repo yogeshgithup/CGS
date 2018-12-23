@@ -1,9 +1,9 @@
 <%-- 
-    Document   : branchoperator
-    Created on : Oct 11, 2018, 12:41:02 PM
-    Author     : sneh pael
+    Document   : view_X_members
+    Created on : 22 Dec, 2018, 11:34:52 AM
+    Author     : Shravan
 --%>
-
+<%@page import="com.mycompany.loginmodule.Members"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="com.mycompany.loginmodule.Trainer"%>
 <%@page import="java.util.HashSet"%>
@@ -169,21 +169,22 @@
               
  <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title" align="Center">TRAINER LIST</h4>
+                  <h4 class="card-title" align="Center">MEMBERS LIST</h4>
                   <p class="card-category"></p>
                 </div>
                 <div class="card-body table-responsive">
-                   <table class="display" id="gym" style="width:100%; color: purple;">
+                 <table class="display" id="gym" style="width:100%; color: purple;">
                     <thead>
                       <th>Firstname</th>
                       <th>Middlename</th>
                       <th>lastname</th>
-                      <th>email</th>
-                      <th>role</th>
+                      <th>Phoneno</th>
+                      <th>Package</th>
+                       <th> expiry date</th>
                     </thead>
                     <tbody>
                           <%!
-           HashSet<Trainer> setpack=null;
+           HashSet<Members> setpack=null;
           %>
    
           
@@ -192,16 +193,15 @@
           System.out.println("session="+session); 
           
               
-             setpack=(HashSet<Trainer>)session.getAttribute("settrainer");
-            Iterator<Trainer> it=setpack.iterator();
+             setpack=(HashSet<Members>)session.getAttribute("setvalidmember");
+            Iterator<Members> it=setpack.iterator();
             System.out.println("kkkk");
             while(it.hasNext())
             {
-                Trainer adpack=it.next();
+               Members adpack=it.next();
              
              
-             
-             
+          
              
           %>
 
@@ -210,16 +210,31 @@
                           <td><%= adpack.getFirstname()%></td>
                         <td><%=adpack.getMiddlename()%></td>
                         <td><%=adpack.getLastname()%></td>
-                        <td><%=adpack.getEmail()%></td>
-                        <td><%=adpack.getRole()%></td>
-                     
+                        <td><%=adpack.getPhoneno()%></td>
+                        <td><%= adpack.getPackagee()%>
+                         <td><%= adpack.getDate()%>
+                              <td> <a  href="#" class="view" id="<%=adpack.getId()%>" style="color:black">Send message</a>
+                            </td>
                       </tr>
                       <%}%>
             
                     </tbody>
                   </table>
                 </div>
+<div class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-xl-12 col-lg-12">
+                <div class="col-sm-4"> 
+                         <button id="but" type="button" class="btn btn-primary pull-right">send to all
+                        </button></a>
+                        </div>
+            </div>
+              
+                 
 
+
+            </div>
 
             </div>
             <div class="col-xl-4 col-lg-12">
@@ -327,6 +342,23 @@
   <script>
     $(document).ready(function() {
       $().ready(function() {
+          $('a.view').click(function(){
+   alert("hello");
+   var trid=$(this).attr('id');
+  alert(trid);
+  $.post("<%=application.getContextPath()%>/Validatemember?msg=one",{"id":trid},function(data,status){
+      alert(data); 
+    });
+  });
+  
+     $("#but").click(function(){
+   alert("hello");
+  
+  //alert(trid);
+  $.post("<%=application.getContextPath()%>/Validatemember?msg=all",{"id":<%= session.getAttribute("branchid")%>},function(data,status){
+      alert(data); 
+    });
+});
         $sidebar = $('.sidebar');
 
         $sidebar_img_container = $sidebar.find('.sidebar-background');
@@ -496,3 +528,4 @@
 </body>
 
 </html>
+

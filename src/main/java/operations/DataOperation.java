@@ -1185,7 +1185,7 @@ public class DataOperation {
 //                   HashSet<Pack_facility> pac=new HashSet<Pack_facility>();
 //                 pac = getpacfacility(p1.getId());
                 //   System.out.println("---"+pac.toString());
-                Members m = new Members(m1.getId(), m1.getFirstname(), m1.getMiddlename(), m1.getLastname(), m1.getPhoneno());//,m1.getArea(),m1.getStreet(),m1.getPostalcode(),m1.getEmail(),m1.getPackagee(),m1.getPassword(),m1.getHeight(),m1.getWeight(),m1.getHealth(),m1.getDob());
+                Members m = new Members(m1.getId(), m1.getFirstname(), m1.getMiddlename(), m1.getLastname(), m1.getPhoneno(), m1.getPackagee(), m1.getDate());//,m1.getArea(),m1.getStreet(),m1.getPostalcode(),m1.getEmail(),m1.getPackagee(),m1.getPassword(),m1.getHeight(),m1.getWeight(),m1.getHealth(),m1.getDob());
                 //Trainer t=new Trainer(p1.getFirstname(),p1.getMiddlename(),p1.getMiddlename(),p1.getEmail(),p1.getRole());
                 setfacility.add(m);
             }
@@ -1229,60 +1229,61 @@ public class DataOperation {
 
     }
 
-    public void invalidmember(int branchid)
-    {
-       try {
+    public HashSet<Members> invalidmember(int branchid) {
+        HashSet<Members> setfacility = null;
+        try {
             System.out.println("before calling");
-           
+            setfacility = new HashSet<Members>();
             sfobj = (SessionFactory) scx.getAttribute("sf");
             System.out.println("line 57" + sfobj);
             session = sfobj.openSession();
             System.out.println("line 59");
             tx = session.beginTransaction();
             //System.out.println("get package"); 
-         
-        Members p1=null;
+
+            Members p1 = null;
             Query q = session.createQuery("from Members where branchid=:gymidi");
-            q.setString("gymidi",String.valueOf(branchid));
+            q.setString("gymidi", String.valueOf(branchid));
             System.out.println("gp 59");
             List<Members> results = q.list();
             System.out.println("query");
             System.out.println("yyyyy" + results.size());
             for (int i = 0; i <= results.size(); i++) {
                 p1 = (Members) results.get(i);
-                String package1=p1.getPackagee();
-                System.out.println("----"+p1.getPackagee());
-                Gympackage gp=null;
-                 Query q1 = session.createQuery("from Gympackage where name=:packagename");
-            q1.setString("packagename",package1);
-            System.out.println("gp 59");
-            List<Gympackage> results1 = q1.list();
-            for(int j=0;j<results1.size();j++)
-            {
-             gp=(Gympackage)results1.get(j);
-            int time=Integer.parseInt(gp.getTime());
-            
-       
-             String date=p1.getDate();
-             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
- 
-LocalDate localDate = LocalDate.parse(date, dateTimeFormatter);    //String to LocalDate
-             //Date date1=new SimpleDateFormat("yyyy/MM/dd").parse(date);
-    //         LocalDate localDate = LocalDate.parse(date);
-                System.out.println("++"+localDate);  
-                System.out.println("ppp"+time);
-             LocalDate localDatenow = LocalDate.now();
-                System.out.println("ooo"+localDate.plusMonths(time).minusDays(10));
-             if(localDate.plusMonths(time).isEqual(localDatenow) || (localDatenow.isAfter(localDate.plusMonths(time).minusDays(10)) && localDatenow.isBefore(localDate.plusMonths(time)) ) )
-             {
-                 final long days = ChronoUnit.DAYS.between(localDatenow,localDate.plusMonths(time));
-                 String message1="your pack going to expired on-"+localDate.plusMonths(time)+"--days remainig="+days;
-                 SMSOperation so = new SMSOperation();
-                 System.out.println("---"+message1);
-            String result = so.sendSMS(String.valueOf(p1.getPhoneno()),message1);
-            System.out.println(result);
-             }
-            }
+                String package1 = p1.getPackagee();
+                System.out.println("----" + p1.getPackagee());
+                Gympackage gp = null;
+                Query q1 = session.createQuery("from Gympackage where name=:packagename");
+                q1.setString("packagename", package1);
+                System.out.println("gp 59");
+                List<Gympackage> results1 = q1.list();
+                for (int j = 0; j < results1.size(); j++) {
+                    gp = (Gympackage) results1.get(j);
+                    int time = Integer.parseInt(gp.getTime());
+
+                    String date = p1.getDate();
+                    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+
+                    LocalDate localDate = LocalDate.parse(date, dateTimeFormatter);    //String to LocalDate
+                    //Date date1=new SimpleDateFormat("yyyy/MM/dd").parse(date);
+                    //         LocalDate localDate = LocalDate.parse(date);
+                    System.out.println("++" + localDate);
+                    System.out.println("ppp" + time);
+                    LocalDate localDatenow = LocalDate.now();
+                    System.out.println("ooo" + localDate.plusMonths(time).minusDays(10));
+                    if (localDate.plusMonths(time).isEqual(localDatenow) || (localDatenow.isAfter(localDate.plusMonths(time).minusDays(10)) && localDatenow.isBefore(localDate.plusMonths(time)))) {
+
+                        Members m = new Members(p1.getId(), p1.getFirstname(), p1.getMiddlename(), p1.getLastname(), p1.getPhoneno(), p1.getPackagee(), localDate.plusMonths(time).toString());//,m1.getArea(),m1.getStreet(),m1.getPostalcode(),m1.getEmail(),m1.getPackagee(),m1.getPassword(),m1.getHeight(),m1.getWeight(),m1.getHealth(),m1.getDob());
+                        //Trainer t=new Trainer(p1.getFirstname(),p1.getMiddlename(),p1.getMiddlename(),p1.getEmail(),p1.getRole());
+                        setfacility.add(m);
+//                 final long days = ChronoUnit.DAYS.between(localDatenow,localDate.plusMonths(time));
+//                 String message1="your pack going to expired on-"+localDate.plusMonths(time)+"--days remainig="+days;
+//                 SMSOperation so = new SMSOperation();
+//                 System.out.println("---"+message1);
+//            String result = so.sendSMS(String.valueOf(p1.getPhoneno()),message1);
+//            System.out.println(result);
+                    }
+                }
             }
 
             tx.commit();
@@ -1290,6 +1291,132 @@ LocalDate localDate = LocalDate.parse(date, dateTimeFormatter);    //String to L
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-   
+        return setfacility;
+    }
+
+    public void sendmessage(String id) {
+        try {
+            System.out.println("before calling");
+            //  setfacility = new HashSet<Members>();
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+            System.out.println("line 57" + sfobj);
+            session = sfobj.openSession();
+            System.out.println("line 59");
+            tx = session.beginTransaction();
+            //System.out.println("get package"); 
+
+            Members p1 = null;
+            Query q = session.createQuery("from Members where id=:gymidi");
+            q.setString("gymidi", id);
+            System.out.println("gp 59");
+            List<Members> results = q.list();
+            System.out.println("query");
+            System.out.println("yyyyy" + results.size());
+            for (int i = 0; i <= results.size(); i++) {
+                p1 = (Members) results.get(i);
+                String package1 = p1.getPackagee();
+                System.out.println("----" + p1.getPackagee());
+                Gympackage gp = null;
+                Query q1 = session.createQuery("from Gympackage where name=:packagename");
+                q1.setString("packagename", package1);
+                System.out.println("gp 59");
+                List<Gympackage> results1 = q1.list();
+                for (int j = 0; j < results1.size(); j++) {
+                    gp = (Gympackage) results1.get(j);
+                    int time = Integer.parseInt(gp.getTime());
+
+                    String date = p1.getDate();
+                    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+
+                    LocalDate localDate = LocalDate.parse(date, dateTimeFormatter);    //String to LocalDate
+                    //Date date1=new SimpleDateFormat("yyyy/MM/dd").parse(date);
+                    //         LocalDate localDate = LocalDate.parse(date);
+                    System.out.println("++" + localDate);
+                    System.out.println("ppp" + time);
+                    LocalDate localDatenow = LocalDate.now();
+                    System.out.println("ooo" + localDate.plusMonths(time).minusDays(10));
+                    if (localDate.plusMonths(time).isEqual(localDatenow) || (localDatenow.isAfter(localDate.plusMonths(time).minusDays(10)) && localDatenow.isBefore(localDate.plusMonths(time)))) {
+
+                   //  Members m = new Members(p1.getId(), p1.getFirstname(), p1.getMiddlename(), p1.getLastname(), p1.getPhoneno(),p1.getPackagee(),localDate.plusMonths(time).toString());//,m1.getArea(),m1.getStreet(),m1.getPostalcode(),m1.getEmail(),m1.getPackagee(),m1.getPassword(),m1.getHeight(),m1.getWeight(),m1.getHealth(),m1.getDob());
+                        //Trainer t=new Trainer(p1.getFirstname(),p1.getMiddlename(),p1.getMiddlename(),p1.getEmail(),p1.getRole());
+                        //     setfacility.add(m);
+                        final long days = ChronoUnit.DAYS.between(localDatenow, localDate.plusMonths(time));
+                        String message1 = "your pack going to expired on-" + localDate.plusMonths(time) + "--days remainig=" + days;
+                        SMSOperation so = new SMSOperation();
+                        System.out.println("---" + message1);
+                        String result = so.sendSMS(String.valueOf(p1.getPhoneno()), message1);
+                        System.out.println(result);
+                    }
+                }
+            }
+
+            tx.commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+     public void sendmessage_all(String id) {
+        try {
+            System.out.println("before calling");
+            //  setfacility = new HashSet<Members>();
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+            System.out.println("line 57" + sfobj);
+            session = sfobj.openSession();
+            System.out.println("line 59");
+            tx = session.beginTransaction();
+            //System.out.println("get package"); 
+
+            Members p1 = null;
+            Query q = session.createQuery("from Members where branchid=:gymidi");
+            q.setString("gymidi", id);
+            System.out.println("gp 59");
+            List<Members> results = q.list();
+            System.out.println("query");
+            System.out.println("yyyyy" + results.size());
+            for (int i = 0; i <= results.size(); i++) {
+                p1 = (Members) results.get(i);
+                String package1 = p1.getPackagee();
+                System.out.println("----" + p1.getPackagee());
+                Gympackage gp = null;
+                Query q1 = session.createQuery("from Gympackage where name=:packagename");
+                q1.setString("packagename", package1);
+                System.out.println("gp 59");
+                List<Gympackage> results1 = q1.list();
+                for (int j = 0; j < results1.size(); j++) {
+                    gp = (Gympackage) results1.get(j);
+                    int time = Integer.parseInt(gp.getTime());
+
+                    String date = p1.getDate();
+                    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+
+                    LocalDate localDate = LocalDate.parse(date, dateTimeFormatter);    //String to LocalDate
+                    //Date date1=new SimpleDateFormat("yyyy/MM/dd").parse(date);
+                    //         LocalDate localDate = LocalDate.parse(date);
+                    System.out.println("++" + localDate);
+                    System.out.println("ppp" + time);
+                    LocalDate localDatenow = LocalDate.now();
+                    System.out.println("ooo" + localDate.plusMonths(time).minusDays(10));
+                    if (localDate.plusMonths(time).isEqual(localDatenow) || (localDatenow.isAfter(localDate.plusMonths(time).minusDays(10)) && localDatenow.isBefore(localDate.plusMonths(time)))) {
+
+                   //  Members m = new Members(p1.getId(), p1.getFirstname(), p1.getMiddlename(), p1.getLastname(), p1.getPhoneno(),p1.getPackagee(),localDate.plusMonths(time).toString());//,m1.getArea(),m1.getStreet(),m1.getPostalcode(),m1.getEmail(),m1.getPackagee(),m1.getPassword(),m1.getHeight(),m1.getWeight(),m1.getHealth(),m1.getDob());
+                        //Trainer t=new Trainer(p1.getFirstname(),p1.getMiddlename(),p1.getMiddlename(),p1.getEmail(),p1.getRole());
+                        //     setfacility.add(m);
+                        final long days = ChronoUnit.DAYS.between(localDatenow, localDate.plusMonths(time));
+                        String message1 = "your pack going to expired on-" + localDate.plusMonths(time) + "--days remainig=" + days;
+                        SMSOperation so = new SMSOperation();
+                        System.out.println("---" + message1);
+                        String result = so.sendSMS(String.valueOf(p1.getPhoneno()), message1);
+                        System.out.println(result);
+                    }
+                }
+            }
+
+            tx.commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
