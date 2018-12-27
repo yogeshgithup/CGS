@@ -59,6 +59,6 @@ public class Addaboutus extends HttpServlet {
         Addgym gym = doo.getGymID(gymid);
         doo.addaboutus(g, gym);
         
-         response.sendRedirect(scx.getContextPath()+"/gymui/pannel/aboutusediting.jsp");
+         response.sendRedirect(scx.getContextPath()+"/gymui/pannel/aboutusediting1.jsp");
   }
 }

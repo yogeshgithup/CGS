@@ -63,6 +63,6 @@ public void init(ServletConfig sc) throws ServletException
         System.out.println("----"+id);
         String facility[]=request.getParameterValues("facility");
         doo.addpackfacility(id, facility);
-           response.sendRedirect(scx.getContextPath()+"/Viewgympackage");
+           response.sendRedirect(scx.getContextPath()+"/Viewgympackage?msg=package");
     }
 }

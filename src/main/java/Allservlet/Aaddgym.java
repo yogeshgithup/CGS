@@ -56,7 +56,7 @@ public void init(ServletConfig sc) throws ServletException
         String ownername=request.getParameter("ownername");
         String street=request.getParameter("street");
         String area=request.getParameter("area");
-        String postcode=request.getParameter("postcode");
+        String postcode=request.getParameter("postalcode");
         long phoneno=Long.parseLong(request.getParameter("phoneno"));
         String username=request.getParameter("username");
         //String password=request.getParameter("password");
@@ -96,7 +96,7 @@ public void init(ServletConfig sc) throws ServletException
          //  hs.setAttribute("msg",s);
           // System.out.println(hs.getAttribute("msg").toString());
            
-       response.sendRedirect(scx.getContextPath()+"/gymui/pannel/addgym.jsp?msg="+n);
+       response.sendRedirect(scx.getContextPath()+"/gymui/pannel/addgym1.jsp?msg="+n);
         
     }
 }

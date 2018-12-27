@@ -66,7 +66,7 @@ public void init(ServletConfig sc) throws ServletException
            hs.setAttribute("setpack",listCatagory);
           if(hs!=null)
           {
-              response.sendRedirect(scx.getContextPath()+"/gymui/pannel/addgym.jsp");
+              response.sendRedirect(scx.getContextPath()+"/gymui/pannel/addgym1.jsp");
           }
            /*HashSet<Addpackage> setpack=(HashSet<Addpackage>)hs.getAttribute("setpack");
             Iterator<Addpackage> it=setpack.iterator();

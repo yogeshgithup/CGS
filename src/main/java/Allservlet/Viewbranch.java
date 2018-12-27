@@ -59,7 +59,7 @@ public void init(ServletConfig sc) throws ServletException
             //Addgym gym = pko.getGymID(id);
            HashSet<Addbranch> listCatagory =pko.getbranch(id);
             session.setAttribute("setbranch",listCatagory);
-         response.sendRedirect(scx.getContextPath()+"/gymui/pannel/gymadmin.jsp");
+         response.sendRedirect(scx.getContextPath()+"/gymui/pannel/gymadmin1.jsp");
         
 }
 }
