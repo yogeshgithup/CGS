@@ -51,64 +51,37 @@
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="<%=application.getContextPath()%>/gymui/css/demo.css" rel="stylesheet" />
 <style>
-  /* Popup box BEGIN */
-.hover_bkgr_fricc{
-    background:rgba(0,0,0,.4);
-    cursor:pointer;
-    display:none;
-    height:100%;
-    position:fixed;
-    text-align:center;
-    top:0;
-    width:100%;
-    z-index:10000;
+    .popup{         
+  background-color:#913f9e;
+  z-index: 10000;
+  cursor: pointer;
+  margin: auto;
+  padding: 0;
+  box-shadow: 10px 10px 60px #555;
+  display: inline-block;
+  border-radius: 8px;
+  max-width: 551px;
+  min-height:100px;
+  text-align: center;
+  font-weight: bold;
+  color: black;
+  vertical-align: middle;
+   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 1s        
+    }
+ @-webkit-keyframes animatetop {
+  from {top:-300px; opacity:0} 
+  to {top:0; opacity:1}
 }
-.hover_bkgr_fricc .helper{
-    display:inline-block;
-    height:100%;
-    vertical-align:middle;
+
+@keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
 }
-.hover_bkgr_fricc > div {
-    background-color: #fff;
-    box-shadow: 10px 10px 60px #555;
-    display: inline-block;
-    height: auto;
-    max-width: 551px;
-    min-height: 100px;
-    vertical-align: middle;
-    width: 60%;
-    position: relative;
-    border-radius: 8px;
-    padding: 15px 5%;
-}
-.popupCloseButton {
-    background-color: #fff;
-    border: 3px solid #999;
-    border-radius: 50px;
-    cursor: pointer;
-    display: inline-block;
-    font-family: arial;
-    font-weight: bold;
-    position: absolute;
-    top: -20px;
-    right: -20px;
-    font-size: 25px;
-    line-height: 30px;
-    width: 30px;
-    height: 30px;
-    text-align: center;
-}
-.popupCloseButton:hover {
-    background-color: #ccc;
-}
-.trigger_popup_fricc {
-    cursor: pointer;
-    font-size: 15px;
-    margin: 4px;
-    display: inline-block;
-    font-weight: bold;
-}
-/* Popup box BEGIN */
+
     </style>
 
 </head>
@@ -314,27 +287,26 @@
                           <td><%= adbranch.getName()%></td>
                            <td><%= adbranch.getAmount()%></td>
                             <td><%=adbranch.getTime()%></td>
-                            <td> <a  href="#"  onclick="myFunction()" class="trigger_popup_fricc view" id="<%=adbranch.getId()%>" style="color:black">view facilities</a>
+                            <td> <a  href="#"  class="view" id="<%=adbranch.getId()%>" style="color:black">view facilities</a>
                             </td>
-                     <div class="hover_bkgr_fricc">
-    <span class="helper"></span>
-    <div >
-        <div class="popupCloseButton">X</div>
-        <p id="popid">hello</p>
-    </div>
-</div>
+                     
+    
           
           </tr>
                       <%}%>
                     </tbody>
                   </table>
                 </div>
-
+                    
 
             </div>
+                  
             <div class="col-xl-4 col-lg-12">
-              
-
+                <div id="dialog" > 
+                    
+                        <p id="popid" class="popup" ><b></p></b>
+</div>
+                    
 
             </div>
             <div class="col-xl-4 col-lg-12">
@@ -371,6 +343,7 @@
             <div class="col-lg-6 col-md-12">
               
         </div>
+               
       </div>
       
       
@@ -381,6 +354,7 @@
       </script>
     </div>
   </div>
+                   
   <div class="fixed-plugin">
     <div class="dropdown show-dropdown">
       <a href="#" data-toggle="dropdown">
@@ -442,20 +416,23 @@
   });
   
   </script>
-  <script>
-      $(".trigger_popup_fricc").click(function(){
-       $('.hover_bkgr_fricc').show();
-    });
+<!--  <script>
+      
     $('.hover_bkgr_fricc').click(function(){
         $('.hover_bkgr_fricc').hide();
     });
     $('.popupCloseButton').click(function(){
         $('.hover_bkgr_fricc').hide();
-    });
+  $('.hover_bkgr_fricc').click(function(){
+      $('.hover_bkgr_fricc').hide();
+    });   });
 
       
       
-      </script>
+      </script>-->
+<script src="https://code.jquery.com/jquery/1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
   <script>
     $(document).ready(function() {
       $().ready(function() {
@@ -466,7 +443,19 @@
 $.post("<%=application.getContextPath()%>/Verifygymname",{"gympackage":trid},function(data,status){
       alert(data+"--"+$("#popid")+"  "+ document.getElementById("popid").innerHTML);
       $("#popid").html(data);
-      data.classList.toggle("show");
+      $("#dialog").dialog();
+      
+            $("#dialog").click(function()
+            {               
+                    $("#dialog").hide();
+                
+    }); 
+               
+        
+                
+//      document.getElementById("popid").innerHTML=data;
+//         $('.hover_bkgr_fricc').show();
+//        data.classList.toggle("show");
     // $("#popid").ht
    // alert( document.getElementById("popid"));
     // document.getElementById("popid").innerHTML=data;

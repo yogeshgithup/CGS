@@ -58,7 +58,7 @@ public void init(ServletConfig sc) throws ServletException
            DataOperation pko=new DataOperation(scx);
            HashSet<addbranchoperator> listCatagory =pko.getbranchoperator(id);
             session.setAttribute("setbranchop",listCatagory);
-         response.sendRedirect(scx.getContextPath()+"/gymui/pannel/managebranchoperator.jsp");
+         response.sendRedirect(scx.getContextPath()+"/gymui/pannel/managebranchoperator1.jsp");
         
 }
 }

@@ -66,7 +66,7 @@ public void init(ServletConfig sc) throws ServletException
               }
               else if(request.getParameter("msg").equals("facility")){
                   System.out.println("------");
-                    response.sendRedirect(scx.getContextPath()+"/gymui/pannel/managefacilities.jsp");
+                    response.sendRedirect(scx.getContextPath()+"/gymui/pannel/managefacilities1.jsp");
               }
               System.out.println("jnjnknnnj");
           }

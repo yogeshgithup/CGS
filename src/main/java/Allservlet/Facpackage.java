@@ -62,7 +62,7 @@ public void init(ServletConfig sc) throws ServletException
           {
               
               
-                    response.sendRedirect(scx.getContextPath()+"/gymui/pannel/addgympackage.jsp");
+                    response.sendRedirect(scx.getContextPath()+"/gymui/pannel/addgympackage1.jsp");
               
           }
            

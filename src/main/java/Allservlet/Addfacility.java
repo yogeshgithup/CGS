@@ -78,6 +78,6 @@ public void init(ServletConfig sc) throws ServletException
 //      gym.setFacility(fac);
 //        
        doo.addfacility(gymid,faci);
-        response.sendRedirect(scx.getContextPath()+"/Viewfacilities");
+        response.sendRedirect(scx.getContextPath()+"/Viewfacilities?msg=facility");
    }
 }

@@ -145,6 +145,7 @@ InputStream is = p.getInputStream();
        gym.setGyinfo(gi);
        
       doo.addgyminfo(gym);
+       response.sendRedirect(scx.getContextPath()+"/gymui/pannel/mainpageediting1.jsp");
 
     }
 

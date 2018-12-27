@@ -105,11 +105,6 @@ function createDiv3(fid)
     return ctrl;
 }
 //equipment
-function createDiv4(fid)
-{
-    var ctrl=$("<div/>").attr({id:fid});
-    return ctrl;
-}
 function hello(fid)
 {
     var ctrl=$("<div/>").attr({id:fid});
