@@ -1,12 +1,12 @@
 <%-- 
-    Document   : branchoperator
-    Created on : Oct 11, 2018, 12:41:02 PM
-    Author     : sneh pael
+    Document   : setremainder
+    Created on : 22 Dec, 2018, 11:20:30 AM
+    Author     : Shravan
 --%>
 
 <%@page import="java.util.Iterator"%>
-<%@page import="com.mycompany.loginmodule.Trainer"%>
 <%@page import="java.util.HashSet"%>
+<%@page import="com.mycompany.loginmodule.Addgym"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!DOCTYPE html>
@@ -92,12 +92,18 @@
           </li>
 
           <li class="nav-item ">
-            <a class="nav-link" href="<%=application.getContextPath()%>/gymui/pannel/setremainder.jsp">
+            <a class="nav-link" href="<%=application.getContextPath()%>/Validatemember">
               <i class="material-icons"></i>
               <p>Set Remainder</p>
             </a>
           </li>
-          
+
+          <!-- <li class="nav-item active-pro ">
+                <a class="nav-link" href="./upgrade.html">
+                    <i class="material-icons">unarchive</i>
+                    <p>Upgrade to PRO</p>
+                </a>
+            </li> -->
         </ul>
       </div>
     </div>
@@ -166,59 +172,13 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-xl-12 col-lg-12">
+                <div class="col-sm-4"> 
+                        <a href="<%=application.getContextPath()%>/Validatemember?msg=view"> <button type="button" class="btn btn-primary pull-right">members expiry
+                        </button></a>
+                        </div>
+            </div>
               
- <div class="card">
-                <div class="card-header card-header-primary">
-                  <h4 class="card-title" align="Center">TRAINER LIST</h4>
-                  <p class="card-category"></p>
-                </div>
-                <div class="card-body table-responsive">
-                   <table class="display" id="gym" style="width:100%; color: purple;">
-                    <thead>
-                      <th>Firstname</th>
-                      <th>Middlename</th>
-                      <th>lastname</th>
-                      <th>email</th>
-                      <th>role</th>
-                    </thead>
-                    <tbody>
-                          <%!
-           HashSet<Trainer> setpack=null;
-          %>
-   
-          
-              <%
-         
-          System.out.println("session="+session); 
-          
-              
-             setpack=(HashSet<Trainer>)session.getAttribute("settrainer");
-            Iterator<Trainer> it=setpack.iterator();
-            System.out.println("kkkk");
-            while(it.hasNext())
-            {
-                Trainer adpack=it.next();
-             
-             
-             
-             
-             
-          %>
-
-
-                      <tr>
-                          <td><%= adpack.getFirstname()%></td>
-                        <td><%=adpack.getMiddlename()%></td>
-                        <td><%=adpack.getLastname()%></td>
-                        <td><%=adpack.getEmail()%></td>
-                        <td><%=adpack.getRole()%></td>
-                     
-                      </tr>
-                      <%}%>
-            
-                    </tbody>
-                  </table>
-                </div>
+                 
 
 
             </div>
@@ -263,12 +223,8 @@
         </div>
       </div>
       
+              
       
-      <script>
-        const x = new Date().getFullYear();
-        let date = document.getElementById('date');
-        date.innerHTML = '&copy; ' + x + date.innerHTML;
-      </script>
     </div>
   </div>
   <div class="fixed-plugin">
@@ -311,7 +267,7 @@
   <script src="<%=application.getContextPath()%>/gymui/js/popper.min.js"></script>
   <script src="<%=application.getContextPath()%>/gymui/js/bootstrap-material-design.min.js"></script>
   <script src="https://unpkg.com/default-passive-events"></script>
-  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <script src="<%=application.getContextPath()%>/gymui/js/perfect-scrollbar.jquery.min.js"></script>
   <!-- Place this tag in your head or just before your close body tag. -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!--  Google Maps Plugin    -->
@@ -324,8 +280,16 @@
   <script src="<%=application.getContextPath()%>/gymui/js/material-dashboard.js?v=2.1.0"></script>
   <!-- Material Dashboard DEMO methods, don't include it in your project! -->
   <script src="<%=application.getContextPath()%>/gymui/js/demo.js"></script>
+     <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
   <script>
-    $(document).ready(function() {
+  $(function(){
+    $("#gym").dataTable();
+  })
+  </script>
+  <script
+  
+        
       $().ready(function() {
         $sidebar = $('.sidebar');
 
@@ -496,3 +460,4 @@
 </body>
 
 </html>
+

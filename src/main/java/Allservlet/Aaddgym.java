@@ -11,6 +11,8 @@ import com.mycompany.loginmodule.Login;
 import com.mycompany.loginmodule.Logingym;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -73,13 +75,18 @@ public void init(ServletConfig sc) throws ServletException
           String pass=doo.randompassword();
         ag.setPassword(pass);
         ag.setPackagee(packagee);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+	LocalDate localDate = LocalDate.now();
+        
+	System.out.println(dtf.format(localDate));
+        ag.setDate(dtf.format(localDate).toString());
         l.setUsername(username);
       
         l.setPassword(pass);
         l.setType("gymadmin");
         ag.setL(l);
         l.setA(ag);
-      
+     
        n=doo.addgym(ag);
         }
         catch(Exception e)
