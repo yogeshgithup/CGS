@@ -80,6 +80,19 @@ public class Verifygymname extends HttpServlet {
             }
           
         }
+     if (request.getParameter("emailuser") != null) {
+            String email = request.getParameter("emailuser");
+       // System.out.println(gymname);
+
+            String answer = doo.verifyemailuser(email);
+            String ans=answer;
+            System.out.println("mmm"+answer);
+            if (answer.equals(ans)) {
+                System.out.println("lllll"+answer);
+                out.println(answer);
+            }
+          
+        }
     
     
        if (request.getParameter("branch") != null) {

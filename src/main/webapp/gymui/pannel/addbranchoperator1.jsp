@@ -151,7 +151,7 @@ function ValidateForm(){
                    <div class="col-md-6 px-1">
                       <div class="form-group">
                         <label>Phone No</label>
-                        <input type="text" class="form-control" name="phoneno" required="Gym Owner Enter Phone Number" placeholder="Phone Number">
+                        <input type="number" class="form-control" name="phoneno" required="Gym Owner Enter Phone Number" placeholder="Phone Number">
                       </div>
                     </div>
                   <div class="row">
@@ -171,7 +171,7 @@ function ValidateForm(){
                        <div class="col-md-4 px-1">
                       <div class="form-group">
                         <label>Postal Code</label>
-                        <input type="text" class="form-control" name="postalcode" required="Postal code required" placeholder="Postal Code">
+                        <input type="postalcode" class="form-control" name="postalcode" required="Postal code required" placeholder="Postal Code">
                       </div>
                     </div>
                      
