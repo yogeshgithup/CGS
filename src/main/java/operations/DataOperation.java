@@ -735,6 +735,35 @@ public class DataOperation {
         }
         return pack;
     }
+    
+     public String verifyemailuser(String email) {
+        String pack = null;
+        try {
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+            session = sfobj.openSession();
+            tx = session.beginTransaction();
+            //String b = "branchoperator";
+            //String c = "traineer";
+            Login l = null;
+
+            Query q = session.createQuery("from Login where Loginid=:uname");
+            q.setString("uname", email);
+
+            List<Login> results = q.list();
+
+            l = (Login) results.get(0);
+            System.out.println("ppp");
+            if (l == null) {
+
+                System.out.println("helll");
+                pack = "enter valid email";
+            }
+        } catch (Exception e) {
+            pack = "enter valid email";
+            System.out.println(e.getMessage());
+        }
+        return pack;
+    }
 
     public String verifybranchname(String branchname, int id) {
         String pack = null;

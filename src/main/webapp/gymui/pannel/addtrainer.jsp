@@ -191,7 +191,7 @@
                       <div class="col-md-3">
                         <div class="form-group">
                           <label class="bmd-label-floating">Phone No</label>
-                          <input type="text" name="phoneno" class="form-control" required>
+                          <input type="number" name="phoneno" class="form-control" required>
                         </div>
                       </div>
                       <div class="col-md-4">

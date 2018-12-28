@@ -130,7 +130,7 @@ function ValidateForm(){
                       <div class="col-md-6 px-1">
                       <div class="form-group">
                         <label>Amount</label>
-                        <input type="text" class="form-control" name="amount" id="street" required="Amount required" placeholder="Amount">
+                        <input type="number" class="form-control" name="amount" id="street" required="Amount required" placeholder="Amount">
                       </div>
                     </div>
 <!--                    <div class="col-md-6 pl-1">
@@ -144,7 +144,7 @@ function ValidateForm(){
                     <div class="col-md-6 px-1">
                       <div class="form-group">
                         <label>Time Period In Months</label>
-                        <input type="text" class="form-control" name="timeperiod" required="Time Period Required" placeholder="Time Period">
+                        <input type="number" class="form-control" name="timeperiod" required="Time Period Required" placeholder="Time Period">
                       </div>
                     </div>
                   </div>

@@ -129,7 +129,7 @@ function ValidateForm(){
                       <div class="col-md-6 px-1">
                       <div class="form-group">
                         <label>Time Period(IN MONTHS)</label>
-                        <input type="text" class="form-control" name="time" required="Time Required" placeholder="MONTHS">
+                        <input type="number" class="form-control" name="time" required="Time Required" placeholder="MONTHS">
                       </div>
                     </div>
 <!--                    <div class="col-md-6 pl-1">
@@ -143,13 +143,13 @@ function ValidateForm(){
                     <div class="col-md-6 px-1">
                       <div class="form-group">
                         <label>Amount</label>
-                        <input type="text" class="form-control" name="amount"  required="Amount required" placeholder="Amount">
+                        <input type="number" class="form-control" name="amount"  required="Amount required" placeholder="Amount">
                       </div>
                     </div>
                     <div class="col-md-6 px-1">
                       <div class="form-group">
                         <label>Number Of Branches Manage</label>
-                        <input type="text" class="form-control" name="branch" required="Enter the Number of Branches" placeholder="Number Of Branches">
+                        <input type="number" class="form-control" name="branch" required="Enter the Number of Branches" placeholder="Number Of Branches">
                       </div>
                     </div>
                   </div>
