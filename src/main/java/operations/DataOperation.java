@@ -64,8 +64,8 @@ public class DataOperation {
         this.scx = scx;
     }
 
-    public Logingym verify(Logingym l) {
-
+    public Addgym verify(Logingym l) {
+       Addgym a=null;
         try {
             System.out.println(l.getPassword());
             System.out.println("bcjsbc sjbcds" + scx);
@@ -87,17 +87,18 @@ public class DataOperation {
             List<Logingym> results = q.list();
             System.out.println("oooooo");
             l2 = (Logingym) results.get(0);
+             a=l2.getA();
             System.out.println("" + l2.getUsername());
             System.out.println("passed" + l.getPassword());
             System.out.println("" + l2.getPassword());
             if (l2.getPassword().equals(l.getPassword())) {
                 System.out.println("......");
                 System.out.println("");
-                l.setId(l2.getId());
+                a.setId(l2.getId());
                 System.out.println("id after" + l2.getId());
             } else {
                 System.out.println("");
-                l.setId(0);
+                a.setId(0);
             }
             //System.out.println("mmmmm"+l.getType());
 
@@ -113,7 +114,7 @@ public class DataOperation {
             System.out.println(e.getMessage());
         }
         System.out.println("///" + j);
-        return l;
+        return a;
     }
 
     public void addpackage(Addpackage p1) {
@@ -999,7 +1000,52 @@ public class DataOperation {
         }
         return id;
     }
+ public String getbranchname(int id) {
+        String name;
+        try {
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+            session = sfobj.openSession();
+            tx = session.beginTransaction();
+            //String b = "branchoperator";
+            //String c = "traineer";
+             Addbranch l = null;
 
+            Query q = session.createQuery("from Addbranch where id=:uname");
+            q.setString("uname",String.valueOf(id));
+
+            List<Addbranch> results = q.list();
+
+            l = (Addbranch) results.get(0);
+            name=l.getBranchname();
+        } catch (Exception e) {
+            name="";
+            System.out.println(e.getMessage());
+        }
+        return name;
+    }
+ public String getgymname(int id) {
+        String name;
+        try {
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+            session = sfobj.openSession();
+            tx = session.beginTransaction();
+            //String b = "branchoperator";
+            //String c = "traineer";
+             Addgym l = null;
+
+            Query q = session.createQuery("from Addgym where id=:uname");
+            q.setString("uname",String.valueOf(id));
+
+            List<Addgym> results = q.list();
+
+            l = (Addgym) results.get(0);
+            name=l.getGymname();
+        } catch (Exception e) {
+            name="";
+            System.out.println(e.getMessage());
+        }
+        return name;
+    }
     public int getgymid(int id) {
         int gymid;
         try {

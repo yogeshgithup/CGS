@@ -1,8 +1,28 @@
+<%@page import="com.mycompany.loginmodule.Trainer"%>
+<%@page import="com.mycompany.loginmodule.addbranchoperator"%>
 <%@page import="com.mycompany.loginmodule.Addbranch"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="com.mycompany.loginmodule.Addgym"%>
 <%@page import="java.util.HashSet"%>
 <!DOCTYPE html>
+<%
+    response.setHeader("Cache-Control","no-cache");
+     response.setHeader("Cache-Control","no-store");
+     response.setDateHeader("Expires", 0);
+     response.setHeader("Pragma","no-cache");
+     System.out.println("{{{{{");
+     
+    Integer id=(Integer)session.getAttribute("gymid");
+    System.out.println("...id...+"+id);
+            if(id==null)
+            {
+                System.out.println("eeee");
+                request.setAttribute("msg","Session has ended");
+                RequestDispatcher rd=request.getRequestDispatcher("/adminlogin.jsp");
+                rd.forward(request, response);
+                System.out.println("uuuu");
+            }
+    %>
 <html lang="en">
 
 <!--<head>
@@ -26,7 +46,7 @@
   <link rel="stylesheet" href="<%=application.getContextPath()%>/gymui/css/table.css">
 <body class="">
  <!--  <div class="wrapper "> -->
-  <%@include file="/gymui/headers/gymadmindashboard.jsp" %>
+  <%@include file="/gymui/headers/branchoperatordashboard.jsp" %>
      
       <!-- End Navbar -->
     
@@ -36,23 +56,22 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                  <a href="<%=application.getContextPath()%>/gymui/pannel/addbranches1.jsp"> <button class="btn btn-primary btn-block">ADD BRANCH</button> </a>    
-                <h4 class="card-title">View Branch</h4>
+                  <a href="<%=application.getContextPath()%>/Viewfacilities?msg=trainer"> <button class="btn btn-primary btn-block">ADD TRAINER</button> </a>    
+                <h4 class="card-title">View BranchOperator</h4>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
-                 <table id="gym"  class="display" style="width:100%; color: purple;">
-                   <thead>
-                      <th>branchID</th>
-                      <th>barnchName</th>
-                      <th>branchstreet</th>
-                      <th>brancharea</th>
-                      <th>branchpostalcode</th>
-
+                 <table class="display" id="gym" style="width:100%; color: purple;">
+                    <thead>
+                      <th>Firstname</th>
+                      <th>Middlename</th>
+                      <th>lastname</th>
+                      <th>email</th>
+                      <th>role</th>
                     </thead>
                     <tbody>
-                                          <%!
-           HashSet<Addbranch> setbranch=null;
+                          <%!
+           HashSet<Trainer> setpack=null;
           %>
    
           
@@ -61,24 +80,30 @@
           System.out.println("session="+session); 
           
               
-             setbranch=(HashSet<Addbranch>)session.getAttribute("setbranch");
-            Iterator<Addbranch> it=setbranch.iterator();
+             setpack=(HashSet<Trainer>)session.getAttribute("settrainer");
+            Iterator<Trainer> it=setpack.iterator();
             System.out.println("kkkk");
             while(it.hasNext())
             {
-                Addbranch adbranch=it.next();
-              
-            
+                Trainer adpack=it.next();
+             
+             
+             
+             
+             
           %>
 
-          <tr id="<%=adbranch.getId()%>">
-                          <td><%= adbranch.getId()%></td>
-                          <td><%= adbranch.getBranchname()%></td>
-                           <td><%= adbranch.getStreet()%></td>
-                            <td><%=adbranch.getArea()%></td>
-                              <td><%=adbranch.getPostalcode()%></td>
+
+                      <tr>
+                          <td><%= adpack.getFirstname()%></td>
+                        <td><%=adpack.getMiddlename()%></td>
+                        <td><%=adpack.getLastname()%></td>
+                        <td><%=adpack.getEmail()%></td>
+                        <td><%=adpack.getRole()%></td>
+                     
                       </tr>
                       <%}%>
+            
                     </tbody>
                   </table>
                 </div>
@@ -119,3 +144,4 @@
   })
   </script>
 </html>
+

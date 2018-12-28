@@ -1,4 +1,4 @@
-<%@page import="com.mycompany.loginmodule.Addbranch"%>
+<%@page import="com.mycompany.loginmodule.Members"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="com.mycompany.loginmodule.Addgym"%>
 <%@page import="java.util.HashSet"%>
@@ -26,7 +26,7 @@
   <link rel="stylesheet" href="<%=application.getContextPath()%>/gymui/css/table.css">
 <body class="">
  <!--  <div class="wrapper "> -->
-  <%@include file="/gymui/headers/gymadmindashboard.jsp" %>
+  <%@include file="/gymui/headers/branchoperatordashboard.jsp" %>
      
       <!-- End Navbar -->
     
@@ -36,23 +36,22 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                  <a href="<%=application.getContextPath()%>/gymui/pannel/addbranches1.jsp"> <button class="btn btn-primary btn-block">ADD BRANCH</button> </a>    
-                <h4 class="card-title">View Branch</h4>
+                  <a href="<%=application.getContextPath()%>/Viewgympackage?msg=member"> <button class="btn btn-primary btn-block">ADD MEMBER</button> </a>    
+                <h4 class="card-title">View Members</h4>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
-                 <table id="gym"  class="display" style="width:100%; color: purple;">
-                   <thead>
-                      <th>branchID</th>
-                      <th>barnchName</th>
-                      <th>branchstreet</th>
-                      <th>brancharea</th>
-                      <th>branchpostalcode</th>
-
+                      <table class="display" id="gym" style="width:100%; color: purple;">
+                    <thead>
+                      <th>Firstname</th>
+                      <th>Middlename</th>
+                      <th>lastname</th>
+                      <th>Phoneno</th>
+                     
                     </thead>
                     <tbody>
-                                          <%!
-           HashSet<Addbranch> setbranch=null;
+                          <%!
+           HashSet<Members> setpack=null;
           %>
    
           
@@ -61,24 +60,30 @@
           System.out.println("session="+session); 
           
               
-             setbranch=(HashSet<Addbranch>)session.getAttribute("setbranch");
-            Iterator<Addbranch> it=setbranch.iterator();
+             setpack=(HashSet<Members>)session.getAttribute("setmember");
+            Iterator<Members> it=setpack.iterator();
             System.out.println("kkkk");
             while(it.hasNext())
             {
-                Addbranch adbranch=it.next();
-              
-            
+               Members adpack=it.next();
+             
+             
+             
+             
+             
           %>
 
-          <tr id="<%=adbranch.getId()%>">
-                          <td><%= adbranch.getId()%></td>
-                          <td><%= adbranch.getBranchname()%></td>
-                           <td><%= adbranch.getStreet()%></td>
-                            <td><%=adbranch.getArea()%></td>
-                              <td><%=adbranch.getPostalcode()%></td>
+
+                      <tr>
+                          <td><%= adpack.getFirstname()%></td>
+                        <td><%=adpack.getMiddlename()%></td>
+                        <td><%=adpack.getLastname()%></td>
+                        <td><%=adpack.getPhoneno()%></td>
+                       
+                     
                       </tr>
                       <%}%>
+            
                     </tbody>
                   </table>
                 </div>
@@ -116,6 +121,6 @@
   <script>
   $(function(){
     $("#gym").dataTable();
-  })
+  });
   </script>
 </html>
