@@ -62,7 +62,7 @@ public void init(ServletConfig sc) throws ServletException
               System.out.println("00o0o0o00");
               if(request.getParameter("msg").equals("trainer"))
               {
-                  response.sendRedirect(scx.getContextPath()+"/gymui/pannel/addtrainer.jsp");
+                  response.sendRedirect(scx.getContextPath()+"/gymui/pannel/addtrainer1.jsp");
               }
               else if(request.getParameter("msg").equals("facility")){
                   System.out.println("------");

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
 
+<html lang="en">
+    
 <head>
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
@@ -31,7 +32,10 @@
           
         </a>
         <a href="#" class="simple-text logo-normal">
-         
+            <%
+            String name=(String)session.getAttribute("gymname");
+            %>
+            <%=name%>
         </a>
       </div>
       <div class="sidebar-wrapper">
@@ -141,7 +145,7 @@
                 </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#pablo">
+                <a class="nav-link" href="<%=application.getContextPath()%>/Logout">
                   <i class="now-ui-icons users_single-02"></i>
                   <p>
                     <span class="d-lg-none d-md-block">Account</span>

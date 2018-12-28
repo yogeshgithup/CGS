@@ -59,7 +59,7 @@ public void init(ServletConfig sc) throws ServletException
            hs.setAttribute("setmember",listCatagory);
           if(hs!=null)
           {
-              response.sendRedirect(scx.getContextPath()+"/gymui/pannel/managemembers.jsp");
+              response.sendRedirect(scx.getContextPath()+"/gymui/pannel/managemembers1.jsp");
           }
         
         } catch (Exception e) {

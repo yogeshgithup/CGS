@@ -79,7 +79,7 @@ public class Validatemember extends HttpServlet {
         hs.setAttribute("setvalidmember",listCatagory);
           if(hs!=null)
           {
-              response.sendRedirect(scx.getContextPath()+"/gymui/pannel/view_X_members.jsp");
+              response.sendRedirect(scx.getContextPath()+"/gymui/pannel/view_X_members1.jsp");
           }
         }
         } catch (Exception e) {

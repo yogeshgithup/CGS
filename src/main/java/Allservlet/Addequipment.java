@@ -96,7 +96,7 @@ public class Addequipment extends HttpServlet {
 //         }
 //         //gym.setEqui(ab);
         doo.addequipment(gymid, title, desc, image);
-        response.sendRedirect(scx.getContextPath() + "/gymui/pannel/equipmentediting.jsp");
+        response.sendRedirect(scx.getContextPath() + "/gymui/pannel/equipmentediting1.jsp");
     }
 
     private String extractFileName(Part part) {

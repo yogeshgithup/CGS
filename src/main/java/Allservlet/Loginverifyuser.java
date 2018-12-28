@@ -71,9 +71,15 @@ public void init(ServletConfig sc) throws ServletException
         String m="member";
         int branchid=so.getbranchid(name);
        int gymid=so.getgymid(branchid);
+       String branchname=so.getbranchname(branchid);
+        System.out.println("----"+branchname);
+       String gymname=so.getgymname(gymid);
+        System.out.println("++++"+gymname);
        HttpSession hs=request.getSession(true);
            hs.setAttribute("gymid",gymid);
            hs.setAttribute("branchid",branchid);
+           hs.setAttribute("branchname", branchname);
+           hs.setAttribute("gname", gymname);
     if(b.equals(l2.getType()))
     {
        

@@ -60,7 +60,7 @@ public void init(ServletConfig sc) throws ServletException
            hs.setAttribute("settrainer",listCatagory);
           if(hs!=null)
           {
-              response.sendRedirect(scx.getContextPath()+"/gymui/pannel/branchoperator.jsp");
+              response.sendRedirect(scx.getContextPath()+"/gymui/pannel/branchoperator1.jsp");
           }
            /*HashSet<Addpackage> setpack=(HashSet<Addpackage>)hs.getAttribute("setpack");
             Iterator<Addpackage> it=setpack.iterator();

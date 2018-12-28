@@ -1,4 +1,4 @@
-<%@page import="com.mycompany.loginmodule.Addbranch"%>
+<%@page import="com.mycompany.loginmodule.Members"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="com.mycompany.loginmodule.Addgym"%>
 <%@page import="java.util.HashSet"%>
@@ -26,7 +26,7 @@
   <link rel="stylesheet" href="<%=application.getContextPath()%>/gymui/css/table.css">
 <body class="">
  <!--  <div class="wrapper "> -->
-  <%@include file="/gymui/headers/gymadmindashboard.jsp" %>
+  <%@include file="/gymui/headers/branchoperatordashboard.jsp" %>
      
       <!-- End Navbar -->
     
@@ -36,63 +36,19 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                  <a href="<%=application.getContextPath()%>/gymui/pannel/addbranches1.jsp"> <button class="btn btn-primary btn-block">ADD BRANCH</button> </a>    
-                <h4 class="card-title">View Branch</h4>
+                  <a href="<%=application.getContextPath()%>/Validatemember?msg=view"> <button class="btn btn-primary btn-block">View expired Members</button> </a>    
+                
               </div>
               <div class="card-body">
-                <div class="table-responsive">
-                 <table id="gym"  class="display" style="width:100%; color: purple;">
-                   <thead>
-                      <th>branchID</th>
-                      <th>barnchName</th>
-                      <th>branchstreet</th>
-                      <th>brancharea</th>
-                      <th>branchpostalcode</th>
-
-                    </thead>
-                    <tbody>
-                                          <%!
-           HashSet<Addbranch> setbranch=null;
-          %>
-   
-          
-              <%
-         
-          System.out.println("session="+session); 
-          
-              
-             setbranch=(HashSet<Addbranch>)session.getAttribute("setbranch");
-            Iterator<Addbranch> it=setbranch.iterator();
-            System.out.println("kkkk");
-            while(it.hasNext())
-            {
-                Addbranch adbranch=it.next();
-              
-            
-          %>
-
-          <tr id="<%=adbranch.getId()%>">
-                          <td><%= adbranch.getId()%></td>
-                          <td><%= adbranch.getBranchname()%></td>
-                           <td><%= adbranch.getStreet()%></td>
-                            <td><%=adbranch.getArea()%></td>
-                              <td><%=adbranch.getPostalcode()%></td>
-                      </tr>
-                      <%}%>
-                    </tbody>
-                  </table>
-                </div>
+               
               </div>
             </div>
           </div>
        
             </div>
           </div>
-        </div>
-      </div> 
-   
-    </div>
-  </div>
+       
+      
   <!--   Core JS Files   -->
 <!--  <script src="<%=application.getContextPath()%>/gymui/assets/js/core/jquery.min.js"></script>
   <script src="<%=application.getContextPath()%>/gymui/assets/js/core/popper.min.js"></script>

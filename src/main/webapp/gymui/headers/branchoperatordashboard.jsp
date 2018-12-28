@@ -31,27 +31,39 @@
           
         </a>
         <a href="#" class="simple-text logo-normal">
-         SYSTEM ADMIN
+           <%
+            String name=(String)session.getAttribute("gname");
+            String branch=(String)session.getAttribute("branchname");
+            %>
+           GYM NAME <%=name%>
+           <br>
+           BRANCH NAME <%=branch%>
         </a>
       </div>
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li>
-            <a href="<%=application.getContextPath()%>/Viewgym">
+            <a href="<%=application.getContextPath()%>/Viewtrainer">
               <i class="now-ui-icons design_app"></i>
-              <p>Manage Gym</p>
+              <p>Manage Trainer</p>
             </a>
           </li>
           <li>
-            <a href="<%=application.getContextPath()%>/Viewpackage_all">
+            <a href="<%=application.getContextPath()%>/Viewmembers">
               <i class="now-ui-icons education_atom"></i>
-              <p>Manage Package</p>
+              <p>Manage Member</p>
             </a>
           </li>
           <li>
             <a href="./map.html">
               <i class="now-ui-icons location_map-big"></i>
-              <p>View graphs </p>
+              <p>Manage Batches </p>
+            </a>
+          </li>
+           <li>
+            <a href="<%=application.getContextPath()%>/gymui/pannel/setremainder1.jsp">
+              <i class="now-ui-icons location_map-big"></i>
+              <p>Set Reminder</p>
             </a>
           </li>
         </ul>
@@ -110,7 +122,8 @@
                 </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="<%=application.getContextPath()%>/Logout">
+                <a class="nav-link" href="#pablo">
+                  <i class="now-ui-icons users_single-02"></i>
                   <p>
                     <span class="d-lg-none d-md-block">Account</span>
                   </p>

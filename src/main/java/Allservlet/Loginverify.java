@@ -12,6 +12,7 @@ package Allservlet;
 
 
 import com.mycompany.loginmodule.Addbranch;
+import com.mycompany.loginmodule.Addgym;
 import com.mycompany.loginmodule.Addpackage;
 import com.mycompany.loginmodule.Login;
 import com.mycompany.loginmodule.Logingym;
@@ -68,13 +69,14 @@ public void init(ServletConfig sc) throws ServletException
       l.setPassword(password);
         System.out.println("hhhhhh");
         System.out.println("yynunu");
-   Logingym l2=soo.verify(l);
+   Addgym l2=soo.verify(l);
         System.out.println("....."+l2);
         System.out.println("lllllll");
     if(l2.getId()!=0)
     {
           HttpSession hs=request.getSession(true);
            hs.setAttribute("gymid",l2.getId());
+           hs.setAttribute("gymname",l2.getGymname());
            System.out.println("gymid==="+l2.getId());
          /*  DataOperation pko=new DataOperation(scx);
            HashSet<Addbranch> listCatagory =pko.getbranch(l2.getId());
