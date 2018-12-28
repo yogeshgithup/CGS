@@ -60,14 +60,14 @@ public class Logout extends HttpServlet {
             if(id==0)
             {
                 request.setAttribute("Error","Session has ended");
-                RequestDispatcher rd=request.getRequestDispatcher("adminlogin.jsp?msg=loggedout");
+                RequestDispatcher rd=request.getRequestDispatcher("adminlogin1.jsp?msg=loggedout");
                 rd.forward(request, response);
             }
     
      //   HttpSession session=request.getSession(true);  
             session.invalidate();  
        
-        response.sendRedirect("adminlogin.jsp?msg=logged_out");
+        response.sendRedirect("adminlogin1.jsp?msg=logged_out");
     }
 
 }
