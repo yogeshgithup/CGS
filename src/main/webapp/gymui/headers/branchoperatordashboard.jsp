@@ -35,9 +35,9 @@
             String name=(String)session.getAttribute("gname");
             String branch=(String)session.getAttribute("branchname");
             %>
-           GYM NAME <%=name%>
+           GYM NAME : <%=name%>
            <br>
-           BRANCH NAME <%=branch%>
+           BRANCH NAME : <%=branch%>
         </a>
       </div>
       <div class="sidebar-wrapper">
