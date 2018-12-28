@@ -115,7 +115,7 @@ function ValidateForm(){
             <div class="card">
               <div class="card-header">
                    <div id="msg" style="color:green"><h2><%=msg%></h2></div>
-                <h5 class="title">ADD BRANCH OPERATOR</h5>
+                <h5 class="title">ADD MEMBERS</h5>
               </div>
               <div class="card-body">
                   <form action="<%=application.getContextPath()%>/Addmembers" method="post">
@@ -155,6 +155,7 @@ function ValidateForm(){
                         <input type="number" class="form-control" name="phoneno" required="Gym Owner Enter Phone Number" placeholder="Phone Number">
                       </div>
                     </div>
+                  </div>
                   <div class="row">
                    <div class="col-md-4 px-1">
                       <div class="form-group">
@@ -162,7 +163,7 @@ function ValidateForm(){
                         <input type="text" class="form-control" name="area" id="area" required="Area Name Required" placeholder="Area">
                       </div>
                     </div>
-                  </div>
+                  
                         <div class="col-md-4 px-1">
                       <div class="form-group">
                         <label>Street</label>
@@ -259,7 +260,7 @@ function ValidateForm(){
                    </div>
                     </div>
                 </form>
-              </div>
+              
             </div>
           </div>
           <div class="col-md-4">
@@ -283,6 +284,7 @@ function ValidateForm(){
                   <br> I'm in that two seat Lambo"
                 </p>
               </div>
+                
               <hr>
               <div class="button-container">
                 <button href="#" class="btn btn-neutral btn-icon btn-round btn-lg">
