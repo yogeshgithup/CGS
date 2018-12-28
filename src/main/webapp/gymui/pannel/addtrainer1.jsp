@@ -155,6 +155,7 @@ function ValidateForm(){
                         <input type="text" class="form-control" name="phoneno" required="Gym Owner Enter Phone Number" placeholder="Phone Number">
                       </div>
                     </div>
+                  </div>
                   <div class="row">
                    <div class="col-md-4 px-1">
                       <div class="form-group">
@@ -162,7 +163,7 @@ function ValidateForm(){
                         <input type="text" class="form-control" name="area" id="area" required="Area Name Required" placeholder="Area">
                       </div>
                     </div>
-                  </div>
+                  
                         <div class="col-md-4 px-1">
                       <div class="form-group">
                         <label>Street</label>
