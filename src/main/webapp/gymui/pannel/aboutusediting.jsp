@@ -238,8 +238,8 @@
                          <button type="submit" class="btn btn-primary pull-right">Submit</button>
                         </div>
                     </div>
-                  </div>
                 </div>
+              </div>
               </div>
       
                 </form>
