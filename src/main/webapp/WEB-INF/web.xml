@@ -4,6 +4,22 @@
         <param-name>accesstoken</param-name>
         <param-value>7FgqxJBL6rAAAAAAAAAASqriod7Xvv17YiTOP6rI_dUx2TpuqHAnvQMV81wbpBlD</param-value>
     </context-param>
+    <filter>
+        <filter-name>GymAdmin</filter-name>
+        <filter-class>Allservlet.GymAdmin</filter-class>
+    </filter>
+    <filter>
+        <filter-name>Index_filter</filter-name>
+        <filter-class>Allservlet.Index_filter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>Index_filter</filter-name>
+        <url-pattern>/pannel/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>GymAdmin</filter-name>
+        <url-pattern>/gymadmin/*</url-pattern>
+    </filter-mapping>
     <listener>
         <listener-class>
             DatabaseUtil.MyHibernateConnection
@@ -133,6 +149,14 @@
         <servlet-name>Validatemember</servlet-name>
         <servlet-class>Allservlet.Validatemember</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RedirectServlet</servlet-name>
+        <servlet-class>Allservlet.RedirectServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RedirectGymServlet</servlet-name>
+        <servlet-class>Allservlet.RedirectGymServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Loginverify</servlet-name>
         <url-pattern>/Loginverify</url-pattern>
@@ -256,6 +280,14 @@
     <servlet-mapping>
         <servlet-name>Validatemember</servlet-name>
         <url-pattern>/Validatemember</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RedirectServlet</servlet-name>
+        <url-pattern>/RedirectServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RedirectGymServlet</servlet-name>
+        <url-pattern>/RedirectGymServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
