@@ -72,7 +72,13 @@ public void init(ServletConfig sc) throws ServletException
    Addgym l2=soo.verify(l);
         System.out.println("....."+l2);
         System.out.println("lllllll");
-    if(l2.getId()!=0)
+   
+   if(l2==null)
+    {
+        System.out.println("-----");
+        response.sendRedirect("adminlogin1.jsp?msg=wrong_password");
+    }
+   else if(l2.getId()!=0)
     {
           HttpSession hs=request.getSession(true);
            hs.setAttribute("gymid",l2.getId());
@@ -82,11 +88,6 @@ public void init(ServletConfig sc) throws ServletException
            HashSet<Addbranch> listCatagory =pko.getbranch(l2.getId());
             hs.setAttribute("setbranch",listCatagory);*/
          response.sendRedirect("Viewbranch");
-    }
-    else
-    {
-        System.out.println(""+l2.getId());
-        response.sendRedirect("adminlogin1.jsp?msg=wrong_password");
     }
        
        // response.sendRedirect("index.jsp?msg="+savemsg);

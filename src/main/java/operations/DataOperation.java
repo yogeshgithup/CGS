@@ -1053,7 +1053,7 @@ public class DataOperation {
         return name;
     }
  public String getgymname(int id) {
-        String name;
+        String name="";
         try {
             sfobj = (SessionFactory) scx.getAttribute("sf");
             session = sfobj.openSession();
@@ -1064,6 +1064,29 @@ public class DataOperation {
 
             Query q = session.createQuery("from Addgym where id=:uname");
             q.setString("uname",String.valueOf(id));
+
+            List<Addgym> results = q.list();
+            l = (Addgym) results.get(0);
+            name=l.getGymname();
+            System.out.println("---"+name);
+        } catch (Exception e) {
+            name="";
+            System.out.println(e.getMessage());
+        }
+        return name;
+    }
+ public String getgymname(String id) {
+        String name;
+        try {
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+            session = sfobj.openSession();
+            tx = session.beginTransaction();
+            //String b = "branchoperator";
+            //String c = "traineer";
+             Addgym l = null;
+
+            Query q = session.createQuery("from Addgym where gymname=:uname");
+            q.setString("uname",id);
 
             List<Addgym> results = q.list();
 
