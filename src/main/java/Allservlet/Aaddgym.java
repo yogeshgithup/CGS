@@ -61,6 +61,7 @@ public void init(ServletConfig sc) throws ServletException
         String username=request.getParameter("username");
         //String password=request.getParameter("password");
         String packagee=request.getParameter("package");
+     String ui=request.getParameter("theme");
          DataOperation doo=new DataOperation(scx);
          String phno=String.valueOf(phoneno);
         Logingym l=new Logingym();
@@ -72,6 +73,7 @@ public void init(ServletConfig sc) throws ServletException
         ag.setPostcode(postcode);
         ag.setPhoneno(String.valueOf(phoneno));
         ag.setUsername(username);
+        ag.setUI(ui);
           String pass=doo.randompassword();
         ag.setPassword(pass);
         ag.setPackagee(packagee);
