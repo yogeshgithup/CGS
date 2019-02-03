@@ -10,20 +10,27 @@ import com.mycompany.loginmodule.Addgym;
 import com.mycompany.loginmodule.Login;
 import com.mycompany.loginmodule.Trainer;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 import operations.DataOperation;
+import operations.DropBoxOperation;
 
 /**
  *
  * @author Shravan
  */
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+        maxFileSize = 1024 * 1024 * 10, // 10MB
+        maxRequestSize = 1024 * 1024 * 50)   // 50MB
 public class Addtrainer extends HttpServlet {
 
       ServletContext scx;
@@ -45,6 +52,8 @@ System.out.println("hiii");
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String at = scx.getInitParameter("accesstoken");
+        DropBoxOperation dbo = new DropBoxOperation(at);
      String fname=request.getParameter("firstname");
     System.out.println("rooooooooooooo");
      String mname=request.getParameter("middlename");
@@ -62,10 +71,15 @@ System.out.println("hiii");
      String pass=p.randompassword();
      String role=request.getParameter("role");
      String desc=request.getParameter("desc");
+     Part photo=request.getPart("photo");
+     InputStream is = photo.getInputStream();
+            String filen = extractFileName(photo);
+                String url = dbo.uploadFile(filen, is);
+                
      HttpSession hs=request.getSession(true);
         int branchid= Integer.parseInt(hs.getAttribute("branchid").toString());
         int gymid=Integer.parseInt(hs.getAttribute("gymid").toString());
-       
+        System.out.println("--------"+url);
      Trainer t=new Trainer();
      t.setFirstname(fname);
      t.setMiddlename(mname);
@@ -78,6 +92,7 @@ System.out.println("hiii");
      t.setPassword(pass);
      t.setRole(role);
      t.setDescription(desc);
+     t.setUrl(url);
      Login l=new Login();
      l.setLoginid(email);
      l.setPassword(pass);
@@ -86,4 +101,16 @@ System.out.println("hiii");
     p.addtrainer(t,branchid,gym,l);
      response.sendRedirect(scx.getContextPath()+"/Viewtrainer");
 }
+     private String extractFileName(Part part) {
+
+        String contentDisp = part.getHeader("content-disposition");
+        String[] items = contentDisp.split(";");
+        for (String s : items) {
+            if (s.trim().startsWith("filename")) {
+                return s.substring(s.indexOf("=") + 2, s.length() - 1);
+            }
+
+        }
+        return "";
+    }
 }

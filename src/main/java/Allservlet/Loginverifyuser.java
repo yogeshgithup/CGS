@@ -91,13 +91,13 @@ public void init(ServletConfig sc) throws ServletException
     else if(t.equals(l2.getType()))
     {
         
-         response.sendRedirect(scx.getContextPath()+"/gymui/pannel/trainers.jsp");
+         response.sendRedirect(scx.getContextPath()+"/gymui/pannel/trainers1.jsp");
     }
        
     else if(m.equals(l2.getType()))
     {
         
-         response.sendRedirect(scx.getContextPath()+"/gymui/pannel/members.jsp");
+         response.sendRedirect(scx.getContextPath()+"/gymui/pannel/members1.jsp");
     }
     else
     {
