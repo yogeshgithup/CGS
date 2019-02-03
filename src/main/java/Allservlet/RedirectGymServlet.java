@@ -6,6 +6,7 @@
 
 package Allservlet;
 
+import com.mycompany.loginmodule.Addgym;
 import com.mycompany.loginmodule.Members;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -47,23 +48,23 @@ public void init(ServletConfig sc) throws ServletException
              
             System.out.println("---ooo"+d);
             DataOperation doo=new DataOperation(scx);
-            String gymname=doo.getgymname(d);
-            System.out.println("----"+gymname);           
+            Addgym gym=doo.getGymInfo(d);
+            System.out.println("----"+gym.getGymname());           
             HttpSession hs=null;
-            if(gymname!="")
+            if(gym!=null)
             {
                hs= request.getSession(true);
-           hs.setAttribute("gymname",d);
+           hs.setAttribute("gyminfo",gym);
         
             }
            
            if(hs!=null)
            {
-               if(gymname.equals("demo1"))
+               if(gym.getUI().equals("demo1"))
                {
             response.sendRedirect(scx.getContextPath()+"/gymui/ui/index.jsp");
                }
-               if(gymname.equals("demo2"))
+               if(gym.getUI().equals("demo2"))
                {
             response.sendRedirect(scx.getContextPath()+"/gymui/ui/index2.jsp");
                }

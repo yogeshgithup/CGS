@@ -1075,15 +1075,15 @@ public class DataOperation {
         }
         return name;
     }
- public String getgymname(String id) {
-        String name;
+ public Addgym getGymInfo(String id) {
+        Addgym l=null;
         try {
             sfobj = (SessionFactory) scx.getAttribute("sf");
             session = sfobj.openSession();
             tx = session.beginTransaction();
             //String b = "branchoperator";
             //String c = "traineer";
-             Addgym l = null;
+            // Addgym l = null;
 
             Query q = session.createQuery("from Addgym where gymname=:uname");
             q.setString("uname",id);
@@ -1091,12 +1091,24 @@ public class DataOperation {
             List<Addgym> results = q.list();
 
             l = (Addgym) results.get(0);
-            name=l.getUI();
+//            adgym.setId(l.getId());
+//            adgym.setGymname(l.getGymname());
+//            adgym.setOwnername(l.getOwnername());
+//            adgym.setArea(l.getArea());
+//            adgym.setStreet(l.getStreet());
+//            adgym.setPostcode(l.getPostcode());
+//            adgym.setUI(l.getUI());
+//            adgym.setPhoneno(l.getPhoneno());
+//            
+//           Set<Addbranch> abranch=l.getAdbarnch();
+           
+           
+           
         } catch (Exception e) {
-            name="";
+            
             System.out.println(e.getMessage());
         }
-        return name;
+        return l;
     }
     public int getgymid(int id) {
         int gymid;

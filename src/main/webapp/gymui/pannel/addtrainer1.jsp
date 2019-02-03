@@ -118,7 +118,7 @@ function ValidateForm(){
                 <h5 class="title">ADD TRAINER</h5>
               </div>
               <div class="card-body">
-                <form action="<%=application.getContextPath()%>/Addtrainer" method="post"   >
+                <form action="<%=application.getContextPath()%>/Addtrainer" method="post"  enctype="multipart/form-data" >
                     <div class="row">
                     
                    
@@ -182,7 +182,7 @@ function ValidateForm(){
                    <div class="col-md-6 pl-1">
                       <div class="form-group">
                         <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" name="username"class="form-control" placeholder="Email">
+                        <input type="email" name="email"class="form-control" placeholder="Email">
                       </div>
                     </div>
                        <div class="col-md-6">
@@ -215,6 +215,19 @@ function ValidateForm(){
   
 </div>
                   </div>
+      <div class="row">
+         <div class="col-md-6 pl-1">
+                      <div class="form-group">
+                        <label >Description </label>
+                        <input type="text" name="desc" class="form-control" placeholder="Description">
+                      </div>
+          </div>
+           <div class="col-md-6 pl-1">
+                      <label for="file-multiple-input" class=" form-control-label">Photo Of Trainer</label>
+                      <div  class="col-md-12"><input type="file" id="file-multiple-input" name="photo" class="form-control-file "></div>
+                      
+          </div>
+      </div>
                     <div class="row">
                         <div class="col-md-4 pl-1" >
                             

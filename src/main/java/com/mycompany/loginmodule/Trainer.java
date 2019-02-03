@@ -36,7 +36,7 @@ public class Trainer {
     String password;
     String description;
     String role; 
-
+    String url;
     public Trainer(String firstname, String middlename, String lastname, String email, String role) {
         this.firstname = firstname;
         this.middlename = middlename;
@@ -145,6 +145,14 @@ public class Trainer {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
     
      @ManyToOne
