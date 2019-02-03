@@ -1091,7 +1091,7 @@ public class DataOperation {
             List<Addgym> results = q.list();
 
             l = (Addgym) results.get(0);
-            name=l.getGymname();
+            name=l.getUI();
         } catch (Exception e) {
             name="";
             System.out.println(e.getMessage());
