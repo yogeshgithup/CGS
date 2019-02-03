@@ -403,13 +403,16 @@ public class DataOperation {
              gymidi=adbr.getId();
              System.out.println("id===="+gymidi);
              }*/
-            Query q = session.createQuery("from Addbranch where gymid=:gymidi");
-            q.setString("gymidi", String.valueOf(gymid));
-            System.out.println("gp 59");
-            List<Addbranch> results = q.list();
-            System.out.println("query");
-            for (int i = 0; i <= results.size(); i++) {
-                p1 = (Addbranch) results.get(i);
+           Addgym g=(Addgym) session.load(Addgym.class,gymid);
+//            Query q = session.createQuery("from Addbranch where gymid=:gymidi");
+//            q.setString("gymidi", String.valueOf(gymid));
+//            System.out.println("gp 59");
+//            List<Addbranch> results = q.list();
+//            System.out.println("query");
+          Set<Addbranch> b=g.getAdbarnch();
+          Iterator it=b.iterator();
+            while(it.hasNext()) {
+                p1 = (Addbranch)it.next();
                 Addbranch p2 = new Addbranch(p1.getId(), p1.getBranchname(), p1.getStreet(), p1.getArea(), p1.getPostalcode());
                 setbranch.add(p2);
             }
@@ -858,14 +861,11 @@ public class DataOperation {
             //System.out.println("get package"); 
             System.out.println("gymid..." + gymid);
             Facility p1 = null;
-
-            Query q = session.createQuery("from Facility where gymid=:gymidi");
-            q.setString("gymidi", String.valueOf(gymid));
-            System.out.println("gp 59");
-            List<Facility> results = q.list();
-            System.out.println("query");
-            for (int i = 0; i <= results.size(); i++) {
-                p1 = (Facility) results.get(i);
+  Addgym g=(Addgym) session.load(Addgym.class,gymid);
+          Set<Facility> b=g.getFacility();
+          Iterator it=b.iterator();
+            while(it.hasNext()) {
+                p1 = (Facility)it.next();
                 Facility p2 = new Facility(p1.getId(), p1.getName());
                 setfacility.add(p2);
             }
@@ -951,14 +951,13 @@ public class DataOperation {
             System.out.println("gymid..." + gymid);
             Gympackage p1 = null;
 
-            Query q = session.createQuery("from Gympackage where gymid=:gymidi");
-            q.setString("gymidi", String.valueOf(gymid));
-            System.out.println("gp 59");
-            List<Gympackage> results = q.list();
-            System.out.println("query");
-            System.out.println("yyyyy" + results.size());
-            for (int i = 0; i <= results.size(); i++) {
-                p1 = (Gympackage) results.get(i);
+             Addgym g=(Addgym) session.load(Addgym.class,gymid);
+
+          Set<Gympackage> b=g.getGympack();
+          Iterator it=b.iterator();
+            while(it.hasNext()) {
+           
+               p1 = (Gympackage)it.next();
                 System.out.println("[][][" + p1.getId());
 //                   HashSet<Pack_facility> pac=new HashSet<Pack_facility>();
 //                 pac = getpacfacility(p1.getId());
