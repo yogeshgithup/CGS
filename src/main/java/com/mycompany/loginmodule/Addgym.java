@@ -151,6 +151,16 @@ public class Addgym {
         this.date = date;
     }
     
+    String UI;
+
+    public String getUI() {
+        return UI;
+    }
+
+    public void setUI(String UI) {
+        this.UI = UI;
+    }
+    
     
     public Addgym(int id, String gymname, String ownername, String street, String area, String postcode, String phoneno, String username, String password, String packagee) {
         this.id = id;
@@ -203,7 +213,7 @@ public class Addgym {
     public void setGyinfo(Gyminfo gyinfo) {
         this.gyinfo = gyinfo;
     }
-     @OneToMany(cascade=CascadeType.ALL,mappedBy = "adgym",fetch = FetchType.EAGER)
+       @OneToMany(cascade=CascadeType.ALL,mappedBy = "adgym",fetch = FetchType.EAGER)
        // @JoinColumn(name="cart_id")
 	private Set<Login> login;
 

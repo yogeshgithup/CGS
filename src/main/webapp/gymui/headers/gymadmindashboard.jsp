@@ -19,6 +19,31 @@
   <link href="<%=application.getContextPath()%>/gymui/assets/css/now-ui-dashboard.css?v=1.2.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="<%=application.getContextPath()%>/gymui/assets/demo/demo.css" rel="stylesheet" />
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script>
+      $(document).ready(function(){
+      alert("hello");
+     
+    // alert(x);
+          //$( "li.active" ).removeClass( "active" ).addClass( "" );
+      alert("hello...."); 
+     var x= $( "li" ).each(function() {
+     //    alert(x);
+     var xn=x.length;
+     alert(xn);
+          $( "li" ).click(function(){
+           $( this ).addClass( "active" );
+           $( "li.active" ).prev().removeClass( "active" ).addClass( "" );
+          });   
+});
+
+//   $( "li.active" ).removeClass( "active" ).addClass( "" );
+//      alert("hello....");
+     
+    
+      });
+  </script>
+  
 </head>
 
 <body class="">
@@ -38,40 +63,40 @@
             <%=name%>
         </a>
       </div>
-      <div class="sidebar-wrapper">
+      <div class="sidebar-wrapper" id="myDIV">
         <ul class="nav">
-          <li>
+          <li class=" x active" >
             <a href="<%=application.getContextPath()%>/Viewbranch">
-              <i class="now-ui-icons design_app"></i>
+              <i class="now-ui-icons design_app "></i>
               <p>Manage Branches</p>
             </a>
           </li>
-          <li>
+          <li class="x " id="x">
             <a href="<%=application.getContextPath()%>/Viewbranchoperator">
               <i class="now-ui-icons education_atom"></i>
               <p>Manage Branch Operator</p>
             </a>
           </li>
-          <li>
+          <li class="x">
             <a href="<%=application.getContextPath()%>/Viewfacilities?msg=facility">
               <i class="now-ui-icons location_map-big"></i>
               <p>Manage Facilities </p>
             </a>
           </li>
-          <li>
+          <li class="x">
             <a href="<%=application.getContextPath()%>/Viewgympackage?msg=package">
               <i class="now-ui-icons location_map-big"></i>
               <p>Manage Package </p>
             </a>
           </li>
           
-          <li>
+          <li class="x">
             <a href="<%=application.getContextPath()%>/gymui/pannel/mainpageediting1.jsp">
               <i class="now-ui-icons location_map-big"></i>
               <p>Main Page Editing </p>
             </a>
           </li>
-          <li>
+          <li class="x">
             <a href="<%=application.getContextPath()%>/gymui/pannel/aboutusediting1.jsp">
               <i class="now-ui-icons location_map-big"></i>
               <p>About Us Editing</p>

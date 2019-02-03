@@ -200,9 +200,27 @@ function ValidateForm(){
 <%}%>
       </select>
                             </div>
-  
+                       </div>
 </div>
+      <div class="row">
+          <div class="col-md-4 " ></div>
+                        <div class="col-md-6 " >
+                            <h4>Themes</h4> 
+                        </div>
                   </div>
+      <div class="row">
+          <div class="col-md-2 " >
+              
+          </div>
+                        <div class="col-md-4 " >
+                            <h5><input type="radio" name="theme"value="demo1"><a href="<%=application.getContextPath()%>/gymui/ui/index.jsp">Demo1</a></h5> 
+                        </div>
+                  
+                        <div class="col-md-4 " >
+                            <h5><input type="radio" name="theme" value="demo2"><a href="<%=application.getContextPath()%>/gymui/ui/index2.jsp">Demo2</a></h5> 
+                        </div>
+                  </div>
+      
                     <div class="row">
                         <div class="col-md-4 pl-1" >
                             
