@@ -6,11 +6,15 @@
 
 package com.mycompany.loginmodule;
 
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -47,6 +51,17 @@ public class Members {
     @JoinColumn(name="branchid")
      private Addbranch adbranch;
 
+       @OneToMany(cascade=CascadeType.ALL,mappedBy ="memb",fetch = FetchType.LAZY)
+	private Set<Batch_member> batches;
+
+    public Set<Batch_member> getBatches() {
+        return batches;
+    }
+
+    public void setBatches(Set<Batch_member> batches) {
+        this.batches = batches;
+    }
+       
     public Members(int id, String firstname, String middlename, String lastname, Long phoneno, String packagee, String date) {
         this.id = id;
         this.firstname = firstname;
