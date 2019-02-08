@@ -49,7 +49,7 @@
             </a>
           </li>
           <li>
-            <a href="<%=application.getContextPath()%>/Viewmembers">
+            <a href="<%=application.getContextPath()%>/Viewmembers?op=mem">
               <i class="now-ui-icons education_atom"></i>
               <p>Manage Member</p>
             </a>

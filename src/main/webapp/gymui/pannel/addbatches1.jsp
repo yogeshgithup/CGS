@@ -4,6 +4,10 @@
     Author     : Administrator
 --%>
 
+<%@page import="com.mycompany.loginmodule.Facility"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="com.mycompany.loginmodule.Members"%>
+<%@page import="java.util.HashSet"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
@@ -22,24 +26,47 @@
                   <p class="card-category"></p>
                 </div>
                 <div class="card-body">
-                  <form>
+                    <form action="<%=application.getContextPath()%>/Addbatches" method="post">
                     <div class="row">                      
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Batch Name</label>
-                          <input type="text" class="form-control">
+                          <input type="text" name="batchname" class="form-control">
                         </div>
                       </div>
                     </div>
                        <div class="row">                      
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label class="bmd-label-floating">Batch Timings</label>
-                          <input type="text" class="form-control">
+                          <label class="bmd-label-floating">Batch Timings(From)</label>
+                          <input type="time" name="batchtimefrom"class="form-control">
+                        </div>
+                      </div> 
+                            <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Batch Timings(To)</label>
+                          <input type="time" name="batchtimeto"class="form-control">
                         </div>
                       </div> 
                       </div>
-                       <div class="row">                                  
+                      <%
+                    HashSet<Members> listCatagory= (HashSet<Members>)session.getAttribute("setmember");
+
+                   Iterator it= listCatagory.iterator();
+                   while(it.hasNext())
+                   {
+                       
+                 Members m=(Members)it.next();
+                
+                      %>
+                      <div class="row"> 
+                           <div class="col-md-2">
+                          <input type="checkbox" name="membername" value="<%=m.getId()%> "><%=m.getFirstname()%> <%=m.getMiddlename()%>
+                           </div>
+                         
+                      </div>
+                            <% } %>
+                                                        
 <!--                      <div class="col-md-2">
                         <div class="dropdown">
                           <button class="btn btn-primary" type="button" data-toggle="dropdown">Role
@@ -52,28 +79,40 @@
                           </ul>
                         </div>
                        </div>-->
-                     <div class="col-md-2">
-                        <div class="dropdown">
-                          <button class="btn btn-primary" type="button" data-toggle="dropdown">Role
-                          <span class="caret"></span></button>
-                          <ul class="dropdown-menu">
-                            <li><a href="#">YOGA</a></li>
-                            <li><a href="#">ZUMBA</a></li>
-                            <li><a href="#">WEIGHT LIFTING</a></li>
-                            <li><a href="#">WALKING</a></li>
-                          </ul>
-                        </div>
-                       </div>
-                     </div>
+                     <div class="row">
+                   <div class="col-md-4 pl-1">
+                      
+                   <label for="sel1">Select list (select one):</label>
+      <select class="form-control" id="facility" name="facility">
+              <%
+         
+              
+            HashSet<Facility> listCat=(HashSet<Facility>)session.getAttribute("viewfacility");
+              
+            Iterator<Facility> it1=listCat.iterator();
+            System.out.println("kkkk");
+            while(it1.hasNext())
+            {
+                Facility fc=(Facility)it1.next();
+         
+          %>
+       <option value="<%= fc.getName()%>"><%= fc.getName()%></option>
+<%}%>
+      </select>
+                     
                    </div>
-
-                      <div class="col-md-6"> 
+                    </div>
+      <div class="col-md-6"> 
                           <button type="submit" id="s" class="btn btn-primary pull-right">Submit</button>
                         </div>
                     </div>
-                    
+                   </form> 
+                   </div>
 
-            </div>
+                      
+ 
+
+            
 
 
             </div>

@@ -14,7 +14,7 @@
           <div class="col-md-10">
             <div class="card">
               <div class="card-header">
-                  <a href="<%=application.getContextPath()%>/gymui/pannel/addbatches1.jsp"> <button class="btn btn-primary btn-block">ADD BATCHES</button> </a>    
+                  <a href="<%=application.getContextPath()%>/Viewmembers?op=view"> <button class="btn btn-primary btn-block">ADD BATCHES</button> </a>    
                 <h4 class="card-title">View Batches</h4>
               </div>
               <div class="card-body">

@@ -102,6 +102,6 @@ System.out.println("hiii");
      l.setType("member");
        Addgym gym = p.getGymID(gymid);
     p.addmember(m,branchid,gym,l);
-     response.sendRedirect(scx.getContextPath()+"/Viewmembers");
+     response.sendRedirect(scx.getContextPath()+"/Viewmembers?op=mem");
 }
 }
