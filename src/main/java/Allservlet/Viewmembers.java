@@ -5,6 +5,7 @@
  */
 package Allservlet;
 
+import com.mycompany.loginmodule.Facility;
 import com.mycompany.loginmodule.Members;
 import com.mycompany.loginmodule.Trainer;
 import java.io.IOException;
@@ -55,11 +56,25 @@ public void init(ServletConfig sc) throws ServletException
         int branchid= Integer.parseInt(hs.getAttribute("branchid").toString());
             HashSet<Members> listCatagory =pko.getmembers(branchid);
        
-          
+          String op=request.getParameter("op");
+            System.out.println("8999"+op);
            hs.setAttribute("setmember",listCatagory);
           if(hs!=null)
           {
+              if(op.equals("view"))
+              {
+                   int id=Integer.parseInt(hs.getAttribute("gymid").toString());
+            HashSet<Facility> listCat =pko.getfacility(id);
+       
+           
+           hs.setAttribute("viewfacility",listCat);
+                  System.out.println("op---"+op);
+                response.sendRedirect(scx.getContextPath()+"/gymui/pannel/addbatches1.jsp");   
+              }
+              else if(op.equals("mem"))
+              {
               response.sendRedirect(scx.getContextPath()+"/gymui/pannel/managemembers1.jsp");
+              }
           }
         
         } catch (Exception e) {

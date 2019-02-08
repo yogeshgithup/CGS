@@ -157,6 +157,10 @@
         <servlet-name>RedirectGymServlet</servlet-name>
         <servlet-class>Allservlet.RedirectGymServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Addbatches</servlet-name>
+        <servlet-class>Allservlet.Addbatches</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Loginverify</servlet-name>
         <url-pattern>/Loginverify</url-pattern>
@@ -288,6 +292,10 @@
     <servlet-mapping>
         <servlet-name>RedirectGymServlet</servlet-name>
         <url-pattern>/RedirectGymServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Addbatches</servlet-name>
+        <url-pattern>/Addbatches</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
