@@ -135,5 +135,16 @@ public class Addbranch {
         this.addmember = addmember;
     }
       
-         
+        @OneToMany(cascade=CascadeType.ALL,mappedBy ="adbranch",fetch = FetchType.LAZY)
+	private Set<Batches> batches;
+
+    public Set<Batches> getBatches() {
+        return batches;
+    }
+
+    public void setBatches(Set<Batches> batches) {
+        this.batches = batches;
+    }
+
+   
 }
