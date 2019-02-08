@@ -182,7 +182,7 @@ function ValidateForm(){
                    <div class="col-md-4 pl-1">
                       <div class="form-group">
                         <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" name="email"class="form-control" placeholder="Email" required>
+                        <input type="email" name="email" class="form-control" placeholder="Email" required>
                       </div>
                     </div>
                       <div class="col-md-4 pl-1">

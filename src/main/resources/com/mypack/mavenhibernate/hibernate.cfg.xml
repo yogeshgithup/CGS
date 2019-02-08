@@ -38,6 +38,8 @@ and open the template in the editor.
             <mapping class="com.mycompany.loginmodule.Trainer"/>
             <mapping class="com.mycompany.loginmodule.Members"/>
              <mapping class="com.mycompany.loginmodule.Equipment"/>
+             <mapping class="com.mycompany.loginmodule.Batches"/>
+             <mapping class="com.mycompany.loginmodule.Batch_member"/>
         </session-factory>
     </hibernate-configuration>
 
