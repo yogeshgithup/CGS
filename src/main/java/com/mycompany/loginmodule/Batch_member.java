@@ -30,6 +30,10 @@ public class Batch_member {
     @JoinColumn(name="batch_id")
      private Batches batch_mem;
 
+      @ManyToOne
+    @JoinColumn(name="member_id")
+     private Members memb;
+      
     public int getId() {
         return id;
     }
@@ -52,6 +56,14 @@ public class Batch_member {
 
     public void setBatch_mem(Batches batch_mem) {
         this.batch_mem = batch_mem;
+    }
+
+    public Members getMemb() {
+        return memb;
+    }
+
+    public void setMemb(Members memb) {
+        this.memb = memb;
     }
      
      
