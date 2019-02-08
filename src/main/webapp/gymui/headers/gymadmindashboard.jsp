@@ -22,26 +22,98 @@
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>
       $(document).ready(function(){
-      alert("hello");
+          
+          
+          var name = "first" + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      first=c.substring(name.length, c.length);
+      alert(first);
+    }
+  }
+  
+   var name = "next" + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+     next=c.substring(name.length, c.length);
+     alert(next);
+    }
+  }
+//             var c= document.cookie.split(';');
+//             if(c.length!=0){
+//                 alert(c);
+//               
+//                 for(var i = 0; i < ca.length; i++) {
+//    var c1 = c[i];
+//            alert(c1);
+//        }   
+//             }
+          
+//      alert("hello");
      
     // alert(x);
           //$( "li.active" ).removeClass( "active" ).addClass( "" );
-      alert("hello...."); 
-     var x= $( "li" ).each(function() {
-     //    alert(x);
-     var xn=x.length;
-     alert(xn);
-          $( "li" ).click(function(){
-           $( this ).addClass( "active" );
-           $( "li.active" ).prev().removeClass( "active" ).addClass( "" );
-          });   
-});
+//      alert("hello...."); 
+//     var x= $( "li" ).each(function() {
+//     //    alert(x);
+//     var xn=x.length;
+//     alert(xn);
+//          $( "li" ).click(function(){
 
-//   $( "li.active" ).removeClass( "active" ).addClass( "" );
+ 
+$("li").click(function(){
+   alert("Hello World"); 
+  var n= $(this).parent();
+  var x=$(this).parent().children();
+ len=x.length;
+ index=-1;
+ thisid=$(this).attr('id');
+ var oldli=null;
+ var newli=null;
+ for(i=0;i<len;i++)
+ {
+    if($(x[i]).attr('id')===thisid)
+     {
+         
+ document.cookie = "next="+i;
+            }
+            
+     
+     if($(x[i]).attr('class')==='active')
+     {
+         
+           document.cookie = "first="+i;
+     }
+ }
+ 
+});
+//   var column1RelArray = [];
+//$('#ul li').each(function(){
+//    column1RelArray.push($(this).attr('id'));
+//    alert(column1RelArray);
+//});
+    
 //      alert("hello....");
      
     
-      });
+     
+//           $( this ).addClass( "active" );
+//           $( "li.active" ).prev().removeClass( "active" ).addClass( "" );
+//          }); 
+//$( "li.active" ).removeClass( "active" ).addClass( "" );
+});
   </script>
   
 </head>
@@ -64,51 +136,51 @@
         </a>
       </div>
       <div class="sidebar-wrapper" id="myDIV">
-        <ul class="nav">
-          <li class=" x active" >
+        <ul class="nav" id="ul">
+          <li class="active" id="1">
             <a href="<%=application.getContextPath()%>/Viewbranch">
               <i class="now-ui-icons design_app "></i>
               <p>Manage Branches</p>
             </a>
           </li>
-          <li class="x " id="x">
+          <li class="" id="2">
             <a href="<%=application.getContextPath()%>/Viewbranchoperator">
               <i class="now-ui-icons education_atom"></i>
               <p>Manage Branch Operator</p>
             </a>
           </li>
-          <li class="x">
+          <li class="" id="3">
             <a href="<%=application.getContextPath()%>/Viewfacilities?msg=facility">
               <i class="now-ui-icons location_map-big"></i>
               <p>Manage Facilities </p>
             </a>
           </li>
-          <li class="x">
+          <li class="" id="4">
             <a href="<%=application.getContextPath()%>/Viewgympackage?msg=package">
               <i class="now-ui-icons location_map-big"></i>
               <p>Manage Package </p>
             </a>
           </li>
           
-          <li class="x">
+          <li class="" id="5">
             <a href="<%=application.getContextPath()%>/gymui/pannel/mainpageediting1.jsp">
               <i class="now-ui-icons location_map-big"></i>
               <p>Main Page Editing </p>
             </a>
           </li>
-          <li class="x">
+          <li class="" id="6">
             <a href="<%=application.getContextPath()%>/gymui/pannel/aboutusediting1.jsp">
               <i class="now-ui-icons location_map-big"></i>
               <p>About Us Editing</p>
             </a>
           </li>
-          <li>
+          <li class="" id="7">
             <a href="<%=application.getContextPath()%>/gymui/pannel/equipmentediting1.jsp">
               <i class="now-ui-icons location_map-big"></i>
               <p>Equipment Editing </p>
             </a>
           </li>
-          <li>
+          <li class="" id="8">
             <a href="./map.html">
               <i class="now-ui-icons location_map-big"></i>
               <p>View Graphs</p>
