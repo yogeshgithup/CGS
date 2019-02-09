@@ -8,6 +8,7 @@ package Allservlet;
 
 import com.mycompany.loginmodule.Login;
 import com.mycompany.loginmodule.Logingym;
+import com.mycompany.loginmodule.Trainer;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletConfig;
@@ -91,6 +92,8 @@ public void init(ServletConfig sc) throws ServletException
     else if(t.equals(l2.getType()))
     {
         
+       Trainer tt=so.getTrainerid(l2.getLoginid());
+       hs.setAttribute("trainer",tt);
          response.sendRedirect(scx.getContextPath()+"/gymui/pannel/trainers1.jsp");
     }
        

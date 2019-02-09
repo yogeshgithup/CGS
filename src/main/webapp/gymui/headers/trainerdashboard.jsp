@@ -1,3 +1,4 @@
+<%@page import="com.mycompany.loginmodule.Trainer"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,22 +32,17 @@
 
         Tip 2: you can also add an image using data-image tag
     -->
+     <%
+             Trainer t=(Trainer)session.getAttribute("trainer");
+              
+              %>
       <div class="logo">
         <a href="#" class="simple-text logo-normal">
-          TRAINER
+          TRAINER <%= t.getFirstname()%>
         </a>
-<!--          <a href="#" class="simple-text logo-normal">
-              <%
-               String name=(String)session.getAttribute("gname");
-               String branch=(String)session.getAttribute("branchname");
-               String trainer=(String)session.getAttribute("trainername");
-              %>
-           GYM NAME : <%=name%>
-           <br>
-           BRANCH NAME : <%=branch%>
-           <br>
-           TRAINER NAME :<%=trainer%>
-        </a>-->
+
+             
+          
       </div>
       <div class="sidebar-wrapper">
         <ul class="nav">

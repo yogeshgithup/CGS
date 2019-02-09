@@ -1,3 +1,5 @@
+<%@page import="com.mycompany.loginmodule.Batches"%>
+<%@page import="java.util.Set"%>
 <%@page import="com.mycompany.loginmodule.Addpackage"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.HashSet"%>
@@ -51,16 +53,25 @@
       <form action="" method="post">
                   <div class="row">                                  
                       
-                  <div class="col-md-3">
-                        <div class="dropdown">
-                          <button class="btn btn-primary" type="button" data-toggle="dropdown">Batch Name
-                          <span class="caret"></span></button>
-                          <ul class="dropdown-menu">
-                             <li><a href="#">YOGA</a></li>
-                            <li><a href="#">UTHAK BETHAK</a></li>
-                            <li><a href="#">ZUMBA</a></li>
-                            <li><a href="#">VAJAN UCHAKVANU</a></li>
-                          </ul>
+                 <div class="col-md-6">
+                            <div class="form-group">
+      <label for="sel1">Select list (select one):</label>
+    <select class="form-control" id="bname" name="branchname">
+                               <%
+             Trainer tt=(Trainer)session.getAttribute("trainer");
+             System.out.println("----"+tt.getFirstname());
+        System.out.println( tt.getFacility().getName());
+         Set<Batches> bb= tt.getFacility().getFaci_batches();
+       Iterator it=bb.iterator();
+       while(it.hasNext())
+       {
+           
+      Batches b=(Batches) it.next();
+      System.out.println(b.getBatch_name());
+              %>
+              <option value="<%= b.getBatch_name()%>"><%= b.getBatch_name()%></option>
+                            <% }%>
+    </select>
                         </div>
                        </div>   
                       <div class="col-md-3">
