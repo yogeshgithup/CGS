@@ -5,6 +5,8 @@
  */
 package Allservlet;
 
+import com.mycompany.loginmodule.Batch_member;
+import com.mycompany.loginmodule.Batches;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletConfig;
@@ -13,6 +15,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import operations.DataOperation;
 
 /**
  *
@@ -48,6 +52,21 @@ System.out.println("hiii");
            System.out.println("BAtchtimefrom"+batchtimefrom);
            System.out.println("BAtchtimeto"+batchtimeto);
            System.out.println("BAtchname"+facility);
+           
+           Batches b=new Batches();
+          b.setBatch_name(batchname);
+          b.setRole(facility);
+          b.setTime_from(batchtimefrom);
+          b.setTime_to(batchtimeto);
+          
+          HttpSession hs=request.getSession(true);
+        int branchid= Integer.parseInt(hs.getAttribute("branchid").toString());
+          
+        DataOperation doo=new DataOperation(scx);
+       int id=doo.addBatch(b, branchid);
+          
+          doo.addBatch_member(id, membername);
+           
     }
 
   

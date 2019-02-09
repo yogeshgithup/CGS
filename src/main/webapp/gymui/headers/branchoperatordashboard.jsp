@@ -55,7 +55,7 @@
             </a>
           </li>
           <li>
-            <a href="<%=application.getContextPath()%>/gymui/pannel/managebatches1.jsp">
+            <a href="<%=application.getContextPath()%>/ViewBatches">
               <i class="now-ui-icons location_map-big"></i>
               <p>Manage Batches </p>
             </a>

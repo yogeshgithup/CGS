@@ -9,6 +9,8 @@ import com.mycompany.loginmodule.Achievements;
 import com.mycompany.loginmodule.Addbranch;
 import com.mycompany.loginmodule.Addgym;
 import com.mycompany.loginmodule.Addpackage;
+import com.mycompany.loginmodule.Batch_member;
+import com.mycompany.loginmodule.Batches;
 import com.mycompany.loginmodule.Equipment;
 import com.mycompany.loginmodule.Facility;
 import com.mycompany.loginmodule.Gallery;
@@ -25,6 +27,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.AbstractSet;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -39,6 +42,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.engine.jdbc.batch.spi.Batch;
 
 /**
  *
@@ -1528,5 +1532,122 @@ public class DataOperation {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+     
+     public int addBatch(Batches b,int branchid)
+     {
+        int id = 0;
+        try {
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+            session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+            System.out.println(branchid);
+            Addbranch l1 = null;
+            Set<Batches> ab = null;
+            l1 = (Addbranch) session.load(Addbranch.class, branchid);
+            System.out.println(l1.getBranchname());
+
+            ab = new HashSet<Batches>();
+            ab = l1.getBatches();
+            b.setAdbranch(l1);
+            ab.add(b);
+            session.save(b);
+            id = b.getId();
+            tx.commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return id;
+    }
+     
+      public Members getmemberid(String id) {
+       // int gymid;
+        Members l = null;
+        try {
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+            session = sfobj.openSession();
+            tx = session.beginTransaction();
+            //String b = "branchoperator";
+            //String c = "traineer";
+            
+
+            Query q = session.createQuery("from Members where id=:gymid");
+            q.setString("gymid", id);
+
+            List<Members> results = q.list();
+
+            l = (Members) results.get(0);
+            
+            
+           
+        } catch (Exception e) {
+           // gymid = 0;
+            System.out.println(e.getMessage());
+        }
+        return l;
+    }
+       public void addBatch_member(int id, String[] member) {
+        try {
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+            session = sfobj.openSession();
+            tx = session.beginTransaction();
+            Batches b = (Batches) session.load(Batches.class,id);
+         
+            Set<Batch_member> fac = new HashSet<Batch_member>();
+            System.out.println("oooo-" + b.getBatch_name());
+            fac = b.getBatche_member();
+            System.out.println("pppp" + member.length);
+            for (int i = 0; i < member.length; i++) {
+                Set<Batch_member> fa = new HashSet<Batch_member>();
+                Batch_member f = new Batch_member();
+                System.out.println("jjj-" + member[i]);
+                
+               Query q = session.createQuery("from Members where id=:gymid");
+            q.setString("gymid",member[i]);
+
+            List<Members> results = q.list();
+           
+           Members l = (Members) results.get(0);
+             f.setBatch_mem(b);
+        //   f.setName(l.get);
+             f.setMemb(l); 
+              l.setBatches(fa);
+              fa.add(f);
+                fac.add(f);
+            }
+
+            b.setBatche_member(fac);
+            session.save(b);
+            tx.commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+        public Addbranch getBranch(String id) {
+       // int gymid;
+        Addbranch l = null;
+        try {
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+            session = sfobj.openSession();
+            tx = session.beginTransaction();
+            //String b = "branchoperator";
+            //String c = "traineer";
+            
+
+            Query q = session.createQuery("from Addbranch where id=:gymid");
+            q.setString("gymid", id);
+
+            List<Addbranch> results = q.list();
+
+            l = (Addbranch) results.get(0);
+
+        } catch (Exception e) {
+           // gymid = 0;
+            System.out.println(e.getMessage());
+        }
+        return l;
     }
 }
