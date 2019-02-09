@@ -25,13 +25,54 @@
               </div>
               <div class="card-body">
                 <div class="table-responsive">
-                      <table class="display" id="gym" style="width:100%; color: purple;">
+                        <table class="display" id="gym" style="width:100%; color: purple;">
                     <thead>
                       <th>ID</th>
                       <th>Batch Name</th>
-                      <th>Batch Timings</th>
+                      <th>Batch Timing from</th>
+                       <th>Batch Timing to</th>
                       <th>Role</th>
-                    </thead>                  
+                      <th>Members</th>
+                    </thead>
+                       <tbody>
+                           <%! Iterator ib;%>
+                           <%
+                       Addbranch ab=(Addbranch) session.getAttribute("getbranch");
+                     Set<Batches> bt=ab.getBatches();
+                    Iterator it= bt.iterator();
+                    while(it.hasNext())
+                    {
+                       Batches b=(Batches) it.next();
+                    Set<Batch_member> bm=b.getBatche_member();
+                 ib= bm.iterator();
+                 
+                           %>
+                      <tr>
+                        <td><%= b.getId() %></td>
+                        <td><%= b.getBatch_name()%></td>
+                        <td><%= b.getTime_from() %></td>
+                        <td><%=  b.getTime_to()%></td>
+                        <td><%= b.getRole()%></td>
+                        <td>
+                         <% 
+                                
+                     while(ib.hasNext())
+                  {
+                Batch_member bb=(Batch_member)ib.next();
+               Members m= bb.getMemb();
+               m.getFirstname();
+             
+               %>
+                     <%=m.getFirstname()%>, <%
+                    }
+                    }  %> </td>
+                      
+                     
+                
+               </tr>
+               
+                    </tbody>
+                          
                   </table>
                 </div>
               </div>
