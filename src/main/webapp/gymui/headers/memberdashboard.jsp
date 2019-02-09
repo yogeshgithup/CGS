@@ -35,14 +35,14 @@
         <ul class="nav">
           
          <li>
-            <a href="">
+            <a href="<%=application.getContextPath()%>/gymui/pannel/members1.jsp">
               <i class="now-ui-icons design_app"></i>
               <p>View Diet Plans</p>
             </a>
           </li>
 
            <li>
-            <a href="">
+            <a href="<%=application.getContextPath()%>/gymui/pannel/updateweight1.jsp">
               <i class="now-ui-icons design_app"></i>
               <p>Manage Weight</p>
             </a>

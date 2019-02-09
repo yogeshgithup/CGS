@@ -44,20 +44,21 @@
                   <p class="card-category"></p>
                 </div>
                 <div class="card-body">
-                  <form>
+                    <form action="<%=application.getContextPath()%>/Updateweight" method="post">
                     <div class="row">                      
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="bmd-label-floating">Updated Weight</label>
-                          <input type="text" class="form-control">
+                          <input type="text" name="updateweight" class="form-control">
                         </div>
                       </div>
                     </div>
                       <div class="col-md-6"> 
                          <button type="submit" class="btn btn-primary pull-right">Submit</button>
                         </div>
+                         </form>
                     </div>
-                    
+  
 
             </div>
 

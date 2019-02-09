@@ -241,7 +241,17 @@ public class Members {
         this.dob = dob;
         this.health = health;
     }
-     
+      @ManyToOne
+    @JoinColumn(name="member_pack_id")
+     private Gympackage gympack;
+
+    public Gympackage getGympack() {
+        return gympack;
+    }
+
+    public void setGympack(Gympackage gympack) {
+        this.gympack = gympack;
+    }
      
     
 }

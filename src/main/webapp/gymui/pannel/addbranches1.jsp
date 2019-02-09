@@ -106,7 +106,7 @@ function ValidateForm(){
  }
 </script>
 <body class="user-profile">
-   <%@include file="/gymui/headers/systemadmindashboard.jsp" %>
+   <%@include file="/gymui/headers/gymadmindashboard.jsp" %>
       <div class="content">
         <div class="row">
           <div class="col-md-8">

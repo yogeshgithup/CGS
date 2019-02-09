@@ -50,18 +50,7 @@
      
       <form action="" method="post">
                   <div class="row">                                  
-                      <div class="col-md-3">
-                        <div class="dropdown">
-                          <button class="btn btn-primary" type="button" data-toggle="dropdown">Branch
-                          <span class="caret"></span></button>
-                          <ul class="dropdown-menu">
-                            <li><a href="#">BRANCH 1</a></li>
-                            <li><a href="#">BRANCH 2</a></li>
-                            <li><a href="#">BRANCH 3</a></li>
-                            <li><a href="#">BRANCH 4</a></li>
-                          </ul>
-                        </div>
-                       </div>
+                      
                   <div class="col-md-3">
                         <div class="dropdown">
                           <button class="btn btn-primary" type="button" data-toggle="dropdown">Batch Name
@@ -73,7 +62,7 @@
                             <li><a href="#">VAJAN UCHAKVANU</a></li>
                           </ul>
                         </div>
-                       </div>
+                       </div>   
                       <div class="col-md-3">
                         <div class="dropdown">
                           <button class="btn btn-primary" type="button" data-toggle="dropdown">Member Name
@@ -87,40 +76,32 @@
                         </div>
                        </div>
                   </div>
-           <div class="row">                      
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Member Date Of Birth</label>
-                          <input type="text" class="form-control">
-                        </div>
-                      </div>
-                    </div>
                        <div class="row">                      
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Member Start Date</label>
-                          <input type="email" class="form-control">
+                          <input type="date" name="memberstartdate" class="form-control">
                         </div>
                       </div>                       
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Member End Date</label>
-                          <input type="email" class="form-control">
+                          <input type="date"  name="memberenddate" class="form-control">
                         </div>
                       </div> 
                       </div>
                        <div class="row">
-                       <div class="col-md-8">
+                       <div class="col-md-6">
                           <div class="form-group">
                         <label for="comment" class="bmd-label-floating">Description:</label>
-                        <textarea class="form-control" rows="5" id="comment"></textarea>
+                        <textarea class="form-control" rows="4" id="description" name="description"></textarea>
                           </div>
                         </div>
                       </div>
                        <div class="row">
                        <div class="col-md-2">
                             <label for="file-multiple-input" class=" form-control-label">Diet Plan File</label></div>
-                            <div  class="col-md-3"><input type="file" id="file-multiple-input" name="file-multiple-input" multiple="" class="form-control-file "></div>
+                            <div  class="col-md-3"><input type="file" id="dietplan" name="dietplan" multiple="" class="form-control-file "></div>
                       </div>
                     </div>
                       <div class="col-md-6"> 
@@ -128,8 +109,8 @@
                         </div>
                     </div>
                   </div>
-                </div>
-              </div>
+               
+              
                 </form>
                    
           <div class="col-md-4">
@@ -168,10 +149,7 @@
             </div>
           </div>
         </div>
-      </div>
-
     </div>
-  </div>
 </body>
 <script>
     $(document).ready(function() {
