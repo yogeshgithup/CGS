@@ -30,6 +30,10 @@ public class Pack_facility {
     @ManyToOne
     @JoinColumn(name="packageid")
      private Gympackage gympack;
+ 
+    @ManyToOne
+    @JoinColumn(name="facility_id")
+     private Facility facc;
 
     public Pack_facility(int id, String name) {
         this.id = id;
@@ -64,6 +68,14 @@ public class Pack_facility {
 
     public void setGympack(Gympackage gympack) {
         this.gympack = gympack;
+    }
+
+    public Facility getFacc() {
+        return facc;
+    }
+
+    public void setFacc(Facility facc) {
+        this.facc = facc;
     }
     
     

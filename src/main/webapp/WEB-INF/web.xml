@@ -161,6 +161,10 @@
         <servlet-name>Addbatches</servlet-name>
         <servlet-class>Allservlet.Addbatches</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Updateweight</servlet-name>
+        <servlet-class>Allservlet.Updateweight</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Loginverify</servlet-name>
         <url-pattern>/Loginverify</url-pattern>
@@ -296,6 +300,10 @@
     <servlet-mapping>
         <servlet-name>Addbatches</servlet-name>
         <url-pattern>/Addbatches</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Updateweight</servlet-name>
+        <url-pattern>/Updateweight</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

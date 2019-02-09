@@ -86,7 +86,7 @@ System.out.println("hiii");
         m.setHeight(height);
         m.setLastname(lname);
         m.setMiddlename(mname);
-        m.setPackagee(packagee);
+      //  m.setPackagee(packagee);
         m.setPassword(pass);
         m.setPhoneno(pno);
         m.setPostalcode(pcode);
@@ -101,7 +101,7 @@ System.out.println("hiii");
      l.setPassword(pass);
      l.setType("member");
        Addgym gym = p.getGymID(gymid);
-    p.addmember(m,branchid,gym,l);
+    p.addmember(m,branchid,gym,l,packagee);
      response.sendRedirect(scx.getContextPath()+"/Viewmembers?op=mem");
 }
 }

@@ -90,7 +90,7 @@ System.out.println("hiii");
      t.setPhoneno(pno);
      t.setEmail(email);
      t.setPassword(pass);
-     t.setRole(role);
+    // t.setRole(role);
      t.setDescription(desc);
      t.setUrl(url);
      Login l=new Login();
@@ -98,7 +98,7 @@ System.out.println("hiii");
      l.setPassword(pass);
      l.setType("traineer");
        Addgym gym = p.getGymID(gymid);
-    p.addtrainer(t,branchid,gym,l);
+    p.addtrainer(t,branchid,gym,l,role);
      response.sendRedirect(scx.getContextPath()+"/Viewtrainer");
 }
      private String extractFileName(Part part) {
