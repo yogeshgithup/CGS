@@ -52,7 +52,7 @@
                         <td><%= b.getBatch_name()%></td>
                         <td><%= b.getTime_from() %></td>
                         <td><%=  b.getTime_to()%></td>
-                        <td><%= b.getRole()%></td>
+                        <td><%= b.getFacility_batches().getName()%></td>
                         <td>
                          <% 
                                 
