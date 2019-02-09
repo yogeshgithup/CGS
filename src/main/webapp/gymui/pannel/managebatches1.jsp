@@ -31,36 +31,7 @@
                       <th>Batch Name</th>
                       <th>Batch Timings</th>
                       <th>Role</th>
-                    </thead>
-                       <tbody>
-                           <%
-                       Addbranch ab=(Addbranch) session.getAttribute("getbranch");
-                     Set<Batches> bt=ab.getBatches();
-                    Iterator it= bt.iterator();
-                    while(it.hasNext())
-                    {
-                       Batches b=(Batches) it.next();
-                    Set<Batch_member> bm=b.getBatche_member();
-                  Iterator ib= bm.iterator();
-                  while(ib.hasNext())
-                  {
-                Batch_member bb=(Batch_member)ib.next();
-               Members m= bb.getMemb();
-               m.getFirstname();
-                 
-                           %>
-                      <tr>
-                        <td><%=%></td>
-                        <td>Morning</td>
-                        <td>5am - 12pm</td>
-                        <td>ZUMBA</td>
-                       
-                      </tr>
-                      <%  }
-                    }
-                      %>
-                    </tbody>
-                          
+                    </thead>                  
                   </table>
                 </div>
               </div>

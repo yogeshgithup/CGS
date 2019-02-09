@@ -286,7 +286,7 @@ public class DataOperation {
             System.out.println("query");
             for (int i = 0; i <= results.size(); i++) {
                 p1 = (Addgym) results.get(i);
-                Addgym p2 = new Addgym(p1.getId(), p1.getGymname(), p1.getOwnername(), p1.getStreet(), p1.getArea(), p1.getPostcode(), p1.getPhoneno(), p1.getUsername(), p1.getPassword(), p1.getPackagee());
+                Addgym p2 = new Addgym(p1.getId(), p1.getGymname(), p1.getOwnername(), p1.getStreet(), p1.getArea(), p1.getPostcode(), p1.getPhoneno(), p1.getUsername(), p1.getPassword(), p1.getAdpack().getName());
                 setgym.add(p2);
             }
 
@@ -1008,7 +1008,7 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             Pack_facility pf = null;
             for (int j = 0; j <= results1.size(); j++) {
                 pf = (Pack_facility) results1.get(j);
-                setfacility = setfacility + pf.getName() + "  ";
+                setfacility = setfacility + pf.getGympack().getName() + "  ";
             }
 
             tx.commit();
@@ -1219,7 +1219,7 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
 //                   HashSet<Pack_facility> pac=new HashSet<Pack_facility>();
 //                 pac = getpacfacility(p1.getId());
                 //   System.out.println("---"+pac.toString());
-                Trainer t = new Trainer(p1.getFirstname(), p1.getMiddlename(), p1.getMiddlename(), p1.getEmail(), p1.getRole());
+                Trainer t = new Trainer(p1.getFirstname(), p1.getMiddlename(), p1.getMiddlename(), p1.getEmail(), p1.getFacility().getName());
                 setfacility.add(t);
             }
 
@@ -1327,7 +1327,7 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
 //                   HashSet<Pack_facility> pac=new HashSet<Pack_facility>();
 //                 pac = getpacfacility(p1.getId());
                 //   System.out.println("---"+pac.toString());
-                Members m = new Members(m1.getId(), m1.getFirstname(), m1.getMiddlename(), m1.getLastname(), m1.getPhoneno(), m1.getPackagee(), m1.getDate());//,m1.getArea(),m1.getStreet(),m1.getPostalcode(),m1.getEmail(),m1.getPackagee(),m1.getPassword(),m1.getHeight(),m1.getWeight(),m1.getHealth(),m1.getDob());
+                Members m = new Members(m1.getId(), m1.getFirstname(), m1.getMiddlename(), m1.getLastname(), m1.getPhoneno(),m1.getGympack().getName(), m1.getDate());//,m1.getArea(),m1.getStreet(),m1.getPostalcode(),m1.getEmail(),m1.getPackagee(),m1.getPassword(),m1.getHeight(),m1.getWeight(),m1.getHealth(),m1.getDob());
                 //Trainer t=new Trainer(p1.getFirstname(),p1.getMiddlename(),p1.getMiddlename(),p1.getEmail(),p1.getRole());
                 setfacility.add(m);
             }
@@ -1415,7 +1415,7 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
                     System.out.println("ooo" + localDate.plusMonths(time).minusDays(10));
                     if (localDate.plusMonths(time).isEqual(localDatenow) || (localDatenow.isAfter(localDate.plusMonths(time).minusDays(10)) && localDatenow.isBefore(localDate.plusMonths(time)))) {
 
-                        Members m = new Members(p1.getId(), p1.getFirstname(), p1.getMiddlename(), p1.getLastname(), p1.getPhoneno(), p1.getPackagee(), localDate.plusMonths(time).toString());//,m1.getArea(),m1.getStreet(),m1.getPostalcode(),m1.getEmail(),m1.getPackagee(),m1.getPassword(),m1.getHeight(),m1.getWeight(),m1.getHealth(),m1.getDob());
+                        Members m = new Members(p1.getId(), p1.getFirstname(), p1.getMiddlename(), p1.getLastname(), p1.getPhoneno(), p1.getGympack().getName(), localDate.plusMonths(time).toString());//,m1.getArea(),m1.getStreet(),m1.getPostalcode(),m1.getEmail(),m1.getPackagee(),m1.getPassword(),m1.getHeight(),m1.getWeight(),m1.getHealth(),m1.getDob());
                         //Trainer t=new Trainer(p1.getFirstname(),p1.getMiddlename(),p1.getMiddlename(),p1.getEmail(),p1.getRole());
                         setfacility.add(m);
 //                 final long days = ChronoUnit.DAYS.between(localDatenow,localDate.plusMonths(time));
@@ -1562,7 +1562,7 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
         }
     }
      
-     public int addBatch(Batches b,int branchid)
+     public int addBatch(Batches b,int branchid,String role,String gymid)
      {
         int id = 0;
         try {
@@ -1580,6 +1580,15 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             ab = l1.getBatches();
             b.setAdbranch(l1);
             ab.add(b);
+             Query q = session.createQuery("from Facility where name=:gymid and gymid=:id");
+            q.setString("gymid",role);
+ q.setString("id",gymid);
+            List<Facility> results = q.list();
+           
+           Facility l = (Facility) results.get(0);
+       Set<Batches> f=l.getFaci_batches();
+       f.add(b);
+       b.setFacility_batches(l);
             session.save(b);
             id = b.getId();
             tx.commit();

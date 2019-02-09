@@ -95,6 +95,16 @@ public class Batches {
         this.adbranch = adbranch;
     }
 
-   
+     @ManyToOne
+    @JoinColumn(name="facility_id")
+   private Facility facility_batches;
+
+    public Facility getFacility_batches() {
+        return facility_batches;
+    }
+
+    public void setFacility_batches(Facility facility_batches) {
+        this.facility_batches = facility_batches;
+    }
 
 }

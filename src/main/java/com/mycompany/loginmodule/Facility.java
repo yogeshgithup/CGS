@@ -92,6 +92,16 @@ public class Facility {
     public void setTrainer_faci(Set<Trainer> trainer_faci) {
         this.trainer_faci = trainer_faci;
     }
-    
+    @OneToMany(cascade=CascadeType.ALL,mappedBy = "facility_batches", fetch = FetchType.LAZY)
+       // @JoinColumn(name="cart_id")
+	private Set<Batches> faci_batches;
+
+    public Set<Batches> getFaci_batches() {
+        return faci_batches;
+    }
+
+    public void setFaci_batches(Set<Batches> faci_batches) {
+        this.faci_batches = faci_batches;
+    }
     
 }
