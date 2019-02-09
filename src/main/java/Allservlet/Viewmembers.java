@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import operations.DataOperation;
+import org.json.JSONArray;
 
 /**
  *
@@ -81,20 +82,23 @@ public void init(ServletConfig sc) throws ServletException
             System.out.println(e.getMessage());
         } 
     }
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+   @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+       PrintWriter out=response.getWriter();
+        
+       DataOperation pko=new DataOperation(scx);
+     
+ 
+        try {
+          String id=request.getParameter("id");
+            System.out.println("===="+id);
+       JSONArray ja=pko.getMembersname(id);
+            System.out.println("----"+ja);
+        out.println(ja);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } 
+    }
     
 }
