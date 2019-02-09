@@ -43,6 +43,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.engine.jdbc.batch.spi.Batch;
+import org.json.JSONArray;
 
 /**
  *
@@ -1713,4 +1714,33 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
         }
         return l;
     }
+         
+         public JSONArray getMembersname(String id)
+         {
+              
+              JSONArray  ja=new JSONArray();
+        Batch_member l = null;
+        try {
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+            session = sfobj.openSession();
+            tx = session.beginTransaction();
+            //String b = "branchoperator";
+            //String c = "traineer";
+            
+
+            Query q = session.createQuery("from Batch_member where batch_id=:gymid");
+            q.setString("gymid", id);
+
+            List<Batch_member> results = q.list();
+
+            l = (Batch_member) results.get(0);
+           ja.put( l.getMemb().getFirstname());
+          // tid= l.getId();
+           
+        } catch (Exception e) {
+           // gymid = 0;
+            System.out.println(e.getMessage());
+        }
+       return ja;
+       }
 }

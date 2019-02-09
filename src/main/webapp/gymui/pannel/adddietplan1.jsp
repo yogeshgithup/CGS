@@ -45,18 +45,19 @@
                    <div id="msg" style="color:green"><h2><%=msg%></h2></div>
                 <h5 class="title">Add Diet Plan</h5>
               </div>
+           
               <div class="card-body">
      
      
      
      
-      <form action="" method="post">
+      <form action="<%=application.getContextPath()%>/Adddietplan" method="post">
                   <div class="row">                                  
                       
                  <div class="col-md-6">
                             <div class="form-group">
       <label for="sel1">Select list (select one):</label>
-    <select class="form-control" id="bname" name="branchname">
+    <select class="form-control" id="myselect" name="op1">
                                <%
              Trainer tt=(Trainer)session.getAttribute("trainer");
              System.out.println("----"+tt.getFirstname());
@@ -68,23 +69,21 @@
            
       Batches b=(Batches) it.next();
       System.out.println(b.getBatch_name());
+   
               %>
-              <option value="<%= b.getBatch_name()%>"><%= b.getBatch_name()%></option>
+              <option value="<%=b.getId()%>" id="op1" ><%= b.getBatch_name()%></option>
                             <% }%>
     </select>
                         </div>
-                       </div>   
-                      <div class="col-md-3">
-                        <div class="dropdown">
-                          <button class="btn btn-primary" type="button" data-toggle="dropdown">Member Name
-                          <span class="caret"></span></button>
-                          <ul class="dropdown-menu">
-                            <li><a href="#">BRANCH 1</a></li>
-                            <li><a href="#">BRANCH 2</a></li>
-                            <li><a href="#">BRANCH 3</a></li>
-                            <li><a href="#">BRANCH 4</a></li>
-                          </ul>
-                        </div>
+                       </div>  
+    
+                       <div class="col-md-6">
+                            <div class="form-group">
+      <label for="sel1">Select list (select one):</label>
+      <select class="form-control" id="myselect1" name="op2">
+          
+      </select>
+                  </div>
                        </div>
                   </div>
                        <div class="row">                      
@@ -114,15 +113,17 @@
                             <label for="file-multiple-input" class=" form-control-label">Diet Plan File</label></div>
                             <div  class="col-md-3"><input type="file" id="dietplan" name="dietplan" multiple="" class="form-control-file "></div>
                       </div>
-                    </div>
+                
                       <div class="col-md-6"> 
                          <button type="submit" class="btn btn-primary pull-right">Submit</button>
                         </div>
-                    </div>
-                  </div>
-               
-              
-                </form>
+                     </form>          
+     </div>
+            </div>
+          </div>
+        
+   
+                
                    
           <div class="col-md-4">
             <div class="card card-user">
@@ -164,19 +165,28 @@
 </body>
 <script>
     $(document).ready(function() {
-      $().ready(function() {
-            $("#branchname").focusout(function(){
-   
-   var branchname=$("#branchname").val();
-   //alert(packagename);
-   $.post("<%=application.getContextPath()%>/Verifygymname",{"branch":branchname},function(data,status){
- 
-     alert(data);
-     $("#branchname").val("");
-  
-    });
-});
-});
+     alert("hello");
+     $("#myselect").focusout(function(){
+         $('#myselect1').empty();
+        var n= $("#myselect option:selected").val();  
+     alert(n);  
+   $.post("<%=application.getContextPath()%>/Viewmembers?id="+n,function(data,status){
+                        alert(data);
+                     obj=JSON.parse(data);
+                     alert(obj.length);
+                      for(i=0;i<obj.length;i++)
+                      {
+                     alert(obj[i]);
+                          $('#myselect1')
+         .append($("<option></option>")
+                    .attr("value",obj[i])
+                    .text(obj[i]));
+                   }
+                  
+   });       
+              
+     });
+    
 });
 </script>
 </html>

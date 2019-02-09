@@ -164,10 +164,14 @@
     <servlet>
         <servlet-name>ViewBatches</servlet-name>
         <servlet-class>Allservlet.ViewBatches</servlet-class>
-      </servlet>
-  <servlet>
+    </servlet>
+    <servlet>
         <servlet-name>Updateweight</servlet-name>
         <servlet-class>Allservlet.Updateweight</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Adddietplan</servlet-name>
+        <servlet-class>Allservlet.Adddietplan</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Loginverify</servlet-name>
@@ -308,10 +312,14 @@
     <servlet-mapping>
         <servlet-name>ViewBatches</servlet-name>
         <url-pattern>/ViewBatches</url-pattern>
-      </servlet-mapping>
-  <servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>Updateweight</servlet-name>
         <url-pattern>/Updateweight</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Adddietplan</servlet-name>
+        <url-pattern>/Adddietplan</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
