@@ -106,5 +106,16 @@ public class Gympackage {
     public void setPackfac(Set<Pack_facility> packfac) {
         this.packfac = packfac;
     }
+      @OneToMany(cascade=CascadeType.ALL,mappedBy = "gympack", fetch = FetchType.LAZY)
+       // @JoinColumn(name="cart_id")
+	private Set<Members> members_pack;
+
+    public Set<Members> getMembers_pack() {
+        return members_pack;
+    }
+
+    public void setMembers_pack(Set<Members> members_pack) {
+        this.members_pack = members_pack;
+    }
       
 }

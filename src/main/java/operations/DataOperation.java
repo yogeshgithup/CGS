@@ -917,10 +917,20 @@ public class DataOperation {
             fac = gym.getPackfac();
             System.out.println("pppp" + faci.length);
             for (int i = 0; i < faci.length; i++) {
-
+Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
                 Pack_facility f = new Pack_facility();
                 System.out.println("jjj-" + faci[i]);
-                f.setName(faci[i]);
+                
+                Query q = session.createQuery("from Facility where name=:uname and gymid=:id");
+            q.setString("uname", faci[i]);
+             q.setString("id",String.valueOf(gymid));
+            List<Facility> results = q.list();
+
+            Facility l = (Facility) results.get(0);
+            f.setFacc(l);
+                l.setPack_fac(fac1);
+                fac1.add(f);
+               // f.setName(faci[i]);
                 f.setGympack(gym);
                 fac.add(f);
             }
@@ -1135,7 +1145,7 @@ public class DataOperation {
         return gymid;
     }
 
-    public void addtrainer(Trainer t, int branchid, Addgym adgym, Login l) {
+    public void addtrainer(Trainer t, int branchid, Addgym adgym, Login l,String role) {
         try {
             sfobj = (SessionFactory) scx.getAttribute("sf");
             session = sfobj.openSession();
@@ -1154,6 +1164,15 @@ public class DataOperation {
             lo = adgym.getLogin();
             lo.add(l);
             l.setAdgym(adgym);
+             Query q = session.createQuery("from Facility where name=:uname and gymid=:id");
+            q.setString("uname",role);
+             q.setString("id",String.valueOf(adgym.getId()));
+            List<Facility> results = q.list();
+
+            Facility ff = (Facility) results.get(0);
+        Set<Trainer> tt= ff.getTrainer_faci();
+        tt.add(t);
+        t.setFacility(ff);
             session.save(t);
             session.save(l);
             SMSOperation so = new SMSOperation();
@@ -1209,7 +1228,7 @@ public class DataOperation {
         return setfacility;
     }
 
-    public void addmember(Members m, int branchid, Addgym adgym, Login l) {
+    public void addmember(Members m, int branchid, Addgym adgym, Login l, String packagee) {
         try {
             sfobj = (SessionFactory) scx.getAttribute("sf");
             session = sfobj.openSession();
@@ -1228,6 +1247,15 @@ public class DataOperation {
             lo = adgym.getLogin();
             lo.add(l);
             l.setAdgym(adgym);
+             Query q = session.createQuery("from Gympackage where name=:uname and gymid=:id");
+            q.setString("uname",packagee);
+             q.setString("id",String.valueOf(adgym.getId()));
+            List<Gympackage> results = q.list();
+
+            Gympackage ff = (Gympackage) results.get(0);
+          Set<Members> mm= ff.getMembers_pack();
+          mm.add(m);
+          m.setGympack(ff);
             session.save(m);
             session.save(l);
             SMSOperation so = new SMSOperation();

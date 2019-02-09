@@ -166,6 +166,16 @@ public class Trainer {
     public void setAdbranch(Addbranch adbranch) {
         this.adbranch = adbranch;
     }
-     
+      @ManyToOne
+    @JoinColumn(name="fac_id")
+     private Facility facility;
+
+    public Facility getFacility() {
+        return facility;
+    }
+
+    public void setFacility(Facility facility) {
+        this.facility = facility;
+    }
      
 }
