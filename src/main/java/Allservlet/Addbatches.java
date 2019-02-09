@@ -55,15 +55,15 @@ System.out.println("hiii");
            
            Batches b=new Batches();
           b.setBatch_name(batchname);
-          b.setRole(facility);
+         // b.setRole(facility);
           b.setTime_from(batchtimefrom);
           b.setTime_to(batchtimeto);
           
           HttpSession hs=request.getSession(true);
         int branchid= Integer.parseInt(hs.getAttribute("branchid").toString());
-          
+          String gymid = hs.getAttribute("gymid").toString();
         DataOperation doo=new DataOperation(scx);
-       int id=doo.addBatch(b, branchid);
+       int id=doo.addBatch(b, branchid,facility,gymid);
           
           doo.addBatch_member(id, membername);
            
