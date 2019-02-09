@@ -162,6 +162,10 @@
         <servlet-class>Allservlet.Addbatches</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>ViewBatches</servlet-name>
+        <servlet-class>Allservlet.ViewBatches</servlet-class>
+      </servlet>
+  <servlet>
         <servlet-name>Updateweight</servlet-name>
         <servlet-class>Allservlet.Updateweight</servlet-class>
     </servlet>
@@ -302,6 +306,10 @@
         <url-pattern>/Addbatches</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>ViewBatches</servlet-name>
+        <url-pattern>/ViewBatches</url-pattern>
+      </servlet-mapping>
+  <servlet-mapping>
         <servlet-name>Updateweight</servlet-name>
         <url-pattern>/Updateweight</url-pattern>
     </servlet-mapping>

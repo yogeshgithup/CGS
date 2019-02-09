@@ -1,3 +1,9 @@
+<%@page import="com.mycompany.loginmodule.Members"%>
+<%@page import="com.mycompany.loginmodule.Batch_member"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="com.mycompany.loginmodule.Batches"%>
+<%@page import="java.util.Set"%>
+<%@page import="com.mycompany.loginmodule.Addbranch"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,28 +33,32 @@
                       <th>Role</th>
                     </thead>
                        <tbody>
+                           <%
+                       Addbranch ab=(Addbranch) session.getAttribute("getbranch");
+                     Set<Batches> bt=ab.getBatches();
+                    Iterator it= bt.iterator();
+                    while(it.hasNext())
+                    {
+                       Batches b=(Batches) it.next();
+                    Set<Batch_member> bm=b.getBatche_member();
+                  Iterator ib= bm.iterator();
+                  while(ib.hasNext())
+                  {
+                Batch_member bb=(Batch_member)ib.next();
+               Members m= bb.getMemb();
+               m.getFirstname();
+                 
+                           %>
                       <tr>
-                        <td>1</td>
+                        <td><%=%></td>
                         <td>Morning</td>
                         <td>5am - 12pm</td>
                         <td>ZUMBA</td>
                        
                       </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>Afternoon</td>
-                        <td>12pm - 5pm</td>
-                        <td>YOGA</td>
-                       
-                      </tr>
-                      <tr>
-                        <td>3</td>
-                        <td>Evening</td>
-                        <td>5pm - 10pm</td>
-                        <td>WEIGHT LIFTING</td>
-                        
-                      </tr>
-                      
+                      <%  }
+                    }
+                      %>
                     </tbody>
                           
                   </table>

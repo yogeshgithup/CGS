@@ -25,7 +25,7 @@ public class Batch_member {
     @GeneratedValue
     int id;
      
-     String name;
+    // String name;
      @ManyToOne
     @JoinColumn(name="batch_id")
      private Batches batch_mem;
@@ -42,13 +42,7 @@ public class Batch_member {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+  
 
     public Batches getBatch_mem() {
         return batch_mem;
