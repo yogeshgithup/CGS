@@ -11,6 +11,7 @@ import com.mycompany.loginmodule.Addgym;
 import com.mycompany.loginmodule.Addpackage;
 import com.mycompany.loginmodule.Batch_member;
 import com.mycompany.loginmodule.Batches;
+import com.mycompany.loginmodule.Dietplan;
 import com.mycompany.loginmodule.Equipment;
 import com.mycompany.loginmodule.Facility;
 import com.mycompany.loginmodule.Gallery;
@@ -1743,4 +1744,39 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
         }
        return ja;
        }
+         
+         public void Adddietplan(Dietplan dp,String batchid ,String member_name,String branchid) {
+        try {
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+            session = sfobj.openSession();
+            tx = session.beginTransaction();
+            Batches b = (Batches) session.load(Batches.class,Integer.parseInt(batchid));
+            System.out.println("1754");
+            Set<Dietplan> db = new HashSet<Dietplan>();
+             Set<Dietplan> db1 = new HashSet<Dietplan>();
+               Query q = session.createQuery("from Members where firstname=:gymid and branchid=:bid");
+            q.setString("gymid",member_name);
+ q.setString("bid",branchid);
+            List<Members> results = q.list();
+           
+           Members l = (Members) results.get(0);
+            System.out.println("===="+l.getFirstname());
+            //System.out.println("oooo-" + b.getBatch_name());
+            db= b.getDiet();
+            db.add(dp);
+               dp.setFact(b);
+               
+     db1=l.getMemdiet();
+     db1.add(dp);
+   
+     dp.setMember_diet(l);
+     
+            System.out.println("----"+dp.getDescription());
+           session.save(dp);
+            tx.commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

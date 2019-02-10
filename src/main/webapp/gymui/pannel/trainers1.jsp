@@ -25,7 +25,7 @@
     %>
     <html lang="en">
 
-  <link rel="stylesheet" href="<%=application.getContextPath()%>/gymui/css/table.css">
+ <link rel="stylesheet" href="<%=application.getContextPath()%>/gymui/css/table.css">
 <body class="">
 
      <%@include file="/gymui/headers/trainerdashboard.jsp" %>
@@ -40,8 +40,9 @@
                   <h4 class="card-title">View Diet Plan</h4>
                   <p class="card-category"></p>
                 </div>
+                   <div class="card-body">
                 <div class="table-responsive">
-                  <table class="table table-hover" style="width:100%; color: purple;">
+                  <table class="display" style="width:100%; color: purple;">
                     <thead >
                       <th>ID</th>
                       <th>MEMBER NAME</th>
@@ -52,44 +53,20 @@
                     <tbody>
                       <tr>
                         <td>1</td>
-                        <td>Dakota Rice</td>
-                        <td>$36,738</td>
-                        <td>Branch 1</td>
-                        <td>Branch 1</td>
+                        <td>dd</td>
+                        <td>ff</td>
+                        <td>vv</td>
+                        <td>vv</td>
                      
-                      </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>Minerva Hooper</td>
-                        <td>$23,789</td>
-                        <td>Branch 2</td>
-                        <td>Branch 1</td>
-                       
-                      </tr>
-                      <tr>
-                        <td>3</td>
-                        <td>Sage Rodriguez</td>
-                        <td>$56,142</td>
-                        <td>Branch 3</td>
-                        <td>Branch 1</td>
-                        
-                      </tr>
-                      <tr>
-                        <td>4</td>
-                        <td>Philip Chaney</td>
-                        <td>$38,735</td>
-                        <td>Branch 4</td>
-                        <td>Branch 1</td>
-                       
-                      </tr>
+                      </tr>   
                     </tbody>
                   </table>
                 </div>
-
+                   </div>
 
             </div>
             </body>
-            <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+           <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
   <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
   <script>
   $(function(){
