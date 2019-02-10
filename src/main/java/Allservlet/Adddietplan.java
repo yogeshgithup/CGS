@@ -5,19 +5,30 @@
  */
 package Allservlet;
 
+import com.mycompany.loginmodule.Dietplan;
+import com.mycompany.loginmodule.Trainer;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
+import operations.DataOperation;
+import operations.DropBoxOperation;
 
 /**
  *
  * @author Administrator
  */
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+        maxFileSize = 1024 * 1024 * 10, // 10MB
+        maxRequestSize = 1024 * 1024 * 50) 
 public class Adddietplan extends HttpServlet {
 
     ServletContext scx;
@@ -35,10 +46,13 @@ System.out.println("hiii");
             System.out.println(e.getMessage());
         }
     }
-    
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String at = scx.getInitParameter("accesstoken");
+        DropBoxOperation dbo = new DropBoxOperation(at);
+        DataOperation doo=new DataOperation(scx);
         String batchname=request.getParameter("op1");
         String membersname=request.getParameter("op2");
         String memberstartdate=request.getParameter("memberstartdate");
@@ -48,7 +62,33 @@ System.out.println("hiii");
         System.out.println("Members Start Date:-"+memberstartdate);
         System.out.println("Members end Date:-"+memberenddate);
         System.out.println("Description:-"+description);
+         Part photo=request.getPart("dietplan");
+     InputStream is = photo.getInputStream();
+            String filen = extractFileName(photo);
+                String url = dbo.uploadFile(filen, is);
+                
+                Dietplan dp=new Dietplan();
+                dp.setMemstartdate(memberstartdate);
+                        dp.setMemenddate(memberenddate);
+                        dp.setDescription(description);
+                        dp.setPhoto(url);
+                        System.out.println("---"+url);
+                         HttpSession hs=request.getSession(true);
+        Trainer t= (Trainer)hs.getAttribute("trainer");
+                        doo.Adddietplan(dp, batchname, membersname,String.valueOf( t.getAdbranch().getId()));
+                
     }
+ private String extractFileName(Part part) {
 
+        String contentDisp = part.getHeader("content-disposition");
+        String[] items = contentDisp.split(";");
+        for (String s : items) {
+            if (s.trim().startsWith("filename")) {
+                return s.substring(s.indexOf("=") + 2, s.length() - 1);
+            }
+
+        }
+        return "";
+    }
 
 }

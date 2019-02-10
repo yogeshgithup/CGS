@@ -51,12 +51,12 @@
      
      
      
-      <form action="<%=application.getContextPath()%>/Adddietplan" method="post">
+      <form action="<%=application.getContextPath()%>/Adddietplan" method="post"  enctype="multipart/form-data">
                   <div class="row">                                  
                       
                  <div class="col-md-6">
                             <div class="form-group">
-      <label for="sel1">Select list (select one):</label>
+      <label for="sel1">Batch (select one):</label>
     <select class="form-control" id="myselect" name="op1">
                                <%
              Trainer tt=(Trainer)session.getAttribute("trainer");
@@ -79,7 +79,7 @@
     
                        <div class="col-md-6">
                             <div class="form-group">
-      <label for="sel1">Select list (select one):</label>
+      <label for="sel1">Member (select one):</label>
       <select class="form-control" id="myselect1" name="op2">
           
       </select>
@@ -89,13 +89,13 @@
                        <div class="row">                      
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label class="bmd-label-floating">Member Start Date</label>
+                          <label class="bmd-label-floating">Diet plan from</label>
                           <input type="date" name="memberstartdate" class="form-control">
                         </div>
                       </div>                       
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label class="bmd-label-floating">Member End Date</label>
+                          <label class="bmd-label-floating">Diet plan till</label>
                           <input type="date"  name="memberenddate" class="form-control">
                         </div>
                       </div> 

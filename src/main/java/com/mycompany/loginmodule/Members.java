@@ -253,5 +253,15 @@ public class Members {
         this.gympack = gympack;
     }
      
+     @OneToMany(cascade=CascadeType.ALL,mappedBy ="member_diet",fetch = FetchType.LAZY)
+	private Set<Dietplan> memdiet;
+
+    public Set<Dietplan> getMemdiet() {
+        return memdiet;
+    }
+
+    public void setMemdiet(Set<Dietplan> memdiet) {
+        this.memdiet = memdiet;
+    }
     
 }
