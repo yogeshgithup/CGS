@@ -1778,4 +1778,30 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             System.out.println(e.getMessage());
         }
     }
+         public Members getmemberObj(String id) {
+       // int gymid;
+        Members l = null;
+        try {
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+            session = sfobj.openSession();
+            tx = session.beginTransaction();
+            //String b = "branchoperator";
+            //String c = "traineer";
+            
+
+            Query q = session.createQuery("from Members where email=:gymid");
+            q.setString("gymid", id);
+
+            List<Members> results = q.list();
+
+            l = (Members) results.get(0);
+            
+            
+           
+        } catch (Exception e) {
+           // gymid = 0;
+            System.out.println(e.getMessage());
+        }
+        return l;
+    }
 }

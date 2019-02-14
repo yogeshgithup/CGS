@@ -44,7 +44,7 @@
                  <table id="gym"  class="display" style="width:100%; color: purple;">
                    <thead>
                       <th>branchID</th>
-                      <th>barnchName</th>
+                      <th>branchName</th>
                       <th>branchstreet</th>
                       <th>brancharea</th>
                       <th>branchpostalcode</th>

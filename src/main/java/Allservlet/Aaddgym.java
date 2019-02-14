@@ -98,7 +98,7 @@ public void init(ServletConfig sc) throws ServletException
          //  hs.setAttribute("msg",s);
           // System.out.println(hs.getAttribute("msg").toString());
            
-       response.sendRedirect(scx.getContextPath()+"/gymui/pannel/addgym1.jsp?msg="+n);
-        
+      // response.sendRedirect(scx.getContextPath()+"/gymui/pannel/addgym1.jsp?msg="+n);
+       response.sendRedirect(scx.getContextPath()+"/Viewgym"); 
     }
 }

@@ -66,7 +66,7 @@ System.out.println("hiii");
        int id=doo.addBatch(b, branchid,facility,gymid);
           
           doo.addBatch_member(id, membername);
-           
+          response.sendRedirect(scx.getContextPath()+"/ViewBatches");
     }
 
   

@@ -18,7 +18,7 @@
             {
                 System.out.println("eeee");
                 request.setAttribute("msg","Session has ended");
-                RequestDispatcher rd=request.getRequestDispatcher("/adminlogin.jsp");
+                RequestDispatcher rd=request.getRequestDispatcher("/userlogin.jsp");
                 rd.forward(request, response);
                 System.out.println("uuuu");
             }

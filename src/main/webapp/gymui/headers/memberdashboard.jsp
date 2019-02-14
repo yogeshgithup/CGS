@@ -1,3 +1,4 @@
+<%@page import="com.mycompany.loginmodule.Members"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,9 +27,15 @@
     
     <div class="wrapper ">
     <div class="sidebar" data-color="orange">
+        <%
+             Members t=(Members)session.getAttribute("member");
+              
+              %>
         <div class="logo">
         <a href="#" class="simple-text logo-normal">
-          MEMBER
+         
+           
+               MEMBER <%= t.getFirstname()%>
         </a>
       </div>
          <div class="sidebar-wrapper">

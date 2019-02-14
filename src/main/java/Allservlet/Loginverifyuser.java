@@ -8,6 +8,7 @@ package Allservlet;
 
 import com.mycompany.loginmodule.Login;
 import com.mycompany.loginmodule.Logingym;
+import com.mycompany.loginmodule.Members;
 import com.mycompany.loginmodule.Trainer;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -99,7 +100,8 @@ public void init(ServletConfig sc) throws ServletException
        
     else if(m.equals(l2.getType()))
     {
-        
+         Members tt=so.getmemberObj(l2.getLoginid());
+       hs.setAttribute("member",tt);
          response.sendRedirect(scx.getContextPath()+"/gymui/pannel/members1.jsp");
     }
     else
