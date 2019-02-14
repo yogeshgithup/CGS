@@ -17,7 +17,7 @@
       
       <div class="content">      
         <div class="row">
-          <div class="col-md-10">
+          <div class="col-md-12">
             <div class="card">
               <div class="card-header">
                   <a href="<%=application.getContextPath()%>/Viewmembers?op=view"> <button class="btn btn-primary btn-block">ADD BATCHES</button> </a>    

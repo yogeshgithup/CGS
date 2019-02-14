@@ -27,7 +27,41 @@
                 </div>
                 <div class="card-body">
                     <form action="<%=application.getContextPath()%>/Addbatches" method="post">
-                    <div class="row">                      
+                    <div class="row">
+                   <div class="col-md-4">
+                      
+                   <label for="sel1">Select list (select one):</label>
+      <select class="form-control" id="facility" name="facility">
+              <%
+         
+              
+            HashSet<Facility> listCat=(HashSet<Facility>)session.getAttribute("viewfacility");
+              
+            Iterator<Facility> it1=listCat.iterator();
+            System.out.println("kkkk");
+            while(it1.hasNext())
+            {
+                Facility fc=(Facility)it1.next();
+         
+          %>
+       <option value="<%=fc.getId()%>"><%= fc.getName()%></option>
+<%}%>
+      </select>
+                     
+                   </div>
+                    
+     
+<!--                      <div class="row" id="check"> -->
+ <label class="bmd-label-floating">Members Name:</label>  
+                           <div class="col-md-6" id="checkbox">
+                             
+                          <!--<input type="checkbox" name="membername" id="checkbox">-->
+                    </div>
+                    
+<!--                           </div>-->
+                         
+                      </div>
+                        <div class="row">                      
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Batch Name</label>
@@ -49,23 +83,7 @@
                         </div>
                       </div> 
                       </div>
-                      <%
-                    HashSet<Members> listCatagory= (HashSet<Members>)session.getAttribute("setmember");
-
-                   Iterator it= listCatagory.iterator();
-                   while(it.hasNext())
-                   {
-                       
-                 Members m=(Members)it.next();
-                
-                      %>
-                      <div class="row"> 
-                           <div class="col-md-2">
-                          <input type="checkbox" name="membername" value="<%=m.getId()%> "><%=m.getFirstname()%> <%=m.getMiddlename()%>
-                           </div>
-                         
-                      </div>
-                            <% } %>
+                     
                                                         
 <!--                      <div class="col-md-2">
                         <div class="dropdown">
@@ -79,29 +97,8 @@
                           </ul>
                         </div>
                        </div>-->
-                     <div class="row">
-                   <div class="col-md-4 pl-1">
-                      
-                   <label for="sel1">Select list (select one):</label>
-      <select class="form-control" id="facility" name="facility">
-              <%
-         
-              
-            HashSet<Facility> listCat=(HashSet<Facility>)session.getAttribute("viewfacility");
-              
-            Iterator<Facility> it1=listCat.iterator();
-            System.out.println("kkkk");
-            while(it1.hasNext())
-            {
-                Facility fc=(Facility)it1.next();
-         
-          %>
-       <option value="<%= fc.getName()%>"><%= fc.getName()%></option>
-<%}%>
-      </select>
                      
-                   </div>
-                    </div>
+                       
       <div class="col-md-6"> 
                           <button type="submit" id="s" class="btn btn-primary pull-right">Submit</button>
                         </div>
@@ -142,9 +139,35 @@
  
   <script>
     $(document).ready(function() {
+        
+    
       // Javascript method's body can be found in assets/js/demos.js
       md.initDashboardPageCharts();
+      $("#facility").focusout(function(){
+        
+        var n= $("#facility option:selected").val(); 
+        $('#checkbox').empty(); 
+     $.post("<%=application.getContextPath()%>/Viewmembers?op=batch&id="+n,function(data,status){
+                     obj=JSON.parse(data);
+                      for(i=0;i<obj.length;i++)
+                      {
+                     
+                          $('#checkbox')
+         .append($("<input>")
+                    .attr({value:obj[i],name:'membername',type:'checkbox',id:'membername'}).text(obj[i])).append(obj[i]);
+//            var n=obj[i];
+                     
+//                    $('#myselect1')
+//         .append($("<option></option>")
+//                    .attr("value",obj[i])
+//                    .text(obj[i]));
+                    
+                    
+                   }
+                  
+   });       
 
+    });
     });
   </script>
 </body>

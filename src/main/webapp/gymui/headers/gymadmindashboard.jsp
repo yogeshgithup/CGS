@@ -34,7 +34,7 @@
     }
     if (c.indexOf(name) == 0) {
       first=c.substring(name.length, c.length);
-      alert(first);
+//      alert(first);
     }
   }
   
@@ -48,7 +48,7 @@
     }
     if (c.indexOf(name) == 0) {
      next=c.substring(name.length, c.length);
-     alert(next);
+//     alert(next);
     }
   }
 //             var c= document.cookie.split(';');
@@ -74,7 +74,7 @@
 
  
 $("li").click(function(){
-   alert("Hello World"); 
+//   alert("Hello World"); 
   var n= $(this).parent();
   var x=$(this).parent().children();
  len=x.length;

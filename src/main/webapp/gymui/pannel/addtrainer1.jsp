@@ -182,7 +182,7 @@ function ValidateForm(){
                    <div class="col-md-6 pl-1">
                       <div class="form-group">
                         <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" name="email"class="form-control" placeholder="Email">
+                        <input type="email" name="email" id="email" class="form-control" placeholder="Email">
                       </div>
                     </div>
                        <div class="col-md-6">
@@ -286,6 +286,31 @@ function ValidateForm(){
 <script>
     $(document).ready(function() {
       $().ready(function() {
+           $("#email").focusout(function(){
+  
+   var email=$("#email").val();
+   
+//   alert(gymname)
+if(email!=="")
+{
+   $.post("<%=application.getContextPath()%>/Verifygymname",{"useremail":email},function(data,status){
+
+     
+     var y=data;
+     if(y.match("noo"))
+     {
+  
+      }
+        else
+        {
+            alert("Already Exist");
+  $("#email").val("");
+        }
+        });
+}
+});
+          
+          
            $("#bname").focusout(function(){
   // alert("hello");
    var branchname=$("#bname option:selected").val();

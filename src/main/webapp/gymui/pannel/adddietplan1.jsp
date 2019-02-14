@@ -165,18 +165,18 @@
 </body>
 <script>
     $(document).ready(function() {
-     alert("hello");
+//     alert("hello");
      $("#myselect").focusout(function(){
          $('#myselect1').empty();
         var n= $("#myselect option:selected").val();  
-     alert(n);  
-   $.post("<%=application.getContextPath()%>/Viewmembers?id="+n,function(data,status){
-                        alert(data);
+//     alert(n);  
+   $.post("<%=application.getContextPath()%>/Viewmembers?op=diet&id="+n,function(data,status){
+//                        alert(data);
                      obj=JSON.parse(data);
-                     alert(obj.length);
+//                     alert(obj.length);
                       for(i=0;i<obj.length;i++)
                       {
-                     alert(obj[i]);
+//                     alert(obj[i]);
                           $('#myselect1')
          .append($("<option></option>")
                     .attr("value",obj[i])

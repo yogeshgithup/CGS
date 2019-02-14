@@ -212,11 +212,11 @@ function ValidateForm(){
  var ctrld=1;
     $('#button1').click(function(evt){
         evt.preventDefault();
-        alert(ctrld);
+//        alert(ctrld);
         mydiv=createDiv3('d'+ctrld);
-        alert(mydiv);
+//        alert(mydiv);
          sctrl=createTextbox3('s'+ctrld);
-        alert(sctrl);
+//        alert(sctrl);
         btnctrl=createButton("b"+ctrld);
         $(btnctrl).click(function()
         {
@@ -230,7 +230,7 @@ function ValidateForm(){
         mydiv.append(btnctrl).append('</div></div>');
         mydiv.append('');
         
-        alert( $("#slide12"));
+//        alert( $("#slide12"));
         $("#slide12").append(mydiv);
         ctrld++;
         });
