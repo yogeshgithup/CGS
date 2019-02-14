@@ -48,7 +48,7 @@
                       <th>lastname</th>
                       <th>Phoneno</th>
                       <th>Package</th>
-                      <th> expiry date</th>
+                      <th>Expiry date</th>
                     <th></th> 
                   </thead>
                     <tbody>

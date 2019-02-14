@@ -18,7 +18,7 @@
             {
                 System.out.println("eeee");
                 request.setAttribute("msg","Session has ended");
-                RequestDispatcher rd=request.getRequestDispatcher("/adminlogin.jsp");
+                RequestDispatcher rd=request.getRequestDispatcher("/userlogin.jsp");
                 rd.forward(request, response);
                 System.out.println("uuuu");
             }
@@ -57,7 +57,7 @@
             <div class="card">
               <div class="card-header">
                   <a href="<%=application.getContextPath()%>/Viewfacilities?msg=trainer"> <button class="btn btn-primary btn-block">ADD TRAINER</button> </a>    
-                <h4 class="card-title">View BranchOperator</h4>
+                <h4 class="card-title">View Trainers</h4>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
