@@ -163,7 +163,7 @@ $("li").click(function(){
           </li>
           
           <li class="" id="5">
-            <a href="<%=application.getContextPath()%>/gymui/pannel/mainpageediting1.jsp">
+            <a href="<%=application.getContextPath()%>/gymui/pannel/managemainpage.jsp">
               <i class="now-ui-icons location_map-big"></i>
               <p>Main Page Editing </p>
             </a>

@@ -83,6 +83,7 @@ public void init(ServletConfig sc) throws ServletException
           HttpSession hs=request.getSession(true);
            hs.setAttribute("gymid",l2.getId());
            hs.setAttribute("gymname",l2.getGymname());
+           hs.setAttribute("gym",l2);
            System.out.println("gymid==="+l2.getId());
          /*  DataOperation pko=new DataOperation(scx);
            HashSet<Addbranch> listCatagory =pko.getbranch(l2.getId());
