@@ -10,7 +10,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 /**
  *
@@ -19,9 +23,12 @@ import javax.persistence.Table;
 @Entity
 @Table
 public class Dietplan {
+    
     @Id
-    @GeneratedValue
-            int id;
+    @GeneratedValue(generator = "x")
+    @GenericGenerator(name = "x",strategy = "foreign",parameters = @Parameter(name = "property",value = "a"))
+    int id;
+    
     String memstartdate;
     String memenddate;
     String description;
@@ -69,29 +76,30 @@ public class Dietplan {
     
     @ManyToOne
     @JoinColumn(name="batch_faci_id")
-     private Batches fact;
+     private Batches batchhh;
 
-    public Batches getFact() {
-        return fact;
+    public Batches getBatchhh() {
+        return batchhh;
     }
 
-    public void setFact(Batches fact) {
-        this.fact = fact;
+    public void setBatchhh(Batches batchhh) {
+        this.batchhh = batchhh;
     }
 
+   
+   
+    @OneToOne
+    @PrimaryKeyJoinColumn
+    Members a;
+
+    public Members getA() {
+        return a;
+    }
+
+    public void setA(Members a) {
+        this.a = a;
+    }
     
-    @ManyToOne
-    @JoinColumn(name="member_diet_id")
-     private Members member_diet;
-
-    public Members getMember_diet() {
-        return member_diet;
-    }
-
-    public void setMember_diet(Members member_diet) {
-        this.member_diet = member_diet;
-    }
-
     
     
 }

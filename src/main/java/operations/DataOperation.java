@@ -1643,7 +1643,7 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
                 Batch_member f = new Batch_member();
                 System.out.println("jjj-" + member[i]);
                 
-               Query q = session.createQuery("from Members where id=:gymid");
+               Query q = session.createQuery("from Members where firstname=:gymid");
             q.setString("gymid",member[i]);
 
             List<Members> results = q.list();
@@ -1753,7 +1753,7 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             Batches b = (Batches) session.load(Batches.class,Integer.parseInt(batchid));
             System.out.println("1754");
             Set<Dietplan> db = new HashSet<Dietplan>();
-             Set<Dietplan> db1 = new HashSet<Dietplan>();
+            Dietplan  db1 = new Dietplan();
                Query q = session.createQuery("from Members where firstname=:gymid and branchid=:bid");
             q.setString("gymid",member_name);
  q.setString("bid",branchid);
@@ -1761,16 +1761,15 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
            
            Members l = (Members) results.get(0);
             System.out.println("===="+l.getFirstname());
+           //db= b.getDiet();
             //System.out.println("oooo-" + b.getBatch_name());
-            db= b.getDiet();
+           db= b.getDiet();
             db.add(dp);
-               dp.setFact(b);
-               
-     db1=l.getMemdiet();
-     db1.add(dp);
-   
-     dp.setMember_diet(l);
-     
+               dp.setBatchhh(b);
+        l.setDp(dp);
+        dp.setA(l);
+        db.add(dp);
+       // dp.setFact(b);
             System.out.println("----"+dp.getDescription());
            session.save(dp);
             tx.commit();
