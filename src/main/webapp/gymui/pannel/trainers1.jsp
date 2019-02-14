@@ -1,3 +1,6 @@
+<%@page import="com.mycompany.loginmodule.Dietplan"%>
+<%@page import="com.mycompany.loginmodule.Members"%>
+<%@page import="java.util.Set"%>
 <%@page import="com.mycompany.loginmodule.Trainer"%>
 <%@page import="com.mycompany.loginmodule.addbranchoperator"%>
 <%@page import="com.mycompany.loginmodule.Addbranch"%>
@@ -51,14 +54,28 @@
                       <th>DIET PLAN</th>
                     </thead>
                     <tbody>
+                        <% 
+                        Trainer tt=(Trainer)session.getAttribute("trainer");
+                     Set<Members> m=tt.getAdbranch().getAddmember();
+                   Iterator it=m.iterator();
+                   while(it.hasNext())
+                   {
+                      Members mm= (Members) it.next();
+                    Dietplan dp=  mm.getDp();
+                   
+                   dp.getBatchhh().getFacility_batches().getName();
+                        %>
                       <tr>
-                        <td>1</td>
-                        <td>dd</td>
-                        <td>ff</td>
-                        <td>vv</td>
-                        <td>vv</td>
+                        <td><%= dp.getId()%></td>
+                        <td><%= dp.getA().getFirstname() %></td>
+                        <td><%=  dp.getBatchhh().getFacility_batches().getName()%></td>
+                        <td><%= dp.getBatchhh().getBatch_name() %></td>
+                        <td><%= dp.getDescription()%></td>
                      
                       </tr>   
+                      <%
+                   }
+                      %>
                     </tbody>
                   </table>
                 </div>

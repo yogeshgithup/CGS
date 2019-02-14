@@ -48,7 +48,7 @@
         <ul class="nav">
           
          <li>
-            <a href="">
+            <a href="<%=application.getContextPath()%>/gymui/pannel/trainers1.jsp">
               <i class="now-ui-icons design_app"></i>
               <p>Manage Diet Plan</p>
             </a>

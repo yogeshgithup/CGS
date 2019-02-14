@@ -106,7 +106,7 @@ public class Batches {
     public void setFacility_batches(Facility facility_batches) {
         this.facility_batches = facility_batches;
     }
-     @OneToMany(cascade=CascadeType.ALL,mappedBy ="fact",fetch = FetchType.LAZY)
+     @OneToMany(cascade=CascadeType.ALL,mappedBy ="batchhh",fetch = FetchType.LAZY)
 	private Set<Dietplan> diet;
 
     public Set<Dietplan> getDiet() {

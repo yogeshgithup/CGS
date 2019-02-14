@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -253,15 +254,17 @@ public class Members {
         this.gympack = gympack;
     }
      
-     @OneToMany(cascade=CascadeType.ALL,mappedBy ="member_diet",fetch = FetchType.LAZY)
-	private Set<Dietplan> memdiet;
+     @OneToOne(mappedBy = "a", cascade = CascadeType.ALL)
+    Dietplan dp;
 
-    public Set<Dietplan> getMemdiet() {
-        return memdiet;
+    public Dietplan getDp() {
+        return dp;
     }
 
-    public void setMemdiet(Set<Dietplan> memdiet) {
-        this.memdiet = memdiet;
+    public void setDp(Dietplan dp) {
+        this.dp = dp;
     }
+     
+     
     
 }
