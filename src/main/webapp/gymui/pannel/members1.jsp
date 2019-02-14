@@ -1,3 +1,4 @@
+<%@page import="com.mycompany.loginmodule.Dietplan"%>
 <%@page import="com.mycompany.loginmodule.Trainer"%>
 <%@page import="com.mycompany.loginmodule.addbranchoperator"%>
 <%@page import="com.mycompany.loginmodule.Addbranch"%>
@@ -47,38 +48,27 @@
                 </div>
                 <div class="table-responsive">
                   <table class="table table-hover"  style="width:100%; color: purple;">
-                    <thead>
+                    
+                     <thead>
                       <th>ID</th>
+                      <th>MEMBER NAME</th>
                       <th>Role</th>
                       <th>BATCH NAME</th>
                       <th>DIET PLAN</th>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td>$36,738</td>
-                        <td>Branch 1</td>
-                        <td>Branch 1</td>
-                      </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>$23,789</td>
-                        <td>Branch 2</td>
-                        <td>Branch 1</td>
-                      </tr>
-                      <tr>
-                        <td>3</td>
-                        <td>$56,142</td>
-                        <td>Branch 3</td>
-                        <td>Branch 1</td>
-                      </tr>
-                      <tr>
-                        <td>4</td>
-                        <td>$38,735</td>
-                        <td>Branch 4</td>
-                        <td>Branch 1</td>
-                      </tr>
-                    </tbody>
+                        <%
+                    Dietplan dp=t.getDp();
+                  
+                        %>
+                         <td><%= dp.getId()%></td>
+                        <td><%= dp.getA().getFirstname() %></td>
+                        <td><%=  dp.getBatchhh().getFacility_batches().getName()%></td>
+                        <td><%= dp.getBatchhh().getBatch_name() %></td>
+                        <td><%= dp.getDescription()%></td>
+                     
+                        
+                     </tbody>
                   </table>
                 </div>
 

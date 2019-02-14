@@ -1,8 +1,30 @@
+
+<%@page import="com.mycompany.loginmodule.Gyminfo"%>
+<%@page import="com.mycompany.loginmodule.Facility"%>
+<%@page import="com.mycompany.loginmodule.addbranchoperator"%>
 <%@page import="com.mycompany.loginmodule.Addbranch"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="com.mycompany.loginmodule.Addgym"%>
 <%@page import="java.util.HashSet"%>
 <!DOCTYPE html>
+<%
+    response.setHeader("Cache-Control","no-cache");
+     response.setHeader("Cache-Control","no-store");
+     response.setDateHeader("Expires", 0);
+     response.setHeader("Pragma","no-cache");
+     System.out.println("{{{{{");
+     
+    Integer id=(Integer)session.getAttribute("gymid");
+    System.out.println("...id...+"+id);
+            if(id==null)
+            {
+                System.out.println("eeee");
+                request.setAttribute("msg","Session has ended");
+                RequestDispatcher rd=request.getRequestDispatcher("/adminlogin.jsp");
+                rd.forward(request, response);
+                System.out.println("uuuu");
+            }
+    %>
 <html lang="en">
 
 <!--<head>
@@ -36,49 +58,38 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                  <a > <button class="btn btn-primary btn-block" id="count">ADD BRANCH</button> </a>    
-                <h4 class="card-title">View Branch</h4>
+                  <a href="<%=application.getContextPath()%>/gymui/pannel/mainpageediting1.jsp"> <button class="btn btn-primary btn-block">ADD Main Page</button> </a>    
+                <h4 class="card-title">View Main Page</h4>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
-                 <table id="gym"  class="display" style="width:100%; color: purple;">
+                  <table id="gym"  class="display" style="width:100%; color: purple;">
                    <thead>
-                      <th>branchID</th>
-                      <th>branchName</th>
-                      <th>branchstreet</th>
-                      <th>brancharea</th>
-                      <th>branchpostalcode</th>
-
+                      <th>quality message</th>
+                      <th>about us title</th>
+                       <th>about us desc</th>
                     </thead>
                     <tbody>
-                                          <%!
-           HashSet<Addbranch> setbranch=null;
-          %>
-   
+          
           
               <%
          
           System.out.println("session="+session); 
           
               
-             setbranch=(HashSet<Addbranch>)session.getAttribute("setbranch");
-            Iterator<Addbranch> it=setbranch.iterator();
-            System.out.println("kkkk");
-            while(it.hasNext())
-            {
-                Addbranch adbranch=it.next();
-              
-            
-          %>
+            Addgym g=(Addgym)session.getAttribute("gym");
+         Gyminfo gi =g.getGyinfo();
+        
+                 
+                         
+                  %>              
 
-          <tr id="<%=adbranch.getId()%>">
-                          <td><%= adbranch.getId()%></td>
-                          <td><%= adbranch.getBranchname()%></td>
-                           <td><%= adbranch.getStreet()%></td>
-                            <td><%=adbranch.getArea()%></td>
-                              <td><%=adbranch.getPostalcode()%></td>
+          <tr >
+                          <td><%=  gi.getQuality_msg() %></td>
+                          <td><%=gi.getAbout_us_title()%></td>
+                            <td><%=gi.getAbout_us_desc()%></td>
                       </tr>
-                      <%}%>
+                      
                     </tbody>
                   </table>
                 </div>
@@ -114,35 +125,8 @@
   <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
   <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
   <script>
-//  $(function(){
-//    
-////      $("#count").click(Function(){
-////             
-////            alert("ok");
-////          });
-//  });
-  $(document).ready(function() {
-      alert("heloo");
+  $(function(){
     $("#gym").dataTable();
-//          
-$("#count").click(function(){
- $.post("<%=application.getContextPath()%>/ManageCount?op=branch",function(data,status){
-   // alert(data.toString());
-    var y=data;
-    alert(y);
-     
-                       if(y.match("yes"))
-                       {
-                           alert("hello");
-                           location.href="<%=application.getContextPath()%>/gymui/pannel/addbranches1.jsp";
-                       }
-                       else
-                       {
-                           alert("reached maximum count");
-                          // location.href="<%=application.getContextPath()%>/gymui/pannel/gymadmin1.jsp";
-                       }
-                    });
-});
-});
+  })
   </script>
 </html>

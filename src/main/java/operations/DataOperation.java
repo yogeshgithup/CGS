@@ -1804,4 +1804,42 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
         }
         return l;
     }
+          public String Countbranch(Addgym gym) {
+       // int gymid;
+        String msg="";
+        try {
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+            session = sfobj.openSession();
+            tx = session.beginTransaction();
+            //String b = "branchoperator";
+            //String c = "traineer";
+          int no=gym.getAdpack().getNo_of_branches();
+int row=0;
+           String SQL_QUERY = "SELECT COUNT(*) FROM Addbranch where gymid=:id";
+            System.out.println(SQL_QUERY);
+  Query q = session.createQuery(SQL_QUERY);
+    q.setParameter("id",String.valueOf(gym.getId()));
+  for(Iterator it=q.iterate();it.hasNext();)
+  {
+   Long h = (Long) it.next();
+  row= h.intValue();
+   System.out.print("Count: " + row);
+   
+  }
+         if(row<no) {
+            msg="yes"; 
+         }  
+         else
+         {
+             msg="no";
+         }
+   tx.commit();
+   session.close();
+           
+        } catch (Exception e) {
+           // gymid = 0;
+            System.out.println(e.getMessage());
+        }
+        return msg;
+    }
 }

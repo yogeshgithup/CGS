@@ -173,6 +173,10 @@
         <servlet-name>Adddietplan</servlet-name>
         <servlet-class>Allservlet.Adddietplan</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManageCount</servlet-name>
+        <servlet-class>Allservlet.ManageCount</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Loginverify</servlet-name>
         <url-pattern>/Loginverify</url-pattern>
@@ -320,6 +324,10 @@
     <servlet-mapping>
         <servlet-name>Adddietplan</servlet-name>
         <url-pattern>/Adddietplan</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageCount</servlet-name>
+        <url-pattern>/ManageCount</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
