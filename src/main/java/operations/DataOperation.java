@@ -770,6 +770,35 @@ public class DataOperation {
         }
         return pack;
     }
+     public String verifyuseremail(String email) {
+        String pack = null;
+        try {
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+            session = sfobj.openSession();
+            tx = session.beginTransaction();
+            //String b = "branchoperator";
+            //String c = "traineer";
+            Login l = null;
+
+            Query q = session.createQuery("from Login where Loginid=:uname");
+            q.setString("uname", email);
+
+            List<Login> results = q.list();
+
+            l = (Login) results.get(0);
+            System.out.println("ppp");
+            if (l != null) {
+
+                System.out.println("helll");
+                pack = "enter another email";
+            }
+        } catch (Exception e) {
+            pack = "";
+            System.out.println(e.getMessage());
+        }
+        return pack;
+    }
+     
 
     public String verifybranchname(String branchname, int id) {
         String pack = null;
@@ -912,12 +941,12 @@ public class DataOperation {
         return id;
     }
 
-    public void addpackfacility(int gymid, String[] faci) {
+    public void addpackfacility(int id, String[] faci,String gymid) {
         try {
             sfobj = (SessionFactory) scx.getAttribute("sf");
             session = sfobj.openSession();
             tx = session.beginTransaction();
-            Gympackage gym = (Gympackage) session.load(Gympackage.class, gymid);
+            Gympackage gym = (Gympackage) session.load(Gympackage.class, id);
             Set<Pack_facility> fac = new HashSet<Pack_facility>();
             System.out.println("oooo-" + gym.getName());
             fac = gym.getPackfac();
@@ -926,10 +955,10 @@ public class DataOperation {
 Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
                 Pack_facility f = new Pack_facility();
                 System.out.println("jjj-" + faci[i]);
-                
+                System.out.println("-----"+gymid);
                 Query q = session.createQuery("from Facility where name=:uname and gymid=:id");
             q.setString("uname", faci[i]);
-             q.setString("id",String.valueOf(gymid));
+             q.setString("id",gymid);
             List<Facility> results = q.list();
 
             Facility l = (Facility) results.get(0);
@@ -1582,7 +1611,8 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             ab = l1.getBatches();
             b.setAdbranch(l1);
             ab.add(b);
-             Query q = session.createQuery("from Facility where name=:gymid and gymid=:id");
+            System.out.println("----"+role);
+             Query q = session.createQuery("from Facility where id=:gymid and gymid=:id");
             q.setString("gymid",role);
  q.setString("id",gymid);
             List<Facility> results = q.list();
@@ -1744,7 +1774,47 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
         }
        return ja;
        }
-         
+         public JSONArray getMembersFacility(String id)
+         {
+              
+              JSONArray  ja=new JSONArray();
+        Facility l = null;
+        try {
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+            session = sfobj.openSession();
+            tx = session.beginTransaction();
+            //String b = "branchoperator";
+            //String c = "traineer";
+            
+
+            Query q = session.createQuery("from Facility where id=:gymid");
+            q.setString("gymid", id);
+
+            List<Facility> results = q.list();
+
+            l = (Facility) results.get(0);
+          Set<Pack_facility> pf= l.getPack_fac();
+         Iterator it= pf.iterator();
+         while(it.hasNext())
+         {
+           Pack_facility pff=(Pack_facility)  it.next();
+         Set<Members> mm=  pff.getGympack().getMembers_pack();
+       Iterator itt=  mm.iterator();
+       while(itt.hasNext())
+       {
+           Members m=(Members)itt.next();
+           //String name=m.getFirstname()+" "+m.getMiddlename()+" "+m.getLastname();
+           ja.put(m.getFirstname());
+       }
+         }
+          // tid= l.getId();
+           
+        } catch (Exception e) {
+           // gymid = 0;
+            System.out.println(e.getMessage());
+        }
+       return ja;
+       }
          public void Adddietplan(Dietplan dp,String batchid ,String member_name,String branchid) {
         try {
             sfobj = (SessionFactory) scx.getAttribute("sf");

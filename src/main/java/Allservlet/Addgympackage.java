@@ -55,14 +55,14 @@ public void init(ServletConfig sc) throws ServletException
        gp.setTime(time);
        
          HttpSession hs=request.getSession(true);
-        int gymid= Integer.parseInt(hs.getAttribute("gymid").toString());
+        String gymid= hs.getAttribute("gymid").toString();
         System.out.println(gymid);
         
         DataOperation doo=new DataOperation(scx);
-      int id= doo.addgympackage(gymid, gp);
+      int id= doo.addgympackage(Integer.parseInt(gymid), gp);
         System.out.println("----"+id);
         String facility[]=request.getParameterValues("facility");
-        doo.addpackfacility(id, facility);
+        doo.addpackfacility(id, facility,gymid);
            response.sendRedirect(scx.getContextPath()+"/Viewgympackage?msg=package");
     }
 }

@@ -88,8 +88,10 @@ public void init(ServletConfig sc) throws ServletException
        PrintWriter out=response.getWriter();
         
        DataOperation pko=new DataOperation(scx);
-     
+    String op= request.getParameter("op");
  
+    if(op.equals("diet"))
+    {
         try {
           String id=request.getParameter("id");
             System.out.println("===="+id);
@@ -99,6 +101,15 @@ public void init(ServletConfig sc) throws ServletException
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } 
+    }
+    else  if(op.equals("batch"))
+    {
+        String id=request.getParameter("id");
+            System.out.println("===="+id);
+      JSONArray ja= pko.getMembersFacility(id);
+        System.out.println("---"+ja);
+        out.print(ja);
+    }
     }
     
 }

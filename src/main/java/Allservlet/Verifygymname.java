@@ -83,7 +83,7 @@ public class Verifygymname extends HttpServlet {
      if (request.getParameter("emailuser") != null) {
             String email = request.getParameter("emailuser");
        // System.out.println(gymname);
-
+System.out.println("---"+email);
             String answer = doo.verifyemailuser(email);
             String ans=answer;
             System.out.println("mmm"+answer);
@@ -92,6 +92,21 @@ public class Verifygymname extends HttpServlet {
                 out.println(answer);
             }
           
+        }
+       if (request.getParameter("useremail") != null) {
+            String email = request.getParameter("useremail");
+       // System.out.println(gymname);
+System.out.println("---"+email);
+            String answer = doo.verifyuseremail(email);
+           
+            System.out.println("mmm"+answer);
+            if (answer.equals("enter another email")) {
+                System.out.println("lllll"+answer);
+                out.println(answer);
+            }
+            else{
+                out.println("noo");
+            }
         }
     
     
