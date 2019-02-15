@@ -52,6 +52,8 @@
                       <th>Username</th>
                       <th>Password</th>
                       <th>package</th>
+                      <th>edit</th>
+                      <th>delete</th>
                     </thead>
                     <tbody>
                           <%!
@@ -84,7 +86,8 @@
                                 <td><%=adgym.getUsername()%></td>
                                  <td><%=adgym.getPassword()%></td>
                                   <td><%=adgym.getPackagee()%></td>
-                       
+                                  <td><a href="">edit</a></td>
+                                  <td><a href="<%=application.getContextPath()%>/Delete?op=gym&id=<%=adgym.getId()%>">delete</a></td>
 <!--                       <td class="td-actions text-right">
                           <a class="nav-link" href="">
                               <button type="button" rel="tooltip" title="Edit Record" class="btn btn-white btn-link btn-sm">

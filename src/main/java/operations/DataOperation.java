@@ -288,8 +288,8 @@ public class DataOperation {
             System.out.println("query");
             for (int i = 0; i <= results.size(); i++) {
                 p1 = (Addgym) results.get(i);
-                Addgym p2 = new Addgym(p1.getId(), p1.getGymname(), p1.getOwnername(), p1.getStreet(), p1.getArea(), p1.getPostcode(), p1.getPhoneno(), p1.getUsername(), p1.getPassword(), p1.getAdpack().getName());
-                setgym.add(p2);
+                //Addgym p2 = new Addgym(p1.getId(), p1.getGymname(), p1.getOwnername(), p1.getStreet(), p1.getArea(), p1.getPostcode(), p1.getPhoneno(), p1.getUsername(), p1.getPassword(), p1.getAdpack().getName());
+                setgym.add(p1);
             }
 
             tx.commit();
@@ -1911,5 +1911,55 @@ int row=0;
             System.out.println(e.getMessage());
         }
         return msg;
+    }
+          public void Deletegym(int gymid) {
+        try {
+            System.out.println("before calling");
+            setgym = new HashSet<Addgym>();
+            System.out.println("line 55" + scx);
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+            System.out.println("line 57" + sfobj);
+            session = sfobj.openSession();
+            System.out.println("line 59");
+            tx = session.beginTransaction();
+            System.out.println("get package");
+          
+             Addgym l1 = null;
+           
+            l1 = (Addgym) session.load(Addgym.class, gymid);
+            System.out.println("---"+l1.getGymname());
+           session.delete(l1);
+            tx.commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        
+    }
+            public void Deletepack(int gymid) {
+        try {
+            System.out.println("before calling");
+            setgym = new HashSet<Addgym>();
+            System.out.println("line 55" + scx);
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+            System.out.println("line 57" + sfobj);
+            session = sfobj.openSession();
+            System.out.println("line 59");
+            tx = session.beginTransaction();
+            System.out.println("get package");
+          
+             Addpackage l1 = null;
+           
+            l1 = (Addpackage) session.load(Addpackage.class, gymid);
+            System.out.println("---"+l1.getName());
+           session.delete(l1);
+            tx.commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        
     }
 }

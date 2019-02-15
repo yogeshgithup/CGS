@@ -48,7 +48,7 @@
                       <th>branchstreet</th>
                       <th>brancharea</th>
                       <th>branchpostalcode</th>
-
+                      
                     </thead>
                     <tbody>
                                           <%!
@@ -77,7 +77,7 @@
                            <td><%= adbranch.getStreet()%></td>
                             <td><%=adbranch.getArea()%></td>
                               <td><%=adbranch.getPostalcode()%></td>
-                      </tr>
+                                  </tr>
                       <%}%>
                     </tbody>
                   </table>
