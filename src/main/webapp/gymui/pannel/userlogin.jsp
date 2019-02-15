@@ -34,6 +34,8 @@
 	<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/gymui/css/util2.css">
 	<link rel="stylesheet" type="text/css" href="<%=application.getContextPath()%>/gymui/css/main2.css">
 <!--===============================================================================================-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 </head>
 <body>
 	
@@ -89,20 +91,24 @@
 <script>
     $(document).ready(function() {
        $().ready(function() {
+         
        $("#email").focusout(function(){
   
    var email=$("#email").val();
 //   alert(gymname)
 if(email!=="")
 {
+    var y;
    $.post("<%=application.getContextPath()%>/Verifygymname",{"emailuser":email},function(data,status){
  alert("hello");
-     alert(data);
+   alert(data);
+    y=data;
   $("#email").val("");
     });
+    
 }
 });
-
+ 
 $("#msg").fadeOut(3000);
         $sidebar = $('.sidebar');
     });

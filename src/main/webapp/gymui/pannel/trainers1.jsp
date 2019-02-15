@@ -57,13 +57,18 @@
                         <% 
                         Trainer tt=(Trainer)session.getAttribute("trainer");
                      Set<Members> m=tt.getAdbranch().getAddmember();
+                    
                    Iterator it=m.iterator();
                    while(it.hasNext())
                    {
                       Members mm= (Members) it.next();
-                    Dietplan dp=  mm.getDp();
-                   
-                   dp.getBatchhh().getFacility_batches().getName();
+                      System.out.println(mm.getFirstname());
+                Dietplan dp=mm.getDp();
+              System.out.println("---"+dp);
+                //  System.out.println(dp.);
+                   if(dp!=null)
+                   {
+                  // dp.getBatchhh().getFacility_batches().getName();
                         %>
                       <tr>
                         <td><%= dp.getId()%></td>
@@ -74,6 +79,7 @@
                      
                       </tr>   
                       <%
+                   }
                    }
                       %>
                     </tbody>

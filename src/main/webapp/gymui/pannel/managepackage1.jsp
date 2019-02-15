@@ -48,6 +48,8 @@
                       <th>Time Period</th>
                       <th>Amount</th>
                       <th>No.Of Branches Manage</th>
+                      <th>Edit</th>
+                      <th>Delete</th>
                     </thead>
                     <tbody>
                           <%!
@@ -80,6 +82,9 @@
                         <td><%= adpack.getTime()%></td>
                         <td><%= adpack.getAmount()%></td>
                         <td><%=adpack.getNo_of_branches() %></td>
+                         <td><a href="">edit</a></td>
+                                  <td><a href="<%=application.getContextPath()%>/Delete?op=pack&id=<%=adpack.getId()%>">delete</a></td>
+            
                      
                       </tr>
                       <%}%>

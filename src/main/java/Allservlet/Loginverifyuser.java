@@ -106,7 +106,7 @@ public void init(ServletConfig sc) throws ServletException
     }
     else
     {
-         response.sendRedirect(scx.getContextPath()+"/gymui/pannel/adminlogin.jsp");
+         response.sendRedirect(scx.getContextPath()+"/gymui/pannel/userlogin.jsp");
     }
        
 // response.sendRedirect("index.jsp?msg="+savemsg);
