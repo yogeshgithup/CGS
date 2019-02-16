@@ -1962,4 +1962,33 @@ int row=0;
 
         
     }
+             public void UpdatePackage(Addpackage p1) {
+        try {
+            System.out.println("before calling");
+            setgym = new HashSet<Addgym>();
+            System.out.println("line 55" + scx);
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+            System.out.println("line 57" + sfobj);
+            session = sfobj.openSession();
+            System.out.println("line 59");
+            tx = session.beginTransaction();
+            System.out.println("get package");
+          
+             Addpackage l1 = null;
+           
+            l1 = (Addpackage) session.load(Addpackage.class,p1.getId());
+            l1.setName(p1.getName());
+            l1.setNo_of_branches(p1.getNo_of_branches());
+            l1.setAmount(p1.getAmount());
+            l1.setTime(p1.getTime());
+            System.out.println("===="+l1.getName());
+           session.update(l1);
+            tx.commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        
+    }
 }

@@ -4,7 +4,14 @@
 <%@page import="java.util.HashSet"%>
 <!DOCTYPE html>
 <html lang="en">
+ <!--<link href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css" rel="stylesheet" />-->
+        <!--<script src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
+        <!--<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>-->
+        <!--<script src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>-->
 
+        <script src="<%=application.getContextPath()%>/gymui/js/jquery-ui-1.10.4.custom.min.js"></script>        
+        <script src="<%=application.getContextPath()%>/gymui/js/jquery.dataTables.editable.js"></script>
+        <script src="<%=application.getContextPath()%>/gymui/js/jquery.jeditable.js"></script>
 <!--<head>
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
@@ -29,7 +36,97 @@
   <%@include file="/gymui/headers/systemadmindashboard.jsp" %>
      
       <!-- End Navbar -->
-    
+            <script type="text/javascript">
+
+            function editRow(oTable, nRow)
+            {
+                var aData = oTable.fnGetData(nRow);
+                var jqTds = $('>td', nRow);
+//                alert(jqTds.length + "-------");
+                jqTds[0].innerHTML = '<input type="text" value="' + aData[0] + '" readOnly>';
+                jqTds[1].innerHTML = '<input type="text" value="' + aData[1] + '">';
+ jqTds[2].innerHTML = '<input type="text" value="' + aData[2] + '">';
+ jqTds[3].innerHTML = '<input type="text" value="' + aData[3] + '">';
+ jqTds[4].innerHTML = '<input type="text" value="' + aData[4] + '">';
+
+                jqTds[5].innerHTML = '<a class="edit" href="">Save</a>';
+            }
+
+
+            function saveRow(oTable, nRow)
+            {
+                var jqInputs = $('input', nRow);
+
+//                alert(jqInputs.length)
+                var id = jqInputs[0].value;
+                var name = jqInputs[1].value;
+                var time = jqInputs[2].value;
+                var amount = jqInputs[3].value;
+                var branch = jqInputs[4].value;
+
+                location.href = "<%=application.getContextPath()%>/Edit?op=pack&id="+id+"&name="+name+"&time="+time+"&amount="+amount+"&branch="+branch;
+                oTable.fnUpdate('<a class="edit" href="">Edit</a>', nRow, 1, false);
+                oTable.fnDraw();
+            }
+
+            function restoreRow(oTable, nRow) {
+                var aData = oTable.fnGetData(nRow);
+                var jqTds = $('>td', nRow);
+
+                for (var i = 0, iLen = jqTds.length; i < iLen; i++) {
+                    oTable.fnUpdate(aData[i], nRow, i, false);
+                }
+                oTable.fnDraw();
+            }
+
+
+            $(document).ready(function() {
+                oTable = $("#gym").dataTable({
+                    "bScrollCollapse": true,
+                    "bPaginate": true,
+                    "sPaginationType": "full_numbers",
+                 
+                    "aLengthMenu": [[3, 5, 10, -1], [3, 5, 10, "All"]],
+                    "iDisplayLength": 10
+                });
+
+
+
+
+
+                var nEditing = null;
+
+                $(document).on('click', '#gym a.edit', function(e) {
+//                    alert("inedit");
+                    e.preventDefault();
+
+                    var nRow = $(this).parents('tr')[0];
+
+                    if (nEditing !== null && nEditing != nRow) {
+                        /* Currently editing - but not this row - restore the old before continuing to edit mode */
+//                        alert("inif");
+                        restoreRow(oTable, nEditing);
+                        editRow(oTable, nRow);
+                        nEditing = nRow;
+                    }
+                    else if (nEditing == nRow && this.innerHTML == "Save") {
+//                        alert(nRow);
+                        /* Editing this row and want to save it */
+//                        alert("inelseif");
+                        saveRow(oTable, nEditing);
+                        nEditing = null;
+                    }
+                    else {
+                        /* No edit in progress - let's start one */
+//                        alert("inelse");
+                        editRow(oTable, nRow);
+                        nEditing = nRow;
+                    }
+                });
+
+            });
+
+        </script>
       
       <div class="content">      
         <div class="row">
@@ -82,7 +179,7 @@
                         <td><%= adpack.getTime()%></td>
                         <td><%= adpack.getAmount()%></td>
                         <td><%=adpack.getNo_of_branches() %></td>
-                         <td><a href="">edit</a></td>
+                          <td><a class="edit" href="">Edit</a></td>
                                   <td><a href="<%=application.getContextPath()%>/Delete?op=pack&id=<%=adpack.getId()%>">delete</a></td>
             
                      
