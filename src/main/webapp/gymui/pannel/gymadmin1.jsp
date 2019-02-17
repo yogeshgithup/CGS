@@ -122,7 +122,7 @@
 ////          });
 //  });
   $(document).ready(function() {
-      alert("heloo");
+      //alert("heloo");
     $("#gym").dataTable();
 //          
 $("#count").click(function(){

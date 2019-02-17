@@ -73,7 +73,7 @@ public void init(ServletConfig sc) throws ServletException
         System.out.println("....."+l2);
         System.out.println("lllllll");
    
-   if(l2==null)
+   if(l2.getId()==0)
     {
         System.out.println("-----");
         response.sendRedirect("adminlogin1.jsp?msg=wrong_password");
