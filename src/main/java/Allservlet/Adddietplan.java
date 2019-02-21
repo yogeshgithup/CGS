@@ -76,7 +76,8 @@ System.out.println("hiii");
                          HttpSession hs=request.getSession(true);
         Trainer t= (Trainer)hs.getAttribute("trainer");
                         doo.Adddietplan(dp, batchname, membersname,String.valueOf( t.getAdbranch().getId()));
-                
+             response.sendRedirect(scx.getContextPath()+"/Viewdiet?op=msg");
+ 
     }
  private String extractFileName(Part part) {
 

@@ -169,9 +169,9 @@
      $("#myselect").focusout(function(){
          $('#myselect1').empty();
         var n= $("#myselect option:selected").val();  
-//     alert(n);  
+  alert(n);  
    $.post("<%=application.getContextPath()%>/Viewmembers?op=diet&id="+n,function(data,status){
-//                        alert(data);
+     //                   alert(data);
                      obj=JSON.parse(data);
 //                     alert(obj.length);
                       for(i=0;i<obj.length;i++)
@@ -186,6 +186,21 @@
    });       
               
      });
+      $("#myselect1").focusout(function(){
+            var n= $("#myselect1 option:selected").val();  
+         //   alert(n);
+              $.post("<%=application.getContextPath()%>/Viewdiet?op=diet&id="+n,function(data,status){
+                     var y=data;
+   // alert(y);
+    if(y.match("yes"))
+    {
+        $("#myselect1").val("");
+     alert("already exists");
+     
+    }
+   
+      });
+       });
     
 });
 </script>

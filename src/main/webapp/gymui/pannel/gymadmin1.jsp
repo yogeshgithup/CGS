@@ -67,6 +67,8 @@
             while(it.hasNext())
             {
                 Addbranch adbranch=it.next();
+                if(adbranch!=null)
+                {
               
             
           %>
@@ -78,7 +80,8 @@
                             <td><%=adbranch.getArea()%></td>
                               <td><%=adbranch.getPostalcode()%></td>
                                   </tr>
-                      <%}%>
+                      <% } 
+            }%>
                     </tbody>
                   </table>
                 </div>

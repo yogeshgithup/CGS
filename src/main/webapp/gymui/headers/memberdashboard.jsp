@@ -1,4 +1,36 @@
 <%@page import="com.mycompany.loginmodule.Members"%>
+<%
+
+ response.setHeader("Cache-Control","no-cache");
+     response.setHeader("Cache-Control","no-store");
+     response.setDateHeader("Expires", 0);
+     response.setHeader("Pragma","no-cache");
+     session=request.getSession(false);
+     try{
+      int id111=Integer.parseInt(session.getAttribute("sessss").toString());
+      String id1=String.valueOf(id111);
+     System.out.println("...----id"+id1);
+        
+    if( id1 != "0")
+    {
+    
+            System.out.println("------uuu-----"+application.getContextPath()+"/gymui/pannel/userlogin.jsp?msg=you already logout");
+         
+                request.setAttribute("Error","Session has ended");
+                response.sendRedirect(application.getContextPath()+"/gymui/pannel/userlogin.jsp?msg=you already logout");
+             
+    }
+     }
+     catch(Exception e)
+     {
+         
+          request.setAttribute("Error","Session has ended");
+         System.out.println("-----------"+application.getContextPath()+"/gymui/pannel/userlogin.jsp?msg=you already logout");
+         System.out.println(application.getContextPath()+"/adminlogin1.jsp?msg=loggedout");
+             response.sendRedirect(application.getContextPath()+"/gymui/pannel/userlogin.jsp?msg=you already logout");
+             
+     }
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -119,8 +151,8 @@
                 </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#pablo">
-                  <i class="now-ui-icons users_single-02"></i>
+               <a class="nav-link" href="<%=application.getContextPath()%>/Logout?op=user">
+                    <i class="now-ui-icons users_single-02"></i>
                   <p>
                     <span class="d-lg-none d-md-block">Account</span>
                   </p>

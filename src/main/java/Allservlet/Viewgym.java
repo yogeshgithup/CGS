@@ -49,7 +49,6 @@ public void init(ServletConfig sc) throws ServletException
         
        DataOperation pko=new DataOperation(scx);
      
- 
         try {
             System.out.println("//////////");
             HashSet<Addgym> listCatagory =pko.getgym();

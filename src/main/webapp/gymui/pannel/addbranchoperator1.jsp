@@ -220,7 +220,7 @@ function ValidateForm(){
                         </div>
                    <div class="col-md-4 pl-1" >
                       <div class="form-group">
-                          <button type="submit" id="s1" class="btn btn-primary btn-block">ADD GYM</button>   
+                          <button type="submit" id="s1" class="btn btn-primary btn-block">ADD BRANCHOPERATOR</button>   
                       </div>
                    </div>
                     </div>
