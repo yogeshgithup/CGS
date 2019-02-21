@@ -55,20 +55,17 @@
                     </thead>
                     <tbody>
                         <% 
-                        Trainer tt=(Trainer)session.getAttribute("trainer");
-                     Set<Members> m=tt.getAdbranch().getAddmember();
-                    
-                   Iterator it=m.iterator();
-                   while(it.hasNext())
-                   {
-                      Members mm= (Members) it.next();
-                      System.out.println(mm.getFirstname());
-                Dietplan dp=mm.getDp();
-              System.out.println("---"+dp);
-                //  System.out.println(dp.);
-                   if(dp!=null)
-                   {
+                  HashSet<Dietplan> hd=( HashSet<Dietplan> )session.getAttribute("setdiet");
                   // dp.getBatchhh().getFacility_batches().getName();
+                  if(hd!=null)
+                  {
+                 Iterator it= hd.iterator();
+                 while(it.hasNext())
+                 {
+                    Dietplan dp=( Dietplan ) it.next();
+                    System.out.println("iiiii"+dp.getId());
+                    if(dp!=null)
+                    {
                         %>
                       <tr>
                         <td><%= dp.getId()%></td>
@@ -80,7 +77,8 @@
                       </tr>   
                       <%
                    }
-                   }
+                   
+                 }}
                       %>
                     </tbody>
                   </table>

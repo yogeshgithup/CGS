@@ -1763,9 +1763,11 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             q.setString("gymid", id);
 
             List<Batch_member> results = q.list();
-
-            l = (Batch_member) results.get(0);
+for(int i=0;i<results.size();i++)
+{
+            l = (Batch_member) results.get(i);
            ja.put( l.getMemb().getFirstname());
+}
           // tid= l.getId();
            
         } catch (Exception e) {
@@ -1990,5 +1992,85 @@ int row=0;
         }
 
         
+    }
+             
+              public Gyminfo  getMain(int id) {
+       // int gymid;
+        Gyminfo l = null;
+        try {
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+            session = sfobj.openSession();
+            tx = session.beginTransaction();
+            //String b = "branchoperator";
+            //String c = "traineer";
+            
+
+            Query q = session.createQuery("from Gyminfo where id=:gymid");
+            q.setString("gymid", String.valueOf(id));
+
+            List<Gyminfo> results = q.list();
+
+            l = (Gyminfo) results.get(0);
+            
+            
+           
+        } catch (Exception e) {
+           // gymid = 0;
+            System.out.println(e.getMessage());
+        }
+        return l;
+    }
+               public Dietplan  getdiet(int id) {
+       // int gymid;
+        Dietplan l = null;
+        try {
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+            session = sfobj.openSession();
+            tx = session.beginTransaction();
+            //String b = "branchoperator";
+            //String c = "traineer";
+            
+
+            Query q = session.createQuery("from Dietplan where id=:gymid");
+            q.setString("gymid", String.valueOf(id));
+
+            List<Dietplan> results = q.list();
+
+            l = (Dietplan) results.get(0);
+            
+            
+           
+        } catch (Exception e) {
+           // gymid = 0;
+            System.out.println(e.getMessage());
+        }
+        return l;
+    }
+                public int getmemberid1(String id) {
+       // int gymid;
+        int id1=0;
+        
+        try {
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+            session = sfobj.openSession();
+            tx = session.beginTransaction();
+            //String b = "branchoperator";
+            //String c = "traineer";
+        Members l=null;    
+
+            Query q = session.createQuery("from Members where firstname=:gymid");
+            q.setString("gymid", id);
+
+            List<Members> results = q.list();
+
+            l = (Members) results.get(0);
+            
+            id1=l.getId();
+           
+        } catch (Exception e) {
+           // gymid = 0;
+            System.out.println(e.getMessage());
+        }
+        return id1;
     }
 }

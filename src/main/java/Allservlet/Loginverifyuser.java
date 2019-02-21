@@ -82,9 +82,12 @@ public void init(ServletConfig sc) throws ServletException
            hs.setAttribute("branchid",branchid);
            hs.setAttribute("branchname", branchname);
            hs.setAttribute("gname", gymname);
+         hs.setAttribute("sessss", 1);
     if(b.equals(l2.getType()))
     {
-       
+         
+           
+         System.out.println( "+++++"+ hs.getAttribute("sessss").toString());
         System.out.println("-----"+branchid);
         System.out.println("++++"+gymid);
          
@@ -95,7 +98,7 @@ public void init(ServletConfig sc) throws ServletException
         
        Trainer tt=so.getTrainerid(l2.getLoginid());
        hs.setAttribute("trainer",tt);
-         response.sendRedirect(scx.getContextPath()+"/gymui/pannel/trainers1.jsp");
+         response.sendRedirect(scx.getContextPath()+"/Viewdiet?op=msg");
     }
        
     else if(m.equals(l2.getType()))

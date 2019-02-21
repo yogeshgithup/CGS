@@ -25,6 +25,11 @@
             DatabaseUtil.MyHibernateConnection
         </listener-class>
     </listener>
+    <!--    <listener>
+        <listener-class>
+            com.sun.faces.config.ConfigureListener
+        </listener-class>
+    </listener>-->
     <servlet>
         <servlet-name>Aaddpackage</servlet-name>
         <servlet-class>Allservlet.Aaddpackage</servlet-class>
@@ -185,6 +190,14 @@
         <servlet-name>Edit</servlet-name>
         <servlet-class>Allservlet.Edit</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Viewedit</servlet-name>
+        <servlet-class>Allservlet.Viewedit</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Viewdiet</servlet-name>
+        <servlet-class>Allservlet.Viewdiet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Loginverify</servlet-name>
         <url-pattern>/Loginverify</url-pattern>
@@ -344,6 +357,14 @@
     <servlet-mapping>
         <servlet-name>Edit</servlet-name>
         <url-pattern>/Edit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Viewedit</servlet-name>
+        <url-pattern>/Viewedit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Viewdiet</servlet-name>
+        <url-pattern>/Viewdiet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

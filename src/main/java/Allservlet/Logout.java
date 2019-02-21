@@ -49,25 +49,43 @@ public class Logout extends HttpServlet {
             throws ServletException, IOException {
         
         PrintWriter out=response.getWriter();
-       
+     String op=   request.getParameter("op");
+       try{
     response.setHeader("Cache-Control","no-cache");
      response.setHeader("Cache-Control","no-store");
      response.setDateHeader("Expires", 0);
      response.setHeader("Pragma","no-cache");
-     HttpSession session=request.getSession(true);
-    int id=Integer.parseInt(session.getAttribute("gymid").toString());
+     HttpSession session=request.getSession(false);
+    int id=Integer.parseInt(session.getAttribute("sessss").toString());
     System.out.println("...id"+id);
-            if(id==0)
-            {
-                request.setAttribute("Error","Session has ended");
-                RequestDispatcher rd=request.getRequestDispatcher("adminlogin1.jsp?msg=loggedout");
-                rd.forward(request, response);
-            }
+//            if(id==0)
+//            {
+//                request.setAttribute("Error","Session has ended");
+//                RequestDispatcher rd=request.getRequestDispatcher("adminlogin1.jsp?msg=loggedout");
+//                rd.forward(request, response);
+//            }
     
      //   HttpSession session=request.getSession(true);  
-            session.invalidate();  
-       
+           //session.invalidate(); 
+            System.out.println("--------------------");
+          
+           if(op.equals("admin"))
+           {
+                session.removeAttribute("gymid");
+           System.out.println("_____________________admin");
         response.sendRedirect("adminlogin1.jsp?msg=logged_out");
+           }
+           else if(op.equals("user"))
+           {
+               System.out.println( session.getAttribute("sessss").toString());
+                session.removeAttribute("sessss");
+              System.out.println("_____________________user");
+        response.sendRedirect(scx.getContextPath()+"/gymui/pannel/userlogin.jsp?msg=loggeduser_out"); 
+           }
+       }catch(Exception e)
+       {
+           System.out.println("=="+e.getMessage());
+       }
     }
 
 }

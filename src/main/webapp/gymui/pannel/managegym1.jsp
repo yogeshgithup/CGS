@@ -27,6 +27,12 @@
 <body class="">
  <!--  <div class="wrapper "> -->
   <%@include file="/gymui/headers/systemadmindashboard.jsp" %>
+     
+        <script src="<%=application.getContextPath()%>/gymui/js/jquery-ui-1.10.4.custom.min.js"></script>        
+        <script src="<%=application.getContextPath()%>/gymui/js/jquery.dataTables.editable.js"></script>
+        <script src="<%=application.getContextPath()%>/gymui/js/jquery.jeditable.js"></script>
+      <!-- End Navbar -->
+
       
       <div class="content">      
         <div class="row">

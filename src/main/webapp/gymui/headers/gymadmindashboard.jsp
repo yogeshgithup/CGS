@@ -1,5 +1,35 @@
 <!DOCTYPE html>
+<%
 
+ response.setHeader("Cache-Control","no-cache");
+     response.setHeader("Cache-Control","no-store");
+     response.setDateHeader("Expires", 0);
+     response.setHeader("Pragma","no-cache");
+     session=request.getSession(false);
+     try{
+      int id111=Integer.parseInt(session.getAttribute("gymid").toString());
+      String id1=String.valueOf(id111);
+     System.out.println("...----id"+id1);
+        
+    if( id1 == null)
+    {
+    
+            
+                request.setAttribute("Error","Session has ended");
+               response.sendRedirect(application.getContextPath()+"/adminlogin1.jsp?msg=you already logout");
+               
+            
+    }
+     }
+     catch(Exception e)
+     {
+          request.setAttribute("Error","Session has ended");
+         System.out.println("-----------");
+         System.out.println(application.getContextPath()+"/adminlogin1.jsp?msg=loggedout");
+           response.sendRedirect(application.getContextPath()+"/adminlogin1.jsp?msg=you already logout");
+               
+     }
+%>
 <html lang="en">
     
 <head>
@@ -163,7 +193,7 @@ $("li").click(function(){
           </li>
           
           <li class="" id="5">
-            <a href="<%=application.getContextPath()%>/gymui/pannel/managemainpage.jsp">
+            <a href="<%=application.getContextPath()%>/Viewedit">
               <i class="now-ui-icons location_map-big"></i>
               <p>Main Page Editing </p>
             </a>
@@ -242,7 +272,7 @@ $("li").click(function(){
                 </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="<%=application.getContextPath()%>/Logout">
+                <a class="nav-link" href="<%=application.getContextPath()%>/Logout?op=admin">
                   <i class="now-ui-icons users_single-02"></i>
                   <p>
                     <span class="d-lg-none d-md-block">Account</span>

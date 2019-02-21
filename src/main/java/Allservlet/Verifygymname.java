@@ -6,6 +6,7 @@
 package Allservlet;
 
 import com.mycompany.loginmodule.Addgym;
+import com.mycompany.loginmodule.Gyminfo;
 import com.mycompany.loginmodule.Logingym;
 import com.mycompany.loginmodule.Pack_facility;
 import java.io.IOException;
@@ -70,7 +71,7 @@ public class Verifygymname extends HttpServlet {
     if (request.getParameter("email") != null) {
             String email = request.getParameter("email");
        // System.out.println(gymname);
-
+System.out.println("-----"+email);
             String answer = doo.verifyemail(email);
             String ans=answer;
             System.out.println("mmm"+answer);
@@ -148,6 +149,20 @@ System.out.println("---"+email);
               out.println(pf);
           }
         }
+          if(request.getParameter("op")!=null){
+              
+               HttpSession hs = request.getSession(true);
+        int gymid = Integer.parseInt(hs.getAttribute("gymid").toString());
+  Gyminfo g=doo.getMain(gymid);
+  if(g!=null)
+  {
+      out.println("already inserted");
+  }
+  else
+  {
+      out.println("noo");
+  }
+          }
     }
     
     }

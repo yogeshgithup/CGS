@@ -58,7 +58,7 @@ public class Addaboutus extends HttpServlet {
         int gymid = Integer.parseInt(hs.getAttribute("gymid").toString());
         Addgym gym = doo.getGymID(gymid);
         doo.addaboutus(g, gym);
-        
+          hs.setAttribute("gym",gym);
          response.sendRedirect(scx.getContextPath()+"/gymui/pannel/aboutusediting1.jsp");
   }
 }

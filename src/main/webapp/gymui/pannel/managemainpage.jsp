@@ -58,7 +58,7 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                  <a href="<%=application.getContextPath()%>/gymui/pannel/mainpageediting1.jsp"> <button class="btn btn-primary btn-block">ADD Main Page</button> </a>    
+                  <a > <button id="verify" class="btn btn-primary btn-block">ADD Main Page</button> </a>    
                 <h4 class="card-title">View Main Page</h4>
               </div>
               <div class="card-body">
@@ -77,11 +77,13 @@
           System.out.println("session="+session); 
           
               
-            Addgym g=(Addgym)session.getAttribute("gym");
-         Gyminfo gi =g.getGyinfo();
+            Addgym g=(Addgym)session.getAttribute("setedit");
+           System.out.println(g.getGymname());
+       Gyminfo gi=g.getGyinfo();
+    //   System.out.println(gi.getLogo_url());
         
-                 
-                         
+                 if(gi!=null)
+                 {
                   %>              
 
           <tr >
@@ -89,7 +91,9 @@
                           <td><%=gi.getAbout_us_title()%></td>
                             <td><%=gi.getAbout_us_desc()%></td>
                       </tr>
-                      
+                  <%
+                 }
+                  %>    
                     </tbody>
                   </table>
                 </div>
@@ -127,6 +131,27 @@
   <script>
   $(function(){
     $("#gym").dataTable();
-  })
+//    
+    $("#verify").click(function(){
+         alert("hello");
+         $.post("<%=application.getContextPath()%>/Verifygymname",{"op":"op"},function(data,status){
+
+     
+     var y=data;
+     if(y.match("noo"))
+     {
+       location.href="<%=application.getContextPath()%>/gymui/pannel/mainpageediting1.jsp";
+    
+      }
+        else
+        {
+                 alert("already entered");
+         location.href="<%=application.getContextPath()%>/gymui/pannel/managemainpage.jsp";
+       
+        }
+    });
+        
+    });
+  });
   </script>
 </html>
