@@ -78,8 +78,7 @@
                 Addgym adgym=iti.next();
             
           %>
-
-          <tr id="<%=adgym.getId()%>">
+                  <tr id="<%=adgym.getId()%>">
                           <td><%=adgym.getId()%></td>
                           <td><%=adgym.getGymname()%></td>
                            <td><%=adgym.getOwnername()%></td>

@@ -211,7 +211,7 @@ $("li").click(function(){
             </a>
           </li>
           <li class="" id="8">
-            <a href="./map.html">
+            <a href="">
               <i class="now-ui-icons location_map-big"></i>
               <p>View Graphs</p>
             </a>

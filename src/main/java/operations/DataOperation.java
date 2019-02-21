@@ -119,7 +119,7 @@ public class DataOperation {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        System.out.println("///" + j);
+        System.out.println("///" + a.getId());
         return a;
     }
 

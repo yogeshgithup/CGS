@@ -73,7 +73,7 @@
               Forgot Password
             </span>
           </button>
-      
+                         </form>
 </body>
 </div>
       </div>

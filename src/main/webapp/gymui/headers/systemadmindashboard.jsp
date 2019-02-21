@@ -66,7 +66,7 @@
             </a>
           </li>
           <li>
-            <a href="./map.html">
+            <a href="">
               <i class="now-ui-icons location_map-big"></i>
               <p>View graphs </p>
             </a>
