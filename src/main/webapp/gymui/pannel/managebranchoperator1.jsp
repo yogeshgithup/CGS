@@ -4,24 +4,6 @@
 <%@page import="com.mycompany.loginmodule.Addgym"%>
 <%@page import="java.util.HashSet"%>
 <!DOCTYPE html>
-<%
-    response.setHeader("Cache-Control","no-cache");
-     response.setHeader("Cache-Control","no-store");
-     response.setDateHeader("Expires", 0);
-     response.setHeader("Pragma","no-cache");
-     System.out.println("{{{{{");
-     
-    Integer id=(Integer)session.getAttribute("gymid");
-    System.out.println("...id...+"+id);
-            if(id==null)
-            {
-                System.out.println("eeee");
-                request.setAttribute("msg","Session has ended");
-                RequestDispatcher rd=request.getRequestDispatcher("/adminlogin.jsp");
-                rd.forward(request, response);
-                System.out.println("uuuu");
-            }
-    %>
 <html lang="en">
 
 <!--<head>
@@ -49,7 +31,13 @@
      
       <!-- End Navbar -->
     
-      
+      <%
+   String msg=   request.getParameter("msg");
+   if(msg==null)
+   {
+       msg="" ;
+   }
+      %>
       <div class="content">      
         <div class="row">
           <div class="col-md-12">
@@ -57,6 +45,7 @@
               <div class="card-header">
                   <a href="<%=application.getContextPath()%>/gymui/pannel/addbranchoperator1.jsp"> <button class="btn btn-primary btn-block">ADD BRANCHOPERATOR</button> </a>    
                 <h4 class="card-title">View BranchOperator</h4>
+                <h4 id="msg"><%= msg %></h4>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
@@ -81,12 +70,16 @@
           
               
              setbranchop=(HashSet<addbranchoperator>)session.getAttribute("setbranchop");
-            Iterator<addbranchoperator> it=setbranchop.iterator();
+          if(setbranchop!=null)
+          {
+             Iterator<addbranchoperator> it=setbranchop.iterator();
+             if(it!=null){
             System.out.println("kkkk");
             System.out.print("iterator"+it.toString());
             while(it.hasNext())
             {
                addbranchoperator adbranch=it.next();
+               if(adbranch !=null){
               
             
           %>
@@ -99,7 +92,7 @@
                             <td><%=adbranch.getArea()%></td>
                               <td><%=adbranch.getBranchname()%></td>
                       </tr>
-                      <%}%>
+                      <% }}}}%>
                     </tbody>
                   </table>
                 </div>
@@ -136,6 +129,7 @@
   <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
   <script>
   $(function(){
+      $("#msg").fadeOut(300);
     $("#gym").dataTable();
   })
   </script>

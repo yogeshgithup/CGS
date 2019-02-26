@@ -5,24 +5,7 @@
 <%@page import="com.mycompany.loginmodule.Addgym"%>
 <%@page import="java.util.HashSet"%>
 <!DOCTYPE html>
-<%
-    response.setHeader("Cache-Control","no-cache");
-     response.setHeader("Cache-Control","no-store");
-     response.setDateHeader("Expires", 0);
-     response.setHeader("Pragma","no-cache");
-     System.out.println("{{{{{");
-     
-    Integer id=(Integer)session.getAttribute("gymid");
-    System.out.println("...id...+"+id);
-            if(id==null)
-            {
-                System.out.println("eeee");
-                request.setAttribute("msg","Session has ended");
-                RequestDispatcher rd=request.getRequestDispatcher("/userlogin.jsp");
-                rd.forward(request, response);
-                System.out.println("uuuu");
-            }
-    %>
+
 <html lang="en">
 
 <!--<head>
@@ -81,7 +64,11 @@
           
               
              setpack=(HashSet<Trainer>)session.getAttribute("settrainer");
+             if(setpack!=null)
+             {
             Iterator<Trainer> it=setpack.iterator();
+            if(it!=null)
+            {
             System.out.println("kkkk");
             while(it.hasNext())
             {
@@ -89,7 +76,8 @@
              
              
              
-             
+             if(adpack!=null)
+             {
              
           %>
 
@@ -102,7 +90,7 @@
                         <td><%=adpack.getRole()%></td>
                      
                       </tr>
-                      <%}%>
+                      <% }}}}%>
             
                     </tbody>
                   </table>

@@ -200,16 +200,22 @@ function ValidateForm(){
           System.out.println("setbranch...="+setbranch);
               
              setbranch=(HashSet<Facility>)session.getAttribute("viewfacility");
+             if(setbranch!=null)
+             {
               System.out.println("setbranch...="+setbranch);
             Iterator<Facility> it=setbranch.iterator();
+            if(it!=null)
+            {
             System.out.println("kkkk");
             while(it.hasNext())
             {
                 Facility se=it.next();
+                if(se!=null)
+                {
            
           %>
        <option value="<%=se.getName()%>"><%=se.getName()%></option>
-<%}%>
+<%} } } } %>
       </select>
                             </div>
   

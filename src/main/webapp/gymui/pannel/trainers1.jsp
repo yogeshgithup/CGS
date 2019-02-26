@@ -8,24 +8,7 @@
 <%@page import="com.mycompany.loginmodule.Addgym"%>
 <%@page import="java.util.HashSet"%>
 <!DOCTYPE html>
-<%
-    response.setHeader("Cache-Control","no-cache");
-     response.setHeader("Cache-Control","no-store");
-     response.setDateHeader("Expires", 0);
-     response.setHeader("Pragma","no-cache");
-     System.out.println("{{{{{");
-     
-    Integer id=(Integer)session.getAttribute("gymid");
-    System.out.println("...id...+"+id);
-            if(id==null)
-            {
-                System.out.println("eeee");
-                request.setAttribute("msg","Session has ended");
-                RequestDispatcher rd=request.getRequestDispatcher("/userlogin.jsp");
-                rd.forward(request, response);
-                System.out.println("uuuu");
-            }
-    %>
+
     <html lang="en">
 
  <link rel="stylesheet" href="<%=application.getContextPath()%>/gymui/css/table.css">
@@ -60,6 +43,7 @@
                   if(hd!=null)
                   {
                  Iterator it= hd.iterator();
+                 if(it!=null){
                  while(it.hasNext())
                  {
                     Dietplan dp=( Dietplan ) it.next();
@@ -77,7 +61,7 @@
                       </tr>   
                       <%
                    }
-                   
+                 }
                  }}
                       %>
                     </tbody>

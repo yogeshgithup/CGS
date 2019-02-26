@@ -58,10 +58,12 @@ public class Addequipment extends HttpServlet {
 
         PrintWriter out = response.getWriter();
         String at = scx.getInitParameter("accesstoken");
-        DropBoxOperation dbo = new DropBoxOperation(at);
-        DataOperation doo = new DataOperation(scx);
+        
+       
         HttpSession hs = request.getSession(true);
         int gymid = Integer.parseInt(hs.getAttribute("gymid").toString());
+         DataOperation doo = new DataOperation(scx,gymid);
+         DropBoxOperation dbo = new DropBoxOperation(at, scx, gymid);
        // Addgym gym = doo.getGymID(gymid);
 
 //           Set<Equipment> ab = new HashSet<Equipment>();

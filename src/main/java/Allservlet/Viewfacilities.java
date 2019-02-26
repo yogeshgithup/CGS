@@ -45,13 +45,14 @@ public void init(ServletConfig sc) throws ServletException
         
         PrintWriter out=response.getWriter();
         
-       DataOperation pko=new DataOperation(scx);
+     
      
  
         try {
             System.out.println("//////////");
              HttpSession session=request.getSession(true);  
          int id=Integer.parseInt(session.getAttribute("gymid").toString());
+           DataOperation pko=new DataOperation(scx,id);
             HashSet<Facility> listCatagory =pko.getfacility(id);
        
            

@@ -199,16 +199,20 @@ function ValidateForm(){
           System.out.println("setbranch...="+setbranch);
               
              setbranch=(HashSet<Addbranch>)session.getAttribute("setbranch");
-              System.out.println("setbranch...="+setbranch);
+              if(setbranch!= null)
+              {
             Iterator<Addbranch> it=setbranch.iterator();
             System.out.println("kkkk");
+            if(it!= null)
+            {
             while(it.hasNext())
             {
                 Addbranch se=it.next();
-            
+            if(se!=null)
+            {
           %>
        <option value="<%=se.getBranchname()%>"><%=se.getBranchname()%></option>
-<%}%>
+<% } }}}%>
       </select>
                             </div>
   

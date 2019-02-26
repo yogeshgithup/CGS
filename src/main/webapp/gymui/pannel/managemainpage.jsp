@@ -7,24 +7,7 @@
 <%@page import="com.mycompany.loginmodule.Addgym"%>
 <%@page import="java.util.HashSet"%>
 <!DOCTYPE html>
-<%
-    response.setHeader("Cache-Control","no-cache");
-     response.setHeader("Cache-Control","no-store");
-     response.setDateHeader("Expires", 0);
-     response.setHeader("Pragma","no-cache");
-     System.out.println("{{{{{");
-     
-    Integer id=(Integer)session.getAttribute("gymid");
-    System.out.println("...id...+"+id);
-            if(id==null)
-            {
-                System.out.println("eeee");
-                request.setAttribute("msg","Session has ended");
-                RequestDispatcher rd=request.getRequestDispatcher("/adminlogin.jsp");
-                rd.forward(request, response);
-                System.out.println("uuuu");
-            }
-    %>
+
 <html lang="en">
 
 <!--<head>
@@ -51,7 +34,13 @@
   <%@include file="/gymui/headers/gymadmindashboard.jsp" %>
      
       <!-- End Navbar -->
-    
+<%
+ String msggt= request.getParameter("msg");
+ if(msggt == null)
+ {
+     msggt="";
+ }
+%>    
       
       <div class="content">      
         <div class="row">
@@ -60,6 +49,7 @@
               <div class="card-header">
                   <a > <button id="verify" class="btn btn-primary btn-block">ADD Main Page</button> </a>    
                 <h4 class="card-title">View Main Page</h4>
+                  <h4 id="msj"><%= msggt %></h4>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
@@ -77,22 +67,32 @@
           System.out.println("session="+session); 
           
               
-            Addgym g=(Addgym)session.getAttribute("setedit");
-           System.out.println(g.getGymname());
-       Gyminfo gi=g.getGyinfo();
-    //   System.out.println(gi.getLogo_url());
-        
-                 if(gi!=null)
+           HashSet<Gyminfo> gi=(HashSet<Gyminfo>)session.getAttribute("setedit");
+           //System.out.println(g.getGymname());
+           if(gi!=null)
+                   {
+        Iterator it= gi.iterator();
+        System.out.println("+++++");
+        if(it!=null)
+        {
+            
+        while(it.hasNext())
+        {
+            System.out.println("=======");
+        Gyminfo gii=(Gyminfo)it.next();
+      
+                 if(gii!=null)
                  {
+                    
                   %>              
 
           <tr >
-                          <td><%=  gi.getQuality_msg() %></td>
-                          <td><%=gi.getAbout_us_title()%></td>
-                            <td><%=gi.getAbout_us_desc()%></td>
+                          <td><%=  gii.getQuality_msg() %></td>
+                          <td><%= gii.getAbout_us_title()%></td>
+                            <td><%=gii.getAbout_us_desc()%></td>
                       </tr>
                   <%
-                 }
+                   }}}}
                   %>    
                     </tbody>
                   </table>
@@ -130,6 +130,7 @@
   <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
   <script>
   $(function(){
+      $("#msj").fadeOut(500);
     $("#gym").dataTable();
 //    
     $("#verify").click(function(){

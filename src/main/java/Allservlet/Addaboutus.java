@@ -53,9 +53,10 @@ public class Addaboutus extends HttpServlet {
         g.setAbout_us_title(title);
         g.setAbout_us_desc(desc);
         
-        DataOperation doo=new DataOperation(scx);
+        
           HttpSession hs = request.getSession(true);
         int gymid = Integer.parseInt(hs.getAttribute("gymid").toString());
+        DataOperation doo=new DataOperation(scx,gymid);
         Addgym gym = doo.getGymID(gymid);
         doo.addaboutus(g, gym);
           hs.setAttribute("gym",gym);

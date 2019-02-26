@@ -6,24 +6,7 @@
 <%@page import="com.mycompany.loginmodule.Addgym"%>
 <%@page import="java.util.HashSet"%>
 <!DOCTYPE html>
-<%
-    response.setHeader("Cache-Control","no-cache");
-     response.setHeader("Cache-Control","no-store");
-     response.setDateHeader("Expires", 0);
-     response.setHeader("Pragma","no-cache");
-     System.out.println("{{{{{");
-     
-    Integer id=(Integer)session.getAttribute("gymid");
-    System.out.println("...id...+"+id);
-            if(id==null)
-            {
-                System.out.println("eeee");
-                request.setAttribute("msg","Session has ended");
-                RequestDispatcher rd=request.getRequestDispatcher("/adminlogin.jsp");
-                rd.forward(request, response);
-                System.out.println("uuuu");
-            }
-    %>
+
 <html lang="en">
 
 <!--<head>
@@ -83,11 +66,15 @@
           
               
              setbranch=(HashSet<Gympackage>)session.getAttribute("viewpackfacility");
-            Iterator<Gympackage> it=setbranch.iterator();
-            System.out.println("kkkk");
+           if(setbranch!=null)
+           {
+             Iterator<Gympackage> it=setbranch.iterator();
+            if(it!=null)
+            {
             while(it.hasNext())
             {
                 Gympackage adbranch=it.next();
+                if(adbranch!=null){
             // Set<Pack_facility> pf= adbranch.getPackfac();
             // Iterator iti=pf.iterator();
              //System.out.println("kkkkkllllll"+iti.toString());
@@ -104,7 +91,7 @@
     
           
           </tr>
-                      <%}%>
+                      <% }} }}%>
                     </tbody>
                   </table>
                 </div>

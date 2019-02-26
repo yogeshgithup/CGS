@@ -56,8 +56,11 @@ System.out.println("hiii");
         System.out.println("nnnnn");
      long pno=Long.parseLong(request.getParameter("phoneno"));
         System.out.println(pno);
-        
-         DataOperation p=new DataOperation(scx);
+        HttpSession hs=request.getSession(true);
+        int branchid= Integer.parseInt(hs.getAttribute("branchid").toString());
+        int gymid=Integer.parseInt(hs.getAttribute("gymid").toString());
+         DataOperation p=new DataOperation(scx,gymid);
+       
      String area=request.getParameter("area");
      String street=request.getParameter("street");
      String pcode=request.getParameter("postal");
@@ -72,10 +75,7 @@ System.out.println("hiii");
      float weight=Float.parseFloat(request.getParameter("weight"));
      
      
-     HttpSession hs=request.getSession(true);
-        int branchid= Integer.parseInt(hs.getAttribute("branchid").toString());
-        int gymid=Integer.parseInt(hs.getAttribute("gymid").toString());
-       
+     
         Members m=new Members();
         m.setArea(area);
         m.setBlood(bloodgroup);

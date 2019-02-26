@@ -13,6 +13,7 @@ import com.mycompany.loginmodule.Batch_member;
 import com.mycompany.loginmodule.Batches;
 import com.mycompany.loginmodule.Dietplan;
 import com.mycompany.loginmodule.Equipment;
+import com.mycompany.loginmodule.Errors;
 import com.mycompany.loginmodule.Facility;
 import com.mycompany.loginmodule.Gallery;
 import com.mycompany.loginmodule.Gyminfo;
@@ -34,17 +35,24 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 import java.util.Random;
 import java.util.Set;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.engine.jdbc.batch.spi.Batch;
 import org.json.JSONArray;
+
+import java.util.List;
+import java.util.Properties;
+import javax.mail.Message;
+import javax.mail.Multipart;
 
 /**
  *
@@ -65,9 +73,14 @@ public class DataOperation {
     String url;
     Logingym l2 = null;
     String image_url;
-
+     int gymid11;
     public DataOperation(ServletContext scx) {
         this.scx = scx;
+    }
+    
+    public DataOperation(ServletContext scx,int gymid) {
+        this.scx = scx;
+        this.gymid11=gymid;
     }
 
     public Addgym verify(Logingym l) {
@@ -92,7 +105,11 @@ public class DataOperation {
             q.setString("pass", l.getPassword());
             List<Logingym> results = q.list();
             System.out.println("oooooo");
+           
+ 
             l2 = (Logingym) results.get(0);
+            System.out.println(""+l2.getType());
+ 
              a=l2.getA();
             System.out.println("" + l2.getUsername());
             System.out.println("passed" + l.getPassword());
@@ -117,6 +134,8 @@ public class DataOperation {
              j=j+2;
              }*/
         } catch (Exception e) {
+           
+           
             System.out.println(e.getMessage());
         }
         System.out.println("///" + j);
@@ -180,7 +199,8 @@ public class DataOperation {
             Addpackage p1 = null;
             List<Addpackage> results = q.list();
             System.out.println("query");
-
+ for(int i=0;i<results.size();i++)
+ {
             p1 = (Addpackage) results.get(0);
             int id = p1.getId();
             Addpackage l1 = null;
@@ -196,6 +216,7 @@ public class DataOperation {
             SMSOperation so = new SMSOperation();
             String result = so.sendSMS(ag.getPhoneno(), ag.getPassword());
             System.out.println(result);
+ }
             session.save(ag);
 
             n = "Gym Added";
@@ -221,8 +242,10 @@ public class DataOperation {
             q.setString("branchname", abo.getBranchname());
 
             Addbranch b1 = null;
+           
             List<Addbranch> results = q.list();
-
+  for(int i=0;i<results.size();i++)
+ {
             b1 = (Addbranch) results.get(0);
             int id = b1.getId();
             System.out.println("cxcxcxcx" + id);
@@ -235,22 +258,45 @@ public class DataOperation {
             ab = gym.getLogin();
             ab.add(l);
             l.setAdgym(gym);
+ 
 //                          session.save(abo);
             session.save(b2);
             session.save(l);
-            SMSOperation so = new SMSOperation();
-            String result = so.sendSMS(String.valueOf(abo.getPhoneno()), abo.getPassword());
-            System.out.println(result);
+ }          
 
             n = "branchoperator Added";
             tx.commit();
             session.close();
+            SMSOperation so = new SMSOperation();
+            String result = so.sendSMS(String.valueOf(abo.getPhoneno()), abo.getPassword());
+            System.out.println(result);
 
         } catch (Exception e) {
+          session = sfobj.openSession();
+            tx = session.beginTransaction();
 
-            n = "failed to add branch";
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+          //  //werty  oploplopl
+//                 String smtp=   scx.getInitParameter("smtp");
+//             String port=scx.getInitParameter("port");
+//             String username=scx.getInitParameter("username");
+//             String password=scx.getInitParameter("password");
+           //  SendEmailwithAttach(smtp, port, username, password,"patelshravan013@gmail.com","error mesaage", , null);
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+//             SendEmailwithAttach(smtp, port, username, password,"patelshravan013@gmail.com","error mesaage","line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString()"+method ="+e.getStackTrace()[2].getMethodName() , null);
+      
+            session.close();
             System.out.println(e.getMessage());
         }
+         
         return n;
     }
 
@@ -337,10 +383,11 @@ public class DataOperation {
             q.setString("lname", l.getLoginid());
             q.setString("pass", l.getPassword());
             List<Login> results = q.list();
-
-            l = (Login) results.get(0);
+  for(int i=0;i<results.size();i++)
+ {
+            l = (Login) results.get(i);
             System.out.println(l.getType());
-
+ }
             //System.out.println("mmmmm"+l.getType());
             /* if(b.equals(l.getType())) {
              j=j+1;
@@ -378,6 +425,21 @@ public class DataOperation {
             tx.commit();
             session.close();
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+           //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
     }
@@ -414,7 +476,7 @@ public class DataOperation {
             System.out.println("gp 59");
             List<Addbranch> results = q.list();
             System.out.println("query");
-            for (int i = 0; i <= results.size(); i++) {
+            for (int i = 0; i < results.size(); i++) {
                 p1 = (Addbranch) results.get(i);
                 Addbranch p2 = new Addbranch(p1.getId(), p1.getBranchname(), p1.getStreet(), p1.getArea(), p1.getPostalcode());
                 setbranch.add(p2);
@@ -423,6 +485,21 @@ public class DataOperation {
             tx.commit();
             session.close();
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
 
@@ -485,6 +562,21 @@ public class DataOperation {
             tx.commit();
             session.close();
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
 
@@ -501,6 +593,21 @@ public class DataOperation {
             tx.commit();
             session.close();
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
 
@@ -516,6 +623,21 @@ public class DataOperation {
             tx.commit();
             session.close();
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
 
@@ -532,6 +654,21 @@ public class DataOperation {
             tx.commit();
             session.close();
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
     }
@@ -549,7 +686,8 @@ public class DataOperation {
             q.setString("uname", username);
 
             List<Logingym> results = q.list();
-
+  for(int i=0;i<results.size();i++)
+ {
             l = (Logingym) results.get(0);
             System.out.println(l.getType());
             Addgym a = l.getA();
@@ -567,7 +705,7 @@ public class DataOperation {
             String result = so.sendSMS(a.getPhoneno(), l.getPassword());
             n = result;
             System.out.println(result);
-
+ }
         } catch (Exception e) {
             n = "failed to send message check username";
             System.out.println(e.getMessage());
@@ -627,6 +765,21 @@ public class DataOperation {
             }
 
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
         return url;
@@ -658,10 +811,74 @@ public class DataOperation {
             session.close();
 
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
         return ag;
     }
+    
+     public  HashSet<Gyminfo> getGymEdit(int gymid) {
+        HashSet<Gyminfo> gyminfo = null;
+        try {
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+            session = sfobj.openSession();
+            tx = session.beginTransaction();
+            Gyminfo ag=null;
+            System.out.println(";;;;;;;;;" + gymid);
+            System.out.println(gymid);
+            
+              Query q = session.createQuery("from Gyminfo where id=:gymidi");
+            q.setString("gymidi", String.valueOf(gymid));
+            System.out.println("gp 59");
+            List<Gyminfo> results = q.list();
+            System.out.println("query");
+            for (int i = 0; i < results.size(); i++) {
+              ag = (Gyminfo) results.get(i);
+            System.out.println(ag.getAbout_us_desc());
+            gyminfo.add(ag);
+                    }
+           tx.commit();
+           session.close();
+            
+
+        } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            System.out.println(e.getMessage());
+        }
+        return gyminfo;
+    }
+    
+    
+    
+    
 
     public String verifygymname(String gymname) {
         String gym = null;
@@ -677,12 +894,28 @@ public class DataOperation {
             q.setString("uname", gymname);
 
             List<Addgym> results = q.list();
-
+ 
             l = (Addgym) results.get(0);
             if (l != null) {
                 gym = "already exists";
             }
+ 
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
         return gym;
@@ -702,12 +935,28 @@ public class DataOperation {
             q.setString("uname", packagename);
 
             List<Addpackage> results = q.list();
-
+  
             l = (Addpackage) results.get(0);
             if (l != null) {
                 pack = "already exists";
             }
+ 
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
         return pack;
@@ -722,20 +971,42 @@ public class DataOperation {
             //String b = "branchoperator";
             //String c = "traineer";
             Logingym l = null;
-
+            System.out.println("-------"+email);
             Query q = session.createQuery("from Logingym where Username=:uname");
             q.setString("uname", email);
 
             List<Logingym> results = q.list();
-
-            l = (Logingym) results.get(0);
-            System.out.println("ppp");
-            if (l == null) {
+            if (results.size()==0) {
 
                 System.out.println("helll");
                 pack = "enter valid email";
             }
+            else
+            {
+    for(int i=0;i<results.size();i++)
+    {
+            l = (Logingym) results.get(0);
+            System.out.println("ppp");
+    }
+            }
+            
+
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             pack = "enter valid email";
             System.out.println(e.getMessage());
         }
@@ -756,7 +1027,7 @@ public class DataOperation {
             q.setString("uname", email);
 
             List<Login> results = q.list();
-
+  
             l = (Login) results.get(0);
             System.out.println("ppp");
             if (l == null) {
@@ -764,7 +1035,23 @@ public class DataOperation {
                 System.out.println("helll");
                 pack = "enter valid email";
             }
+ 
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             pack = "enter valid email";
             System.out.println(e.getMessage());
         }
@@ -784,7 +1071,8 @@ public class DataOperation {
             q.setString("uname", email);
 
             List<Login> results = q.list();
-
+  for(int i=0;i<results.size();i++)
+ {
             l = (Login) results.get(0);
             System.out.println("ppp");
             if (l != null) {
@@ -792,7 +1080,23 @@ public class DataOperation {
                 System.out.println("helll");
                 pack = "enter another email";
             }
+ }
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             pack = "";
             System.out.println(e.getMessage());
         }
@@ -815,12 +1119,27 @@ public class DataOperation {
             q.setString("bname", branchname);
 
             List<Addbranch> results = q.list();
-
+ 
             l = (Addbranch) results.get(0);
             if (l != null) {
                 pack = "already exists";
             }
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
         return pack;
@@ -841,12 +1160,28 @@ public class DataOperation {
             q.setString("bname", branchname);
 
             List<addbranchoperator> results = q.list();
-
+ 
             l = (addbranchoperator) results.get(0);
             if (l != null) {
                 pack = "already exists";
             }
+ 
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
         return pack;
@@ -875,6 +1210,21 @@ public class DataOperation {
             tx.commit();
             session.close();
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
     }
@@ -899,15 +1249,33 @@ public class DataOperation {
             System.out.println("gp 59");
             List<Facility> results = q.list();
             System.out.println("query");
-            for (int i = 0; i <= results.size(); i++) {
+            for (int i=0; i < results.size(); i++) {
                 p1 = (Facility) results.get(i);
+                if(p1!=null)
+                {
                 Facility p2 = new Facility(p1.getId(), p1.getName());
                 setfacility.add(p2);
+                }
             }
 
             tx.commit();
             session.close();
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
 
@@ -936,6 +1304,21 @@ public class DataOperation {
             tx.commit();
             session.close();
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
         return id;
@@ -960,8 +1343,9 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             q.setString("uname", faci[i]);
              q.setString("id",gymid);
             List<Facility> results = q.list();
-
-            Facility l = (Facility) results.get(0);
+  for(int j=0;j<results.size();j++)
+ {
+            Facility l = (Facility) results.get(j);
             f.setFacc(l);
                 l.setPack_fac(fac1);
                 fac1.add(f);
@@ -969,12 +1353,28 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
                 f.setGympack(gym);
                 fac.add(f);
             }
-
+            }
             gym.setPackfac(fac);
+          
             session.save(gym);
             tx.commit();
             session.close();
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
     }
@@ -1002,8 +1402,10 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             List<Gympackage> results = q.list();
             System.out.println("query");
             System.out.println("yyyyy" + results.size());
-            for (int i = 0; i <= results.size(); i++) {
+            for (int i = 0; i < results.size(); i++) {
                 p1 = (Gympackage) results.get(i);
+                if(p1!=null)
+                {
                 System.out.println("[][][" + p1.getId());
 //                   HashSet<Pack_facility> pac=new HashSet<Pack_facility>();
 //                 pac = getpacfacility(p1.getId());
@@ -1011,11 +1413,27 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
 
                 Gympackage p2 = new Gympackage(p1.getId(), p1.getName(), p1.getAmount(), p1.getTime());
                 setfacility.add(p2);
+                }
             }
 
             tx.commit();
             session.close();
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
 
@@ -1045,6 +1463,25 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             tx.commit();
             session.close();
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+             String nameofCurrMethod = new Throwable() 
+                                      .getStackTrace()[2] 
+                                      .getMethodName(); 
+             System.out.println("---name of method------"+nameofCurrMethod);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
         System.out.println("oooo--" + setfacility.toString());
@@ -1065,10 +1502,27 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             q.setString("uname", branchop);
 
             List<addbranchoperator> results = q.list();
-
-            l = (addbranchoperator) results.get(0);
+  for(int i=0;i<results.size();i++)
+ {
+            l = (addbranchoperator) results.get(i);
+ }
             id = l.getId();
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             id = 0;
             System.out.println(e.getMessage());
         }
@@ -1088,10 +1542,27 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             q.setString("uname",String.valueOf(id));
 
             List<Addbranch> results = q.list();
-
-            l = (Addbranch) results.get(0);
-            name=l.getBranchname();
+  for(int i=0;i<results.size();i++)
+ {
+            l = (Addbranch) results.get(i);
+ }           name=l.getBranchname();
+ 
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             name="";
             System.out.println(e.getMessage());
         }
@@ -1111,10 +1582,28 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             q.setString("uname",String.valueOf(id));
 
             List<Addgym> results = q.list();
-            l = (Addgym) results.get(0);
+              for(int i=0;i<results.size();i++)
+ {
+            l = (Addgym) results.get(i);
+ }
             name=l.getGymname();
             System.out.println("---"+name);
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             name="";
             System.out.println(e.getMessage());
         }
@@ -1134,8 +1623,9 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             q.setString("uname",id);
 
             List<Addgym> results = q.list();
-
-            l = (Addgym) results.get(0);
+  for(int i=0;i<results.size();i++)
+ {
+            l = (Addgym) results.get(i);
 //            adgym.setId(l.getId());
 //            adgym.setGymname(l.getGymname());
 //            adgym.setOwnername(l.getOwnername());
@@ -1148,9 +1638,23 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
 //           Set<Addbranch> abranch=l.getAdbarnch();
            
            
-           
+ }
         } catch (Exception e) {
-            
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
         return l;
@@ -1169,11 +1673,28 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             q.setString("gymid", String.valueOf(id));
 
             List<Addbranch> results = q.list();
-
-            l = (Addbranch) results.get(0);
-            Addgym g = l.getAdgym();
+  for(int i=0;i<results.size();i++)
+ {
+            l = (Addbranch) results.get(i);
+ }           Addgym g = l.getAdgym();
             gymid = g.getId();
+ 
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             gymid = 0;
             System.out.println(e.getMessage());
         }
@@ -1203,11 +1724,13 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             q.setString("uname",role);
              q.setString("id",String.valueOf(adgym.getId()));
             List<Facility> results = q.list();
-
-            Facility ff = (Facility) results.get(0);
+  for(int i=0;i<results.size();i++)
+ {
+            Facility ff = (Facility) results.get(i);
         Set<Trainer> tt= ff.getTrainer_faci();
         tt.add(t);
         t.setFacility(ff);
+ }
             session.save(t);
             session.save(l);
             SMSOperation so = new SMSOperation();
@@ -1216,6 +1739,21 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             tx.commit();
             session.close();
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
 
@@ -1244,19 +1782,37 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             List<Trainer> results = q.list();
             System.out.println("query");
             System.out.println("yyyyy" + results.size());
-            for (int i = 0; i <= results.size(); i++) {
+            for (int i = 0; i <results.size(); i++) {
                 p1 = (Trainer) results.get(i);
+                if(p1!=null)
+                {
                 System.out.println("[][][" + p1.getId());
 //                   HashSet<Pack_facility> pac=new HashSet<Pack_facility>();
 //                 pac = getpacfacility(p1.getId());
                 //   System.out.println("---"+pac.toString());
                 Trainer t = new Trainer(p1.getFirstname(), p1.getMiddlename(), p1.getMiddlename(), p1.getEmail(), p1.getFacility().getName());
                 setfacility.add(t);
+                }
             }
 
             tx.commit();
             session.close();
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
 
@@ -1286,19 +1842,37 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             q.setString("uname",packagee);
              q.setString("id",String.valueOf(adgym.getId()));
             List<Gympackage> results = q.list();
-
-            Gympackage ff = (Gympackage) results.get(0);
+  for(int i=0;i<results.size();i++)
+ {
+            Gympackage ff = (Gympackage) results.get(i);
           Set<Members> mm= ff.getMembers_pack();
           mm.add(m);
           m.setGympack(ff);
+ 
             session.save(m);
             session.save(l);
+ }
             SMSOperation so = new SMSOperation();
             String result = so.sendSMS(String.valueOf(m.getPhoneno()), m.getPassword());
             System.out.println(result);
             tx.commit();
             session.close();
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
 
@@ -1314,17 +1888,34 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             q.setString("gymid", String.valueOf(ag.getId()));
 
             List<Gyminfo> results = q.list();
-
+  for(int i=0;i<results.size();i++)
+ {
             l = (Gyminfo) results.get(0);
             Addgym k = l.getA();
             l.setAbout_us_desc(g.getAbout_us_desc());
             l.setAbout_us_title(g.getAbout_us_title());
             k.setGyinfo(l);
             session.save(k);
+ }
             tx.commit();
             session.close();
 
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
     }
@@ -1352,7 +1943,7 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             List<Members> results = q.list();
             System.out.println("query");
             System.out.println("yyyyy" + results.size());
-            for (int i = 0; i <= results.size(); i++) {
+            for (int i = 0; i <results.size(); i++) {
                 m1 = (Members) results.get(i);
                 System.out.println("[][][" + m1.getId());
 //                   HashSet<Pack_facility> pac=new HashSet<Pack_facility>();
@@ -1366,6 +1957,21 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             tx.commit();
             session.close();
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
 
@@ -1397,6 +2003,21 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             session.close();
 
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
 
@@ -1462,6 +2083,21 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             tx.commit();
             session.close();
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
         return setfacility;
@@ -1526,6 +2162,21 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             tx.commit();
             session.close();
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
     }
@@ -1589,6 +2240,21 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             tx.commit();
             session.close();
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
     }
@@ -1616,16 +2282,33 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             q.setString("gymid",role);
  q.setString("id",gymid);
             List<Facility> results = q.list();
-           
-           Facility l = (Facility) results.get(0);
+          for(int i=0;i<results.size();i++)
+ {   
+           Facility l = (Facility) results.get(i);
        Set<Batches> f=l.getFaci_batches();
        f.add(b);
        b.setFacility_batches(l);
             session.save(b);
+ }
             id = b.getId();
             tx.commit();
             session.close();
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
         return id;
@@ -1646,13 +2329,29 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             q.setString("gymid", id);
 
             List<Members> results = q.list();
-
-            l = (Members) results.get(0);
-            
+  for(int i=0;i<results.size();i++)
+ {
+            l = (Members) results.get(i);
+ }
             
            
         } catch (Exception e) {
            // gymid = 0;
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
         return l;
@@ -1677,21 +2376,39 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             q.setString("gymid",member[i]);
 
             List<Members> results = q.list();
-           
-           Members l = (Members) results.get(0);
+    for(int j=0;j<results.size();j++)
+ {         
+           Members l = (Members) results.get(j);
              f.setBatch_mem(b);
         //   f.setName(l.get);
              f.setMemb(l); 
               l.setBatches(fa);
               fa.add(f);
                 fac.add(f);
+ }
             }
 
             b.setBatche_member(fac);
             session.save(b);
+            
             tx.commit();
             session.close();
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
     }
@@ -1710,11 +2427,28 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             q.setString("gymid", id);
 
             List<Addbranch> results = q.list();
-
-            l = (Addbranch) results.get(0);
+  for(int i=0;i<results.size();i++)
+ {
+            l = (Addbranch) results.get(i);
+ }
 
         } catch (Exception e) {
            // gymid = 0;
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
         return l;
@@ -1734,13 +2468,30 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             q.setString("gymid", id);
 
             List<Trainer> results = q.list();
-
-            l = (Trainer) results.get(0);
+  for(int i=0;i<results.size();i++)
+ {
+            l = (Trainer) results.get(i);
+ }
             
           // tid= l.getId();
            
         } catch (Exception e) {
            // gymid = 0;
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
         return l;
@@ -1772,6 +2523,21 @@ for(int i=0;i<results.size();i++)
            
         } catch (Exception e) {
            // gymid = 0;
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
        return ja;
@@ -1793,8 +2559,10 @@ for(int i=0;i<results.size();i++)
             q.setString("gymid", id);
 
             List<Facility> results = q.list();
-
-            l = (Facility) results.get(0);
+  for(int i=0;i<results.size();i++)
+ {
+            l = (Facility) results.get(i);
+            
           Set<Pack_facility> pf= l.getPack_fac();
          Iterator it= pf.iterator();
          while(it.hasNext())
@@ -1809,10 +2577,26 @@ for(int i=0;i<results.size();i++)
            ja.put(m.getFirstname());
        }
          }
+ }
           // tid= l.getId();
            
         } catch (Exception e) {
            // gymid = 0;
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
        return ja;
@@ -1830,8 +2614,9 @@ for(int i=0;i<results.size();i++)
             q.setString("gymid",member_name);
  q.setString("bid",branchid);
             List<Members> results = q.list();
-           
-           Members l = (Members) results.get(0);
+    for(int i=0;i<results.size();i++)
+ {         
+           Members l = (Members) results.get(i);
             System.out.println("===="+l.getFirstname());
            //db= b.getDiet();
             //System.out.println("oooo-" + b.getBatch_name());
@@ -1844,9 +2629,25 @@ for(int i=0;i<results.size();i++)
        // dp.setFact(b);
             System.out.println("----"+dp.getDescription());
            session.save(dp);
+ }
             tx.commit();
             session.close();
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
     }
@@ -1865,13 +2666,29 @@ for(int i=0;i<results.size();i++)
             q.setString("gymid", id);
 
             List<Members> results = q.list();
-
-            l = (Members) results.get(0);
-            
+for(int i=0;i<results.size();i++)
+ {
+            l = (Members) results.get(i);
+ } 
             
            
         } catch (Exception e) {
            // gymid = 0;
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
         return l;
@@ -1910,6 +2727,21 @@ int row=0;
            
         } catch (Exception e) {
            // gymid = 0;
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
         return msg;
@@ -1934,6 +2766,21 @@ int row=0;
             tx.commit();
             session.close();
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
 
@@ -1959,6 +2806,21 @@ int row=0;
             tx.commit();
             session.close();
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
 
@@ -1988,6 +2850,21 @@ int row=0;
             tx.commit();
             session.close();
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
 
@@ -2009,13 +2886,29 @@ int row=0;
             q.setString("gymid", String.valueOf(id));
 
             List<Gyminfo> results = q.list();
-
-            l = (Gyminfo) results.get(0);
-            
+ for(int i=0;i<results.size();i++)
+ {
+            l = (Gyminfo) results.get(i);
+ }          
             
            
         } catch (Exception e) {
            // gymid = 0;
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
         return l;
@@ -2035,13 +2928,29 @@ int row=0;
             q.setString("gymid", String.valueOf(id));
 
             List<Dietplan> results = q.list();
-
-            l = (Dietplan) results.get(0);
-            
+for(int i=0;i<results.size();i++)
+ {
+            l = (Dietplan) results.get(i);
+ } 
             
            
         } catch (Exception e) {
            // gymid = 0;
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
         return l;
@@ -2062,15 +2971,93 @@ int row=0;
             q.setString("gymid", id);
 
             List<Members> results = q.list();
-
-            l = (Members) results.get(0);
-            
+   for(int i=0;i<results.size();i++)
+ {
+            l = (Members) results.get(i);
+ }   
             id1=l.getId();
            
         } catch (Exception e) {
            // gymid = 0;
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            //werty  oploplopl
+            System.out.println("type= "+e.toString());
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             System.out.println(e.getMessage());
         }
         return id1;
     }
+//             public static void SendEmailwithAttach(String host, String port,
+//            final String username, final String password, String toAddress,
+//            String subject, String message)throws AddressException, javax.mail.MessagingException, IOException
+//    {
+//    
+//        Properties p=new Properties();
+//        p.put("mail.smtp.host",host);
+//        p.put("mail.smtp.port", port);
+//        p.put("mail.smtp.auth","true");
+//        p.put("mail.smtp.starttls.enable","true");
+//        p.put("mail.smtp.socketFactory.port" , "465");
+//        p.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+//        p.put("mail.user", username);
+//        p.put("mail.password",password);
+//    
+//         Authenticator auth = new Authenticator() {
+//            public PasswordAuthentication getPasswordAuthentication() {
+//                return new PasswordAuthentication(username, password);
+//            }
+//        };
+//         
+//         Session session=Session.getInstance(p, auth);
+//         
+//         Message msg=new MimeMessage(session);
+//         
+//         msg.setFrom(new InternetAddress(username));
+//        InternetAddress[] toAddresses = { new InternetAddress(toAddress) };
+//        msg.setRecipients(Message.RecipientType.TO, toAddresses);
+//        msg.setSubject(subject);
+//        msg.setSentDate(new Date());
+//        
+//         MimeBodyPart messageBodyPart = new MimeBodyPart();
+//        messageBodyPart.setContent(message, "text/html");
+// 
+//        // creates multi-part
+////        Multipart multipart = new MimeMultipart();
+////        multipart.addBodyPart(messageBodyPart);
+//// 
+////        // adds attachments
+////        if (attachedFiles != null && attachedFiles.size() > 0) {
+////            for (File aFile : attachedFiles) {
+////                MimeBodyPart attachPart = new MimeBodyPart();
+//// 
+////                try {
+////                    attachPart.attachFile(aFile);
+////                } catch (IOException ex) {
+////                    ex.printStackTrace();
+////                }
+//// 
+////                multipart.addBodyPart(attachPart);
+////            }
+////        }
+//// 
+////        // sets the multi-part as e-mail's content
+////        msg.setContent(multipart);
+//// 
+//        // sends the e-mail
+//        Transport.send(msg);
+//    
+//    
+//    }
 }
+

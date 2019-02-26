@@ -199,14 +199,20 @@
                                                     System.out.println("setpack...=" + setpack);
 
                                                     setpack = (HashSet<Addpackage>) session.getAttribute("setpack");
+                                                    if(setpack!=null)
+                                                    {
                                                     Iterator<Addpackage> it = setpack.iterator();
                                                     System.out.println("kkkk");
+                                                    if(it!=null)
+                                                    {
                                                     while (it.hasNext()) {
                                                         Addpackage adpack = it.next();
+                                                        if(adpack!=null)
+                                                        {
 
                                                 %>
                                                 <option value="<%=adpack.getName()%>"><%=adpack.getName()%></option>
-                                                <%}%>
+                                                <% }}}}%>
                                             </select>
                                         </div>
                                     </div>

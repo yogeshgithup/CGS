@@ -56,8 +56,9 @@ public class Logout extends HttpServlet {
      response.setDateHeader("Expires", 0);
      response.setHeader("Pragma","no-cache");
      HttpSession session=request.getSession(false);
-    int id=Integer.parseInt(session.getAttribute("sessss").toString());
-    System.out.println("...id"+id);
+     //int gymid=Integer.parseInt(session.getAttribute("gymid").toString());
+    //int id=Integer.parseInt(session.getAttribute("sessss").toString());
+    //System.out.println("...id"+id);
 //            if(id==0)
 //            {
 //                request.setAttribute("Error","Session has ended");
@@ -68,7 +69,7 @@ public class Logout extends HttpServlet {
      //   HttpSession session=request.getSession(true);  
            //session.invalidate(); 
             System.out.println("--------------------");
-          
+           System.out.println("op=="+op);
            if(op.equals("admin"))
            {
                 session.removeAttribute("gymid");

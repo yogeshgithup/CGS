@@ -55,7 +55,7 @@ public class Validatemember extends HttpServlet {
         HttpSession hs=request.getSession(true);
         int branchid= Integer.parseInt(hs.getAttribute("branchid").toString());
         int gymid=Integer.parseInt(hs.getAttribute("gymid").toString());
-        DataOperation doo=new DataOperation(scx);
+        DataOperation doo=new DataOperation(scx,gymid);
         if(request.getParameter("msg").equals("one"))
         {
          if (request.getParameter("id") != null) {

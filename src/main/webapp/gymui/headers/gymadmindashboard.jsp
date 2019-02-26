@@ -10,15 +10,18 @@
       int id111=Integer.parseInt(session.getAttribute("gymid").toString());
       String id1=String.valueOf(id111);
      System.out.println("...----id"+id1);
-        
-    if( id1 == null)
+       
+       if( id1.equals("0"))
     {
-    
-            
+      System.out.println("------uuu-----"+application.getContextPath()+"/gymui/pannel/userlogin.jsp?msg=you already logout");
+         
                 request.setAttribute("Error","Session has ended");
-               response.sendRedirect(application.getContextPath()+"/adminlogin1.jsp?msg=you already logout");
+                  response.sendRedirect(application.getContextPath()+"/adminlogin1.jsp?msg=you already logout");
                
-            
+    }
+    else
+    {
+       
     }
      }
      catch(Exception e)
@@ -26,9 +29,10 @@
           request.setAttribute("Error","Session has ended");
          System.out.println("-----------");
          System.out.println(application.getContextPath()+"/adminlogin1.jsp?msg=loggedout");
-           response.sendRedirect(application.getContextPath()+"/adminlogin1.jsp?msg=you already logout");
-               
+             response.sendRedirect(application.getContextPath()+"/adminlogin1.jsp?msg=you already logout");
+                   
      }
+   
 %>
 <html lang="en">
     

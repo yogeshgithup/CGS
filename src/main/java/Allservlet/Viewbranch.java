@@ -55,7 +55,7 @@ public void init(ServletConfig sc) throws ServletException
         
          //  System.out.println("gymid==="+l2.getId());
          System.out.println("view barnch");
-           DataOperation pko=new DataOperation(scx);
+           DataOperation pko=new DataOperation(scx,id);
             //Addgym gym = pko.getGymID(id);
            HashSet<Addbranch> listCatagory =pko.getbranch(id);
             session.setAttribute("setbranch",listCatagory);

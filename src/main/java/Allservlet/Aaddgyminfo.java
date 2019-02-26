@@ -62,10 +62,12 @@ public class Aaddgyminfo extends HttpServlet {
         Iterator<Part> itp = colpart.iterator();
         //ArrayList<Gallery> gal = new ArrayList<>();
         String at = scx.getInitParameter("accesstoken");
-        DropBoxOperation dbo = new DropBoxOperation(at);
-        DataOperation doo = new DataOperation(scx);
+        
+      
         HttpSession hs = request.getSession(true);
         int gymid = Integer.parseInt(hs.getAttribute("gymid").toString());
+        DropBoxOperation dbo = new DropBoxOperation(at, scx, gymid);
+          DataOperation doo = new DataOperation(scx,gymid);
         Addgym gym = doo.getGymID(gymid);
         System.out.println("gymid"+gym.getId()+"gym nme-"+gym.getGymname());
         Set<Gallery> ab = new HashSet<Gallery>();
@@ -90,7 +92,7 @@ public class Aaddgyminfo extends HttpServlet {
          }
          ArrayList<String> logo=new ArrayList<>();
            ArrayList<String> photo=new ArrayList<>();
-           
+           int k=0;
          while (itp.hasNext()) {
             Part p = itp.next();
             String ctrln = p.getName();
@@ -101,26 +103,41 @@ public class Aaddgyminfo extends HttpServlet {
             String filen = extractFileName(p);
                 String url = dbo.uploadFile(filen, is);
                 System.out.println("pop"+url);
+                if(url!=null)
+                {
                logo.add(url);
+                }
+                else
+                {
+                   k++; 
+                }
             }
             if (ctrln.equals("image")) {
 InputStream is = p.getInputStream();
             String filen = extractFileName(p);
                 String url = dbo.uploadFile(filen, is);
                 System.out.println("image-" + url);
-                
+                if(url!=null)
+                {
                 photo.add(url);
+                }
+                else
+                {
+                    k++;
+                }
             }
         }
         Gyminfo gi = new Gyminfo();
          String quality[]=request.getParameterValues("qualitymsg");
            for(int i=0;i<logo.size();i++)
          {
+             
              System.out.println("---"+logo.get(i)+"++"+quality[i]);
             gi.setLogo_url(logo.get(i));
            
             gi.setQuality_msg(quality[i]);
             gi.setA(gym);
+             
          }
            System.out.println("line 114");
     
@@ -137,7 +154,8 @@ InputStream is = p.getInputStream();
             
          }
 
-       
+       if(k==0)
+       {
         gym.setAchive(av);
 
        gym.setGallery(ab);
@@ -146,8 +164,12 @@ InputStream is = p.getInputStream();
        
       doo.addgyminfo(gym);
       //hs.setAttribute("gym",gym);
-       response.sendRedirect(scx.getContextPath()+"/Viewedit");
-  
+       response.sendRedirect(scx.getContextPath()+"/Viewedit?msg=added");
+       }
+       else
+       {
+          response.sendRedirect(scx.getContextPath()+"/Viewedit?msg=not added --- error in drop box");  
+       }
     }
 
     private String extractFileName(Part part) {

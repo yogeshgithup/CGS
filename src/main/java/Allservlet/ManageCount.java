@@ -44,8 +44,9 @@ public void init(ServletConfig sc) throws ServletException
             throws ServletException, IOException {
         
         PrintWriter out=response.getWriter();
-        
-       DataOperation pko=new DataOperation(scx);
+         HttpSession session=request.getSession(true);  
+         int id=Integer.parseInt(session.getAttribute("gymid").toString());
+       DataOperation pko=new DataOperation(scx,id);
        
        String op=request.getParameter("op");
         HttpSession hs=request.getSession(true);

@@ -1,23 +1,14 @@
 <!DOCTYPE html>
-<%
- response.setHeader("Cache-Control","no-cache");
-     response.setHeader("Cache-Control","no-store");
-     response.setDateHeader("Expires", 0);
-     response.setHeader("Pragma","no-cache");
-      session=request.getSession(true);
-    int id=Integer.parseInt(session.getAttribute("gymid").toString());
-    System.out.println("...id"+id);
-            if(id==0)
-            {
-                request.setAttribute("Error","Session has ended");
-                RequestDispatcher rd=request.getRequestDispatcher("adminlogin1.jsp?msg=loggedout");
-                rd.forward(request, response);
-            }
-
-
-%>
 <html lang="en">
+<%
+String msgg=(String)application.getAttribute("msg");
 
+if(msgg!="")
+{
+    response.sendRedirect( application.getContextPath()+"/gymui/headers/notfound.jsp?msg="+msgg);
+ 
+}
+%>
 <head>
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
