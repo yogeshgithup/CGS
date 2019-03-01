@@ -5,24 +5,6 @@
 <%@page import="com.mycompany.loginmodule.Addgym"%>
 <%@page import="java.util.HashSet"%>
 <!DOCTYPE html>
-<%
-    response.setHeader("Cache-Control","no-cache");
-     response.setHeader("Cache-Control","no-store");
-     response.setDateHeader("Expires", 0);
-     response.setHeader("Pragma","no-cache");
-     System.out.println("{{{{{");
-     
-    Integer id=(Integer)session.getAttribute("gymid");
-    System.out.println("...id...+"+id);
-            if(id==null)
-            {
-                System.out.println("eeee");
-                request.setAttribute("msg","Session has ended");
-                RequestDispatcher rd=request.getRequestDispatcher("/adminlogin.jsp");
-                rd.forward(request, response);
-                System.out.println("uuuu");
-            }
-    %>
 <html lang="en">
 
 <!--<head>
@@ -78,13 +60,16 @@
           
               
              setbranch=(HashSet<Facility>)session.getAttribute("viewfacility");
+             if(setbranch!=null)
+             {
             Iterator<Facility> it=setbranch.iterator();
+            if(it!=null){
             System.out.println("kkkk");
             while(it.hasNext())
             {
                 Facility f=it.next();
            
-            
+            if(f!=null){
           %>
 
           <tr id="<%=f.getId()%>">
@@ -92,7 +77,7 @@
                           <td><%= f.getName()%></td>
                            
                       </tr>
-                      <%}%>
+                      <% }}}}%>
                     </tbody>
                   </table>
                 </div>
@@ -130,6 +115,6 @@
   <script>
   $(function(){
     $("#gym").dataTable();
-  })
+  });
   </script>
 </html>

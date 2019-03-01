@@ -52,13 +52,13 @@ public void init(ServletConfig sc) throws ServletException
         PrintWriter out=response.getWriter();
          HttpSession session=request.getSession(true);  
          int id=Integer.parseInt(session.getAttribute("gymid").toString());
-        
+      String msg=  request.getParameter("msg");
          //  System.out.println("gymid==="+l2.getId());
          System.out.println("view barnch");
-           DataOperation pko=new DataOperation(scx);
+           DataOperation pko=new DataOperation(scx,id);
            HashSet<addbranchoperator> listCatagory =pko.getbranchoperator(id);
             session.setAttribute("setbranchop",listCatagory);
-         response.sendRedirect(scx.getContextPath()+"/gymui/pannel/managebranchoperator1.jsp");
+         response.sendRedirect(scx.getContextPath()+"/gymui/pannel/managebranchoperator1.jsp?msg="+msg);
         
 }
 }

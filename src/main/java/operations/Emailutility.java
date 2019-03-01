@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Dbconnecti0n;
+package operations;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,7 +30,7 @@ public class Emailutility {
     
     public static void SendEmailwithAttach(String host, String port,
             final String username, final String password, String toAddress,
-            String subject, String message, List<File> attachedFiles)throws AddressException, javax.mail.MessagingException, IOException
+            String subject, String message)throws AddressException, javax.mail.MessagingException, IOException
     {
     
         Properties p=new Properties();
@@ -67,19 +67,19 @@ public class Emailutility {
         multipart.addBodyPart(messageBodyPart);
  
         // adds attachments
-        if (attachedFiles != null && attachedFiles.size() > 0) {
-            for (File aFile : attachedFiles) {
-                MimeBodyPart attachPart = new MimeBodyPart();
- 
-                try {
-                    attachPart.attachFile(aFile);
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
- 
-                multipart.addBodyPart(attachPart);
-            }
-        }
+//        if (attachedFiles != null && attachedFiles.size() > 0) {
+//            for (File aFile : attachedFiles) {
+//                MimeBodyPart attachPart = new MimeBodyPart();
+// 
+//                try {
+//                    attachPart.attachFile(aFile);
+//                } catch (IOException ex) {
+//                    ex.printStackTrace();
+//                }
+// 
+//                multipart.addBodyPart(attachPart);
+//            }
+//        }
  
         // sets the multi-part as e-mail's content
         msg.setContent(multipart);

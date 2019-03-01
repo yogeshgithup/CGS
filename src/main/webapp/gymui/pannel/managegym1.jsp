@@ -71,11 +71,15 @@
           
               
              setgym=(HashSet<Addgym>)session.getAttribute("viewgym");
+             if(setgym !=null){
             Iterator<Addgym> iti=setgym.iterator();
+            if(iti!=null){
             System.out.println("kkkk");
             while(iti.hasNext())
             {
                 Addgym adgym=iti.next();
+                if(adgym!=null)
+                {
             
           %>
                   <tr id="<%=adgym.getId()%>">
@@ -103,7 +107,7 @@
                            </a>
                             </td>-->
                       </tr>
-                      <%}%>
+                      <% }}}}%>
                     </tbody>
                   </table>
                 </div>

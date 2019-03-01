@@ -55,10 +55,11 @@ public void init(ServletConfig sc) throws ServletException
    
       String faci[]=request.getParameterValues("faci");
         System.out.println("ppp"+faci);
-          DataOperation doo = new DataOperation(scx);
+         
        
          HttpSession hs = request.getSession(true);
         int gymid = Integer.parseInt(hs.getAttribute("gymid").toString());
+         DataOperation doo = new DataOperation(scx,gymid);
 //        Addgym gym=doo.getGymID(gymid);
 //         Set<Facility> fac = new HashSet<Facility>();
 //        fac=gym.getFacility();

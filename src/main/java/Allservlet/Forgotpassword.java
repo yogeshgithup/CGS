@@ -53,7 +53,7 @@ public void init(ServletConfig sc) throws ServletException
     n=doo.forgotpassword(username);
     n="message sent";
             System.out.println("");
-        response.sendRedirect(scx.getContextPath()+"/adminlogin.jsp?msg="+n);
+        response.sendRedirect(scx.getContextPath()+"/adminlogin1.jsp?msg="+n);
             System.out.println("iiiii");
         }
         catch(Exception e)

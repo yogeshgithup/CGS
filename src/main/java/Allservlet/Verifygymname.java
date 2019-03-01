@@ -46,6 +46,10 @@ public class Verifygymname extends HttpServlet {
             throws ServletException, IOException {
 
         PrintWriter out = response.getWriter();
+         HttpSession session=request.getSession(true);  
+        
+         
+        // int id=Integer.parseInt(session.getAttribute("gymid").toString());
         DataOperation doo = new DataOperation(scx);
         if (request.getParameter("id") != null) {
             String gymname = request.getParameter("id");

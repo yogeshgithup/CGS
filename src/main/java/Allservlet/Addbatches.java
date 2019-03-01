@@ -62,7 +62,7 @@ System.out.println("hiii");
           HttpSession hs=request.getSession(true);
         int branchid= Integer.parseInt(hs.getAttribute("branchid").toString());
           String gymid = hs.getAttribute("gymid").toString();
-        DataOperation doo=new DataOperation(scx);
+        DataOperation doo=new DataOperation(scx,Integer.parseInt(gymid));
        int id=doo.addBatch(b, branchid,facility,gymid);
           
           doo.addBatch_member(id, membername);

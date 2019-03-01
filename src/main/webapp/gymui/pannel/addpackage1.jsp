@@ -4,10 +4,10 @@
 <%@page import="java.util.HashSet"%>
 <%
   
-    String msg=request.getParameter("msg");
-      if(msg==null)
+    String msge=request.getParameter("msg");
+      if(msge==null)
       {
-          msg="";
+          msge="";
       }
         %>
 <html lang="en">
@@ -112,7 +112,7 @@ function ValidateForm(){
           <div class="col-md-8">
             <div class="card">
               <div class="card-header">
-                   <div id="msg" style="color:green"><h2><%=msg%></h2></div>
+                   <div id="msg" style="color:green"><h2><%=msge%></h2></div>
                 <h5 class="title">ADD PACKAGE</h5>
               </div>
               <div class="card-body">

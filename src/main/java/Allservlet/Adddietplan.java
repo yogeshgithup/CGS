@@ -51,8 +51,11 @@ System.out.println("hiii");
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String at = scx.getInitParameter("accesstoken");
-        DropBoxOperation dbo = new DropBoxOperation(at);
-        DataOperation doo=new DataOperation(scx);
+       
+          HttpSession hs = request.getSession(true);
+        int gymid = Integer.parseInt(hs.getAttribute("gymid").toString());
+        DataOperation doo=new DataOperation(scx,gymid);
+        DropBoxOperation dbo = new DropBoxOperation(at, scx, gymid);
         String batchname=request.getParameter("op1");
         String membersname=request.getParameter("op2");
         String memberstartdate=request.getParameter("memberstartdate");
@@ -73,7 +76,7 @@ System.out.println("hiii");
                         dp.setDescription(description);
                         dp.setPhoto(url);
                         System.out.println("---"+url);
-                         HttpSession hs=request.getSession(true);
+                      
         Trainer t= (Trainer)hs.getAttribute("trainer");
                         doo.Adddietplan(dp, batchname, membersname,String.valueOf( t.getAdbranch().getId()));
              response.sendRedirect(scx.getContextPath()+"/Viewdiet?op=msg");

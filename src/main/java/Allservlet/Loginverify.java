@@ -69,6 +69,7 @@ public void init(ServletConfig sc) throws ServletException
       l.setPassword(password);
         System.out.println("hhhhhh");
         System.out.println("yynunu");
+      
    Addgym l2=soo.verify(l);
         System.out.println("....."+l2);
         System.out.println("lllllll");

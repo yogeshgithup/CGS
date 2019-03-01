@@ -62,11 +62,16 @@
           
               
              setbranch=(HashSet<Addbranch>)session.getAttribute("setbranch");
+             if(setbranch!=null)
+             {
             Iterator<Addbranch> it=setbranch.iterator();
             System.out.println("kkkk");
+            if(it!=null)
+            {
             while(it.hasNext())
             {
                 Addbranch adbranch=it.next();
+               
                 if(adbranch!=null)
                 {
               
@@ -81,7 +86,7 @@
                               <td><%=adbranch.getPostalcode()%></td>
                                   </tr>
                       <% } 
-            }%>
+            } } } %>
                     </tbody>
                   </table>
                 </div>

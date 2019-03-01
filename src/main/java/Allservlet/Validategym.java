@@ -6,6 +6,7 @@
 
 package Allservlet;
 
+import com.mycompany.loginmodule.Addgym;
 import com.mycompany.loginmodule.Members;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -23,9 +24,8 @@ import operations.DataOperation;
  *
  * @author Shravan
  */
-public class Validatemember extends HttpServlet {
-
-   ServletContext scx;
+public class Validategym extends HttpServlet {
+ServletContext scx;
 
     @Override
     public void init(ServletConfig sc) throws ServletException {
@@ -53,37 +53,37 @@ public class Validatemember extends HttpServlet {
         PrintWriter out = response.getWriter();
         
         HttpSession hs=request.getSession(true);
-        int branchid= Integer.parseInt(hs.getAttribute("branchid").toString());
-        int gymid=Integer.parseInt(hs.getAttribute("gymid").toString());
-        DataOperation doo=new DataOperation(scx,gymid);
-        if(request.getParameter("msg").equals("one"))
+            DataOperation doo=new DataOperation(scx);
+        if(request.getParameter("msg").equals("view"))
+        {
+           HashSet<Addgym> g=  doo.invalidGym();
+           hs.setAttribute("invalidgym",g);
+          if(hs!=null)
+          {
+              response.sendRedirect(scx.getContextPath()+"/gymui/pannel/gymreminder.jsp");
+          }
+        }
+        
+          if(request.getParameter("msg").equals("one"))
         {
          if (request.getParameter("id") != null) {
          
              String id = request.getParameter("id");
-             doo.sendmessage(id);
+             doo.sendmessagegym(id);
              out.println("message send");
          }
         }
         else if(request.getParameter("msg").equals("all"))
         {
-            String branchidi=request.getParameter("id");
-            System.out.println("---"+branchidi);
-            doo.sendmessage_all(branchidi);
+            System.out.println("----------");
+            doo.sendmessage_allgym();
             out.println("message sent to all");
         }
-        else if(request.getParameter("msg").equals("view"))
-        {
-        
-       HashSet<Members> listCatagory=doo.invalidmember(branchid);
-        hs.setAttribute("setvalidmember",listCatagory);
-          if(hs!=null)
-          {
-              response.sendRedirect(scx.getContextPath()+"/gymui/pannel/view_X_members1.jsp");
-          }
-        }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        } 
+       
     }
+        catch(Exception e)
+        {
+            System.out.println("---"+e.getMessage());
+        }
+}
 }

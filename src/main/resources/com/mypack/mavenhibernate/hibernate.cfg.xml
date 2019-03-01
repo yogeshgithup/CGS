@@ -23,6 +23,13 @@ and open the template in the editor.
         <!-- create table if not -->
         <property name="hbm2ddl.auto">update</property>
        
+       <property name="hibernate.c3p0.min_size">1</property>
+  <property name="hibernate.c3p0.max_size">20</property>
+  <property name="hibernate.c3p0.timeout">120</property>
+  <property name="hibernate.c3p0.max_statements">50</property>
+  <property name="hibernate.c3p0.idle_test_period">120</property>
+  
+  
         <mapping class="com.mycompany.loginmodule.Login"/>
          <mapping class="com.mycompany.loginmodule.Addpackage"/>
           <mapping class="com.mycompany.loginmodule.Addgym"/>
@@ -41,6 +48,7 @@ and open the template in the editor.
              <mapping class="com.mycompany.loginmodule.Batches"/>
              <mapping class="com.mycompany.loginmodule.Batch_member"/>
              <mapping class="com.mycompany.loginmodule.Dietplan"/>
+               <mapping class="com.mycompany.loginmodule.Errors"/>
         </session-factory>
     </hibernate-configuration>
 

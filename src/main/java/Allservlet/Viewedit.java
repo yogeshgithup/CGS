@@ -7,8 +7,10 @@
 package Allservlet;
 
 import com.mycompany.loginmodule.Addgym;
+import com.mycompany.loginmodule.Gyminfo;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashSet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -52,15 +54,18 @@ public void init(ServletConfig sc) throws ServletException
         PrintWriter out=response.getWriter();
          HttpSession session=request.getSession(true);  
          int id=Integer.parseInt(session.getAttribute("gymid").toString());
-        
+        String msg=request.getParameter("msg");
+        System.out.println("--------------------------------"+msg);
          //  System.out.println("gymid==="+l2.getId());
          System.out.println("----------");
          System.out.println("view barnch");
-           DataOperation pko=new DataOperation(scx);
-            Addgym gym = pko.getGymID(id);
-          pko.getmembers(id);
+           DataOperation pko=new DataOperation(scx,id);
+           HashSet<Gyminfo> gym=new HashSet<Gyminfo>();
+           gym = pko.getGymEdit(id);
+      //  pko.getmembers(id);
+            System.out.println("----------");
             session.setAttribute("setedit",gym);
-         response.sendRedirect(scx.getContextPath()+"/gymui/pannel/managemainpage.jsp");
+         response.sendRedirect(scx.getContextPath()+"/gymui/pannel/managemainpage.jsp?msg="+msg);
         
 }
 }

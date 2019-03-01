@@ -6,6 +6,7 @@
 
 package Allservlet;
 
+import com.mycompany.loginmodule.Addgym;
 import com.mycompany.loginmodule.Login;
 import com.mycompany.loginmodule.Logingym;
 import com.mycompany.loginmodule.Members;
@@ -68,13 +69,23 @@ public void init(ServletConfig sc) throws ServletException
         System.out.println("....."+l2);
         System.out.println("lllllll");
         System.out.println(l2.getType());
+        
+  Addgym aa=l2.getAdgym();
+int gymid=  aa.getId();
+        System.out.println("---------"+gymid);
         String b="branchoperator";
         String t="traineer";
         String m="member";
-        int branchid=so.getbranchid(name);
-       int gymid=so.getgymid(branchid);
-       String branchname=so.getbranchname(branchid);
+       
+      // int gymid=so.getgymid(branchid);
+        String branchname="";
+        int branchid=0;
+        if(l2.getType().equals(b))
+        {
+         branchid=so.getbranchid(name);
+       branchname=so.getbranchname(branchid);
         System.out.println("----"+branchname);
+        }
        String gymname=so.getgymname(gymid);
         System.out.println("++++"+gymname);
        HttpSession hs=request.getSession(true);

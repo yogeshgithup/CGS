@@ -160,11 +160,14 @@
           
               
              setpack=(HashSet<Addpackage>)session.getAttribute("viewpack");
+             if(setpack!=null){
             Iterator<Addpackage> it=setpack.iterator();
+            if(it!=null){
             System.out.println("kkkk");
             while(it.hasNext())
             {
                 Addpackage adpack=it.next();
+                if(adpack!=null){
             adpack.getId();
             adpack.getName();
             adpack.getTime();
@@ -184,7 +187,7 @@
             
                      
                       </tr>
-                      <%}%>
+                      <% }}}}%>
             
                     </tbody>
                   </table>

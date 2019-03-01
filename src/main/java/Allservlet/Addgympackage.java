@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import operations.DataOperation;
+import org.hibernate.id.IntegralDataTypeHolder;
 
 /**
  *
@@ -58,7 +59,7 @@ public void init(ServletConfig sc) throws ServletException
         String gymid= hs.getAttribute("gymid").toString();
         System.out.println(gymid);
         
-        DataOperation doo=new DataOperation(scx);
+        DataOperation doo=new DataOperation(scx,Integer.parseInt(gymid));
       int id= doo.addgympackage(Integer.parseInt(gymid), gp);
         System.out.println("----"+id);
         String facility[]=request.getParameterValues("facility");

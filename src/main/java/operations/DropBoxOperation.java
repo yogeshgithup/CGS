@@ -1,14 +1,6 @@
 
 
 package operations;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URL;
-
 import com.dropbox.core.DbxException;
 import com.dropbox.core.DbxRequestConfig;
 import com.dropbox.core.http.SSLConfig;
@@ -21,12 +13,28 @@ import com.dropbox.core.v2.files.ListFolderResult;
 import com.dropbox.core.v2.files.Metadata;
 import com.dropbox.core.v2.sharing.SharedLinkMetadata;
 import com.dropbox.core.v2.users.FullAccount;
+import com.mycompany.loginmodule.Errors;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
+import javax.servlet.ServletContext;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 public class DropBoxOperation {
     private DbxRequestConfig config = null;
     DbxClientV2 client = null;
     FullAccount account = null;
-    
+    SessionFactory sfobj;
+    Session session;
+    Transaction tx = null;
+    ServletContext scx;
+    int gymid;
     public DropBoxOperation(String ACCESS_TOKEN)
     {
         // Create Dropbox client "en-US")
@@ -40,6 +48,46 @@ public class DropBoxOperation {
         catch (DbxException dbxe)
         {
             dbxe.printStackTrace();
+            
+        }
+    }
+      public DropBoxOperation(String ACCESS_TOKEN,ServletContext scx,int gymid)
+    {
+        // Create Dropbox client "en-US")
+         this.scx=scx;
+            this.gymid=gymid;
+        config = new DbxRequestConfig("text-edit/0.1", "en-US");
+        client = new DbxClientV2(config, ACCESS_TOKEN);
+        
+        try {
+            FullAccount account = client.users().getCurrentAccount();
+            System.out.println(account.getName().getDisplayName());
+           
+        }
+//        catch (DbxException dbxe)
+//        {
+//            
+//            dbxe.printStackTrace();
+//            
+//        }
+        catch(DbxException e)
+        {
+            System.out.println("---------++++++");
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+               session = sfobj.openSession();
+            tx = session.beginTransaction();
+            Errors ee=new Errors();
+            ee.setGymid(gymid);
+            
+             
+                System.out.println();
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.getMessage());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            
+
+            session.save(ee);
+             tx.commit();
+            session.close();
         }
     }
     
@@ -117,18 +165,41 @@ public class DropBoxOperation {
               url=url.substring(0, url.length()-1)+"1";
             
         }
-         catch (FileNotFoundException fne)
-        {
-            System.out.println("96 : FileNotFoundException Caused By "+fne.getLocalizedMessage());
-        }
+//         catch (FileNotFoundException fne)
+//        {
+//            System.out.println("96 : FileNotFoundException Caused By "+fne.getLocalizedMessage());
+//        }
         catch (IOException ioe)
         {
             System.out.println("100 : IOException Caused By "+ioe.getLocalizedMessage());
         }
-        catch (DbxException dbxe)
+//        catch (DbxException dbxe)
+//        {
+//            
+//            System.out.println("105 : DbxException Caused By "+dbxe.getLocalizedMessage());
+//        }
+         catch(DbxException e)
         {
-            
-            System.out.println("105 : DbxException Caused By "+dbxe.getLocalizedMessage());
+            System.out.println("--++--------+++++");
+               session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+            System.out.println("mathod name= "+e.getStackTrace()[2].getMethodName());
+            System.out.println("type= "+e.toString());
+             String nameofCurrMethod = new Throwable() 
+                                      .getStackTrace()[2] 
+                                      .getMethodName(); 
+             System.out.println("----method"+nameofCurrMethod);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
         }
        return url;
     }

@@ -54,7 +54,7 @@ public void init(ServletConfig sc) throws ServletException
         String area=request.getParameter("area");
         String postcode=request.getParameter("postalcode");
        
-         DataOperation doo=new DataOperation(scx);
+      
          Addbranch ab=new Addbranch();
          System.out.println(".............");
          ab.setBranchname(branchname);
@@ -64,6 +64,7 @@ public void init(ServletConfig sc) throws ServletException
          
           HttpSession hs=request.getSession(true);
         int gymid= Integer.parseInt(hs.getAttribute("gymid").toString());
+           DataOperation doo=new DataOperation(scx,gymid);
         System.out.println(gymid);
          doo.addbranch(ab, gymid);
        response.sendRedirect(scx.getContextPath()+"/Viewbranch");

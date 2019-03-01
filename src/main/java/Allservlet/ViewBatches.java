@@ -48,11 +48,13 @@ public void init(ServletConfig sc) throws ServletException
             throws ServletException, IOException {
         
         PrintWriter out=response.getWriter();
-         HttpSession session=request.getSession(true);  
+        // HttpSession session=request.getSession(true);  
+          HttpSession session=request.getSession(true);  
+         int id=Integer.parseInt(session.getAttribute("gymid").toString());
        String branchid= session.getAttribute("branchid").toString();
          //  System.out.println("gymid==="+l2.getId());
          System.out.println("view batches");
-           DataOperation pko=new DataOperation(scx);
+           DataOperation pko=new DataOperation(scx,id);
             //Addgym gym = pko.getGymID(id);
            Addbranch ab=pko.getBranch(branchid);
             session.setAttribute("getbranch",ab);

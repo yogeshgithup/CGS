@@ -13,6 +13,7 @@ import com.mycompany.loginmodule.Batch_member;
 import com.mycompany.loginmodule.Batches;
 import com.mycompany.loginmodule.Dietplan;
 import com.mycompany.loginmodule.Equipment;
+import com.mycompany.loginmodule.Errors;
 import com.mycompany.loginmodule.Facility;
 import com.mycompany.loginmodule.Gallery;
 import com.mycompany.loginmodule.Gyminfo;
@@ -23,6 +24,7 @@ import com.mycompany.loginmodule.Members;
 import com.mycompany.loginmodule.Pack_facility;
 import com.mycompany.loginmodule.Trainer;
 import com.mycompany.loginmodule.addbranchoperator;
+import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -34,17 +36,28 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 import java.util.Random;
 import java.util.Set;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.engine.jdbc.batch.spi.Batch;
 import org.json.JSONArray;
+
+import java.util.List;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.internet.AddressException;
 
 /**
  *
@@ -65,9 +78,14 @@ public class DataOperation {
     String url;
     Logingym l2 = null;
     String image_url;
-
+     int gymid11;
     public DataOperation(ServletContext scx) {
         this.scx = scx;
+    }
+    
+    public DataOperation(ServletContext scx,int gymid) {
+        this.scx = scx;
+        this.gymid11=gymid;
     }
 
     public Addgym verify(Logingym l) {
@@ -92,7 +110,11 @@ public class DataOperation {
             q.setString("pass", l.getPassword());
             List<Logingym> results = q.list();
             System.out.println("oooooo");
+           
+ 
             l2 = (Logingym) results.get(0);
+            System.out.println(""+l2.getType());
+ 
              a=l2.getA();
             System.out.println("" + l2.getUsername());
             System.out.println("passed" + l.getPassword());
@@ -117,7 +139,9 @@ public class DataOperation {
              j=j+2;
              }*/
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+           
+           
+           // try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            }
         }
         System.out.println("///" + a.getId());
         return a;
@@ -134,7 +158,7 @@ public class DataOperation {
             tx.commit();
             session.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+           // try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            }
         }
     }
 
@@ -164,7 +188,7 @@ public class DataOperation {
             tx.commit();
             session.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            //try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            }
         }
 
         return setpack;
@@ -180,7 +204,8 @@ public class DataOperation {
             Addpackage p1 = null;
             List<Addpackage> results = q.list();
             System.out.println("query");
-
+ for(int i=0;i<results.size();i++)
+ {
             p1 = (Addpackage) results.get(0);
             int id = p1.getId();
             Addpackage l1 = null;
@@ -196,6 +221,7 @@ public class DataOperation {
             SMSOperation so = new SMSOperation();
             String result = so.sendSMS(ag.getPhoneno(), ag.getPassword());
             System.out.println(result);
+ }
             session.save(ag);
 
             n = "Gym Added";
@@ -205,12 +231,12 @@ public class DataOperation {
         } catch (Exception e) {
 
             n = "failed to add gym";
-            System.out.println(e.getMessage());
+           // try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            }
         }
         return n;
     }
 
-    public String addbranchoperator(addbranchoperator abo, Login l, Addgym gym) {
+    public String addbranchoperator(addbranchoperator abo, Login l, Addgym gym) throws MessagingException {
         try {
             sfobj = (SessionFactory) scx.getAttribute("sf");
             session = sfobj.openSession();
@@ -221,8 +247,10 @@ public class DataOperation {
             q.setString("branchname", abo.getBranchname());
 
             Addbranch b1 = null;
+           
             List<Addbranch> results = q.list();
-
+  for(int i=0;i<results.size();i++)
+ {
             b1 = (Addbranch) results.get(0);
             int id = b1.getId();
             System.out.println("cxcxcxcx" + id);
@@ -235,21 +263,51 @@ public class DataOperation {
             ab = gym.getLogin();
             ab.add(l);
             l.setAdgym(gym);
+ 
 //                          session.save(abo);
             session.save(b2);
             session.save(l);
-            SMSOperation so = new SMSOperation();
-            String result = so.sendSMS(String.valueOf(abo.getPhoneno()), abo.getPassword());
-            System.out.println(result);
+ }          
 
             n = "branchoperator Added";
             tx.commit();
             session.close();
+            SMSOperation so = new SMSOperation();
+            String result = so.sendSMS(String.valueOf(abo.getPhoneno()), abo.getPassword());
+            System.out.println(result);
 
         } catch (Exception e) {
+          session = sfobj.openSession();
+            tx = session.beginTransaction();
 
-            n = "failed to add branch";
-            System.out.println(e.getMessage());
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+                  String smtp=   scx.getInitParameter("smtp");
+             String port=scx.getInitParameter("port");
+             String username=scx.getInitParameter("username");
+             String password=scx.getInitParameter("password");
+             //Dbconnecti0n.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",);
+           //  SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error mesaage", , null);
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+//             SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error mesaage","line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString()"+method ="+e.getStackTrace()[2].getMethodName() , null);
+      
+            session.close();
+            try {
+               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());
+            } catch (AddressException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
+         
+           
         }
         return n;
     }
@@ -266,7 +324,7 @@ public class DataOperation {
             session.close();
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+           // try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            }
         }
     }
 
@@ -295,7 +353,7 @@ public class DataOperation {
             tx.commit();
             session.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+           // try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            }
         }
 
         return setgym;
@@ -337,10 +395,11 @@ public class DataOperation {
             q.setString("lname", l.getLoginid());
             q.setString("pass", l.getPassword());
             List<Login> results = q.list();
-
-            l = (Login) results.get(0);
+  for(int i=0;i<results.size();i++)
+ {
+            l = (Login) results.get(i);
             System.out.println(l.getType());
-
+ }
             //System.out.println("mmmmm"+l.getType());
             /* if(b.equals(l.getType())) {
              j=j+1;
@@ -351,7 +410,7 @@ public class DataOperation {
              j=j+2;
              }*/
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+           // try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            }
         }
         System.out.println("///" + j);
         return l;
@@ -378,7 +437,25 @@ public class DataOperation {
             tx.commit();
             session.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+             String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());   
+            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -414,7 +491,7 @@ public class DataOperation {
             System.out.println("gp 59");
             List<Addbranch> results = q.list();
             System.out.println("query");
-            for (int i = 0; i <= results.size(); i++) {
+            for (int i = 0; i < results.size(); i++) {
                 p1 = (Addbranch) results.get(i);
                 Addbranch p2 = new Addbranch(p1.getId(), p1.getBranchname(), p1.getStreet(), p1.getArea(), p1.getPostalcode());
                 setbranch.add(p2);
@@ -423,7 +500,27 @@ public class DataOperation {
             tx.commit();
             session.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+           
+          //  Addgym g=   getGymID(gymid11);
+           // g.getUsername();
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {        
+                operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         return setbranch;
@@ -485,7 +582,24 @@ public class DataOperation {
             tx.commit();
             session.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         return setbranchop;
@@ -501,7 +615,24 @@ public class DataOperation {
             tx.commit();
             session.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
     }
@@ -516,7 +647,24 @@ public class DataOperation {
             tx.commit();
             session.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym gg=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,gg.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
     }
@@ -532,7 +680,24 @@ public class DataOperation {
             tx.commit();
             session.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -549,7 +714,8 @@ public class DataOperation {
             q.setString("uname", username);
 
             List<Logingym> results = q.list();
-
+  for(int i=0;i<results.size();i++)
+ {
             l = (Logingym) results.get(0);
             System.out.println(l.getType());
             Addgym a = l.getA();
@@ -567,10 +733,10 @@ public class DataOperation {
             String result = so.sendSMS(a.getPhoneno(), l.getPassword());
             n = result;
             System.out.println(result);
-
+ }
         } catch (Exception e) {
             n = "failed to send message check username";
-            System.out.println(e.getMessage());
+           // try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            }
         }
 
         return n;
@@ -603,7 +769,7 @@ public class DataOperation {
 //                        tx.commit();
 //                    session.close();
 //                    } catch (Exception e) {
-//                        System.out.println(e.getMessage());
+//                        try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            }
 //                    }
 //       
 //         return setbranch;
@@ -627,7 +793,24 @@ public class DataOperation {
             }
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return url;
     }
@@ -654,14 +837,81 @@ public class DataOperation {
             System.out.println(";;;;" + gymid);
             System.out.println(gymid);
             ag = (Addgym) session.load(Addgym.class, gymid);
-            tx.commit();
-            session.close();
+            
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return ag;
     }
+    
+     public  HashSet<Gyminfo> getGymEdit(int gymid) {
+        HashSet<Gyminfo> gyminfo = null;
+        try {
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+            session = sfobj.openSession();
+            tx = session.beginTransaction();
+            Gyminfo ag=null;
+            System.out.println(";;;;;;;;;" + gymid);
+            System.out.println(gymid);
+            
+              Query q = session.createQuery("from Gyminfo where id=:gymidi");
+            q.setString("gymidi", String.valueOf(gymid));
+            System.out.println("gp 59");
+            List<Gyminfo> results = q.list();
+            System.out.println("query");
+            for (int i = 0; i < results.size(); i++) {
+              ag = (Gyminfo) results.get(i);
+            System.out.println(ag.getAbout_us_desc());
+            gyminfo.add(ag);
+                    }
+           tx.commit();
+           session.close();
+            
+
+        } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return gyminfo;
+    }
+    
+    
+    
+    
 
     public String verifygymname(String gymname) {
         String gym = null;
@@ -677,13 +927,40 @@ public class DataOperation {
             q.setString("uname", gymname);
 
             List<Addgym> results = q.list();
+ 
+       if (results.size()==0) {
 
-            l = (Addgym) results.get(0);
-            if (l != null) {
-                gym = "already exists";
+                System.out.println("helll");
+               gym= "already exists";
             }
+            else
+            {
+    for(int i=0;i<results.size();i++)
+    {
+            l = (Addgym) results.get(0);
+            System.out.println("ppp");
+    }
+            }
+ 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return gym;
     }
@@ -702,13 +979,40 @@ public class DataOperation {
             q.setString("uname", packagename);
 
             List<Addpackage> results = q.list();
+  
+             if (results.size()==0) {
 
-            l = (Addpackage) results.get(0);
-            if (l != null) {
+                System.out.println("helll");
                 pack = "already exists";
             }
+            else
+            {
+    for(int i=0;i<results.size();i++)
+    {
+            l = (Addpackage) results.get(0);
+            System.out.println("ppp");
+    }
+            }
+ 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return pack;
     }
@@ -722,22 +1026,46 @@ public class DataOperation {
             //String b = "branchoperator";
             //String c = "traineer";
             Logingym l = null;
-
+            System.out.println("-------"+email);
             Query q = session.createQuery("from Logingym where Username=:uname");
             q.setString("uname", email);
 
             List<Logingym> results = q.list();
-
-            l = (Logingym) results.get(0);
-            System.out.println("ppp");
-            if (l == null) {
+            if (results.size()==0) {
 
                 System.out.println("helll");
                 pack = "enter valid email";
             }
+            else
+            {
+    for(int i=0;i<results.size();i++)
+    {
+            l = (Logingym) results.get(0);
+            System.out.println("ppp");
+    }
+            }
+            
+
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             pack = "enter valid email";
-            System.out.println(e.getMessage());
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return pack;
     }
@@ -756,17 +1084,40 @@ public class DataOperation {
             q.setString("uname", email);
 
             List<Login> results = q.list();
-
-            l = (Login) results.get(0);
-            System.out.println("ppp");
-            if (l == null) {
+  
+           if (results.size()==0) {
 
                 System.out.println("helll");
                 pack = "enter valid email";
             }
+            else
+            {
+    for(int i=0;i<results.size();i++)
+    {
+            l = (Login) results.get(0);
+            System.out.println("ppp");
+    }
+            }
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             pack = "enter valid email";
-            System.out.println(e.getMessage());
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return pack;
     }
@@ -784,7 +1135,8 @@ public class DataOperation {
             q.setString("uname", email);
 
             List<Login> results = q.list();
-
+  for(int i=0;i<results.size();i++)
+ {
             l = (Login) results.get(0);
             System.out.println("ppp");
             if (l != null) {
@@ -792,9 +1144,27 @@ public class DataOperation {
                 System.out.println("helll");
                 pack = "enter another email";
             }
+ }
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             pack = "";
-            System.out.println(e.getMessage());
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return pack;
     }
@@ -815,13 +1185,39 @@ public class DataOperation {
             q.setString("bname", branchname);
 
             List<Addbranch> results = q.list();
+ 
+             if (results.size()==0) {
 
-            l = (Addbranch) results.get(0);
-            if (l != null) {
+                System.out.println("helll");
                 pack = "already exists";
             }
+            else
+            {
+    for(int i=0;i<results.size();i++)
+    {
+            l = (Addbranch) results.get(0);
+            System.out.println("ppp");
+    }
+            }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return pack;
     }
@@ -841,13 +1237,40 @@ public class DataOperation {
             q.setString("bname", branchname);
 
             List<addbranchoperator> results = q.list();
+ 
+             if (results.size()==0) {
 
-            l = (addbranchoperator) results.get(0);
-            if (l != null) {
+                System.out.println("helll");
                 pack = "already exists";
             }
+            else
+            {
+    for(int i=0;i<results.size();i++)
+    {
+            l = (addbranchoperator) results.get(0);
+            System.out.println("ppp");
+    }
+            }
+ 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return pack;
     }
@@ -875,7 +1298,24 @@ public class DataOperation {
             tx.commit();
             session.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -899,16 +1339,36 @@ public class DataOperation {
             System.out.println("gp 59");
             List<Facility> results = q.list();
             System.out.println("query");
-            for (int i = 0; i <= results.size(); i++) {
+            for (int i=0; i < results.size(); i++) {
                 p1 = (Facility) results.get(i);
+                if(p1!=null)
+                {
                 Facility p2 = new Facility(p1.getId(), p1.getName());
                 setfacility.add(p2);
+                }
             }
 
             tx.commit();
             session.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         return setfacility;
@@ -936,7 +1396,24 @@ public class DataOperation {
             tx.commit();
             session.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return id;
     }
@@ -960,8 +1437,9 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             q.setString("uname", faci[i]);
              q.setString("id",gymid);
             List<Facility> results = q.list();
-
-            Facility l = (Facility) results.get(0);
+  for(int j=0;j<results.size();j++)
+ {
+            Facility l = (Facility) results.get(j);
             f.setFacc(l);
                 l.setPack_fac(fac1);
                 fac1.add(f);
@@ -969,13 +1447,31 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
                 f.setGympack(gym);
                 fac.add(f);
             }
-
+            }
             gym.setPackfac(fac);
+          
             session.save(gym);
             tx.commit();
             session.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -1002,8 +1498,10 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             List<Gympackage> results = q.list();
             System.out.println("query");
             System.out.println("yyyyy" + results.size());
-            for (int i = 0; i <= results.size(); i++) {
+            for (int i = 0; i < results.size(); i++) {
                 p1 = (Gympackage) results.get(i);
+                if(p1!=null)
+                {
                 System.out.println("[][][" + p1.getId());
 //                   HashSet<Pack_facility> pac=new HashSet<Pack_facility>();
 //                 pac = getpacfacility(p1.getId());
@@ -1011,12 +1509,30 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
 
                 Gympackage p2 = new Gympackage(p1.getId(), p1.getName(), p1.getAmount(), p1.getTime());
                 setfacility.add(p2);
+                }
             }
 
             tx.commit();
             session.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         return setfacility;
@@ -1045,7 +1561,28 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             tx.commit();
             session.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+             String nameofCurrMethod = new Throwable() 
+                                      .getStackTrace()[2] 
+                                      .getMethodName(); 
+             System.out.println("---name of method------"+nameofCurrMethod);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         System.out.println("oooo--" + setfacility.toString());
         return setfacility;
@@ -1065,12 +1602,31 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             q.setString("uname", branchop);
 
             List<addbranchoperator> results = q.list();
-
-            l = (addbranchoperator) results.get(0);
+  for(int i=0;i<results.size();i++)
+ {
+            l = (addbranchoperator) results.get(i);
+ }
             id = l.getId();
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             id = 0;
-            System.out.println(e.getMessage());
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return id;
     }
@@ -1088,12 +1644,31 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             q.setString("uname",String.valueOf(id));
 
             List<Addbranch> results = q.list();
-
-            l = (Addbranch) results.get(0);
-            name=l.getBranchname();
+  for(int i=0;i<results.size();i++)
+ {
+            l = (Addbranch) results.get(i);
+ }           name=l.getBranchname();
+ 
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             name="";
-            System.out.println(e.getMessage());
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return name;
     }
@@ -1111,12 +1686,32 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             q.setString("uname",String.valueOf(id));
 
             List<Addgym> results = q.list();
-            l = (Addgym) results.get(0);
+              for(int i=0;i<results.size();i++)
+ {
+            l = (Addgym) results.get(i);
+ }
             name=l.getGymname();
             System.out.println("---"+name);
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             name="";
-            System.out.println(e.getMessage());
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return name;
     }
@@ -1134,8 +1729,9 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             q.setString("uname",id);
 
             List<Addgym> results = q.list();
-
-            l = (Addgym) results.get(0);
+  for(int i=0;i<results.size();i++)
+ {
+            l = (Addgym) results.get(i);
 //            adgym.setId(l.getId());
 //            adgym.setGymname(l.getGymname());
 //            adgym.setOwnername(l.getOwnername());
@@ -1148,10 +1744,26 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
 //           Set<Addbranch> abranch=l.getAdbarnch();
            
            
-           
+ }
         } catch (Exception e) {
-            
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return l;
     }
@@ -1169,13 +1781,32 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             q.setString("gymid", String.valueOf(id));
 
             List<Addbranch> results = q.list();
-
-            l = (Addbranch) results.get(0);
-            Addgym g = l.getAdgym();
+  for(int i=0;i<results.size();i++)
+ {
+            l = (Addbranch) results.get(i);
+ }           Addgym g = l.getAdgym();
             gymid = g.getId();
+ 
         } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
             gymid = 0;
-            System.out.println(e.getMessage());
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return gymid;
     }
@@ -1203,11 +1834,13 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             q.setString("uname",role);
              q.setString("id",String.valueOf(adgym.getId()));
             List<Facility> results = q.list();
-
-            Facility ff = (Facility) results.get(0);
+  for(int i=0;i<results.size();i++)
+ {
+            Facility ff = (Facility) results.get(i);
         Set<Trainer> tt= ff.getTrainer_faci();
         tt.add(t);
         t.setFacility(ff);
+ }
             session.save(t);
             session.save(l);
             SMSOperation so = new SMSOperation();
@@ -1216,7 +1849,24 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             tx.commit();
             session.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
     }
@@ -1244,20 +1894,40 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             List<Trainer> results = q.list();
             System.out.println("query");
             System.out.println("yyyyy" + results.size());
-            for (int i = 0; i <= results.size(); i++) {
+            for (int i = 0; i <results.size(); i++) {
                 p1 = (Trainer) results.get(i);
+                if(p1!=null)
+                {
                 System.out.println("[][][" + p1.getId());
 //                   HashSet<Pack_facility> pac=new HashSet<Pack_facility>();
 //                 pac = getpacfacility(p1.getId());
                 //   System.out.println("---"+pac.toString());
                 Trainer t = new Trainer(p1.getFirstname(), p1.getMiddlename(), p1.getMiddlename(), p1.getEmail(), p1.getFacility().getName());
                 setfacility.add(t);
+                }
             }
 
             tx.commit();
             session.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         return setfacility;
@@ -1286,20 +1956,40 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             q.setString("uname",packagee);
              q.setString("id",String.valueOf(adgym.getId()));
             List<Gympackage> results = q.list();
-
-            Gympackage ff = (Gympackage) results.get(0);
+  for(int i=0;i<results.size();i++)
+ {
+            Gympackage ff = (Gympackage) results.get(i);
           Set<Members> mm= ff.getMembers_pack();
           mm.add(m);
           m.setGympack(ff);
+ 
             session.save(m);
             session.save(l);
+ }
             SMSOperation so = new SMSOperation();
             String result = so.sendSMS(String.valueOf(m.getPhoneno()), m.getPassword());
             System.out.println(result);
             tx.commit();
             session.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
     }
@@ -1314,18 +2004,37 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             q.setString("gymid", String.valueOf(ag.getId()));
 
             List<Gyminfo> results = q.list();
-
+  for(int i=0;i<results.size();i++)
+ {
             l = (Gyminfo) results.get(0);
             Addgym k = l.getA();
             l.setAbout_us_desc(g.getAbout_us_desc());
             l.setAbout_us_title(g.getAbout_us_title());
             k.setGyinfo(l);
             session.save(k);
+ }
             tx.commit();
             session.close();
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym gg=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,gg.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -1352,7 +2061,7 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             List<Members> results = q.list();
             System.out.println("query");
             System.out.println("yyyyy" + results.size());
-            for (int i = 0; i <= results.size(); i++) {
+            for (int i = 0; i <results.size(); i++) {
                 m1 = (Members) results.get(i);
                 System.out.println("[][][" + m1.getId());
 //                   HashSet<Pack_facility> pac=new HashSet<Pack_facility>();
@@ -1366,7 +2075,24 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             tx.commit();
             session.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         return setfacility;
@@ -1397,7 +2123,24 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             session.close();
 
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
     }
@@ -1462,7 +2205,24 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             tx.commit();
             session.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return setfacility;
     }
@@ -1485,7 +2245,7 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             List<Members> results = q.list();
             System.out.println("query");
             System.out.println("yyyyy" + results.size());
-            for (int i = 0; i <= results.size(); i++) {
+            for (int i = 0; i < results.size(); i++) {
                 p1 = (Members) results.get(i);
                 String package1 = p1.getPackagee();
                 System.out.println("----" + p1.getPackagee());
@@ -1526,7 +2286,24 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             tx.commit();
             session.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
     
@@ -1589,7 +2366,24 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             tx.commit();
             session.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
      
@@ -1616,17 +2410,36 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             q.setString("gymid",role);
  q.setString("id",gymid);
             List<Facility> results = q.list();
-           
-           Facility l = (Facility) results.get(0);
+          for(int i=0;i<results.size();i++)
+ {   
+           Facility l = (Facility) results.get(i);
        Set<Batches> f=l.getFaci_batches();
        f.add(b);
        b.setFacility_batches(l);
             session.save(b);
+ }
             id = b.getId();
             tx.commit();
             session.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return id;
     }
@@ -1646,14 +2459,32 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             q.setString("gymid", id);
 
             List<Members> results = q.list();
-
-            l = (Members) results.get(0);
-            
+  for(int i=0;i<results.size();i++)
+ {
+            l = (Members) results.get(i);
+ }
             
            
         } catch (Exception e) {
            // gymid = 0;
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return l;
     }
@@ -1677,22 +2508,42 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             q.setString("gymid",member[i]);
 
             List<Members> results = q.list();
-           
-           Members l = (Members) results.get(0);
+    for(int j=0;j<results.size();j++)
+ {         
+           Members l = (Members) results.get(j);
              f.setBatch_mem(b);
         //   f.setName(l.get);
              f.setMemb(l); 
               l.setBatches(fa);
               fa.add(f);
                 fac.add(f);
+ }
             }
 
             b.setBatche_member(fac);
             session.save(b);
+            
             tx.commit();
             session.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
         public Addbranch getBranch(String id) {
@@ -1710,12 +2561,31 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             q.setString("gymid", id);
 
             List<Addbranch> results = q.list();
-
-            l = (Addbranch) results.get(0);
+  for(int i=0;i<results.size();i++)
+ {
+            l = (Addbranch) results.get(i);
+ }
 
         } catch (Exception e) {
            // gymid = 0;
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return l;
     }
@@ -1734,14 +2604,33 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
             q.setString("gymid", id);
 
             List<Trainer> results = q.list();
-
-            l = (Trainer) results.get(0);
+  for(int i=0;i<results.size();i++)
+ {
+            l = (Trainer) results.get(i);
+ }
             
           // tid= l.getId();
            
         } catch (Exception e) {
            // gymid = 0;
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+               Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+           }
         }
         return l;
     }
@@ -1772,7 +2661,24 @@ for(int i=0;i<results.size();i++)
            
         } catch (Exception e) {
            // gymid = 0;
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                      Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+                  }
         }
        return ja;
        }
@@ -1793,8 +2699,10 @@ for(int i=0;i<results.size();i++)
             q.setString("gymid", id);
 
             List<Facility> results = q.list();
-
-            l = (Facility) results.get(0);
+  for(int i=0;i<results.size();i++)
+ {
+            l = (Facility) results.get(i);
+            
           Set<Pack_facility> pf= l.getPack_fac();
          Iterator it= pf.iterator();
          while(it.hasNext())
@@ -1809,11 +2717,29 @@ for(int i=0;i<results.size();i++)
            ja.put(m.getFirstname());
        }
          }
+ }
           // tid= l.getId();
            
         } catch (Exception e) {
            // gymid = 0;
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                      Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+                  }
         }
        return ja;
        }
@@ -1830,8 +2756,9 @@ for(int i=0;i<results.size();i++)
             q.setString("gymid",member_name);
  q.setString("bid",branchid);
             List<Members> results = q.list();
-           
-           Members l = (Members) results.get(0);
+    for(int i=0;i<results.size();i++)
+ {         
+           Members l = (Members) results.get(i);
             System.out.println("===="+l.getFirstname());
            //db= b.getDiet();
             //System.out.println("oooo-" + b.getBatch_name());
@@ -1844,10 +2771,28 @@ for(int i=0;i<results.size();i++)
        // dp.setFact(b);
             System.out.println("----"+dp.getDescription());
            session.save(dp);
+ }
             tx.commit();
             session.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
          public Members getmemberObj(String id) {
@@ -1865,14 +2810,32 @@ for(int i=0;i<results.size();i++)
             q.setString("gymid", id);
 
             List<Members> results = q.list();
-
-            l = (Members) results.get(0);
-            
+for(int i=0;i<results.size();i++)
+ {
+            l = (Members) results.get(i);
+ } 
             
            
         } catch (Exception e) {
            // gymid = 0;
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return l;
     }
@@ -1910,7 +2873,24 @@ int row=0;
            
         } catch (Exception e) {
            // gymid = 0;
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return msg;
     }
@@ -1934,7 +2914,24 @@ int row=0;
             tx.commit();
             session.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         
@@ -1959,7 +2956,24 @@ int row=0;
             tx.commit();
             session.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         
@@ -1988,7 +3002,24 @@ int row=0;
             tx.commit();
             session.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         
@@ -2009,14 +3040,32 @@ int row=0;
             q.setString("gymid", String.valueOf(id));
 
             List<Gyminfo> results = q.list();
-
-            l = (Gyminfo) results.get(0);
-            
+ for(int i=0;i<results.size();i++)
+ {
+            l = (Gyminfo) results.get(i);
+ }          
             
            
         } catch (Exception e) {
            // gymid = 0;
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return l;
     }
@@ -2035,14 +3084,32 @@ int row=0;
             q.setString("gymid", String.valueOf(id));
 
             List<Dietplan> results = q.list();
-
-            l = (Dietplan) results.get(0);
-            
+for(int i=0;i<results.size();i++)
+ {
+            l = (Dietplan) results.get(i);
+ } 
             
            
         } catch (Exception e) {
            // gymid = 0;
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return l;
     }
@@ -2062,15 +3129,251 @@ int row=0;
             q.setString("gymid", id);
 
             List<Members> results = q.list();
-
-            l = (Members) results.get(0);
-            
+   for(int i=0;i<results.size();i++)
+ {
+            l = (Members) results.get(i);
+ }   
             id1=l.getId();
            
         } catch (Exception e) {
            // gymid = 0;
-            System.out.println(e.getMessage());
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return id1;
     }
+public HashSet<Addgym> invalidGym() {
+        HashSet<Addgym> setgym = null;
+        try {
+            System.out.println("before calling");
+            setgym = new HashSet<Addgym>();
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+            System.out.println("line 57" + sfobj);
+            session = sfobj.openSession();
+            System.out.println("line 59");
+            tx = session.beginTransaction();
+            //System.out.println("get package"); 
+
+            Addgym p1 = null;
+            Query q = session.createQuery("from Addgym");
+            
+            System.out.println("gp 59");
+            List<Addgym> results = q.list();
+            System.out.println("query");
+            System.out.println("yyyyy" + results.size());
+            for (int i = 0; i < results.size(); i++) {
+                p1 = (Addgym) results.get(i);
+              Addpackage pp=  p1.getAdpack();
+           // String month= pp.getTime();
+              
+                    int time = Integer.parseInt(pp.getTime());
+
+                    String date = p1.getDate();
+                    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+
+                    LocalDate localDate = LocalDate.parse(date, dateTimeFormatter);    //String to LocalDate
+                    //Date date1=new SimpleDateFormat("yyyy/MM/dd").parse(date);
+                    //         LocalDate localDate = LocalDate.parse(date);
+                    System.out.println("++" + localDate);
+                    System.out.println("ppp" + time);
+                    LocalDate localDatenow = LocalDate.now();
+                    System.out.println("ooo" + localDate.plusMonths(time).minusDays(10));
+                    if (localDate.plusMonths(time).isEqual(localDatenow) || (localDatenow.isAfter(localDate.plusMonths(time).minusDays(10)) && localDatenow.isBefore(localDate.plusMonths(time)))) {
+
+                        setgym.add(p1);
+//                 
+                    }
+                }
+            
+
+            tx.commit();
+            session.close();
+        }
+         catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return setgym;
+    }
+ public void sendmessagegym(String id) {
+        try {
+          System.out.println("before calling");
+            setgym = new HashSet<Addgym>();
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+            System.out.println("line 57" + sfobj);
+            session = sfobj.openSession();
+            System.out.println("line 59");
+            tx = session.beginTransaction();
+            //System.out.println("get package"); 
+
+            Addgym p1 = null;
+            Query q = session.createQuery("from Addgym where id=:gymid");
+           q.setString("gymid", id);
+            System.out.println("gp 59");
+            List<Addgym> results = q.list();
+            System.out.println("query");
+            System.out.println("yyyyy" + results.size());
+            for (int i = 0; i < results.size(); i++) {
+                p1 = (Addgym) results.get(i);
+              Addpackage pp=  p1.getAdpack();
+           // String month= pp.getTime();
+              
+                    int time = Integer.parseInt(pp.getTime());
+
+                    String date = p1.getDate();
+                    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+
+                    LocalDate localDate = LocalDate.parse(date, dateTimeFormatter);    //String to LocalDate
+                    //Date date1=new SimpleDateFormat("yyyy/MM/dd").parse(date);
+                    //         LocalDate localDate = LocalDate.parse(date);
+                    System.out.println("++" + localDate);
+                    System.out.println("ppp" + time);
+                    LocalDate localDatenow = LocalDate.now();
+                    System.out.println("ooo" + localDate.plusMonths(time).minusDays(10));
+                    if (localDate.plusMonths(time).isEqual(localDatenow) || (localDatenow.isAfter(localDate.plusMonths(time).minusDays(10)) && localDatenow.isBefore(localDate.plusMonths(time)))) {
+
+                   //  Members m = new Members(p1.getId(), p1.getFirstname(), p1.getMiddlename(), p1.getLastname(), p1.getPhoneno(),p1.getPackagee(),localDate.plusMonths(time).toString());//,m1.getArea(),m1.getStreet(),m1.getPostalcode(),m1.getEmail(),m1.getPackagee(),m1.getPassword(),m1.getHeight(),m1.getWeight(),m1.getHealth(),m1.getDob());
+                        //Trainer t=new Trainer(p1.getFirstname(),p1.getMiddlename(),p1.getMiddlename(),p1.getEmail(),p1.getRole());
+                        //     setfacility.add(m);
+                        final long days = ChronoUnit.DAYS.between(localDatenow, localDate.plusMonths(time));
+                        String message1 = "your pack going to expired on-" + localDate.plusMonths(time) + "--days remainig=" + days;
+                        SMSOperation so = new SMSOperation();
+                        System.out.println("---" + message1);
+                        String result = so.sendSMS(String.valueOf(p1.getPhoneno()), message1);
+                        System.out.println(result);
+                    }
+                }
+           
+
+            tx.commit();
+            session.close();
+        }
+         catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+     public void sendmessage_allgym() {
+        try {
+          System.out.println("before calling");
+            setgym = new HashSet<Addgym>();
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+            System.out.println("line 57" + sfobj);
+            session = sfobj.openSession();
+            System.out.println("line 59");
+            tx = session.beginTransaction();
+            //System.out.println("get package"); 
+
+            Addgym p1 = null;
+            Query q = session.createQuery("from Addgym ");
+          // q.setString("gymid", id);
+            System.out.println("gp 59");
+            List<Addgym> results = q.list();
+            System.out.println("query");
+            System.out.println("yyyyy" + results.size());
+            for (int i = 0; i < results.size(); i++) {
+                p1 = (Addgym) results.get(i);
+              Addpackage pp=  p1.getAdpack();
+           // String month= pp.getTime();
+              
+                    int time = Integer.parseInt(pp.getTime());
+
+                    String date = p1.getDate();
+                    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+
+                    LocalDate localDate = LocalDate.parse(date, dateTimeFormatter);    //String to LocalDate
+                    //Date date1=new SimpleDateFormat("yyyy/MM/dd").parse(date);
+                    //         LocalDate localDate = LocalDate.parse(date);
+                    System.out.println("++" + localDate);
+                    System.out.println("ppp" + time);
+                    LocalDate localDatenow = LocalDate.now();
+                    System.out.println("ooo" + localDate.plusMonths(time).minusDays(10));
+                    if (localDate.plusMonths(time).isEqual(localDatenow) || (localDatenow.isAfter(localDate.plusMonths(time).minusDays(10)) && localDatenow.isBefore(localDate.plusMonths(time)))) {
+                   //  Members m = new Members(p1.getId(), p1.getFirstname(), p1.getMiddlename(), p1.getLastname(), p1.getPhoneno(),p1.getPackagee(),localDate.plusMonths(time).toString());//,m1.getArea(),m1.getStreet(),m1.getPostalcode(),m1.getEmail(),m1.getPackagee(),m1.getPassword(),m1.getHeight(),m1.getWeight(),m1.getHealth(),m1.getDob());
+                        //Trainer t=new Trainer(p1.getFirstname(),p1.getMiddlename(),p1.getMiddlename(),p1.getEmail(),p1.getRole());
+                        //     setfacility.add(m);
+                        final long days = ChronoUnit.DAYS.between(localDatenow, localDate.plusMonths(time));
+                        String message1 = "your pack going to expired on-" + localDate.plusMonths(time) + "--days remainig=" + days;
+                        SMSOperation so = new SMSOperation();
+                        System.out.println("---" + message1);
+                        String result = so.sendSMS(String.valueOf(p1.getPhoneno()), message1);
+                        System.out.println(result);
+                    }
+                }
+            
+
+            tx.commit();
+            session.close();
+        } catch (Exception e) {
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 }
+
+

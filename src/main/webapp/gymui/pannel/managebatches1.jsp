@@ -38,12 +38,16 @@
                            <%! Iterator ib;%>
                            <%
                        Addbranch ab=(Addbranch) session.getAttribute("getbranch");
+                       if(ab!=null){
                      Set<Batches> bt=ab.getBatches();
                     Iterator it= bt.iterator();
+                    if(it!=null){
                     while(it.hasNext())
                     {
                        Batches b=(Batches) it.next();
+                       if(b!=null){
                     Set<Batch_member> bm=b.getBatche_member();
+                    if(bm!=null){
                  ib= bm.iterator();
                  
                            %>
@@ -64,8 +68,8 @@
              
                %>
                      <%=m.getFirstname()%>, <%
-                    }
-                    }  %> </td>
+                    }}}}}}
+                      %> </td>
                       
                      
                 

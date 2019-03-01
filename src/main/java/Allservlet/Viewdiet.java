@@ -53,10 +53,12 @@ public void init(ServletConfig sc) throws ServletException
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DataOperation pko=new DataOperation(scx);
+         HttpSession session=request.getSession(true);  
+         int id1=Integer.parseInt(session.getAttribute("gymid").toString());
+        DataOperation pko=new DataOperation(scx,id1);
         PrintWriter out=response.getWriter();
       String op=request.getParameter("op");
-      HttpSession session=request.getSession(true);  
+     // HttpSession session=request.getSession(true);  
       if(op.equals("diet"))
       {
    String name= request.getParameter("id");

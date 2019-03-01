@@ -47,13 +47,17 @@ public void init(ServletConfig sc) throws ServletException
         
         PrintWriter out=response.getWriter();
         
-       DataOperation pko=new DataOperation(scx);
+      
      
  
         try {
             System.out.println("//////////");
              HttpSession hs=request.getSession(true);
+               int id1=Integer.parseInt(hs.getAttribute("gymid").toString());
+       
+     
         int branchid= Integer.parseInt(hs.getAttribute("branchid").toString());
+         DataOperation pko=new DataOperation(scx,id1);
             HashSet<Trainer> listCatagory =pko.gettrainer(branchid);
        
            //HttpSession hs=request.getSession(true);

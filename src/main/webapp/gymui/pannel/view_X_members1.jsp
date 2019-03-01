@@ -63,13 +63,15 @@
           
               
              setpack=(HashSet<Members>)session.getAttribute("setvalidmember");
+             if(setpack!=null){
             Iterator<Members> it=setpack.iterator();
+            if(it != null){
             System.out.println("kkkk");
             while(it.hasNext())
             {
                Members adpack=it.next();
              
-             
+             if(adpack!=null){
           
              
           %>
@@ -85,7 +87,7 @@
                               <td> <a  href="#" class="view" id="<%=adpack.getId()%>" style="color:black">Send message</a>
                             </td>
                       </tr>
-                      <%}%>
+                      <% }}}}%>
             
                     </tbody>
                   </table>

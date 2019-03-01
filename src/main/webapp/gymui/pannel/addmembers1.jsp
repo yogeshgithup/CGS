@@ -234,16 +234,22 @@ function ValidateForm(){
           System.out.println("setbranch...="+packagee);
               
              packagee=(HashSet<Gympackage>)session.getAttribute("viewpackfacility");
+             if(packagee!=null)
+             {
               System.out.println("setbranch...="+packagee);
             Iterator<Gympackage> it=packagee.iterator();
             System.out.println("kkkk");
+            if(it!=null)
+            {
             while(it.hasNext())
             {
                 Gympackage se=it.next();
+                if(se!=null)
+                {
            
           %>
        <option value="<%=se.getName()%>"><%=se.getName()%></option>
-<%}%>
+<% }}}}%>
       </select>
                       </div>
                    </div>

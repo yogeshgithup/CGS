@@ -10,6 +10,9 @@ import com.mycompany.loginmodule.Login;
 import com.mycompany.loginmodule.addbranchoperator;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.MessagingException;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -52,7 +55,9 @@ System.out.println("hiii");
      long pno=Long.parseLong(request.getParameter("phoneno"));
         System.out.println(pno);
         System.out.println("bhgvyhviu");
-         DataOperation p=new DataOperation(scx);
+        HttpSession hs = request.getSession(true);
+        int gymid = Integer.parseInt(hs.getAttribute("gymid").toString());
+          DataOperation p=new DataOperation(scx,gymid);
      String area=request.getParameter("area");
      String street=request.getParameter("street");
      String pcode=request.getParameter("postalcode");
@@ -76,11 +81,15 @@ System.out.println("hiii");
         l.setLoginid(email);
         l.setPassword(pass);
          l.setType("branchoperator");
-        HttpSession hs = request.getSession(true);
-        int gymid = Integer.parseInt(hs.getAttribute("gymid").toString());
+       
         Addgym gym = p.getGymID(gymid);
-      p.addbranchoperator(bo, l, gym);
-     response.sendRedirect(scx.getContextPath()+"/Viewbranchoperator");
+   String msg="";
+        try {
+            msg = p.addbranchoperator(bo, l, gym);
+        } catch (MessagingException ex) {
+            Logger.getLogger(addbranchop.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     response.sendRedirect(scx.getContextPath()+"/Viewbranchoperator?msg="+msg);
     }
 
 }

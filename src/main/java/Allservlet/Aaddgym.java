@@ -7,6 +7,7 @@
 package Allservlet;
 
 import com.mycompany.loginmodule.Addgym;
+import com.mycompany.loginmodule.Errors;
 import com.mycompany.loginmodule.Login;
 import com.mycompany.loginmodule.Logingym;
 import java.io.IOException;
@@ -92,6 +93,7 @@ public void init(ServletConfig sc) throws ServletException
         }
         catch(Exception e)
         {
+             
             n="failed to add gym";
         }
          //  hs.setAttribute("msg",s);

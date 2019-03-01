@@ -163,11 +163,17 @@ function ValidateForm(){
           System.out.println("setpack...="+setpack);
               
              setpack=(HashSet<Facility>)session.getAttribute("viewfac");
+             if(setpack!=null)
+         {
             Iterator<Facility> it=setpack.iterator();
+            if(it!=null)
+            {
             System.out.println("kkkk");
             while(it.hasNext())
             {
                Facility adpack=it.next();
+               if(adpack!=null)
+               {
             
           %>
                     </div>
@@ -179,7 +185,7 @@ function ValidateForm(){
                           <input type="checkbox" name="facility" value="<%=adpack.getName()%>"><%=adpack.getName()%></input>
                                
                           
-<%}%>
+<% }}}}%>
 <br>                     </div>
                     </div>
                   </div>

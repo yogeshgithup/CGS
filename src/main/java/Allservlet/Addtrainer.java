@@ -53,7 +53,7 @@ System.out.println("hiii");
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String at = scx.getInitParameter("accesstoken");
-        DropBoxOperation dbo = new DropBoxOperation(at);
+       
      String fname=request.getParameter("firstname");
     System.out.println("rooooooooooooo");
      String mname=request.getParameter("middlename");
@@ -62,11 +62,17 @@ System.out.println("hiii");
      long pno=Long.parseLong(request.getParameter("phoneno"));
         System.out.println(pno);
         
-         DataOperation p=new DataOperation(scx);
+        
      String area=request.getParameter("area");
      String street=request.getParameter("street");
      String pcode=request.getParameter("postal");
      String email=request.getParameter("email");
+      HttpSession hs=request.getSession(true);
+        int branchid= Integer.parseInt(hs.getAttribute("branchid").toString());
+        int gymid=Integer.parseInt(hs.getAttribute("gymid").toString());
+         DataOperation p=new DataOperation(scx,gymid);
+      DropBoxOperation dbo = new DropBoxOperation(at, scx, gymid);
+            
      //String pass=request.getParameter("password");
      String pass=p.randompassword();
      String role=request.getParameter("role");
@@ -76,9 +82,7 @@ System.out.println("hiii");
             String filen = extractFileName(photo);
                 String url = dbo.uploadFile(filen, is);
                 
-     HttpSession hs=request.getSession(true);
-        int branchid= Integer.parseInt(hs.getAttribute("branchid").toString());
-        int gymid=Integer.parseInt(hs.getAttribute("gymid").toString());
+    
         System.out.println("--------"+url);
      Trainer t=new Trainer();
      t.setFirstname(fname);
