@@ -254,7 +254,7 @@ function ValidateForm(){
    //alert(packagename);
    $.post("<%=application.getContextPath()%>/Verifygymname",{"branch":branchname},function(data,status){
  
-     alert(data);
+     
      $("#branchname").val("");
   
     });
