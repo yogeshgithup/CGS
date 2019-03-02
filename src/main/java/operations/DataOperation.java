@@ -218,15 +218,24 @@ public class DataOperation {
 
             ag.setAdpack(p1);
             ab.add(ag);
-            SMSOperation so = new SMSOperation();
-            String result = so.sendSMS(ag.getPhoneno(), ag.getPassword());
-            System.out.println(result);
+           
+            //System.out.println(result);
  }
             session.save(ag);
-
+           // String result = so.sendSMS(ag.getPhoneno(), ag.getPassword(),username,pass);
             n = "Gym Added";
             tx.commit();
             session.close();
+             String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+         
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,ag.getUsername(),"password",ag.getPassword());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
+         String username1=  (String)scx.getInitParameter("smsUserName");
+         String pass=(String)scx.getInitParameter("smsPassword");
+ SMSOperation so = new SMSOperation();
+            String result = so.sendSMS(ag.getPhoneno(), ag.getPassword(),username1,pass);
+           
 
         } catch (Exception e) {
 
@@ -272,8 +281,17 @@ public class DataOperation {
             n = "branchoperator Added";
             tx.commit();
             session.close();
+             String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+         
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,abo.getEmail(),"password",abo.getPassword());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
+             String username1=  (String)scx.getInitParameter("smsUserName");
+         String pass=(String)scx.getInitParameter("smsPassword");
+            System.out.println("-------+++"+username1);
+            System.out.println("----------+++"+pass);
             SMSOperation so = new SMSOperation();
-            String result = so.sendSMS(String.valueOf(abo.getPhoneno()), abo.getPassword());
+            String result = so.sendSMS(String.valueOf(abo.getPhoneno()), abo.getPassword(),username1,pass);
             System.out.println(result);
 
         } catch (Exception e) {
@@ -669,14 +687,40 @@ public class DataOperation {
 
     }
 
-    public void addgyminfo(Addgym gym) {
+    public void addgyminfo(Set<Achievements> av , Set<Gallery> ab,Gyminfo gi,int gymid) {
         try {
             sfobj = (SessionFactory) scx.getAttribute("sf");
             session = sfobj.openSession();
             tx = session.beginTransaction();
-
-            session.update(gym);
+            System.out.println("--------------addgymino");
+             Addgym gym  = (Addgym) session.load(Addgym.class, gymid);
+             System.out.println("-------"+gym.getGymname());
+            Set<Achievements> av1=new HashSet<Achievements>();
+            
+         Iterator it= av.iterator();
+         while(it.hasNext())
+         {
+           Achievements avv=(Achievements)  it.next();
+           avv.setAdgym(gym);
+           av1.add(avv);
+         }
+          Set<Gallery> ab1=new HashSet<Gallery>();
+            System.out.println("+++++++++++++");
+         Iterator it1= ab.iterator();
+         while(it1.hasNext())
+         {
+           Gallery abb=(Gallery)  it1.next();
+          abb.setAdgym(gym);
+           ab1.add(abb);
+         }
+            System.out.println("--------------");
+         gi.setA(gym);
+             gym.setGyinfo(gi);
+            gym.setGallery(ab1);
+           
+            gym.setAchive(av1);
             System.out.println("hello");
+            session.save(gym);
             tx.commit();
             session.close();
         } catch (Exception e) {
@@ -729,8 +773,15 @@ public class DataOperation {
              if (c.equals(l.getType())) {
              j=j+2;
              }*/
+             String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username1=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+         
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username1, password,l.getUsername(),"password",l.getPassword());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
             SMSOperation so = new SMSOperation();
-            String result = so.sendSMS(a.getPhoneno(), l.getPassword());
+             String usernam=  (String)scx.getInitParameter("smsUserName");
+         String pass=(String)scx.getInitParameter("smsPassword");
+            String result = so.sendSMS(a.getPhoneno(), l.getPassword(),usernam,pass);
             n = result;
             System.out.println(result);
  }
@@ -868,7 +919,7 @@ public class DataOperation {
             sfobj = (SessionFactory) scx.getAttribute("sf");
             session = sfobj.openSession();
             tx = session.beginTransaction();
-            Gyminfo ag=null;
+          gyminfo=new HashSet<Gyminfo>();
             System.out.println(";;;;;;;;;" + gymid);
             System.out.println(gymid);
             
@@ -878,6 +929,8 @@ public class DataOperation {
             List<Gyminfo> results = q.list();
             System.out.println("query");
             for (int i = 0; i < results.size(); i++) {
+                System.out.println("---"+i);
+                  Gyminfo ag;
               ag = (Gyminfo) results.get(i);
             System.out.println(ag.getAbout_us_desc());
             gyminfo.add(ag);
@@ -931,13 +984,14 @@ public class DataOperation {
        if (results.size()==0) {
 
                 System.out.println("helll");
-               gym= "already exists";
+             
             }
             else
             {
     for(int i=0;i<results.size();i++)
     {
             l = (Addgym) results.get(0);
+              gym= "already exists";
             System.out.println("ppp");
     }
             }
@@ -983,7 +1037,7 @@ public class DataOperation {
              if (results.size()==0) {
 
                 System.out.println("helll");
-                pack = "already exists";
+                
             }
             else
             {
@@ -991,6 +1045,7 @@ public class DataOperation {
     {
             l = (Addpackage) results.get(0);
             System.out.println("ppp");
+            pack = "already exists";
     }
             }
  
@@ -1189,13 +1244,14 @@ public class DataOperation {
              if (results.size()==0) {
 
                 System.out.println("helll");
-                pack = "already exists";
+              
             }
             else
             {
     for(int i=0;i<results.size();i++)
     {
             l = (Addbranch) results.get(0);
+              pack = "already exists";
             System.out.println("ppp");
     }
             }
@@ -1241,7 +1297,7 @@ public class DataOperation {
              if (results.size()==0) {
 
                 System.out.println("helll");
-                pack = "already exists";
+               
             }
             else
             {
@@ -1249,6 +1305,7 @@ public class DataOperation {
     {
             l = (addbranchoperator) results.get(0);
             System.out.println("ppp");
+             pack = "already exists";
     }
             }
  
@@ -1843,8 +1900,15 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
  }
             session.save(t);
             session.save(l);
+             String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+         
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,t.getEmail(),"password",t.getPassword());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
             SMSOperation so = new SMSOperation();
-            String result = so.sendSMS(String.valueOf(t.getPhoneno()), t.getPassword());
+             String username1=  (String)scx.getInitParameter("smsUserName");
+         String pass=(String)scx.getInitParameter("smsPassword");
+            String result = so.sendSMS(String.valueOf(t.getPhoneno()), t.getPassword(),username1,pass);
             System.out.println(result);
             tx.commit();
             session.close();
@@ -1965,9 +2029,15 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
  
             session.save(m);
             session.save(l);
- }
+ } String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+         
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,m.getEmail(),"password",m.getPassword());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
             SMSOperation so = new SMSOperation();
-            String result = so.sendSMS(String.valueOf(m.getPhoneno()), m.getPassword());
+             String username1=  (String)scx.getInitParameter("smsUserName");
+         String pass=(String)scx.getInitParameter("smsPassword");
+            String result = so.sendSMS(String.valueOf(m.getPhoneno()), m.getPassword(),username1,pass);
             System.out.println(result);
             tx.commit();
             session.close();
@@ -2275,9 +2345,16 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
                         //     setfacility.add(m);
                         final long days = ChronoUnit.DAYS.between(localDatenow, localDate.plusMonths(time));
                         String message1 = "your pack going to expired on-" + localDate.plusMonths(time) + "--days remainig=" + days;
+                        String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+         
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,p1.getEmail(),"message",message1);            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
                         SMSOperation so = new SMSOperation();
                         System.out.println("---" + message1);
-                        String result = so.sendSMS(String.valueOf(p1.getPhoneno()), message1);
+                         String username1=  (String)scx.getInitParameter("smsUserName");
+         String pass=(String)scx.getInitParameter("smsPassword");
+                        String result = so.sendSMS(String.valueOf(p1.getPhoneno()), message1,username1,pass);
                         System.out.println(result);
                     }
                 }
@@ -2355,9 +2432,16 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
                         //     setfacility.add(m);
                         final long days = ChronoUnit.DAYS.between(localDatenow, localDate.plusMonths(time));
                         String message1 = "your pack going to expired on-" + localDate.plusMonths(time) + "--days remainig=" + days;
+                        String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+         
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,p1.getEmail(),"message",message1);            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
                         SMSOperation so = new SMSOperation();
                         System.out.println("---" + message1);
-                        String result = so.sendSMS(String.valueOf(p1.getPhoneno()), message1);
+                         String username1=  (String)scx.getInitParameter("smsUserName");
+         String pass=(String)scx.getInitParameter("smsPassword");
+                        String result = so.sendSMS(String.valueOf(p1.getPhoneno()), message1,username1,pass);
                         System.out.println(result);
                     }
                 }
@@ -3269,9 +3353,16 @@ public HashSet<Addgym> invalidGym() {
                         //     setfacility.add(m);
                         final long days = ChronoUnit.DAYS.between(localDatenow, localDate.plusMonths(time));
                         String message1 = "your pack going to expired on-" + localDate.plusMonths(time) + "--days remainig=" + days;
+                         String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+         
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,p1.getUsername(),"message ",message1);            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
                         SMSOperation so = new SMSOperation();
                         System.out.println("---" + message1);
-                        String result = so.sendSMS(String.valueOf(p1.getPhoneno()), message1);
+                         String username1=  (String)scx.getInitParameter("smsUserName");
+         String pass=(String)scx.getInitParameter("smsPassword");
+                        String result = so.sendSMS(String.valueOf(p1.getPhoneno()), message1,username1,pass);
                         System.out.println(result);
                     }
                 }
@@ -3343,9 +3434,16 @@ public HashSet<Addgym> invalidGym() {
                         //     setfacility.add(m);
                         final long days = ChronoUnit.DAYS.between(localDatenow, localDate.plusMonths(time));
                         String message1 = "your pack going to expired on-" + localDate.plusMonths(time) + "--days remainig=" + days;
+                        String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+         
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,p1.getUsername(),"message",message1);            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
                         SMSOperation so = new SMSOperation();
                         System.out.println("---" + message1);
-                        String result = so.sendSMS(String.valueOf(p1.getPhoneno()), message1);
+                         String username1=  (String)scx.getInitParameter("smsUserName");
+         String pass=(String)scx.getInitParameter("smsPassword");
+                        String result = so.sendSMS(String.valueOf(p1.getPhoneno()), message1,username1,pass);
                         System.out.println(result);
                     }
                 }
@@ -3358,8 +3456,7 @@ public HashSet<Addgym> invalidGym() {
             tx = session.beginTransaction();
 
           System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
-              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
-           Addgym g=   getGymID(gymid11);
+               Addgym g=   getGymID(gymid11);
             // System.out.println(ea.getStackTrace().toString());
             System.out.println("class name= "+e.getStackTrace()[2].getFileName());
             Errors ee=new Errors();
@@ -3369,6 +3466,8 @@ public HashSet<Addgym> invalidGym() {
             session.save(ee);
              tx.commit();
             session.close();
+             String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+         
             try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
                 Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
             }

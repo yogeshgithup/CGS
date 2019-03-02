@@ -87,7 +87,7 @@ public class Aaddgyminfo extends HttpServlet {
              ac.setAchievement(title[i]);
              ac.setAchive_descr(desc[i]);
              System.out.println("83"+desc[i]+"   "+title[i]);
-             ac.setAdgym(gym);
+           //  ac.setAdgym(gym);
              av.add(ac);
          }
          ArrayList<String> logo=new ArrayList<>();
@@ -136,7 +136,7 @@ InputStream is = p.getInputStream();
             gi.setLogo_url(logo.get(i));
            
             gi.setQuality_msg(quality[i]);
-            gi.setA(gym);
+           // gi.setA(gym);
              
          }
            System.out.println("line 114");
@@ -149,20 +149,17 @@ InputStream is = p.getInputStream();
               Gallery g = new Gallery();
             g.setDescription(image[i]);
             g.setPhoto(photo.get(i));
-            g.setAdgym(gym);
+           // g.setAdgym(gym);
             ab.add(g);
             
          }
-
+        System.out.println("00000000000");
        if(k==0)
        {
-        gym.setAchive(av);
-
-       gym.setGallery(ab);
-
-       gym.setGyinfo(gi);
+           System.out.println("k==0");
        
-      doo.addgyminfo(gym);
+       
+      doo.addgyminfo(av,ab,gi,gymid);
       //hs.setAttribute("gym",gym);
        response.sendRedirect(scx.getContextPath()+"/Viewedit?msg=added");
        }

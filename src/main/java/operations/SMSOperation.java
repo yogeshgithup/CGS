@@ -87,7 +87,7 @@ public class SMSOperation {
     
     
     
-    public static  String sendSMS(String mob,String msg)
+    public static  String sendSMS(String mob,String msg,String username,String password)
     {
            String msgg="";
           HttpClient client=null;
@@ -101,8 +101,8 @@ public class SMSOperation {
                    sURL = "http://smslane.com/vendorsms/pushsms.aspx";
                     post = new PostMethod(sURL);
                     //give all in string
-                    post.addParameter("user", "mykarsoltechnologies");
-                    post.addParameter("password", "bankofbaroda");
+                    post.addParameter("user", username);
+                    post.addParameter("password",password);
                     post.addParameter("msisdn", mob);
                     post.addParameter("msg", msg);
                     post.addParameter("sid","WebSMS");

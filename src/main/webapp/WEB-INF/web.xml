@@ -8,6 +8,14 @@
         <param-name>smtp</param-name>
         <param-value>smtp.gmail.com</param-value>
     </context-param>
+     <context-param>
+        <param-name>smsUserName</param-name>
+        <param-value>mykarsoltechnologies</param-value>
+    </context-param>
+     <context-param>
+        <param-name>smsPassword</param-name>
+        <param-value>bankofbaroda</param-value>
+    </context-param>
     <context-param>
         <param-name>port</param-name>
         <param-value>465</param-value>
