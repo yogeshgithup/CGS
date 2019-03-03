@@ -111,17 +111,22 @@
                     </tbody>
                   </table>
                 </div>
+         <div class="row">
+             <div class="col-md-3"></div>
+          <div class="col-md-4">
+              <a href="/CGS/Systemadminreport" target="_blank"> <button class="btn btn-primary btn-block">Download Report</button> </a>  
+              </div>
               </div>
             </div>
           </div>
        
             </div>
           </div>
-        </div>
-      </div> 
+        
+       
    
-    </div>
-  </div>
+ 
+ 
   <!--   Core JS Files   -->
 <!--  <script src="<%=application.getContextPath()%>/gymui/assets/js/core/jquery.min.js"></script>
   <script src="<%=application.getContextPath()%>/gymui/assets/js/core/popper.min.js"></script>

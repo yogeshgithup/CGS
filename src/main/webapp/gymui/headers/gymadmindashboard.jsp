@@ -226,6 +226,12 @@ $("li").click(function(){
               <p>View Graphs</p>
             </a>
           </li>
+          <li class="" id="8">
+              <a href="/CGS/GymAdminreport" target="_blank">
+              <i class="now-ui-icons location_map-big"></i>
+              <p>Download Report</p>
+            </a>
+          </li>
         </ul>
       </div>
     </div>

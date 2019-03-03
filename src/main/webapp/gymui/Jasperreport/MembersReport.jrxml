@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="85231a83-d42b-4164-84c3-36ff8e16f1a2">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="91"/>
+	<parameter name="memberid" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[$F{members_id}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Chiman Patel\\Desktop\\CGS\\CGS\\src\\main\\webapp\\gymui\\Jasperreport\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     members.`id` AS members_id,
+     members.`area` AS members_area,
+     members.`blood` AS members_blood,
+     members.`date` AS members_date,
+     members.`dob` AS members_dob,
+     members.`email` AS members_email,
+     members.`firstname` AS members_firstname,
+     members.`health` AS members_health,
+     members.`height` AS members_height,
+     members.`lastname` AS members_lastname,
+     members.`middlename` AS members_middlename,
+     members.`packagee` AS members_packagee,
+     members.`password` AS members_password,
+     members.`phoneno` AS members_phoneno,
+     members.`postalcode` AS members_postalcode,
+     members.`street` AS members_street,
+     members.`weight` AS members_weight,
+     members.`branchid` AS members_branchid,
+     members.`member_pack_id` AS members_member_pack_id
+FROM
+     `members` members
+where id=$P{memberid}]]>
+	</queryString>
+	<field name="members_id" class="java.lang.Integer"/>
+	<field name="members_firstname" class="java.lang.String"/>
+	<field name="members_lastname" class="java.lang.String"/>
+	<field name="members_blood" class="java.lang.String"/>
+	<field name="members_health" class="java.lang.String"/>
+	<field name="members_height" class="java.lang.Float"/>
+	<field name="members_weight" class="java.lang.Float"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="71" splitType="Stretch">
+			<staticText>
+				<reportElement x="184" y="17" width="213" height="37" uuid="51753743-9f92-4416-805d-e87762a4da59"/>
+				<textElement>
+					<font fontName="Constantia" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MEMBER REPORT]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="296" splitType="Stretch">
+			<rectangle>
+				<reportElement x="52" y="0" width="443" height="87" uuid="61f56c8d-9be9-444e-84da-76ed4a3264b3"/>
+			</rectangle>
+			<textField>
+				<reportElement x="134" y="10" width="50" height="20" uuid="be74c599-1e87-4968-ad06-0e3825cfcb56"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{members_firstname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="188" y="10" width="58" height="20" uuid="38ef6a4b-5e82-405c-81d5-c2e7a99464a7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{members_lastname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="367" y="8" width="100" height="20" uuid="4a1b0ed6-8d18-44b8-af42-18f5b2cd5d2c"/>
+				<textFieldExpression><![CDATA[$F{members_blood}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="52" y="0" width="73" height="41" backcolor="#CCEBEC" uuid="6749e754-e7eb-4f28-a541-8da643fb274d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true" isUnderline="false" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[Name:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="276" y="8" width="61" height="20" uuid="bc3a27ac-0976-4fb1-a31b-6ab2a3727855"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[BloodGroup:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="367" y="34" width="100" height="20" uuid="fb2ce731-ee71-4302-bbee-01470929171a"/>
+				<textFieldExpression><![CDATA[$F{members_health}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="276" y="34" width="61" height="20" uuid="b0622bdb-addf-4e26-bb55-cc4b39896eb4"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Health:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="164" y="54" width="50" height="20" uuid="ae94b4cb-330a-402d-aec6-94911ec39bdc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{members_height}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="52" y="42" width="74" height="44" backcolor="#CCEBEC" uuid="0592c1f1-27c2-467c-80e2-759330dadd58"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Height:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="367" y="60" width="100" height="20" uuid="942cdd52-693f-429d-92a6-3ed503a11b05"/>
+				<textFieldExpression><![CDATA[$F{members_weight}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="276" y="60" width="61" height="20" uuid="9c9d2446-cce4-4e04-a370-669763b849a3"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Weight:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="214" y="106" width="163" height="39" uuid="26a2808e-3428-463c-9123-e823011a4e48"/>
+				<textElement>
+					<font fontName="Constantia" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DIET PLAN]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="40" y="165" width="369" height="108" uuid="581c2b14-524e-4298-8201-73cb65ad66bf"/>
+				<subreportParameter name="member_diet_id">
+					<subreportParameterExpression><![CDATA[$F{members_id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="memberid">
+					<subreportParameterExpression><![CDATA[$P{memberid}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "MembersReport_subreport1.jasper"]]></subreportExpression>
+			</subreport>
+			<line>
+				<reportElement x="125" y="0" width="1" height="86" uuid="15a1041f-b029-479a-b06b-700464dc036a"/>
+			</line>
+			<line>
+				<reportElement x="266" y="0" width="1" height="86" uuid="a8133315-4c57-433a-bed7-afa442b6c2e1"/>
+			</line>
+			<line>
+				<reportElement x="351" y="0" width="1" height="86" uuid="405c6bd7-533c-4fe8-87b7-b0b84fd0260a"/>
+			</line>
+			<line>
+				<reportElement x="52" y="41" width="214" height="1" uuid="79fe4e67-9c41-4c5b-9009-f27b0647b3ff"/>
+			</line>
+			<line>
+				<reportElement x="267" y="29" width="228" height="1" uuid="c12ea466-b801-4021-9d2d-b97292f088ee"/>
+			</line>
+			<line>
+				<reportElement x="267" y="56" width="228" height="1" uuid="389238ed-6918-4724-accd-149baf273f18"/>
+			</line>
+		</band>
+	</detail>
+</jasperReport>

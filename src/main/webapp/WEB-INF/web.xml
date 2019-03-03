@@ -227,6 +227,18 @@
         <servlet-class>Allservlet.Validategym</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>Systemadminreport</servlet-name>
+        <servlet-class>Allservlet.Systemadminreport</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GymAdminreport</servlet-name>
+        <servlet-class>Allservlet.GymAdminreport</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Memberreport</servlet-name>
+        <servlet-class>Allservlet.Memberreport</servlet-class>
+     </servlet>
+      <servlet>
         <servlet-name>VerifyPassword</servlet-name>
         <servlet-class>Allservlet.VerifyPassword</servlet-class>
     </servlet>
@@ -406,6 +418,18 @@
         <servlet-name>Validategym</servlet-name>
         <url-pattern>/Validategym</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Systemadminreport</servlet-name>
+        <url-pattern>/Systemadminreport</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GymAdminreport</servlet-name>
+        <url-pattern>/GymAdminreport</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Memberreport</servlet-name>
+        <url-pattern>/Memberreport</url-pattern>
+</servlet-mapping>
     <servlet-mapping>
         <servlet-name>VerifyPassword</servlet-name>
         <url-pattern>/VerifyPassword</url-pattern>
