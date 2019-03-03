@@ -54,12 +54,17 @@
     </head>
     <body>
         <%
+        Gyminfo ginfo=null;
+        Set<Achievements> achive=null;
+        Set<Equipment> equi=null;
+        Set<Addbranch> branch=null;
             Addgym gym = (Addgym) session.getAttribute("gyminfo");
-            Gyminfo ginfo = gym.getGyinfo();
-            Set<Achievements> achive = gym.getAchive();
-            Set<Equipment> equi=gym.getEqui();
-            Set<Addbranch> branch=gym.getAdbarnch();
-    
+            if(gym!=null)
+            {
+        
+          // equi =gym.getEqui();
+            branch=gym.getAdbarnch();
+            }
             
         %>
         <!-- banner -->
@@ -75,13 +80,16 @@
                 <div class="banner-info-text">
                     <div class="container">
                         <div class="agileits-logo">
-                            <h1><a href="#"><%String g = gym.getGymname();
+                            <h1><a href="#"><%
+                            if(gym!=null)
+                            { String g = gym.getGymname();
 
-                                    %> <%=g%></a></h1>
+                                    %> <%= g%></a></h1>
                         </div>
                         <div class="w3-border"> </div>
                         <div class="w3layouts-banner-info">
-                            <h2><%=ginfo.getQuality_msg()%></h2>
+                            <h2></h2>
+                            <% }%>
                             <div class="w3ls-button">
                                 <a href="#" data-toggle="modal" data-target="#myModal">Read More</a>
                             </div>
@@ -180,8 +188,16 @@
                                 <i class="fa fa-paper-plane" aria-hidden="true"></i>
                             </div>
                             <div class="icon-right">
+                                <%
+                                 if(gym!=null)
+            {
+            ginfo = gym.getGyinfo();
+            if(ginfo!=null)
+            {
+                                %>
                                 <h5><%= ginfo.getAbout_us_title()%></h5>
                                 <p><%=ginfo.getAbout_us_desc()%></p>
+                                <% } }%>
                             </div>
                             <div class="clearfix"> </div>
                         </div>
@@ -269,11 +285,19 @@
                     <div class="col-sm-3 wthree-services">
                         <div class="wthree-services-grid">
                             <%
+                                  if(gym!=null)
+            {
+            achive= gym.getAchive();
+            if(achive!=null)
+            {
                                 Iterator it = achive.iterator();
+                                if(it!=null)
+                                {
                                 while (it.hasNext()) {
                                     Achievements ac = (Achievements) it.next();
                                    
-                                   
+                                  if(ac!=null)
+                                  {
                                                 %>
                             <div class="wthree-services-info">
                                 <i class="fa fa-sun-o" aria-hidden="true"></i>
@@ -284,7 +308,7 @@
                                 <!--<h4>Sed faucibus</h4>-->
                                 <p><%= ac.getAchive_descr()%></p>
                             </div>
-                            <% } %>
+                            <% }}}} }%>
                         </div>
                     </div>
                     <div class="col-sm-3 wthree-services">
@@ -326,10 +350,19 @@
                 </div>
                 <div class="gallery-w3lsrow">
                      <%
+                                   if(gym!=null)
+            {
+        
+           equi =gym.getEqui();
+           if(equi!=null)
+           {
                                 Iterator ite = equi.iterator();
+                                if(ite!=null)
+                                {
                                 while (ite.hasNext()) {
                                     Equipment eq = (Equipment) ite.next();
-                              
+                              if(eq!=null)
+                              {
                                                 %>
                     <div class="col-sm-3 col-xs-4 gallery-grids">
                         <div class="w3ls-hover">
@@ -346,7 +379,7 @@
                                      
                                      </div>
                                 
-                                <% } %>
+                                <% } }}}} %>
 <!--                    <div class="col-sm-3 col-xs-4 gallery-grids">
                         <div class="w3ls-hover">
                             <a href="<%=application.getContextPath()%>/gymui/images/images/g2.jpg" data-lightbox="example-set" data-title="Lorem Ipsum is simply dummy the when an unknown galley of type and scrambled it to make a type specimen.">
@@ -440,25 +473,40 @@
                         <i class="fa fa-umbrella" aria-hidden="true"></i>
                     </div>
                     <%
-                        Set<Addbranch> ab=  gym.getAdbarnch();
-                      int fint=  gym.getFacility().size();
-                     int eint =gym.getEqui().size();
-                       int bint=ab.size();
-                       int mint=0 ;
+                    
+                     int mint=0 ;
                        int tint=0;
                        int baint=0;
+                       int bint =0;
+                       int fint=0;
+                       int eint=0;
+                    if(gym!=null)
+                    {
+                        Set<Addbranch> ab=  gym.getAdbarnch();
+                       fint=  gym.getFacility().size();
+                      eint = gym.getEqui().size();
+                     if(ab!=null)
+                     {
+                        bint=ab.size();
+                      
                     Iterator it1= ab.iterator();
                     
                     while(it1.hasNext())
                     {
-                        Addbranch bb=(Addbranch)it.next();
+                       
+                    if(it1!=null)
+                    {
+                        Addbranch bb=(Addbranch)it1.next();
+                        if(bb!=null)
+                        {
                        mint = mint + bb.getAddmember().size();
                     tint = tint +  bb.getAddtrainer().size();
                       baint= baint + bb.getBatches().size();
-                      
+                        }
                     }
-                    
-                     
+                    }
+                    }
+                    }
                     %>
                     <p class="counter"><%= mint %></p>
                     <h3>Total Members</h3>
@@ -496,10 +544,19 @@
                 </div>			
                 <div class="teamw3-agileinfo">
                     <%
-                      
+                      if(gym!=null)
+                      {
+                          
+                        branch=gym.getAdbarnch();
+                        if(branch!=null)
+                        {
                                 Iterator itb = branch.iterator();
+                                if(itb!=null)
+                                {
                                 while (itb.hasNext()) {
                                     Addbranch ab1 = (Addbranch) itb.next();
+                                    if(ab1!=null)
+                                    {
                                  Set<Trainer> trainer= ab1.getAddtrainer();
                                    Iterator itt = trainer.iterator();
                                 while (itt.hasNext()) {
@@ -525,7 +582,12 @@
                         </div>
                     </div>
                             <%  }
-                                } %>
+                                } 
+                                }
+                                }
+                        }
+                      }
+                            %>
 <!--                    <div class="col-md-3 col-xs-6 team-wthree-grid">
                         <div class="btm-right">
                             <img src="<%=application.getContextPath()%>/gymui/images/images/t2.jpg" alt=" ">
@@ -587,17 +649,26 @@
                         <h4>Our Branches</h4>
                         <div class="achievesw3-agile">
                             <ul> 
-                                <%  Iterator itbb = branch.iterator();
+                                <%  
+                                 if(gym!=null)
+                      {
+                          
+                        branch=gym.getAdbarnch();
+                        if(branch!=null)
+                        {
+                                Iterator itbb = branch.iterator();
+                                if(itbb!=null){
                                 while (itbb.hasNext()) {
                                     Addbranch ab2 = (Addbranch) itbb.next();
-                            
+                            if(ab2!=null)
+                            {
                               
                                        
                                 %>
                                 
                                 <li><a href="#" data-toggle="popover" title="<%=ab2.getBranchname()%>" data-content="<%= ab2.getArea()%> </br> <%=  ab2.getStreet()%>  <%= ab2.getPostalcode()%>"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> <%=ab2.getBranchname()%></a></li>
                              
-                                <% }%>
+                                <% }}}}}%>
                                     </ul>  
                         </div>
                     </div>

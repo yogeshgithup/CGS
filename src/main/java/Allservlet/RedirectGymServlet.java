@@ -46,10 +46,12 @@ public void init(ServletConfig sc) throws ServletException
         try (PrintWriter out = response.getWriter()) {
              String d=(String)request.getAttribute("gymname");
              
+           d=d.replace("%20"," ");
             System.out.println("---ooo"+d);
+            System.out.println("------------------");
             DataOperation doo=new DataOperation(scx);
             Addgym gym=doo.getGymInfo(d);
-            System.out.println("----"+gym.getGymname());           
+          //  System.out.println("----"+gym.getGymname());           
             HttpSession hs=null;
             if(gym!=null)
             {

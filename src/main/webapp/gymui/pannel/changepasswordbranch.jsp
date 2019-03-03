@@ -1,5 +1,8 @@
-
-<%@page import="com.mycompany.loginmodule.Facility"%>
+<%-- 
+    Document   : changepasswordbranch
+    Created on : 3 Mar, 2019, 1:44:47 PM
+    Author     : Shravan
+--%>
 <%@page import="com.mycompany.loginmodule.Addpackage"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.HashSet"%>
@@ -107,32 +110,34 @@ function ValidateForm(){
  }
 </script>
 <body class="user-profile">
-   <%@include file="/gymui/headers/gymadmindashboard.jsp" %>
+   <%@include file="/gymui/headers/branchoperatordashboard.jsp" %>
       <div class="content">
         <div class="row">
           <div class="col-md-8">
             <div class="card">
               <div class="card-header">
                    <div id="msg" style="color:green"><h2><%=msg%></h2></div>
-                <h5 class="title">ADD GYM PACKAGE</h5>
+                <h5 class="title">CHANGE PASSWORD</h5>
               </div>
               <div class="card-body">
-                <form action="<%=application.getContextPath()%>/Addgympackage" method="post">
+                 <form action="<%=application.getContextPath()%>/UpdatePassword?msg=branchoperator" method="post">
+                        <div id="slide12">
                   <div class="row">
-                    
-                   
                     <div class="col-md-6 px-1">
                       <div class="form-group">
-                        <label>Package Name</label>
-                        <input type="text" class="form-control" name="packagename" required="Package Name Required" placeholder="Package Name">
+                        <label>OLD PASSWORD</label>
+                        <input type="text" class="form-control" name="old"  id="old" required="old passwword Required" placeholder="old password">
                       </div>
                     </div>
-                      <div class="col-md-6 px-1">
                       <div class="form-group">
-                        <label>Amount</label>
-                        <input type="number" class="form-control" name="amount" id="street" required="Amount required" placeholder="Amount">
+                        <label>NEW PASSWORD</label>
+                        <input type="text" class="form-control" name="new" id="new" required="new password Required" placeholder="new password">
                       </div>
                     </div>
+                      
+                  </div>
+                      
+                      
 <!--                    <div class="col-md-6 pl-1">
                       <div class="form-group">
                         <label for="exampleInputEmail1">Email address</label>
@@ -140,53 +145,13 @@ function ValidateForm(){
                       </div>
                     </div>-->
                   </div>
-                  <div class="row"> 
+                  <div class="row">
+                   
                     <div class="col-md-6 px-1">
-                      <div class="form-group">
-                        <label>Time Period In Months</label>
-                        <input type="number" class="form-control" name="timeperiod" required="Time Period Required" placeholder="Time Period">
-                      </div>
+                     
                     </div>
-                  </div>
-                   <div class="row">
-                      <div class="col-md-4 px-1">
-                    <div class="form-group">
-      <label for="sell">Checked the Facilities</label>
-       <%!
-           HashSet<Facility> setpack=null;
-          %>
-   
-          
-              <%
-         
-          System.out.println("session="+session); 
-          System.out.println("setpack...="+setpack);
-              
-             setpack=(HashSet<Facility>)session.getAttribute("viewfac");
-             if(setpack!=null)
-         {
-            Iterator<Facility> it=setpack.iterator();
-            if(it!=null)
-            {
-            System.out.println("kkkk");
-            while(it.hasNext())
-            {
-               Facility adpack=it.next();
-               if(adpack!=null)
-               {
-            
-          %>
-                    </div>
-                      </div>
-          <div class="row">
-                      <div class="col-md-12">
-                          
-                          
-                          <input type="checkbox" name="facility" value="<%=adpack.getName()%>"><%=adpack.getName()%></input>
-                               
-                          
-<% }}}}%>
-<br>                     </div>
+                      <div class="col-md-6 px-1">
+                     
                     </div>
                   </div>
                 
@@ -196,7 +161,7 @@ function ValidateForm(){
                         </div>
                    <div class="col-md-4 pl-1" >
                       <div class="form-group">
-                          <button type="submit" id="s1" class="btn btn-primary btn-block">ADD GYM PACKAGE</button>   
+                          <button type="submit" class="btn btn-primary btn-block">RENEW PASSWORD</button>   
                       </div>
                    </div>
                     </div>
@@ -247,19 +212,31 @@ function ValidateForm(){
 </body>
 <script>
     $(document).ready(function() {
-      $().ready(function() {
-            $("#branchname").focusout(function(){
+        alert("hello");
+       //  $().ready(function() {
+        $("#old").focusout(function (){
+            alert("ooooooo");
+            alert("000");
+    
+        
+       pass=$("#old").val();
    
-   var branchname=$("#branchname").val();
-   //alert(packagename);
-   $.post("<%=application.getContextPath()%>/Verifygymname",{"branch":branchname},function(data,status){
- 
+   alert(pass);
+//
+   $.post("<%=application.getContextPath()%>/VerifyPassword?msg=branchop",{"pass":pass},function(data,status){
+       alert(data);
+       var y=data;
      
-     $("#branchname").val("");
-  
-    });
-});
-});
+     if(y.match("noo"))
+     {
+         alert("wrong password");
+         $("#old").val("");
+     }
+         
+         
+   });
+   
+ });
 });
 </script>
 </html>

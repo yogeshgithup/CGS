@@ -6,6 +6,7 @@
 
 package Allservlet;
 
+import com.mycompany.loginmodule.Addbranch;
 import com.mycompany.loginmodule.Addgym;
 import com.mycompany.loginmodule.Login;
 import com.mycompany.loginmodule.Logingym;
@@ -66,6 +67,8 @@ public void init(ServletConfig sc) throws ServletException
       l.setPassword(password);
         System.out.println("hhhhhh");
    Login l2=so.verifyusers(l);
+   if(l2!=null)
+   {
         System.out.println("....."+l2);
         System.out.println("lllllll");
         System.out.println(l2.getType());
@@ -79,16 +82,19 @@ int gymid=  aa.getId();
        
       // int gymid=so.getgymid(branchid);
         String branchname="";
+        
         int branchid=0;
         if(l2.getType().equals(b))
         {
          branchid=so.getbranchid(name);
        branchname=so.getbranchname(branchid);
+    
         System.out.println("----"+branchname);
         }
        String gymname=so.getgymname(gymid);
         System.out.println("++++"+gymname);
        HttpSession hs=request.getSession(true);
+       hs.setAttribute("login",l2);
            hs.setAttribute("gymid",gymid);
            hs.setAttribute("branchid",branchid);
            hs.setAttribute("branchname", branchname);
@@ -97,7 +103,9 @@ int gymid=  aa.getId();
     if(b.equals(l2.getType()))
     {
          
-           
+             Addbranch bb= so.getBranch(String.valueOf(branchid));
+             System.out.println("login user-----"+bb.getBranchname());
+           hs.setAttribute("branchobj",bb);
          System.out.println( "+++++"+ hs.getAttribute("sessss").toString());
         System.out.println("-----"+branchid);
         System.out.println("++++"+gymid);
@@ -107,7 +115,7 @@ int gymid=  aa.getId();
     else if(t.equals(l2.getType()))
     {
         
-       Trainer tt=so.getTrainerid(l2.getLoginid());
+       Trainer tt=so.getTrainerobj(l2.getLoginid(),l2.getPassword());
        hs.setAttribute("trainer",tt);
          response.sendRedirect(scx.getContextPath()+"/Viewdiet?op=msg");
     }
@@ -123,7 +131,12 @@ int gymid=  aa.getId();
     {
          response.sendRedirect(scx.getContextPath()+"/gymui/pannel/userlogin.jsp");
     }
-       
+   }
+   else
+   {
+        response.sendRedirect(scx.getContextPath()+"/gymui/pannel/userlogin.jsp?msg=wrong_password");
+             
+   }
 // response.sendRedirect("index.jsp?msg="+savemsg);
     }
 
