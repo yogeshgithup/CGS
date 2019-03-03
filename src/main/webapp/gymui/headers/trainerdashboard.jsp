@@ -87,7 +87,12 @@
               <p>Manage Diet Plan</p>
             </a>
           </li>
-
+ <li class="" id="7">
+            <a href="<%=application.getContextPath()%>/gymui/pannel/changepasswordtrainer.jsp">
+              <i class="now-ui-icons location_map-big"></i>
+              <p>Change Password </p>
+            </a>
+          </li>
            <li>
             <a href="">
               <i class="now-ui-icons design_app"></i>
