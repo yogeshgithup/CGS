@@ -401,6 +401,7 @@ public class DataOperation {
     }
 
     public Login verifyusers(Login l) {
+        Login l1=null;
         try {
 
             sfobj = (SessionFactory) scx.getAttribute("sf");
@@ -415,8 +416,8 @@ public class DataOperation {
             List<Login> results = q.list();
   for(int i=0;i<results.size();i++)
  {
-            l = (Login) results.get(i);
-            System.out.println(l.getType());
+            l1 = (Login) results.get(i);
+            System.out.println(l1.getType());
  }
             //System.out.println("mmmmm"+l.getType());
             /* if(b.equals(l.getType())) {
@@ -431,7 +432,7 @@ public class DataOperation {
            // try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            }
         }
         System.out.println("///" + j);
-        return l;
+        return l1;
 
     }
 
@@ -2718,7 +2719,52 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
         }
         return l;
     }
-         
+          public Trainer getTrainerobj(String id,String passwor) {
+       int tid=0;
+        Trainer l = null;
+        try {
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+            session = sfobj.openSession();
+            tx = session.beginTransaction();
+            //String b = "branchoperator";
+            //String c = "traineer";
+            
+
+            Query q = session.createQuery("from Trainer where email=:gymid and password=:p");
+            q.setString("gymid", id);
+            q.setString("p",passwor);
+
+            List<Trainer> results = q.list();
+  for(int i=0;i<results.size();i++)
+ {
+            l = (Trainer) results.get(i);
+ }
+            
+          // tid= l.getId();
+           
+        } catch (Exception e) {
+           // gymid = 0;
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+               Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+           }
+        }
+        return l;
+    }
          public JSONArray getMembersname(String id)
          {
               
@@ -2892,6 +2938,51 @@ for(int i=0;i<results.size();i++)
 
             Query q = session.createQuery("from Members where email=:gymid");
             q.setString("gymid", id);
+
+            List<Members> results = q.list();
+for(int i=0;i<results.size();i++)
+ {
+            l = (Members) results.get(i);
+ } 
+            
+           
+        } catch (Exception e) {
+           // gymid = 0;
+             session = sfobj.openSession();
+            tx = session.beginTransaction();
+
+          System.out.println("line no= "+e.getStackTrace()[2].getLineNumber());
+              String smtp=   scx.getInitParameter("smtp");             String port=scx.getInitParameter("port");             String username=scx.getInitParameter("username");             String password=scx.getInitParameter("password");
+           Addgym g=   getGymID(gymid11);
+            // System.out.println(ea.getStackTrace().toString());
+            System.out.println("class name= "+e.getStackTrace()[2].getFileName());
+            Errors ee=new Errors();
+            ee.setGymid(gymid11);
+            ee.setError_name("line no= "+e.getStackTrace()[2].getLineNumber()+"type= "+e.toString());
+            ee.setMethod_name(e.getStackTrace()[2].getMethodName());
+            session.save(ee);
+             tx.commit();
+            session.close();
+            try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (MessagingException ex) {
+                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return l;
+    }
+          public Members getmemberObjj(String id,String passwor) {
+       // int gymid;
+        Members l = null;
+        try {
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+            session = sfobj.openSession();
+            tx = session.beginTransaction();
+            //String b = "branchoperator";
+            //String c = "traineer";
+            
+
+            Query q = session.createQuery("from Members where email=:gymid and password=:p");
+            q.setString("gymid", id);
+             q.setString("p", passwor);
 
             List<Members> results = q.list();
 for(int i=0;i<results.size();i++)
@@ -3472,6 +3563,263 @@ public HashSet<Addgym> invalidGym() {
                 Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+     public String UpdatePasswordGym(Addgym g,String password) {
+      String a=null;
+        try {
+          //  System.out.println(l.getPassword());
+            System.out.println("bcjsbc sjbcds" + scx);
+            System.out.println("ll" + scx.getAttribute("sf"));
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+            System.out.println("ncncncn" + sfobj);
+            session = sfobj.openSession();
+            System.out.println("vjsdbvjsd");
+            tx = session.beginTransaction();
+            //String b = "branchoperator";
+            //String c = "traineer";
+
+            System.out.println("kmjnn");
+            Query q = session.createQuery("from Addgym where username=:lname and password=:pass");
+            System.out.println("kkkkkk");
+            //System.out.println("...."+l.getUsername());
+            q.setString("lname", g.getUsername());
+            q.setString("pass", g.getPassword());
+            List<Addgym> results = q.list();
+            System.out.println("oooooo");
+         Addgym l2=null;  
+ for(int i=0;i<results.size();i++)
+ {
+        l2 = (Addgym) results.get(i);
+       l2.setPassword(password);
+ }     
+      Query q1 = session.createQuery("from Logingym where username=:lname and password=:pass");
+            System.out.println("kkkkkk111");
+            //System.out.println("...."+l.getUsername());
+            q1.setString("lname", g.getUsername());
+            q1.setString("pass", g.getPassword());
+            System.out.println("-------------");
+            List<Logingym> results1 = q1.list();
+            Logingym l=null;
+       for(int j=0;j<results1.size();j++)
+       {
+           l=(Logingym)results1.get(j);
+           l.setPassword(password);
+            //System.out.println(""+l2.getType());
+       }
+             //a=l2.getA();
+           if(l!=null && l2!=null)
+           {
+               session.saveOrUpdate(l);
+               session.saveOrUpdate(l2);
+               a="password reset";
+           }
+           else
+           {
+              a="password not reset";
+           }
+           tx.commit();
+           session.close();
+        } catch (Exception e) {
+            System.out.println(""+e.getMessage());
+           
+           // try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            }
+        }
+      //  System.out.println("///" + j);
+         System.out.println("---------result-"+a);
+       return a;
+    }
+     public String UpdatePasswordBranchop(Addbranch g,String password) {
+      String a=null;
+        try {
+          //  System.out.println(l.getPassword());
+            System.out.println("bcjsbc sjbcds" + scx);
+            System.out.println("ll" + scx.getAttribute("sf"));
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+            System.out.println("ncncncn" + sfobj);
+            session = sfobj.openSession();
+            System.out.println("vjsdbvjsd");
+            tx = session.beginTransaction();
+            //String b = "branchoperator";
+            //String c = "traineer";
+
+            System.out.println("kmjnn");
+            Query q = session.createQuery("from addbranchoperator where email=:lname and password=:pass");
+            System.out.println("kkkkkk");
+            //System.out.println("...."+l.getUsername());
+            q.setString("lname", g.getAbo().getEmail());
+            q.setString("pass", g.getAbo().getPassword());
+            List<addbranchoperator> results = q.list();
+            System.out.println("oooooo");
+         addbranchoperator l2=null;  
+ for(int i=0;i<results.size();i++)
+ {
+        l2 = (addbranchoperator) results.get(i);
+       l2.setPassword(password);
+ }     
+      Query q1 = session.createQuery("from Login where loginid=:lname and password=:pass");
+            System.out.println("kkkkkk111");
+            //System.out.println("...."+l.getUsername());
+            q1.setString("lname", g.getAbo().getEmail());
+            q1.setString("pass", g.getAbo().getPassword());
+            System.out.println("-------------");
+            List<Login> results1 = q1.list();
+            Login l=null;
+       for(int j=0;j<results1.size();j++)
+       {
+           l=(Login)results1.get(j);
+           l.setPassword(password);
+            //System.out.println(""+l2.getType());
+       }
+             //a=l2.getA();
+           if(l!=null && l2!=null)
+           {
+               session.saveOrUpdate(l);
+               session.saveOrUpdate(l2);
+               a="password reset";
+           }
+           else
+           {
+              a="password not reset";
+           }
+           tx.commit();
+           session.close();
+        } catch (Exception e) {
+            System.out.println(""+e.getMessage());
+           
+           // try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            }
+        }
+      //  System.out.println("///" + j);
+         System.out.println("---------result-"+a);
+       return a;
+    }
+     public String UpdatePasswordTrainer(Trainer g,String password) {
+      String a=null;
+        try {
+          //  System.out.println(l.getPassword());
+            System.out.println("bcjsbc sjbcds" + scx);
+            System.out.println("ll" + scx.getAttribute("sf"));
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+            System.out.println("ncncncn" + sfobj);
+            session = sfobj.openSession();
+            System.out.println("vjsdbvjsd");
+            tx = session.beginTransaction();
+            //String b = "branchoperator";
+            //String c = "traineer";
+
+            System.out.println("kmjnn");
+            Query q = session.createQuery("from Trainer where email=:lname and password=:pass");
+            System.out.println("kkkkkk");
+            //System.out.println("...."+l.getUsername());
+            q.setString("lname", g.getEmail());
+            q.setString("pass", g.getPassword());
+            List<Trainer> results = q.list();
+            System.out.println("oooooo");
+         Trainer l2=null;  
+ for(int i=0;i<results.size();i++)
+ {
+        l2 = (Trainer) results.get(i);
+       l2.setPassword(password);
+ }     
+      Query q1 = session.createQuery("from Login where loginid=:lname and password=:pass");
+            System.out.println("kkkkkk111");
+            //System.out.println("...."+l.getUsername());
+            q1.setString("lname", g.getEmail());
+            q1.setString("pass", g.getPassword());
+            System.out.println("-------------");
+            List<Login> results1 = q1.list();
+            Login l=null;
+       for(int j=0;j<results1.size();j++)
+       {
+           l=(Login)results1.get(j);
+           l.setPassword(password);
+            //System.out.println(""+l2.getType());
+       }
+             //a=l2.getA();
+           if(l!=null && l2!=null)
+           {
+               session.saveOrUpdate(l);
+               session.saveOrUpdate(l2);
+               a="password reset";
+           }
+           else
+           {
+              a="password not reset";
+           }
+           tx.commit();
+           session.close();
+        } catch (Exception e) {
+            System.out.println(""+e.getMessage());
+           
+           // try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            }
+        }
+      //  System.out.println("///" + j);
+         System.out.println("---------result-"+a);
+       return a;
+    }
+      public String UpdatePasswordMember(Members g,String password) {
+      String a=null;
+        try {
+          //  System.out.println(l.getPassword());
+            System.out.println("bcjsbc sjbcds" + scx);
+            System.out.println("ll" + scx.getAttribute("sf"));
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+            System.out.println("ncncncn" + sfobj);
+            session = sfobj.openSession();
+            System.out.println("vjsdbvjsd");
+            tx = session.beginTransaction();
+            //String b = "branchoperator";
+            //String c = "traineer";
+
+            System.out.println("kmjnn");
+            Query q = session.createQuery("from Members where email=:lname and password=:pass");
+            System.out.println("kkkkkk");
+            System.out.println("...."+g.getEmail()+g.getPassword());
+            q.setString("lname", g.getEmail());
+            System.out.println("-----------------------");
+            q.setString("pass", g.getPassword());
+            List<Members> results = q.list();
+            System.out.println("oooooo");
+         Members l2=null;  
+ for(int i=0;i<results.size();i++)
+ {
+        l2 = (Members) results.get(i);
+       l2.setPassword(password);
+ }     
+      Query q1 = session.createQuery("from Login where loginid=:lname and password=:pass");
+            System.out.println("kkkkkk111");
+            //System.out.println("...."+l.getUsername());
+            q1.setString("lname", g.getEmail());
+            q1.setString("pass", g.getPassword());
+            System.out.println("-------------");
+            List<Login> results1 = q1.list();
+            Login l=null;
+       for(int j=0;j<results1.size();j++)
+       {
+           l=(Login)results1.get(j);
+           l.setPassword(password);
+            //System.out.println(""+l2.getType());
+       }
+             //a=l2.getA();
+           if(l!=null && l2!=null)
+           {
+               session.saveOrUpdate(l);
+               session.saveOrUpdate(l2);
+               a="password reset";
+           }
+           else
+           {
+              a="password not reset";
+           }
+           tx.commit();
+           session.close();
+        } catch (Exception e) {
+            System.out.println(""+e.getMessage());
+           
+           // try {               operations.Emailutility.SendEmailwithAttach(smtp, port, username, password,g.getUsername(),"error message",ee.getError_name()+""+e.getStackTrace()[2].getLineNumber());            } catch (AddressException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            } catch (IOException ex) {                Logger.getLogger(DataOperation.class.getName()).log(Level.SEVERE, null, ex);            }
+        }
+      //  System.out.println("///" + j);
+         System.out.println("---------result-"+a);
+       return a;
     }
 }
 

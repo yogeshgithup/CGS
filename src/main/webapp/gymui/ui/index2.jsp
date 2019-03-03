@@ -80,13 +80,16 @@
                 <div class="banner-info-text">
                     <div class="container">
                         <div class="agileits-logo">
-                            <h1><a href="#"><%String g = gym.getGymname();
+                            <h1><a href="#"><%
+                            if(gym!=null)
+                            { String g = gym.getGymname();
 
-                                    %> <%=g%></a></h1>
+                                    %> <%= g%></a></h1>
                         </div>
                         <div class="w3-border"> </div>
                         <div class="w3layouts-banner-info">
-                            <h2><%=ginfo.getQuality_msg()%></h2>
+                            <h2></h2>
+                            <% }%>
                             <div class="w3ls-button">
                                 <a href="#" data-toggle="modal" data-target="#myModal">Read More</a>
                             </div>
@@ -189,10 +192,12 @@
                                  if(gym!=null)
             {
             ginfo = gym.getGyinfo();
+            if(ginfo!=null)
+            {
                                 %>
                                 <h5><%= ginfo.getAbout_us_title()%></h5>
                                 <p><%=ginfo.getAbout_us_desc()%></p>
-                                <% }%>
+                                <% } }%>
                             </div>
                             <div class="clearfix"> </div>
                         </div>

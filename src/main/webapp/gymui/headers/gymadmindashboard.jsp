@@ -214,6 +214,12 @@ $("li").click(function(){
               <p>Equipment Editing </p>
             </a>
           </li>
+          <li class="" id="7">
+            <a href="<%=application.getContextPath()%>/gymui/pannel/changepasswordgymadmin.jsp">
+              <i class="now-ui-icons location_map-big"></i>
+              <p>Change Password </p>
+            </a>
+          </li>
           <li class="" id="8">
             <a href="">
               <i class="now-ui-icons location_map-big"></i>

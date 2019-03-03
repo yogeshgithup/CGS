@@ -100,6 +100,12 @@
               <p>Set Reminder</p>
             </a>
           </li>
+           <li class="" id="7">
+            <a href="<%=application.getContextPath()%>/gymui/pannel/changepasswordbranch.jsp">
+              <i class="now-ui-icons location_map-big"></i>
+              <p>Change Password </p>
+            </a>
+          </li>
         </ul>
       </div>
     </div>
