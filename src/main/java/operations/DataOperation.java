@@ -931,7 +931,7 @@ public class DataOperation {
        if (results.size()==0) {
 
                 System.out.println("helll");
-               gym= "already exists";
+              
             }
             else
             {
@@ -939,6 +939,7 @@ public class DataOperation {
     {
             l = (Addgym) results.get(0);
             System.out.println("ppp");
+             gym= "already exists";
     }
             }
  
@@ -1189,10 +1190,11 @@ public class DataOperation {
              if (results.size()==0) {
 
                 System.out.println("helll");
-                pack = "already exists";
+               
             }
             else
             {
+                 pack = "already exists";
     for(int i=0;i<results.size();i++)
     {
             l = (Addbranch) results.get(0);

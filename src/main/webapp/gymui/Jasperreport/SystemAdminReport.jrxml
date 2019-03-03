@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c6ca859d-720d-4711-a0e3-9da582a944e9">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Chiman Patel\\Desktop\\CGS\\CGS\\src\\main\\webapp\\gymui\\Jasperreport\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     addgym.`id` AS addgym_id,
+     addgym.`UI` AS addgym_UI,
+     addgym.`area` AS addgym_area,
+     addgym.`date` AS addgym_date,
+     addgym.`gymname` AS addgym_gymname,
+     addgym.`ownername` AS addgym_ownername,
+     addgym.`packagee` AS addgym_packagee,
+     addgym.`password` AS addgym_password,
+     addgym.`phoneno` AS addgym_phoneno,
+     addgym.`postcode` AS addgym_postcode,
+     addgym.`street` AS addgym_street,
+     addgym.`username` AS addgym_username,
+     addgym.`packid` AS addgym_packid
+FROM
+     `addgym` addgym]]>
+	</queryString>
+	<field name="addgym_id" class="java.lang.Integer"/>
+	<field name="addgym_gymname" class="java.lang.String"/>
+	<field name="addgym_area" class="java.lang.String"/>
+	<field name="addgym_ownername" class="java.lang.String"/>
+	<field name="addgym_packagee" class="java.lang.String"/>
+	<field name="addgym_date" class="java.lang.String"/>
+	<group name="addgym_id">
+		<groupExpression><![CDATA[$F{addgym_id}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="107" y="2" width="312" height="37" uuid="5216af1b-6cfc-44a9-ae13-cbc26e88e1f3"/>
+				<textElement textAlignment="Center">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SYSTEM ADMIN]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="75" width="555" height="1" uuid="d6db5bd3-f34b-4240-ac00-3c76674a9955"/>
+			</line>
+			<staticText>
+				<reportElement x="344" y="59" width="100" height="20" uuid="a2a98297-4397-48f9-8331-e1e5bd4381ca"/>
+				<text><![CDATA[Total GYM:-]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="444" y="59" width="111" height="20" uuid="db3daf22-7418-4e3b-a778-58f424466f67"/>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<subreport>
+				<reportElement x="242" y="22" width="330" height="77" uuid="1967a250-ac93-4033-8c7f-86855afdbb94"/>
+				<subreportParameter name="gymid">
+					<subreportParameterExpression><![CDATA[$F{addgym_id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SystemAdminReport_branch.jasper"]]></subreportExpression>
+			</subreport>
+			<textField>
+				<reportElement x="104" y="2" width="138" height="20" uuid="8e56db1e-03bf-469d-9b4f-3b89e96b5832"/>
+				<textFieldExpression><![CDATA[$F{addgym_gymname}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="267" y="0" width="100" height="20" uuid="a07f1a95-133b-4c91-a57a-5d8cfaa4c631"/>
+				<text><![CDATA[Branches:-]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="104" height="20" uuid="16ed1d50-f649-4328-80ac-dd221429457a"/>
+				<text><![CDATA[Gym Name:-]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="21" width="104" height="20" uuid="8d15d20a-8782-4ac1-a6a1-88665b139a64"/>
+				<text><![CDATA[Owner Name:-]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="104" y="22" width="138" height="20" uuid="9020bc36-ad89-4d39-ace7-363fa4ba16fb"/>
+				<textFieldExpression><![CDATA[$F{addgym_ownername}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="42" width="104" height="20" uuid="12a05b28-f010-4a7d-acd2-caee1f03ba37"/>
+				<text><![CDATA[Package Select:-]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="104" y="41" width="138" height="20" uuid="47f7968a-24d9-491c-b852-c62d7d4fccc1"/>
+				<textFieldExpression><![CDATA[$F{addgym_packagee}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="62" width="104" height="20" uuid="0605bd7d-1a37-4fa0-a0a9-fb631723f5d2"/>
+				<text><![CDATA[Date Of Register:-]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="104" y="60" width="138" height="20" uuid="9ac6e339-586d-4708-82a5-b6e9457ce234"/>
+				<textFieldExpression><![CDATA[$F{addgym_date}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="81" width="104" height="20" uuid="f76481e7-93a1-4d48-a781-7a623bb0c025"/>
+				<text><![CDATA[Area:-]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="104" y="79" width="138" height="20" uuid="2b3a273f-e941-467d-9792-b3dfaed325fc"/>
+				<textFieldExpression><![CDATA[$F{addgym_area}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="112" width="572" height="1" uuid="b2f62599-5691-4d82-98f7-72fb62638062"/>
+			</line>
+		</band>
+	</detail>
+</jasperReport>

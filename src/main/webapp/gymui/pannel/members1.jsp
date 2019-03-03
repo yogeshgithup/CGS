@@ -55,7 +55,12 @@
                      </tbody>
                   </table>
                 </div>
-
+ <div class="row">
+             <div class="col-md-3"></div>
+          <div class="col-md-4">
+              <a href="/CGS/Memberreport" target="_blank"> <button class="btn btn-primary btn-block">Download Report</button> </a>  
+              </div>
+              </div>
 
             </div>
             </body>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="GymAdminReport_subreport1_membersname" pageWidth="273" pageHeight="802" columnWidth="273" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="0dbf420a-9d75-4395-b28a-b97432499cbb">
+	<property name="ireport.zoom" value="4.5078888054094675"/>
+	<property name="ireport.x" value="369"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="branchid" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$F{members_branchid}]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     members.`id` AS members_id,
+     members.`area` AS members_area,
+     members.`blood` AS members_blood,
+     members.`date` AS members_date,
+     members.`dob` AS members_dob,
+     members.`email` AS members_email,
+     members.`firstname` AS members_firstname,
+     members.`health` AS members_health,
+     members.`height` AS members_height,
+     members.`lastname` AS members_lastname,
+     members.`middlename` AS members_middlename,
+     members.`packagee` AS members_packagee,
+     members.`password` AS members_password,
+     members.`phoneno` AS members_phoneno,
+     members.`postalcode` AS members_postalcode,
+     members.`street` AS members_street,
+     members.`weight` AS members_weight,
+     members.`branchid` AS members_branchid,
+     members.`member_pack_id` AS members_member_pack_id
+FROM
+     `members` members
+where branchid=$P{branchid}]]>
+	</queryString>
+	<field name="members_id" class="java.lang.Integer"/>
+	<field name="members_firstname" class="java.lang.String"/>
+	<field name="members_lastname" class="java.lang.String"/>
+	<field name="members_branchid" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="162" y="1" width="46" height="20" uuid="b3f6b393-327a-4bc9-b535-d693374a393b"/>
+				<textFieldExpression><![CDATA[$F{members_lastname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="118" y="1" width="54" height="20" uuid="e89405e2-2d1d-42c9-95f0-11847fca6a0b"/>
+				<textFieldExpression><![CDATA[$F{members_firstname}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="18" y="1" width="83" height="20" uuid="72329e65-744b-48fa-8d81-97563ca908e4"/>
+				<text><![CDATA[Members Name:-]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="21" width="263" height="1" uuid="9ced625a-2feb-4310-9939-2ee7c8b91453"/>
+			</line>
+			<line>
+				<reportElement x="107" y="0" width="1" height="21" uuid="65af3ba3-630d-473e-8962-0e96a45ae769"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="20">
+			<staticText>
+				<reportElement x="18" y="0" width="83" height="20" uuid="c9bd35ef-1fb9-4dd2-a064-84d2f78805c0"/>
+				<text><![CDATA[Total Members:-]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="118" y="0" width="100" height="20" uuid="292c8ad0-a12c-4410-b6fc-b713bd7f9c9d"/>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+</jasperReport>

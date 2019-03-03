@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SystemAdminReport_branch" pageWidth="329" pageHeight="802" whenNoDataType="AllSectionsNoDetail" columnWidth="329" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="0b9621d4-08af-4842-97f0-3f29c19dbe95">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="gymid" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$F{addbranch_gymid}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="parameter1" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     addbranch.`id` AS addbranch_id,
+     addbranch.`area` AS addbranch_area,
+     addbranch.`branchname` AS addbranch_branchname,
+     addbranch.`postalcode` AS addbranch_postalcode,
+     addbranch.`street` AS addbranch_street,
+     addbranch.`gymid` AS addbranch_gymid
+FROM
+     `addbranch` addbranch
+WHERE
+     gymid = $P{gymid}]]>
+	</queryString>
+	<field name="addbranch_id" class="java.lang.Integer"/>
+	<field name="addbranch_gymid" class="java.lang.Integer"/>
+	<field name="addbranch_branchname" class="java.lang.String"/>
+	<field name="addbranch_area" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="36" splitType="Stretch">
+			<textField>
+				<reportElement x="86" y="4" width="65" height="20" uuid="bbd9ecce-ea2c-4c4b-9e0f-54d87d685864"/>
+				<textFieldExpression><![CDATA[$F{addbranch_branchname}]]></textFieldExpression>
+			</textField>
+			<frame>
+				<reportElement x="0" y="1" width="301" height="33" uuid="b17d44ce-c52b-4029-8657-34431e423854"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Double"/>
+					<topPen lineWidth="1.0" lineStyle="Double"/>
+					<leftPen lineWidth="1.0" lineStyle="Double"/>
+					<bottomPen lineWidth="1.0" lineStyle="Double"/>
+					<rightPen lineWidth="1.0" lineStyle="Double"/>
+				</box>
+				<staticText>
+					<reportElement x="10" y="3" width="77" height="20" uuid="e14e623c-1c74-4124-acca-4a04110d15ee"/>
+					<text><![CDATA[Branch Name:-]]></text>
+				</staticText>
+			</frame>
+			<staticText>
+				<reportElement x="164" y="4" width="36" height="20" uuid="5a1469c9-2daa-4f27-987a-79c0e8da1cb3"/>
+				<text><![CDATA[Area:-]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="201" y="4" width="100" height="20" uuid="e8620d81-e5e3-4d58-af47-a2c98c9c4900"/>
+				<textFieldExpression><![CDATA[$F{addbranch_area}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="21">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="af16a6d4-9dd5-464e-bac6-c965805983b2"/>
+				<text><![CDATA[Total Branch:-]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="100" y="0" width="100" height="20" uuid="eccdff3b-696d-42b7-bd59-da0e79595ecd"/>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+</jasperReport>

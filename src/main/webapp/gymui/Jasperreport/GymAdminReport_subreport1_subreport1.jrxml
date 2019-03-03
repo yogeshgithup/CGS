@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="GymAdminReport_subreport1_subreport1" pageWidth="273" pageHeight="802" columnWidth="273" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="03443ed8-8a39-434e-a5e1-7dc20a7f7c5b">
+	<property name="ireport.zoom" value="3.4150672768253534"/>
+	<property name="ireport.x" value="187"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="branchid" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     trainer.`id` AS trainer_id,
+     trainer.`area` AS trainer_area,
+     trainer.`description` AS trainer_description,
+     trainer.`email` AS trainer_email,
+     trainer.`firstname` AS trainer_firstname,
+     trainer.`lastname` AS trainer_lastname,
+     trainer.`middlename` AS trainer_middlename,
+     trainer.`password` AS trainer_password,
+     trainer.`phoneno` AS trainer_phoneno,
+     trainer.`postalcode` AS trainer_postalcode,
+     trainer.`role` AS trainer_role,
+     trainer.`street` AS trainer_street,
+     trainer.`url` AS trainer_url,
+     trainer.`branchid` AS trainer_branchid,
+     trainer.`fac_id` AS trainer_fac_id
+FROM
+     `trainer` trainer
+where branchid=$P{branchid}]]>
+	</queryString>
+	<field name="trainer_id" class="java.lang.Integer"/>
+	<field name="trainer_area" class="java.lang.String"/>
+	<field name="trainer_description" class="java.lang.String"/>
+	<field name="trainer_email" class="java.lang.String"/>
+	<field name="trainer_firstname" class="java.lang.String"/>
+	<field name="trainer_lastname" class="java.lang.String"/>
+	<field name="trainer_middlename" class="java.lang.String"/>
+	<field name="trainer_password" class="java.lang.String"/>
+	<field name="trainer_phoneno" class="java.lang.Long"/>
+	<field name="trainer_postalcode" class="java.lang.String"/>
+	<field name="trainer_role" class="java.lang.String"/>
+	<field name="trainer_street" class="java.lang.String"/>
+	<field name="trainer_url" class="java.lang.String"/>
+	<field name="trainer_branchid" class="java.lang.Integer"/>
+	<field name="trainer_fac_id" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="32" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="4" width="100" height="20" uuid="fb40ff79-afbf-4fcb-bb09-d994f00e11bb"/>
+				<text><![CDATA[Trainer Name:-]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="116" y="4" width="56" height="20" uuid="f2b5570c-43b9-4be4-9878-401e8bda2632"/>
+				<textFieldExpression><![CDATA[$F{trainer_firstname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="178" y="4" width="52" height="20" uuid="e7f4e6b0-515d-4a8b-bed6-c017aa008add"/>
+				<textFieldExpression><![CDATA[$F{trainer_lastname}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="26" width="230" height="1" uuid="da46b2ba-f470-42a8-8d50-cbb9a4cd4c89"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="28" splitType="Stretch">
+			<staticText>
+				<reportElement x="12" y="0" width="100" height="20" uuid="8aea25f4-6dc4-4fa9-883d-f486ff360820"/>
+				<text><![CDATA[Total Trainer:]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="117" y="0" width="100" height="20" uuid="90670592-bcea-4ae3-ad37-e01ba0908c6a"/>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="113" y="-32" width="1" height="26" uuid="e2f09a50-09b3-43ee-8f49-91746cd41dc1"/>
+			</line>
+		</band>
+	</columnFooter>
+</jasperReport>

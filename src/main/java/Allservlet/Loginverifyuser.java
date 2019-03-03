@@ -114,6 +114,7 @@ int gymid=  aa.getId();
        
     else if(m.equals(l2.getType()))
     {
+        System.out.println("");
          Members tt=so.getmemberObj(l2.getLoginid());
        hs.setAttribute("member",tt);
          response.sendRedirect(scx.getContextPath()+"/gymui/pannel/members1.jsp");
