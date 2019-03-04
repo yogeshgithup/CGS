@@ -1566,8 +1566,8 @@ Set<Pack_facility> fac1 = new HashSet<Pack_facility>();
 //                 pac = getpacfacility(p1.getId());
                 //   System.out.println("---"+pac.toString());
 
-                Gympackage p2 = new Gympackage(p1.getId(), p1.getName(), p1.getAmount(), p1.getTime());
-                setfacility.add(p2);
+                //Gympackage p2 = new Gympackage(p1.getId(), p1.getName(), p1.getAmount(), p1.getTime());
+                setfacility.add(p1);
                 }
             }
 

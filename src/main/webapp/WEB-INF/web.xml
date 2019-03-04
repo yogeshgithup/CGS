@@ -237,14 +237,26 @@
     <servlet>
         <servlet-name>Memberreport</servlet-name>
         <servlet-class>Allservlet.Memberreport</servlet-class>
-     </servlet>
-      <servlet>
+    </servlet>
+    <servlet>
         <servlet-name>VerifyPassword</servlet-name>
         <servlet-class>Allservlet.VerifyPassword</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdatePassword</servlet-name>
         <servlet-class>Allservlet.UpdatePassword</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ExcelPackage</servlet-name>
+        <servlet-class>Allservlet.ExcelPackage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ExcelGympackage</servlet-name>
+        <servlet-class>Allservlet.ExcelGympackage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ExcelGymBatches</servlet-name>
+        <servlet-class>Allservlet.ExcelGymBatches</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Loginverify</servlet-name>
@@ -429,7 +441,7 @@
     <servlet-mapping>
         <servlet-name>Memberreport</servlet-name>
         <url-pattern>/Memberreport</url-pattern>
-</servlet-mapping>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>VerifyPassword</servlet-name>
         <url-pattern>/VerifyPassword</url-pattern>
@@ -437,6 +449,18 @@
     <servlet-mapping>
         <servlet-name>UpdatePassword</servlet-name>
         <url-pattern>/UpdatePassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ExcelPackage</servlet-name>
+        <url-pattern>/ExcelPackage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ExcelGympackage</servlet-name>
+        <url-pattern>/ExcelGympackage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ExcelGymBatches</servlet-name>
+        <url-pattern>/ExcelGymBatches</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
