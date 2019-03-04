@@ -192,6 +192,13 @@
                     </tbody>
                   </table>
                 </div>
+                       <div class="row">
+             <div class="col-md-3"></div>
+          
+               <div class="col-md-4">
+              <a href="/CGS/ExcelPackage?msg=gym" > <button class="btn btn-primary btn-block">Download Excel</button> </a>  
+              </div>
+              </div>
               </div>
             </div>
           </div>
