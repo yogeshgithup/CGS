@@ -72,8 +72,12 @@
             <div class="address-info">
                 <div class="container">
                     <div class="address-info-text">
-                        <p><i class="fa fa-map-marker" aria-hidden="true"></i> <%=gym.getArea()%>, <%=gym.getStreet()%>, <%=gym.getPostcode()%>, <%=gym.getPhoneno()%></p>
-                    </div>
+                        <p><i class="fa fa-map-marker" aria-hidden="true"></i> <%=gym.getArea()%>, <%=gym.getStreet()%>, <%=gym.getPostcode()%>, <%=gym.getPhoneno()%>
+                       
+                    
+                        <div  align="right"> <a href="<%=application.getContextPath()%>/gymui/pannel/userlogin.jsp" target="_blank" style="color:white"><b>LOGIN</b></a></div>
+                 </p> 
+                  </div>
                 </div>
             </div>
             <div class="banner-info">

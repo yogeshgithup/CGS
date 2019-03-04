@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
     <context-param>
         <param-name>accesstoken</param-name>
         <param-value>7FgqxJBL6rAAAAAAAAAASqriod7Xvv17YiTOP6rI_dUx2TpuqHAnvQMV81wbpBlD</param-value>
@@ -247,6 +250,10 @@
         <servlet-class>Allservlet.UpdatePassword</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>Systemlogin</servlet-name>
+        <servlet-class>Allservlet.Systemlogin</servlet-class>
+      </servlet>
+    <servlet>
         <servlet-name>ExcelPackage</servlet-name>
         <servlet-class>Allservlet.ExcelPackage</servlet-class>
     </servlet>
@@ -450,6 +457,10 @@
         <servlet-name>UpdatePassword</servlet-name>
         <url-pattern>/UpdatePassword</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Systemlogin</servlet-name>
+        <url-pattern>/Systemlogin</url-pattern>
+      </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ExcelPackage</servlet-name>
         <url-pattern>/ExcelPackage</url-pattern>
