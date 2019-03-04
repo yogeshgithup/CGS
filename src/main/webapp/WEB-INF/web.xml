@@ -252,6 +252,18 @@
     <servlet>
         <servlet-name>Systemlogin</servlet-name>
         <servlet-class>Allservlet.Systemlogin</servlet-class>
+      </servlet>
+    <servlet>
+        <servlet-name>ExcelPackage</servlet-name>
+        <servlet-class>Allservlet.ExcelPackage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ExcelGympackage</servlet-name>
+        <servlet-class>Allservlet.ExcelGympackage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ExcelGymBatches</servlet-name>
+        <servlet-class>Allservlet.ExcelGymBatches</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Loginverify</servlet-name>
@@ -448,6 +460,18 @@
     <servlet-mapping>
         <servlet-name>Systemlogin</servlet-name>
         <url-pattern>/Systemlogin</url-pattern>
+      </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ExcelPackage</servlet-name>
+        <url-pattern>/ExcelPackage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ExcelGympackage</servlet-name>
+        <url-pattern>/ExcelGympackage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ExcelGymBatches</servlet-name>
+        <url-pattern>/ExcelGymBatches</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
