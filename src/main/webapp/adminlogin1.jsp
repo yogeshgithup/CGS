@@ -1,10 +1,12 @@
+<%@page session="false" %>
 <%
-  
+ // out.println("3-"+session);
     String msg=request.getParameter("msg");
       if(msg==null)
       {
           msg="";
       }
+     // System.out.println("SESSION+++++"+session.isNew());
         %>	
 <!DOCTYPE html>
 <html lang="en">

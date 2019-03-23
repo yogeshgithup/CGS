@@ -12,8 +12,10 @@ import com.mycompany.loginmodule.Login;
 import com.mycompany.loginmodule.Logingym;
 import com.mycompany.loginmodule.Members;
 import com.mycompany.loginmodule.Trainer;
+import com.mycompany.loginmodule.counter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -100,6 +102,7 @@ int gymid=  aa.getId();
            hs.setAttribute("branchname", branchname);
            hs.setAttribute("gname", gymname);
          hs.setAttribute("sessss", 1);
+         System.out.println("_____+++++++105"+hs.isNew());
     if(b.equals(l2.getType()))
     {
          
@@ -109,7 +112,15 @@ int gymid=  aa.getId();
          System.out.println( "+++++"+ hs.getAttribute("sessss").toString());
         System.out.println("-----"+branchid);
         System.out.println("++++"+gymid);
-         
+          DataOperation doo=new DataOperation(scx);
+           counter c=new counter();
+            Date d=new Date();   
+      c.setUserid(bb.getAbo().getId());
+      c.setType("BRANCHOPERATOR");
+      c.setDate(d);
+      c.setLogintime(d);
+      doo.counter(c);
+      hs.setAttribute("insert1",c);
          response.sendRedirect(scx.getContextPath()+"/Viewtrainer");
     }
     else if(t.equals(l2.getType()))
@@ -117,6 +128,15 @@ int gymid=  aa.getId();
         
        Trainer tt=so.getTrainerobj(l2.getLoginid(),l2.getPassword());
        hs.setAttribute("trainer",tt);
+        DataOperation doo=new DataOperation(scx);
+           counter c=new counter();
+            Date d=new Date();   
+      c.setUserid(tt.getId());
+      c.setType("TRAINER");
+      c.setDate(d);
+      c.setLogintime(d);
+      doo.counter(c);
+      hs.setAttribute("insert1",c);
          response.sendRedirect(scx.getContextPath()+"/Viewdiet?op=msg");
     }
        
@@ -125,6 +145,15 @@ int gymid=  aa.getId();
         System.out.println("");
          Members tt=so.getmemberObj(l2.getLoginid());
        hs.setAttribute("member",tt);
+        DataOperation doo=new DataOperation(scx);
+           counter c=new counter();
+            Date d=new Date();   
+      c.setUserid(tt.getId());
+      c.setType("MEMBERS");
+      c.setDate(d);
+      c.setLogintime(d);
+      doo.counter(c);
+      hs.setAttribute("insert1",c);
          response.sendRedirect(scx.getContextPath()+"/gymui/pannel/members1.jsp");
     }
     else

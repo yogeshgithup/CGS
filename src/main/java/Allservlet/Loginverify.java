@@ -16,8 +16,10 @@ import com.mycompany.loginmodule.Addgym;
 import com.mycompany.loginmodule.Addpackage;
 import com.mycompany.loginmodule.Login;
 import com.mycompany.loginmodule.Logingym;
+import com.mycompany.loginmodule.counter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.HashSet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -82,6 +84,7 @@ public void init(ServletConfig sc) throws ServletException
    else if(l2.getId()!=0)
     {
           HttpSession hs=request.getSession(true);
+          System.out.println("85----"+hs.isNew());
            hs.setAttribute("gymid",l2.getId());
            hs.setAttribute("gymname",l2.getGymname());
            hs.setAttribute("gym",l2);
@@ -89,6 +92,15 @@ public void init(ServletConfig sc) throws ServletException
          /*  DataOperation pko=new DataOperation(scx);
            HashSet<Addbranch> listCatagory =pko.getbranch(l2.getId());
             hs.setAttribute("setbranch",listCatagory);*/
+           DataOperation doo=new DataOperation(scx);
+           counter c=new counter();
+            Date d=new Date();   
+      c.setUserid(l2.getId());
+      c.setType("GYMADMIN");
+      c.setDate(d);
+      c.setLogintime(d);
+      doo.counter(c);
+      hs.setAttribute("insert",c);
          response.sendRedirect("Viewbranch");
     }
        

@@ -53,6 +53,34 @@
   <link href="<%=application.getContextPath()%>/gymui/assets/css/now-ui-dashboard.css?v=1.2.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="<%=application.getContextPath()%>/gymui/assets/demo/demo.css" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script>
+      $(document).ready(function(){
+   alert("Hello");
+     var href = document.location.href;
+var lastPathSegment = href.substr(href.lastIndexOf('/') + 1);  
+var newString = lastPathSegment.split('?', 1)[0];
+alert(newString);
+    <% 
+    int n;
+    Trainer t = (Trainer) session.getAttribute("trainer");
+   if(t!=null)
+   {
+      n=t.getId();
+   }
+   else
+       n=0;
+    %>
+            var n='<%=n%>';
+            alert(n);
+           if(n!==0)
+           {
+         $.post("<%=application.getContextPath()%>/Hitcounter", {jspname: newString,userid: n,type: "Trainer"}, function(data,status){
+   
+  });
+  }
+  });
+  </script>
 </head>
 
 <body class="dark-edition">

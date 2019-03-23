@@ -52,6 +52,9 @@
             DatabaseUtil.MyHibernateConnection
         </listener-class>
     </listener>
+    <listener>
+        <listener-class>Allservlet.Counter</listener-class>
+    </listener>
     <!--    <listener>
         <listener-class>
             com.sun.faces.config.ConfigureListener
@@ -252,7 +255,7 @@
     <servlet>
         <servlet-name>Systemlogin</servlet-name>
         <servlet-class>Allservlet.Systemlogin</servlet-class>
-      </servlet>
+    </servlet>
     <servlet>
         <servlet-name>ExcelPackage</servlet-name>
         <servlet-class>Allservlet.ExcelPackage</servlet-class>
@@ -264,6 +267,14 @@
     <servlet>
         <servlet-name>ExcelGymBatches</servlet-name>
         <servlet-class>Allservlet.ExcelGymBatches</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Hitcounter</servlet-name>
+        <servlet-class>Allservlet.Hitcounter</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Middlewarecounter</servlet-name>
+        <servlet-class>Allservlet.Middlewarecounter</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Loginverify</servlet-name>
@@ -460,7 +471,7 @@
     <servlet-mapping>
         <servlet-name>Systemlogin</servlet-name>
         <url-pattern>/Systemlogin</url-pattern>
-      </servlet-mapping>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ExcelPackage</servlet-name>
         <url-pattern>/ExcelPackage</url-pattern>
@@ -472,6 +483,14 @@
     <servlet-mapping>
         <servlet-name>ExcelGymBatches</servlet-name>
         <url-pattern>/ExcelGymBatches</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Hitcounter</servlet-name>
+        <url-pattern>/Hitcounter</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Middlewarecounter</servlet-name>
+        <url-pattern>/Middlewarecounter</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

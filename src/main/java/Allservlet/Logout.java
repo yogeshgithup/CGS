@@ -7,8 +7,10 @@
 package Allservlet;
 
 import com.mycompany.loginmodule.Logingym;
+import com.mycompany.loginmodule.counter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -72,14 +74,26 @@ public class Logout extends HttpServlet {
            System.out.println("op=="+op);
            if(op.equals("admin"))
            {
-                session.removeAttribute("gymid");
+               // session.removeAttribute("gymid");
+               DataOperation doo= new DataOperation(scx);
+             counter c=(counter)  session.getAttribute("insert");
+             Date d=new Date();
+             c.setLogouttime(d);
+             doo.counter(c);
+                session.invalidate();
            System.out.println("_____________________admin");
         response.sendRedirect("adminlogin1.jsp?msg=logged_out");
            }
            else if(op.equals("user"))
            {
                System.out.println( session.getAttribute("sessss").toString());
-                session.removeAttribute("sessss");
+               DataOperation doo= new DataOperation(scx);
+             counter c=(counter)  session.getAttribute("insert1");
+             Date d=new Date();
+             c.setLogouttime(d);
+             doo.counter(c);
+               //session.removeAttribute("sessss");
+              session.invalidate();
               System.out.println("_____________________user");
         response.sendRedirect(scx.getContextPath()+"/gymui/pannel/userlogin.jsp?msg=loggeduser_out"); 
            }

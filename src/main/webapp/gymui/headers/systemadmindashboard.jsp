@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+    <%@page session="false" %>
 <%
 String msgg=(String)application.getAttribute("msg");
 
@@ -65,7 +66,13 @@ if(msgg!="")
           <li>
             <a href="">
               <i class="now-ui-icons location_map-big"></i>
-              <p>View graphs </p>
+              <p>View Graphs </p>
+            </a>
+          </li>
+           <li>
+            <a href="<%=application.getContextPath()%>/gymui/pannel/hitcounter.jsp">
+              <i class="now-ui-icons location_map-big"></i>
+              <p>View Active System Users </p>
             </a>
           </li>
         </ul>
