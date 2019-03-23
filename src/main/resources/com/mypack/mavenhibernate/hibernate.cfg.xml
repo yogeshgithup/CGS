@@ -49,6 +49,8 @@ and open the template in the editor.
              <mapping class="com.mycompany.loginmodule.Batch_member"/>
              <mapping class="com.mycompany.loginmodule.Dietplan"/>
                <mapping class="com.mycompany.loginmodule.Errors"/>
+               <mapping class="com.mycompany.loginmodule.hitcounter"/>
+               <mapping class="com.mycompany.loginmodule.counter"/>
         </session-factory>
     </hibernate-configuration>
 

@@ -53,10 +53,13 @@ public void init(ServletConfig sc) throws ServletException
             Addgym gym=doo.getGymInfo(d);
           //  System.out.println("----"+gym.getGymname());           
             HttpSession hs=null;
+             System.out.println("+++++++++HELLLLL"+hs.isNew());
             if(gym!=null)
             {
                hs= request.getSession(true);
+                System.out.println("");
            hs.setAttribute("gyminfo",gym);
+               
         
             }
            

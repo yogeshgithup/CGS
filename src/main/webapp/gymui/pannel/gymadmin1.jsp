@@ -59,7 +59,7 @@
               <%
          
           System.out.println("session="+session); 
-          
+          System.out.println("SESSION----"+session.isNew());
               
              setbranch=(HashSet<Addbranch>)session.getAttribute("setbranch");
              if(setbranch!=null)

@@ -24,6 +24,8 @@ import com.mycompany.loginmodule.Members;
 import com.mycompany.loginmodule.Pack_facility;
 import com.mycompany.loginmodule.Trainer;
 import com.mycompany.loginmodule.addbranchoperator;
+import com.mycompany.loginmodule.counter;
+import com.mycompany.loginmodule.hitcounter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -3822,6 +3824,42 @@ public HashSet<Addgym> invalidGym() {
          System.out.println("---------result-"+a);
        return a;
     }
+      public void hitcounter(hitcounter hc)
+      {
+          try {
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+            session = sfobj.openSession();
+            tx = session.beginTransaction();
+            session.save(hc);
+            tx.commit();
+            session.close();
+          }
+          catch(Exception e){
+          
+          
+          } 
+          
+          
+          
+      }
+      public void counter(counter c)
+      {
+          try {
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+            session = sfobj.openSession();
+            tx = session.beginTransaction();
+            session.saveOrUpdate(c);
+            tx.commit();
+            session.close();
+          }
+          catch(Exception e){
+          
+          
+          } 
+          
+          
+          
+      }
 }
 
 

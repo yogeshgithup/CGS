@@ -1,3 +1,4 @@
+<%@page import="com.mycompany.loginmodule.Addgym"%>
 <!DOCTYPE html>
 <%
 
@@ -56,8 +57,29 @@
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>
       $(document).ready(function(){
-          
-          
+   alert("Hello");
+     var href = document.location.href;
+var lastPathSegment = href.substr(href.lastIndexOf('/') + 1);  
+var newString = lastPathSegment.split('?', 1)[0];
+alert(newString);
+    <% 
+    int n;
+    Addgym ag1 = (Addgym) session.getAttribute("gym");
+   if(ag1!=null)
+   {
+       n=ag1.getL().getId();
+   }
+   else
+       n=0;
+    %>
+            var n='<%=n%>';
+            alert(n);
+           if(n!==0)
+           {
+         $.post("<%=application.getContextPath()%>/Hitcounter", {jspname: newString,userid: n,type: "GymAdmin"}, function(data,status){
+         
+  });   
+  }
           var name = "first" + "=";
   var decodedCookie = decodeURIComponent(document.cookie);
   var ca = decodedCookie.split(';');
@@ -152,6 +174,7 @@ $("li").click(function(){
   
 </head>
 
+    
 <body class="">
   <div class="wrapper ">
     <div class="sidebar" data-color="orange">
