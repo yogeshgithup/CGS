@@ -54,12 +54,14 @@
 				</div>
 
 				<div class="wrap-input100 validate-input m-b-25" data-validate = "Enter password">
-					<input class="input100" type="text" name="password" placeholder="password">
+					<input class="input100" type="text" id="password"name="password" placeholder="password">
 					<span class="focus-input100"></span>
 				</div>
-
+<input type="hidden" id="email1" name="email1">
+                                <input type="hidden" id="password1" name="password1">
+				
 				<div class="container-login100-form-btn">
-					<button class="login100-form-btn">
+                                    <button class="login100-form-btn" id="submit">
 						Sign In
 					</button>
 				</div>
@@ -88,7 +90,12 @@
     <!--<script src="<%=application.getContextPath()%>/gymui/vendor/jquery/jquery.min.js"></script>-->
     <script src="<%=application.getContextPath()%>/gymui/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="<%=application.getContextPath()%>/gymui/crypto-js/core-min.js"></script>
+<script src="<%=application.getContextPath()%>/gymui/crypto-js/enc-utf16-min.js"></script>
+<script src="<%=application.getContextPath()%>/gymui/crypto-js/enc-base64-min.js"></script>
+<script src="<%=application.getContextPath()%>/gymui/crypto-js/aes.js"></script>
+    <script>
     $(document).ready(function() {
        $().ready(function() {
        $("#email").focusout(function(){
@@ -98,11 +105,42 @@
 if(email!=="")
 {
    $.post("<%=application.getContextPath()%>/Verifygymname",{"email":email},function(data,status){
- alert("hello");
+ //alert("hello");
      alert(data);
   $("#email").val("");
     });
 }
+});
+$("#submit").click(function(){
+//alert("hello");
+var key = CryptoJS.lib.WordArray.random(16);
+        alert(key);
+        var iv= CryptoJS.lib.WordArray.random(16);
+var email=$("#email").val();
+var password=$("#password").val();
+//alert(email);
+//alert(password);
+
+var pass = CryptoJS.AES.encrypt(password, key, { iv: iv });
+var encrypted =CryptoJS.AES.encrypt(email, key, { iv: iv });
+encrypted=encrypted.ciphertext.toString();
+       encrypted = CryptoJS.AES.encrypt( encrypted, key, { iv: iv });
+        var cipherData = iv.toString(CryptoJS.enc.Base64)+":"+encrypted.ciphertext.toString()+":"+key.toString(CryptoJS.enc.Base64);
+   
+   pass=pass.ciphertext.toString();
+       pass = CryptoJS.AES.encrypt( pass, key, { iv: iv });
+        var cipherDatapass = iv.toString(CryptoJS.enc.Base64)+":"+pass.ciphertext.toString()+":"+key.toString(CryptoJS.enc.Base64);
+   
+$("#email1").val(cipherData);
+$("#password1").val(cipherDatapass);
+$("#key").val(key);
+//alert("encrypted email= "+cipherData);
+//alert("encrypted password= "+cipherDatapass);
+//location.href="Loginverify?email="+encrypted+"&password="+encryptedpass+"&key="+key;
+                    //$("#output").prepend("<br/>Encrypted: " + encrypted);
+//                    var decrypted = CryptoJS.AES.decrypt(encrypted, secret);
+//                    $("#output").prepend("<br/><br/> Original From Encrypted: " + decrypted.toString(CryptoJS.enc.Utf8));
+
 });
 
 $("#msg").fadeOut(3000);
