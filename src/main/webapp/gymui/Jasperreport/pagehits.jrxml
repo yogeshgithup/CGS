@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e6e7f21a-dad1-4feb-9c59-3a794778f0e6">
+	<property name="ireport.zoom" value="1.0000000000000007"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="date" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[SELECT
+
+     hitcounter.`id` AS hitcounter_id,
+     hitcounter.`date` AS hitcounter_date,
+     hitcounter.`jsppagename` AS hitcounter_jsppagename,
+     hitcounter.`userid` AS hitcounter_userid,
+     hitcounter.`usertype` AS hitcounter_usertype,
+COUNT(*)as 'total' 
+FROM
+     `hitcounter` hitcounter
+where date=$P{date}
+GROUP BY usertype,jsppagename,userid
+ORDER BY total desc ]]>
+	</queryString>
+	<field name="hitcounter_id" class="java.lang.Integer"/>
+	<field name="hitcounter_date" class="java.sql.Date"/>
+	<field name="hitcounter_jsppagename" class="java.lang.String"/>
+	<field name="hitcounter_userid" class="java.lang.Integer"/>
+	<field name="hitcounter_usertype" class="java.lang.String"/>
+	<field name="total" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="50" splitType="Stretch">
+			<staticText>
+				<reportElement x="172" y="0" width="226" height="34" uuid="75ad03f1-9e8d-40fd-88cc-0b41c8a0c947"/>
+				<textElement textAlignment="Center">
+					<font fontName="Constantia" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SYSTEM ADMIN]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="197" y="0" width="163" height="20" uuid="7aaaac30-aa87-411e-81b9-30e06d88d2d5"/>
+				<textElement textAlignment="Center">
+					<font fontName="Constantia" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TRAFFIC REPORT]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<staticText>
+				<reportElement x="35" y="16" width="100" height="20" uuid="02574f5d-1d9f-470f-9a60-ebd473081888"/>
+				<textElement textAlignment="Center">
+					<font fontName="Constantia" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[USER TYPE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="165" y="16" width="100" height="20" uuid="51510019-7910-43f5-98c6-8b5bc38a765e"/>
+				<textElement textAlignment="Center">
+					<font fontName="Constantia" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[JSP PAGE NAME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="287" y="15" width="100" height="20" uuid="a001e5d4-b655-4222-bf66-09f509485fc4"/>
+				<textElement textAlignment="Center">
+					<font fontName="Constantia" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COUNT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="401" y="14" width="100" height="20" uuid="ec6c1469-760f-4068-b2b3-6784dc15c9c2"/>
+				<textElement textAlignment="Center">
+					<font fontName="Constantia" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATE]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="28" splitType="Stretch">
+			<line>
+				<reportElement x="394" y="2" width="1" height="25" uuid="a27c3d69-6002-46c4-aed2-1becbceea58a"/>
+			</line>
+			<line>
+				<reportElement x="157" y="1" width="1" height="27" uuid="a0d103fc-cdee-4e94-a170-b3f47310c9ad"/>
+			</line>
+			<line>
+				<reportElement x="25" y="2" width="1" height="26" uuid="d796dcf3-a569-4c15-969c-fc80eae2cddd"/>
+			</line>
+			<line>
+				<reportElement x="309" y="1" width="1" height="27" uuid="90162665-f61a-41d4-8a62-762124032a19"/>
+			</line>
+			<line>
+				<reportElement x="25" y="27" width="494" height="1" uuid="e51d3701-d058-455e-809d-ca0ab6aca8cc"/>
+			</line>
+			<line>
+				<reportElement x="25" y="1" width="494" height="1" uuid="b8733e66-d026-4d90-a4b1-0c347e178578"/>
+			</line>
+			<line>
+				<reportElement x="518" y="2" width="1" height="25" uuid="c76ad75c-18fb-4b45-808b-099da4ef6b49"/>
+			</line>
+			<textField>
+				<reportElement x="35" y="4" width="100" height="20" uuid="6c80a31b-69be-49e5-9e76-3cc4d04baad8"/>
+				<textElement textAlignment="Center">
+					<font fontName="Constantia" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hitcounter_usertype}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="158" y="4" width="151" height="20" uuid="f711b62c-2c95-4e2c-9eea-e7eea9743fb7"/>
+				<textElement textAlignment="Center">
+					<font fontName="Constantia" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hitcounter_jsppagename}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="314" y="4" width="74" height="20" uuid="8f3f0e64-1090-4d55-ae9d-baeae9ee343e"/>
+				<textElement textAlignment="Center">
+					<font fontName="Constantia" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="401" y="4" width="100" height="20" uuid="f89cc059-d2fd-4274-bb90-aa7371af98d7"/>
+				<textElement textAlignment="Center">
+					<font fontName="Constantia" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hitcounter_date}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
