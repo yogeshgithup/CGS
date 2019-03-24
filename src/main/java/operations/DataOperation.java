@@ -113,8 +113,11 @@ public class DataOperation {
             List<Logingym> results = q.list();
             System.out.println("oooooo");
            
- 
+            a=new Addgym();
+            a.setId(0);
             l2 = (Logingym) results.get(0);
+            if(l2!=null)
+            {
             System.out.println(""+l2.getType());
  
              a=l2.getA();
@@ -126,6 +129,7 @@ public class DataOperation {
                 System.out.println("");
                 a.setId(l2.getId());
                 System.out.println("id after" + l2.getId());
+            }
             } else {
                 System.out.println("");
                 a.setId(0);
@@ -180,11 +184,12 @@ public class DataOperation {
             System.out.println("gp 59");
             List<Addpackage> results = q.list();
             System.out.println("query");
-            for (int i = 0; i <= results.size(); i++) {
+            for (int i = 0; i <results.size(); i++) {
                 p1 = (Addpackage) results.get(i);
                 System.out.println("......." + p1.getName());
-                Addpackage p2 = new Addpackage(p1.getId(), p1.getName(), p1.getTime(), p1.getAmount(), p1.getNo_of_branches());
-                setpack.add(p2);
+                System.out.println("+++++++++++"+p1.getAdgym().size());
+               // Addpackage p2 = new Addpackage(p1.getId(), p1.getName(), p1.getTime(), p1.getAmount(), p1.getNo_of_branches());
+                setpack.add(p1);
             }
 
             tx.commit();

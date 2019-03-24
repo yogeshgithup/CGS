@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    <%@page session="false" %>
+    <%@page  %>
 <%
 String msgg=(String)application.getAttribute("msg");
 
@@ -64,7 +64,7 @@ if(msgg!="")
             </a>
           </li>
           <li>
-            <a href="">
+           <a href="<%=application.getContextPath()%>/Graphpackage">
               <i class="now-ui-icons location_map-big"></i>
               <p>View Graphs </p>
             </a>
