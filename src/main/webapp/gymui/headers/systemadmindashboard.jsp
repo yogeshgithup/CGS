@@ -75,6 +75,12 @@ if(msgg!="")
               <p>View Active System Users </p>
             </a>
           </li>
+          <li>
+            <a href="<%=application.getContextPath()%>/gymui/pannel/hitsandcounter.jsp">
+              <i class="now-ui-icons location_map-big"></i>
+              <p>Hits And Counter Reports </p>
+            </a>
+          </li>
         </ul>
       </div>
     </div>

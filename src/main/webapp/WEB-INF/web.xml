@@ -128,24 +128,14 @@
         <servlet-name>Verifygymname</servlet-name>
         <servlet-class>Allservlet.Verifygymname</servlet-class>
     </servlet>
-    
-<servlet>
-
-<servlet-name>Graphpackage</servlet-name>
-
-<servlet-class>Allservlet.Graphpackage</servlet-class>
-
-</servlet>
-
-
-<servlet>
-
-<servlet-name>Graphgym</servlet-name>
-
-<servlet-class>Allservlet.Graphgym</servlet-class>
-
-</servlet>
-
+    <servlet>
+        <servlet-name>Graphpackage</servlet-name>
+        <servlet-class>Allservlet.Graphpackage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Graphgym</servlet-name>
+        <servlet-class>Allservlet.Graphgym</servlet-class>
+    </servlet>
     <servlet>
         <servlet-name>Facility</servlet-name>
         <servlet-class>com.mycompany.loginmodule.Facility</servlet-class>
@@ -294,6 +284,18 @@
         <servlet-name>Middlewarecounter</servlet-name>
         <servlet-class>Allservlet.Middlewarecounter</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Counterreporttype</servlet-name>
+        <servlet-class>Allservlet.Counterreporttype</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Trafficreportdate</servlet-name>
+        <servlet-class>Allservlet.Trafficreportdate</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Trafficreportall</servlet-name>
+        <servlet-class>Allservlet.Trafficreportall</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Loginverify</servlet-name>
         <url-pattern>/Loginverify</url-pattern>
@@ -386,15 +388,14 @@
         <servlet-name>Addgympackage</servlet-name>
         <url-pattern>/Addgympackage</url-pattern>
     </servlet-mapping>
-    
-<servlet-mapping>
-<servlet-name>Graphpackage</servlet-name>
-<url-pattern>/Graphpackage</url-pattern>
-</servlet-mapping>
-<servlet-mapping>
-<servlet-name>Graphgym</servlet-name>
-<url-pattern>/Graphgym</url-pattern>
-</servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Graphpackage</servlet-name>
+        <url-pattern>/Graphpackage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Graphgym</servlet-name>
+        <url-pattern>/Graphgym</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Viewgympackage</servlet-name>
         <url-pattern>/Viewgympackage</url-pattern>
@@ -518,6 +519,18 @@
     <servlet-mapping>
         <servlet-name>Middlewarecounter</servlet-name>
         <url-pattern>/Middlewarecounter</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Counterreporttype</servlet-name>
+        <url-pattern>/Counterreporttype</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Trafficreportdate</servlet-name>
+        <url-pattern>/Trafficreportdate</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Trafficreportall</servlet-name>
+        <url-pattern>/Trafficreportall</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
