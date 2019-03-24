@@ -244,7 +244,7 @@ $("li").click(function(){
             </a>
           </li>
           <li class="" id="8">
-            <a href="">
+            <a href="<%=application.getContextPath()%>/Graphgym">
               <i class="now-ui-icons location_map-big"></i>
               <p>View Graphs</p>
             </a>
