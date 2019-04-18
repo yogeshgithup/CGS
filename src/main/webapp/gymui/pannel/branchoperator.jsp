@@ -85,12 +85,19 @@
           </li>
          
           <li class="nav-item ">
-            <a class="nav-link" href="./map.html">
+            <a class="nav-link" href="<%=application.getContextPath()%>/Validatemember">
               <i class="material-icons"></i>
               <p>View Graphs</p>
             </a>
           </li>
-         
+
+          <li class="nav-item ">
+            <a class="nav-link" href="<%=application.getContextPath()%>/Validatemember">
+              <i class="material-icons"></i>
+              <p>Set Remainder</p>
+            </a>
+          </li>
+
           <!-- <li class="nav-item active-pro ">
                 <a class="nav-link" href="./upgrade.html">
                     <i class="material-icons">unarchive</i>

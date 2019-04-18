@@ -191,13 +191,13 @@
                   <p class="card-category"></p>
                 </div>
                 <div class="card-body">
-                  <form>
+                  <form action="<%=application.getContextPath()%>/Addequipment" method="post" enctype="multipart/form-data">
                       <div id="equid">
                       <div class="row"> 
                           
                       <div class="col-md-2">
                         <label for="file-multiple-input" class=" form-control-label">Equipment Image</label></div>
-                            <div  class="col-md-3"><input type="file" id="file-multiple-input" name="file-multiple-input" multiple="" class="form-control-file "></div>
+                            <div  class="col-md-3"><input type="file" id="file-multiple-input" name="equimage" multiple="" class="form-control-file "></div>
                       </div>
                 
                        <div class="row">
@@ -205,7 +205,7 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Equipment Title</label>
-                          <input type="text" class="form-control">
+                          <input type="text" name="title" class="form-control">
                         </div>
                       </div>
                             <div class="col-md-3">
@@ -225,7 +225,7 @@
                     <div class="col-md-6">
                           <div class="form-group">
                         <label for="comment" class="bmd-label-floating">Equipment Description:</label>
-                        <textarea class="form-control" rows="5" id="comment"></textarea>
+                        <textarea class="form-control" name="desc" rows="3" id="comment"></textarea>
                           </div>
                         </div>
                       </div>

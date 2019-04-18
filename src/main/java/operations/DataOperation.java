@@ -9,6 +9,7 @@ import com.mycompany.loginmodule.Achievements;
 import com.mycompany.loginmodule.Addbranch;
 import com.mycompany.loginmodule.Addgym;
 import com.mycompany.loginmodule.Addpackage;
+import com.mycompany.loginmodule.Equipment;
 import com.mycompany.loginmodule.Facility;
 import com.mycompany.loginmodule.Gallery;
 import com.mycompany.loginmodule.Gyminfo;
@@ -20,7 +21,12 @@ import com.mycompany.loginmodule.Pack_facility;
 import com.mycompany.loginmodule.Trainer;
 import com.mycompany.loginmodule.addbranchoperator;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -216,7 +222,7 @@ public class DataOperation {
             Addbranch b2 = (Addbranch) session.load(Addbranch.class, id);
             System.out.println("jfdlj" + b2.getBranchname());
             b2.setAbo(abo);
-            
+
             abo.setA(b2);
             Set<Login> ab = new HashSet<Login>();
             ab = gym.getLogin();
@@ -226,7 +232,7 @@ public class DataOperation {
             session.save(b2);
             session.save(l);
             SMSOperation so = new SMSOperation();
-            String result = so.sendSMS(String.valueOf(abo.getPhoneno()),abo.getPassword());
+            String result = so.sendSMS(String.valueOf(abo.getPhoneno()), abo.getPassword());
             System.out.println(result);
 
             n = "branchoperator Added";
@@ -899,12 +905,12 @@ public class DataOperation {
     }
 
     public HashSet<Gympackage> getpackfacility(int gymid) {
-       
+
         HashSet<Gympackage> setfacility = null;
         try {
             System.out.println("before calling");
             setfacility = new HashSet<Gympackage>();
-           // HashSet<Pack_facility> packfac = new HashSet<>();
+            // HashSet<Pack_facility> packfac = new HashSet<>();
             System.out.println("line 55" + scx);
             sfobj = (SessionFactory) scx.getAttribute("sf");
             System.out.println("line 57" + sfobj);
@@ -914,20 +920,20 @@ public class DataOperation {
             //System.out.println("get package"); 
             System.out.println("gymid..." + gymid);
             Gympackage p1 = null;
-       
+
             Query q = session.createQuery("from Gympackage where gymid=:gymidi");
             q.setString("gymidi", String.valueOf(gymid));
             System.out.println("gp 59");
             List<Gympackage> results = q.list();
             System.out.println("query");
-            System.out.println("yyyyy"+results.size());
+            System.out.println("yyyyy" + results.size());
             for (int i = 0; i <= results.size(); i++) {
                 p1 = (Gympackage) results.get(i);
-                System.out.println("[][]["+p1.getId());
+                System.out.println("[][][" + p1.getId());
 //                   HashSet<Pack_facility> pac=new HashSet<Pack_facility>();
 //                 pac = getpacfacility(p1.getId());
-             //   System.out.println("---"+pac.toString());
-               
+                //   System.out.println("---"+pac.toString());
+
                 Gympackage p2 = new Gympackage(p1.getId(), p1.getName(), p1.getAmount(), p1.getTime());
                 setfacility.add(p2);
             }
@@ -942,10 +948,10 @@ public class DataOperation {
     }
 
     public String getpacfacility(int gymid) {
-       String setfacility="";
+        String setfacility = "";
         try {
             System.out.println("before calling");
-           // setfacility = new HashSet<Pack_facility>();
+            // setfacility = new HashSet<Pack_facility>();
             System.out.println("line 55" + scx);
             sfobj = (SessionFactory) scx.getAttribute("sf");
             System.out.println("line 57" + sfobj);
@@ -958,22 +964,21 @@ public class DataOperation {
             Pack_facility pf = null;
             for (int j = 0; j <= results1.size(); j++) {
                 pf = (Pack_facility) results1.get(j);
-               setfacility=setfacility+pf.getName()+"  ";
+                setfacility = setfacility + pf.getName() + "  ";
             }
-           
+
             tx.commit();
             session.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-System.out.println("oooo--"+setfacility.toString());
+        System.out.println("oooo--" + setfacility.toString());
         return setfacility;
     }
-    
-    public int getbranchid(String branchop)
-    {
+
+    public int getbranchid(String branchop) {
         int id;
-         try {
+        try {
             sfobj = (SessionFactory) scx.getAttribute("sf");
             session = sfobj.openSession();
             tx = session.beginTransaction();
@@ -982,23 +987,22 @@ System.out.println("oooo--"+setfacility.toString());
             addbranchoperator l = null;
 
             Query q = session.createQuery("from addbranchoperator where email=:uname");
-            q.setString("uname",branchop);
+            q.setString("uname", branchop);
 
             List<addbranchoperator> results = q.list();
 
             l = (addbranchoperator) results.get(0);
-            id=l.getId();
+            id = l.getId();
         } catch (Exception e) {
-            id=0;
+            id = 0;
             System.out.println(e.getMessage());
         }
-         return id;
+        return id;
     }
-    
-    public int getgymid(int id)
-    {
+
+    public int getgymid(int id) {
         int gymid;
-         try {
+        try {
             sfobj = (SessionFactory) scx.getAttribute("sf");
             session = sfobj.openSession();
             tx = session.beginTransaction();
@@ -1007,31 +1011,29 @@ System.out.println("oooo--"+setfacility.toString());
             Addbranch l = null;
 
             Query q = session.createQuery("from Addbranch where id=:gymid");
-            q.setString("gymid",String.valueOf(id));
+            q.setString("gymid", String.valueOf(id));
 
             List<Addbranch> results = q.list();
 
             l = (Addbranch) results.get(0);
-            Addgym g=l.getAdgym();
-           gymid= g.getId();
+            Addgym g = l.getAdgym();
+            gymid = g.getId();
         } catch (Exception e) {
-            gymid=0;
+            gymid = 0;
             System.out.println(e.getMessage());
         }
-         return gymid;
+        return gymid;
     }
-    public void addtrainer(Trainer t, int branchid,Addgym adgym,Login l)
-    {
-        try
-        {
-          sfobj = (SessionFactory) scx.getAttribute("sf");
+
+    public void addtrainer(Trainer t, int branchid, Addgym adgym, Login l) {
+        try {
+            sfobj = (SessionFactory) scx.getAttribute("sf");
             session = sfobj.openSession();
             tx = session.beginTransaction();
 
-            
             Addbranch l1 = null;
             Set<Trainer> ab = null;
-            l1 = (Addbranch) session.load(Addbranch.class,branchid);
+            l1 = (Addbranch) session.load(Addbranch.class, branchid);
             System.out.println(l1.getBranchname());
 
             ab = new HashSet<Trainer>();
@@ -1045,7 +1047,7 @@ System.out.println("oooo--"+setfacility.toString());
             session.save(t);
             session.save(l);
             SMSOperation so = new SMSOperation();
-            String result = so.sendSMS(String.valueOf(t.getPhoneno()),t.getPassword());
+            String result = so.sendSMS(String.valueOf(t.getPhoneno()), t.getPassword());
             System.out.println(result);
             tx.commit();
             session.close();
@@ -1054,13 +1056,14 @@ System.out.println("oooo--"+setfacility.toString());
         }
 
     }
+
     public HashSet<Trainer> gettrainer(int branchid) {
-       
+
         HashSet<Trainer> setfacility = null;
         try {
             System.out.println("before calling");
             setfacility = new HashSet<Trainer>();
-           // HashSet<Pack_facility> packfac = new HashSet<>();
+            // HashSet<Pack_facility> packfac = new HashSet<>();
             System.out.println("line 55" + scx);
             sfobj = (SessionFactory) scx.getAttribute("sf");
             System.out.println("line 57" + sfobj);
@@ -1068,23 +1071,23 @@ System.out.println("oooo--"+setfacility.toString());
             System.out.println("line 59");
             tx = session.beginTransaction();
             //System.out.println("get package"); 
-            System.out.println("gymid..." +branchid);
+            System.out.println("gymid..." + branchid);
             Trainer p1 = null;
-       
+
             Query q = session.createQuery("from Trainer where branchid=:gymidi");
             q.setString("gymidi", String.valueOf(branchid));
             System.out.println("gp 59");
             List<Trainer> results = q.list();
             System.out.println("query");
-            System.out.println("yyyyy"+results.size());
+            System.out.println("yyyyy" + results.size());
             for (int i = 0; i <= results.size(); i++) {
                 p1 = (Trainer) results.get(i);
-                System.out.println("[][]["+p1.getId());
+                System.out.println("[][][" + p1.getId());
 //                   HashSet<Pack_facility> pac=new HashSet<Pack_facility>();
 //                 pac = getpacfacility(p1.getId());
-             //   System.out.println("---"+pac.toString());
-               Trainer t=new Trainer(p1.getFirstname(),p1.getMiddlename(),p1.getMiddlename(),p1.getEmail(),p1.getRole());
-                     setfacility.add(t);
+                //   System.out.println("---"+pac.toString());
+                Trainer t = new Trainer(p1.getFirstname(), p1.getMiddlename(), p1.getMiddlename(), p1.getEmail(), p1.getRole());
+                setfacility.add(t);
             }
 
             tx.commit();
@@ -1095,19 +1098,16 @@ System.out.println("oooo--"+setfacility.toString());
 
         return setfacility;
     }
-    
-    public void addmember(Members m,int branchid,Addgym adgym,Login l)
-    {
-        try
-        {
-          sfobj = (SessionFactory) scx.getAttribute("sf");
+
+    public void addmember(Members m, int branchid, Addgym adgym, Login l) {
+        try {
+            sfobj = (SessionFactory) scx.getAttribute("sf");
             session = sfobj.openSession();
             tx = session.beginTransaction();
 
-            
             Addbranch l1 = null;
             Set<Members> ab = null;
-            l1 = (Addbranch) session.load(Addbranch.class,branchid);
+            l1 = (Addbranch) session.load(Addbranch.class, branchid);
             System.out.println(l1.getBranchname());
 
             ab = new HashSet<Members>();
@@ -1121,7 +1121,7 @@ System.out.println("oooo--"+setfacility.toString());
             session.save(m);
             session.save(l);
             SMSOperation so = new SMSOperation();
-            String result = so.sendSMS(String.valueOf(m.getPhoneno()),m.getPassword());
+            String result = so.sendSMS(String.valueOf(m.getPhoneno()), m.getPassword());
             System.out.println(result);
             tx.commit();
             session.close();
@@ -1130,39 +1130,39 @@ System.out.println("oooo--"+setfacility.toString());
         }
 
     }
-    public void addaboutus(Gyminfo g, Addgym ag)
-    {
-        try
-        {
-          sfobj = (SessionFactory) scx.getAttribute("sf");
+
+    public void addaboutus(Gyminfo g, Addgym ag) {
+        try {
+            sfobj = (SessionFactory) scx.getAttribute("sf");
             session = sfobj.openSession();
             tx = session.beginTransaction();
-            Gyminfo l=null;
-             Query q = session.createQuery("from Gyminfo where id=:gymid");
-            q.setString("gymid",String.valueOf(ag.getId()));
+            Gyminfo l = null;
+            Query q = session.createQuery("from Gyminfo where id=:gymid");
+            q.setString("gymid", String.valueOf(ag.getId()));
 
             List<Gyminfo> results = q.list();
 
             l = (Gyminfo) results.get(0);
-           Addgym k=l.getA();
+            Addgym k = l.getA();
             l.setAbout_us_desc(g.getAbout_us_desc());
             l.setAbout_us_title(g.getAbout_us_title());
             k.setGyinfo(l);
             session.save(k);
             tx.commit();
             session.close();
-            
-          } catch (Exception e) {
+
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
+
     public HashSet<Members> getmembers(int branchid) {
-       
+
         HashSet<Members> setfacility = null;
         try {
             System.out.println("before calling");
             setfacility = new HashSet<Members>();
-           // HashSet<Pack_facility> packfac = new HashSet<>();
+            // HashSet<Pack_facility> packfac = new HashSet<>();
             System.out.println("line 55" + scx);
             sfobj = (SessionFactory) scx.getAttribute("sf");
             System.out.println("line 57" + sfobj);
@@ -1170,24 +1170,24 @@ System.out.println("oooo--"+setfacility.toString());
             System.out.println("line 59");
             tx = session.beginTransaction();
             //System.out.println("get package"); 
-            System.out.println("gymid..." +branchid);
-           Members m1 = null;
-       
+            System.out.println("gymid..." + branchid);
+            Members m1 = null;
+
             Query q = session.createQuery("from Members where branchid=:gymidi");
             q.setString("gymidi", String.valueOf(branchid));
             System.out.println("gp 59");
             List<Members> results = q.list();
             System.out.println("query");
-            System.out.println("yyyyy"+results.size());
+            System.out.println("yyyyy" + results.size());
             for (int i = 0; i <= results.size(); i++) {
                 m1 = (Members) results.get(i);
-                System.out.println("[][]["+m1.getId());
+                System.out.println("[][][" + m1.getId());
 //                   HashSet<Pack_facility> pac=new HashSet<Pack_facility>();
 //                 pac = getpacfacility(p1.getId());
-             //   System.out.println("---"+pac.toString());
-                Members m=new Members(m1.getId(),m1.getFirstname(),m1.getMiddlename(),m1.getLastname(),m1.getPhoneno());//,m1.getArea(),m1.getStreet(),m1.getPostalcode(),m1.getEmail(),m1.getPackagee(),m1.getPassword(),m1.getHeight(),m1.getWeight(),m1.getHealth(),m1.getDob());
-               //Trainer t=new Trainer(p1.getFirstname(),p1.getMiddlename(),p1.getMiddlename(),p1.getEmail(),p1.getRole());
-                    setfacility.add(m);
+                //   System.out.println("---"+pac.toString());
+                Members m = new Members(m1.getId(), m1.getFirstname(), m1.getMiddlename(), m1.getLastname(), m1.getPhoneno());//,m1.getArea(),m1.getStreet(),m1.getPostalcode(),m1.getEmail(),m1.getPackagee(),m1.getPassword(),m1.getHeight(),m1.getWeight(),m1.getHealth(),m1.getDob());
+                //Trainer t=new Trainer(p1.getFirstname(),p1.getMiddlename(),p1.getMiddlename(),p1.getEmail(),p1.getRole());
+                setfacility.add(m);
             }
 
             tx.commit();
@@ -1197,5 +1197,99 @@ System.out.println("oooo--"+setfacility.toString());
         }
 
         return setfacility;
+    }
+
+    public void addequipment(int gymid, String title[], String descr[], ArrayList<String> image) {
+        try {
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+            session = sfobj.openSession();
+            tx = session.beginTransaction();
+            Addgym gym = null;
+            Set<Equipment> ab = null;
+            gym = (Addgym) session.load(Addgym.class, gymid);
+            ab = gym.getEqui();
+            for (int i = 0; i < title.length; i++) {
+                Equipment e = new Equipment();
+                e.setTitle(title[i]);
+                System.out.println("---" + descr[i]);
+                e.setDescr(descr[i]);
+                e.setUrl(image.get(i));
+                System.out.println("....." + e.getDescr());
+                e.setAdgym(gym);
+                ab.add(e);
+            }
+            gym.setEqui(ab);
+            session.save(gym);
+            tx.commit();
+            session.close();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    public void invalidmember(int branchid)
+    {
+       try {
+            System.out.println("before calling");
+           
+            sfobj = (SessionFactory) scx.getAttribute("sf");
+            System.out.println("line 57" + sfobj);
+            session = sfobj.openSession();
+            System.out.println("line 59");
+            tx = session.beginTransaction();
+            //System.out.println("get package"); 
+         
+        Members p1=null;
+            Query q = session.createQuery("from Members where branchid=:gymidi");
+            q.setString("gymidi",String.valueOf(branchid));
+            System.out.println("gp 59");
+            List<Members> results = q.list();
+            System.out.println("query");
+            System.out.println("yyyyy" + results.size());
+            for (int i = 0; i <= results.size(); i++) {
+                p1 = (Members) results.get(i);
+                String package1=p1.getPackagee();
+                System.out.println("----"+p1.getPackagee());
+                Gympackage gp=null;
+                 Query q1 = session.createQuery("from Gympackage where name=:packagename");
+            q1.setString("packagename",package1);
+            System.out.println("gp 59");
+            List<Gympackage> results1 = q1.list();
+            for(int j=0;j<results1.size();j++)
+            {
+             gp=(Gympackage)results1.get(j);
+            int time=Integer.parseInt(gp.getTime());
+            
+       
+             String date=p1.getDate();
+             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+ 
+LocalDate localDate = LocalDate.parse(date, dateTimeFormatter);    //String to LocalDate
+             //Date date1=new SimpleDateFormat("yyyy/MM/dd").parse(date);
+    //         LocalDate localDate = LocalDate.parse(date);
+                System.out.println("++"+localDate);  
+                System.out.println("ppp"+time);
+             LocalDate localDatenow = LocalDate.now();
+                System.out.println("ooo"+localDate.plusMonths(time).minusDays(10));
+             if(localDate.plusMonths(time).isEqual(localDatenow) || (localDatenow.isAfter(localDate.plusMonths(time).minusDays(10)) && localDatenow.isBefore(localDate.plusMonths(time)) ) )
+             {
+                 final long days = ChronoUnit.DAYS.between(localDatenow,localDate.plusMonths(time));
+                 String message1="your pack going to expired on-"+localDate.plusMonths(time)+"--days remainig="+days;
+                 SMSOperation so = new SMSOperation();
+                 System.out.println("---"+message1);
+            String result = so.sendSMS(String.valueOf(p1.getPhoneno()),message1);
+            System.out.println(result);
+             }
+            }
+            }
+
+            tx.commit();
+            session.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+   
     }
 }

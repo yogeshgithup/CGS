@@ -41,6 +41,7 @@ public class Members {
     String blood;
     String dob;
     String health;
+    String date;
     
      @ManyToOne
     @JoinColumn(name="branchid")
@@ -152,6 +153,14 @@ public class Members {
 
     public void setHeight(float height) {
         this.height = height;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public float getWeight() {

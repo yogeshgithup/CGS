@@ -120,10 +120,18 @@
     <servlet>
         <servlet-name>Addaboutus</servlet-name>
         <servlet-class>Allservlet.Addaboutus</servlet-class>
-     </servlet>
-     <servlet>
+    </servlet>
+    <servlet>
         <servlet-name>Viewmembers</servlet-name>
         <servlet-class>Allservlet.Viewmembers</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Addequipment</servlet-name>
+        <servlet-class>Allservlet.Addequipment</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Validatemember</servlet-name>
+        <servlet-class>Allservlet.Validatemember</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Loginverify</servlet-name>
@@ -236,10 +244,18 @@
     <servlet-mapping>
         <servlet-name>Addaboutus</servlet-name>
         <url-pattern>/Addaboutus</url-pattern>
-      </servlet-mapping>
-   <servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>Viewmembers</servlet-name>
         <url-pattern>/Viewmembers</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Addequipment</servlet-name>
+        <url-pattern>/Addequipment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Validatemember</servlet-name>
+        <url-pattern>/Validatemember</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

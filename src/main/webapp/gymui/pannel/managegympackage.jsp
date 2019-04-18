@@ -464,9 +464,16 @@
    var trid=$(this).attr('id');
   alert(trid);
 $.post("<%=application.getContextPath()%>/Verifygymname",{"gympackage":trid},function(data,status){
-      alert(data+"--"+$("#popid")+"  "+ document.getElementById("popid").innerHTML);
-      $("#popid").html(data);
-      data.classList.toggle("show");
+      alert(data+"--"+$("#popid")+"  "+ document.getElementById("popid").innerHTML.replace(data));
+     
+         var n=document.getElementById("popid").innerHTML;
+         alert(n); 
+         var n=data;
+        
+       // document.getElementById("popid").innerHTML.replace("hooo"); 
+         alert(n);
+        data.classList.toggle("show");
+   
     // $("#popid").ht
    // alert( document.getElementById("popid"));
     // document.getElementById("popid").innerHTML=data;

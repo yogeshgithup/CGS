@@ -141,6 +141,17 @@ public class Addgym {
         this.packagee = packagee;
     }
 
+    String date;
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+    
+    
     public Addgym(int id, String gymname, String ownername, String street, String area, String postcode, String phoneno, String username, String password, String packagee) {
         this.id = id;
         this.gymname = gymname;
@@ -263,5 +274,16 @@ public class Addgym {
     public void setGympack(Set<Gympackage> gympack) {
         this.gympack = gympack;
     }
-             
+      @OneToMany(cascade=CascadeType.ALL,mappedBy = "adgym",fetch = FetchType.LAZY)
+	private Set<Equipment> equi;  
+
+    public Set<Equipment> getEqui() {
+        return equi;
+    }
+
+    public void setEqui(Set<Equipment> equi) {
+        this.equi = equi;
+    }
+      
+      
 }
