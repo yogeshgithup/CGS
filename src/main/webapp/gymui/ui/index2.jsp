@@ -59,6 +59,7 @@
             Set<Achievements> achive = gym.getAchive();
             Set<Equipment> equi=gym.getEqui();
             Set<Addbranch> branch=gym.getAdbarnch();
+    
             
         %>
         <!-- banner -->
@@ -438,29 +439,50 @@
                     <div class="w3_agileits_counter_grid">
                         <i class="fa fa-umbrella" aria-hidden="true"></i>
                     </div>
-                    <p class="counter">1,965</p>
-                    <h3>Orders Completed</h3>
+                    <%
+                        Set<Addbranch> ab=  gym.getAdbarnch();
+                      int fint=  gym.getFacility().size();
+                     int eint =gym.getEqui().size();
+                       int bint=ab.size();
+                       int mint=0 ;
+                       int tint=0;
+                       int baint=0;
+                    Iterator it1= ab.iterator();
+                    
+                    while(it1.hasNext())
+                    {
+                        Addbranch bb=(Addbranch)it.next();
+                       mint = mint + bb.getAddmember().size();
+                    tint = tint +  bb.getAddtrainer().size();
+                      baint= baint + bb.getBatches().size();
+                      
+                    }
+                    
+                     
+                    %>
+                    <p class="counter"><%= mint %></p>
+                    <h3>Total Members</h3>
                 </div>
                 <div class="col-md-3 w3_counter_grid">
                     <div class="w3_agileits_counter_grid">
                         <i class="fa fa-users" aria-hidden="true"></i>
                     </div>
-                    <p class="counter">432</p>
-                    <h3>Crew Members</h3>
+                    <p class="counter"><%= tint%></p>
+                    <h3>Total Trainers</h3>
                 </div>
                 <div class="col-md-3 w3_counter_grid">
                     <div class="w3_agileits_counter_grid">
                         <i class="fa fa-comments" aria-hidden="true"></i>
                     </div>
-                    <p class="counter">690</p>
-                    <h3>Million Man-hours</h3>
+                    <p class="counter"><%= bint %></p>
+                    <h3>Total Branches</h3>
                 </div>
                 <div class="col-md-3 w3_counter_grid">
                     <div class="w3_agileits_counter_grid">
                         <i class="fa fa-book" aria-hidden="true"></i>
                     </div>
-                    <p class="counter">124</p>
-                    <h3>Counties Covered</h3>
+                    <p class="counter"><%= fint%></p>
+                    <h3>Total Facilities</h3>
                 </div>
                 <div class="clearfix"> </div>
             </div>
@@ -477,8 +499,8 @@
                       
                                 Iterator itb = branch.iterator();
                                 while (itb.hasNext()) {
-                                    Addbranch ab = (Addbranch) itb.next();
-                                 Set<Trainer> trainer= ab.getAddtrainer();
+                                    Addbranch ab1 = (Addbranch) itb.next();
+                                 Set<Trainer> trainer= ab1.getAddtrainer();
                                    Iterator itt = trainer.iterator();
                                 while (itt.hasNext()) {
                                    Trainer tt = (Trainer) itt.next();
@@ -567,13 +589,13 @@
                             <ul> 
                                 <%  Iterator itbb = branch.iterator();
                                 while (itbb.hasNext()) {
-                                    Addbranch ab = (Addbranch) itbb.next();
+                                    Addbranch ab2 = (Addbranch) itbb.next();
                             
                               
                                        
                                 %>
                                 
-                                <li><a href="#" data-toggle="popover" title="<%=ab.getBranchname()%>" data-content="<%= ab.getArea()%> </br> <%=  ab.getStreet()%>  <%= ab.getPostalcode()%>"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> <%=ab.getBranchname()%></a></li>
+                                <li><a href="#" data-toggle="popover" title="<%=ab2.getBranchname()%>" data-content="<%= ab2.getArea()%> </br> <%=  ab2.getStreet()%>  <%= ab2.getPostalcode()%>"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> <%=ab2.getBranchname()%></a></li>
                              
                                 <% }%>
                                     </ul>  

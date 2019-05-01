@@ -4,7 +4,22 @@
         <param-name>accesstoken</param-name>
         <param-value>7FgqxJBL6rAAAAAAAAAASqriod7Xvv17YiTOP6rI_dUx2TpuqHAnvQMV81wbpBlD</param-value>
     </context-param>
-    
+    <context-param>
+        <param-name>smtp</param-name>
+        <param-value>smtp.gmail.com</param-value>
+    </context-param>
+    <context-param>
+        <param-name>port</param-name>
+        <param-value>465</param-value>
+    </context-param>
+    <context-param>
+        <param-name>username</param-name>
+        <param-value>patelsneh833@gmail.com</param-value>
+    </context-param>
+    <context-param>
+        <param-name>password</param-name>
+        <param-value>patel123</param-value>
+    </context-param>
     <filter>
         <filter-name>GymAdmin</filter-name>
         <filter-class>Allservlet.GymAdmin</filter-class>
@@ -199,6 +214,10 @@
         <servlet-name>Viewdiet</servlet-name>
         <servlet-class>Allservlet.Viewdiet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Validategym</servlet-name>
+        <servlet-class>Allservlet.Validategym</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Loginverify</servlet-name>
         <url-pattern>/Loginverify</url-pattern>
@@ -366,6 +385,10 @@
     <servlet-mapping>
         <servlet-name>Viewdiet</servlet-name>
         <url-pattern>/Viewdiet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Validategym</servlet-name>
+        <url-pattern>/Validategym</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

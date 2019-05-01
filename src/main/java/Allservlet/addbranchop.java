@@ -10,6 +10,9 @@ import com.mycompany.loginmodule.Login;
 import com.mycompany.loginmodule.addbranchoperator;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.MessagingException;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -80,7 +83,12 @@ System.out.println("hiii");
          l.setType("branchoperator");
        
         Addgym gym = p.getGymID(gymid);
-   String msg=   p.addbranchoperator(bo, l, gym);
+   String msg="";
+        try {
+            msg = p.addbranchoperator(bo, l, gym);
+        } catch (MessagingException ex) {
+            Logger.getLogger(addbranchop.class.getName()).log(Level.SEVERE, null, ex);
+        }
      response.sendRedirect(scx.getContextPath()+"/Viewbranchoperator?msg="+msg);
     }
 

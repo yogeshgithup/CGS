@@ -56,6 +56,12 @@ if(msgg!="")
               <p>Manage Package</p>
             </a>
           </li>
+           <li>
+            <a href="<%=application.getContextPath()%>/Validategym?msg=view">
+              <i class="now-ui-icons location_map-big"></i>
+              <p>Set Reminder</p>
+            </a>
+          </li>
           <li>
             <a href="./map.html">
               <i class="now-ui-icons location_map-big"></i>
