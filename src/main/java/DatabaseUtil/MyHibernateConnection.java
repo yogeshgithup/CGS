@@ -31,7 +31,7 @@ public class MyHibernateConnection implements ServletContextListener {
         String msg="";
                 
         try{
-        sfobj = new Configuration().configure("com/mypack/mavenhibernate/hibernate.cfg.xml").buildSessionFactory();
+        sfobj = new Configuration().configure("com/pack/mypack/mavenhibernate/hibernate.cfg.xml").buildSessionFactory();
             System.out.println("---------");
        
         System.out.println("----jjjjj"+ctx);
